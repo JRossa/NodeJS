@@ -1,0 +1,21 @@
+{
+  "name": "gpio",
+  "version": "0.0.0",
+  "homepage": "",
+  "authors": [
+    "JR <rossa.jmr@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "angular": "1.5.7"
+  },
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-messages": "^1.5.7"
+  }
+}

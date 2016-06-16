@@ -1,0 +1,120 @@
+<% include templates/header.ejs %>
+
+
+</br>
+
+<div class="panel panel-info"  style="width: 30%; ">
+  <div class="panel-heading" >
+    <h3 class="panel-title"> <%= title %></h3>
+  </div>
+
+  <div class="panel-body" >
+
+    <div class="container"
+         data-ng-cloak
+         data-ng-app="gpioModule"
+         data-ng-controller="sensorController">
+
+      <form class="navbar-form"
+            role="search"
+            name="formCreateSensor">
+
+        <div class="row">
+          <div class="form-group">
+            <label for="sensorNumber"> Sensor Num </label>
+
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Enter Sensor Num"
+                   name="sensorNumber"
+                   id="sensorNumber"
+                   ng-model="sensorData.sensorNumber"
+
+                   style="width: 100%;"
+
+                   required>
+             <label class="help-block text-danger" for="sensorNumber">
+               Enter a valid sensor number
+             </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group ">
+            <label for="sensorType"> Sensor Type </label>
+
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Enter Sensor Type"
+                   name="sensorType"
+                   id="sensorTYpe"
+                   ng-model="sensorData.sensorType"
+
+                   style="width: 100%;"
+
+                   required></span>
+                   <label class="help-block text-danger" for="sensorType">
+                     Enter a valid sensor type
+                   </label>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+
+          <div class="form-group">
+            <label for="cc_num" class="control-label">Credit Card Number</label>
+          </br>
+            <div class="input-group has-error">
+              <span class="input-group-addon">*</span>
+              <input data-msg-creditcard="Enter a valid credit card number" data-rule-creditcard="true" class="form-control" required="required" placeholder="Credit Card Number" value="" id="cc_num" name="cc_num" type="text">
+            </div>
+            <label class="help-block text-danger" for="cc_num">Enter a valid credit card number</label>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group" >
+            <label for="sensorLocation"> Location </label>
+            &nbsp;&nbsp;
+
+            <textarea
+                   class="form-control"
+                   placeholder="Enter Sensor Location"
+                   name="sensorLocation"
+                   id="sensorLocation"
+                   rows="2"
+                   cols="24"
+                   ng-model="sensorData.sensorLocation"
+
+                   style="width: 100%;"
+
+                   required>
+            </textarea>
+          </div>
+        </div>
+
+      </br>
+
+        <div class="row">
+          <div class="form-group"
+               style="padding-left: 0%;">
+            <button type="button"
+                    class="btn btn-primary"
+                    ng-click="createSensor(sensorData)">
+              Create Sensor
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<% include templates/footer.ejs %>

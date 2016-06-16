@@ -1,0 +1,141 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#createSensorType {
+   width:400px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+
+<div id="createSensorType"
+     data-ng-app="gpioModule"
+     data-ng-controller="sensorController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  </br>
+
+  <div align="center" class="panel panel-info" style="width: 100%;" >
+
+  <% include templates/pagetitle.ejs %>
+
+    <div  class="panel-body" >
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+        <div class="container">
+
+          <% include ./message.ejs %>
+
+          <form class="navbar-form navbar-left"
+                role="search"
+                method="POST"
+                name="formCreateSensorType"
+                novalidate="">
+
+            <div class="row">
+              <div class="form-group">
+                <div ng-class="{'has-error': validateSensorNumber.containsValidationError}">
+      <!--
+formCreateSensorType.sensorModel.$invalid
+<pre>formCreateSensorType.sensorModel.$error = {{ formCreateSensorType.sensorModel.$error }}</pre>
+-->
+                  <label for="sensorModel"> Sensor Model </label>
+
+                  <input id="sensorModel"
+                         type="text"
+                         class="form-control"
+                         placeholder="Enter Sensor Model"
+                         name="sensorModel"
+                         ng-model="sensorType.sensorModel"
+                         ng-maxlength="30"
+                         style="width: 100%;"
+                         required>
+      <!--
+                       <div ng-messages="formCreateSensorType.sensorModel.$dirty && formCreateSensorType.sensorModel.$error"
+                                   role="alert" style="color:red"  multiple>
+                         <div ng-message when="required">Please enter a value for this field.</div>
+                         <div ng-message when="maxlength">This field can be at most 15 characters long.</div>
+                       </div>
+      -->
+                  </input>
+
+                  <label class="help-block text-danger" for="sensorModel"
+                          data-ng-show="validateSensorNumber.containsValidationError">
+                     {{ validateSensorNumber.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="sensorModel"
+                          data-ng-show="!validateSensorNumber.containsValidationError">
+                    <br/>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group" >
+                <label for="sensorObs"> Obs: </label>
+
+                <textarea
+                       class="form-control"
+                       placeholder="Obs"
+                       name="sensorObs"
+                       id="sensorObs"
+                       rows="2"
+                       cols="29"
+                       ng-model="sensorType.sensorObs"
+
+                       style="width: 100%;"
+
+                       >
+                </textarea>
+              </div>
+            </div>
+
+            </br>
+
+            <div class="row">
+              <div class="form-group"
+                   style="padding-left: 0%;">
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-disabled="!formCreateSensorType.$valid"
+                        ng-click="createSensorType(sensorType)">
+                  Create Sensor Type
+                </button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src='/bower_components/angular-socket-io/socket.js'></script>
+
+
+<script src='/app/sensor/gpioModule.js'></script>
+<script src='/app/sensor/sensorService.js'></script>
+<script src="/app/lang/langService.js"></script>
+<script src="/app/socket/socketService.js"></script>
+<script src='/app/sensor/sensorController.js'></script>
+
+<% include templates/footer.ejs %>

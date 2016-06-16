@@ -1,0 +1,39 @@
+<% include templates/header.ejs %>
+
+<div id="listSensorType"
+     align="center"
+     data-ng-app="gpioModule"
+     data-ng-controller="listSensorTypeController"
+     style="display:none">
+
+    <% include templates/menu.ejs %>
+
+    </br>
+
+    <div class="panel panel-info">
+
+      <% include templates/pagetitle.ejs %>
+
+      </br>
+
+      <div class="container">
+
+        <% include sensorTypeGrid %>
+
+      </div>
+    </div>
+
+  </div> <!-- listSensorTypeController -->
+</div>   <!-- langController -->
+
+
+<script src='/bower_components/angular/angular.min.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src='/bower_components/angular-socket-io/socket.js'></script>
+
+<script src='/app/sensor/gpioModule.js'></script>
+<script src='/app/sensor/sensorService.js'></script>
+<script src="/app/lang/langService.js"></script>
+<script src='/app/sensor/listSensorTypeController.js'></script>
+
+<% include templates/footer.ejs %>

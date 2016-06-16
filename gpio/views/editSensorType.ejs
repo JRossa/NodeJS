@@ -1,0 +1,114 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#editSensorType {
+   width:400px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="editSensorType"
+     data-ng-app="gpioModule"
+     data-ng-controller="editSensorTypeController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  </br>
+
+  <div class="panel panel-info"  style="width: 100%;">
+
+    <% include templates/pagetitle.ejs %>
+
+    <div class="panel-body" >
+
+      <div class="container">
+
+        <% include ./message.ejs %>
+
+        <% include ./validationResult.ejs %>
+
+
+        <form class="navbar-form navbar-left"
+              role="search"
+              method="POST"
+              name="formCreateSensorType">
+
+          <div class="row">
+            <div class="form-group">
+              <label for="sensorModel"> Sensor Model </label>
+
+
+              <input type="text"
+                     class="form-control"
+                     placeholder="Enter Sensor Model"
+                     name="sensorModel"
+                     id="sensorModel"
+                     ng-model="sensorType.sensorModel"
+
+                     style="width: 100%;"
+
+                     required>
+               <label class="help-block text-danger" for="sensorModel">
+                 Enter a sensor model
+               </label>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="form-group" >
+              <label for="sensorObs"> Obs: </label>
+
+              <textarea
+                     class="form-control"
+                     placeholder="Obs"
+                     name="sensorObs"
+                     id="sensorObs"
+                     rows="2"
+                     cols="29"
+                     ng-model="sensorType.sensorObs"
+
+                     style="width: 100%;"
+
+                     >
+              </textarea>
+            </div>
+          </div>
+
+          </br>
+
+          <div class="row">
+            <div class="form-group"
+                 style="padding-left: 0%;">
+              <button type="button"
+                      class="btn btn-primary"
+                      ng-click="createSensorType(sensorTypeData)">
+                Edit Sensor Type
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src='/bower_components/angular/angular.min.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src='/app/sensor/gpioModule.js'></script>
+<script src='/app/sensor/sensorService.js'></script>
+<script src='/app/lang/langService.js'></script>
+<script src='/app/sensor/editSensorTypeController.js'></script>
+
+
+<% include templates/footer.ejs %>

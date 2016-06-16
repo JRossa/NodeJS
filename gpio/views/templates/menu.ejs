@@ -1,0 +1,50 @@
+
+    <div class='navbar navbar-default navbar-fixed-top'>
+        <div class='container-fluid'>
+            <div class='navbar-header'>
+                <button type='button'
+                        class='navbar-toggle'
+                        data-toggle='collapse'
+                        data-target='.navbar-collapse'>
+                    <span class='icon-bar'> </span>
+                    <span class='icon-bar'> </span>
+                    <span class='icon-bar'> </span>
+                </button>
+                <a href='#' class='navbar-brand'><%= title %></a>
+            </div>
+            <div class='navbar-collapse collapse'>
+                <ul class='nav navbar-nav'>
+<!--                    <li><a href='/'>Home</a></li> -->
+                    <li ><a href='/' ng-cloak>{{ label.Home }}</a></li>
+                    <li class='dropdown'>
+
+                        <a href='#' class='dropdown-toggle'
+                                    data-toggle='dropdown'>
+                                    Config
+                                    <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li><a href='/configGPIO'>GPIO</a></li>
+                            <li><a href='/createSensorType'>Create Sensor Type</a></li>
+                            <li><a href='/listSensorType'>List Sensor Type</a></li>
+                            <li><a href='/createSensor'>Create Sensor</a></li>
+                            <li><a href='/listSensors'>List Sensors</a></li>
+                            <li><a href='#'>i2C</a></li>
+                        </ul>
+                    </li>
+                    <li class='dropdown'>
+                        <a href='#' class='dropdown-toggle'
+                                    data-toggle='dropdown'>
+                                    GPIO <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li><a href='#'>Read IO</a></li>
+                            <li><a href='#'>Write IO</a></li>
+                            <li><a href='/setGPIO'>Enable</a></li>
+                        </ul>
+                    </li>
+                    <li><a href='/Events'>List Events</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
