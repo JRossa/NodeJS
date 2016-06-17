@@ -216,6 +216,25 @@ sensorRouteConfig.prototype.addRoutes = function () {
     }
   });
 
+  self.routeTable.push ( {
+    requestType : 'delete',
+    requestUrl : '/deleteSensorType/:sensorTypeId',
+    callbackFunction : function(req, res) {
+
+      var sensorDao = require('../system/dao/sqliteSensorDao');
+
+      sensorDao.sensorDao.deleteSensorType (req.params.sensorTypeId,
+
+        function (status) {
+//          console.log(status);
+          res.json(status);
+      },function (status) {
+        //          console.log(status);
+          res.json(status);
+      });
+
+    }
+  });
 
   self.routeTable.push ( {
     requestType : 'get',

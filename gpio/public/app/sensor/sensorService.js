@@ -1,11 +1,11 @@
 angular.module("gpioModule")
        .factory("sensorService", sensorService);
 
-sensorService.$inject = ['$http', '$location'];
+sensorService.$inject = ['$rootScope', '$http', '$location'];
 
 
 
-function sensorService ($http, $location) {
+function sensorService ($rootScope, $http, $location) {
 
   return {
 
@@ -44,6 +44,18 @@ function sensorService ($http, $location) {
         }
       );
     }, // updateeSensor
+
+    deleteSensorType : function (sensorTypeId) {
+
+      console.log("deleteSensorType : Service");
+//      $rootScope.$broadcast('SOME_TAG', 'your value');
+
+      // to TEST TODO
+     return $http.delete('/deleteSensorType/' + sensorTypeId);
+
+      // More compatible with different browsers
+    //  return $http['delete']('/deleteSensorType/' + sensorTypeId);
+    }, // deleteSensor
 
     createSensor : function (sensorData) {
 

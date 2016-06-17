@@ -23,6 +23,7 @@ function langController ($rootScope, $scope, $window,
 
     console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
 
     langService.loadLanguage(langKey)
         .then ( function (data) {
@@ -61,7 +62,7 @@ function langController ($rootScope, $scope, $window,
 
     console.log("socketService : emit new-message");
     socketService.emit('new-message', payload);
-    
+
     socketService.on('messages', function (data) {
       console.log("socketService");
       console.log(data);

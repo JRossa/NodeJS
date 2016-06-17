@@ -1,0 +1,125 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#editSensorType {
+   width:400px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="editSensorTypeModal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog">
+  <div id="editSensorType"
+       class="modal-dialog">
+    <div class="modal-content">
+
+  <div class="panel panel-info"
+       style="width: 100%;">
+
+    <% include templates/pagetitle.ejs %>
+
+    <div class="panel-body" >
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+        <div class="container">
+
+          <% include ./message.ejs %>
+
+          <form class="navbar-form navbar-left"
+                role="search"
+                method="POST"
+                name="formEditSensorType"
+                novalidate="">
+
+            <div class="row">
+              <div class="form-group">
+                <div ng-class="{'has-error': validateSensorNumber.containsValidationError}">
+
+                  <br/>
+
+                  <label for="sensorModel"> Sensor Model </label>
+
+                  <input id="sensorModel"
+                         type="text"
+                         class="form-control"
+                         placeholder="Enter Sensor Model"
+                         name="sensorModel"
+                         ng-model="sensorType.sensorModel"
+                         style="width: 100%;"
+                         required>
+
+                  </input>
+
+                  <label class="help-block text-danger" for="sensorModel"
+                          data-ng-show="validateSensorNumber.containsValidationError">
+                     {{ validateSensorNumber.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="sensorModel"
+                          data-ng-show="!validateSensorNumber.containsValidationError">
+                    <br/>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="form-group" >
+                <label for="sensorObs"> Obs: </label>
+
+                <textarea
+                       class="form-control"
+                       placeholder="Obs"
+                       name="sensorObs"
+                       id="sensorObs"
+                       rows="2"
+                       cols="29"
+                       ng-model="sensorType.sensorObs"
+                       style="width: 100%;"
+                       >
+                </textarea>
+              </div>
+            </div>
+
+            </br>
+
+            <div class="modal-footer">
+            <div align="center"
+                 class="row">
+              <div class="form-group"
+                   style="padding-left: 0%;">
+                   <button type="button"
+                           class="btn btn-default"
+                           data-dismiss="modal">
+                     {{ label.deleteSensor_close }}
+                   </button>
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-disabled="!formEditSensorType.$valid"
+                        ng-click="updateSensorType(sensorType)">
+                  {{label.editmenu_createSensorType}}
+                </button>
+              </div>
+            </div>
+           </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
