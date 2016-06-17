@@ -2,14 +2,14 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var sensorDao = {
 
-  createSensorType : function (sensorTypeData, OnSuccessCallback, OnErrorCallback) {
+  createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
     var insertStatement = "INSERT INTO tbl_sensorType VALUES(NULL,?,?)";
 
-    var sensorType = {
+    var sensorInsert = {
 
-      model : sensorTypeData.sensorModel,
-      obs : sensorTypeData.sensorObs
+      model : sensorType.sensorModel,
+      obs : sensorType.sensorObs
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -21,7 +21,7 @@ var sensorDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(insertStatement,
-                [sensorType.model, sensorType.obs], function(err, row) {
+                [sensorInsert.model, sensorInsert.obs], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -46,6 +46,52 @@ var sensorDao = {
     }     // connection
   },      // createSensorType
 
+  updateSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
+
+    var updateStatement = "UPDATE tbl_sensorType SET model = ?, obs = ? WHERE id = ? ";
+
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
+
+    var sensorUpdate = {
+      id : sensorType.sensorId,
+      model : sensorType.sensorModel,
+      obs : sensorType.sensorObs
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.serialize( function() {
+
+        connection.run("BEGIN TRANSACTION");
+
+        connection.run(updateStatement,
+                [sensorUpdate.model, sensorUpdate.obs, sensorUpdate.id], function(err, row) {
+
+                if (err !== null) {
+                    // Express handles errors via its next function.
+                    // It will call the next operation layer (middleware),
+                    // which is by default one that handles errors.
+                    console.log(connection.run);
+                    console.log(err);
+                    connection.run("ROLLBACK");
+                    connectionProvider.connectionStringProvider.closeConnection(connection);
+                    //next(err);
+                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                }
+                else {
+                  connection.run("COMMIT");
+                  connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+                  OnSuccessCallback({ status : "Successful"});
+              }
+            });
+      }); // serialize
+    }     // connection
+  },      // createSensorType
 
   getAllSensorType : function (OnSuccessCallback) {
 

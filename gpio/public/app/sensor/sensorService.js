@@ -29,6 +29,22 @@ function sensorService ($http, $location) {
 
     }, // getAllSensorTypes
 
+    updateSensorType : function (sensorType) {
+
+      console.log("updateSensorType : Service");
+      console.log(sensorType.sensorId);
+      console.log(sensorType.sensorModel);
+      console.log(sensorType.sensorObs);
+
+      return $http.post('/updateSensorType',
+        {
+          sensorId : sensorType.sensorId,
+          sensorModel : sensorType.sensorModel,
+          sensorObs : sensorType.sensorObs
+        }
+      );
+    }, // updateeSensor
+
     createSensor : function (sensorData) {
 
       return $http.post('/createSensor',
@@ -52,7 +68,6 @@ function sensorService ($http, $location) {
 
       return $http.get('/getSensorTypeById/' + sensorTypeId);
     }
-
 
   }; // return
 }

@@ -27,8 +27,6 @@ function listSensorTypeController($window, $scope, $timeout, sensorService, lang
 
   function getAllSensorTypes () {
 
-
-
     sensorService.getAllSensorTypes()
       .success( function (data) {
 

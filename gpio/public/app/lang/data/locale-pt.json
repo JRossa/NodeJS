@@ -8,6 +8,11 @@
   "BUTTON_LANG_DE": "German",
   "BUTTON_LANG_EN": "English",
   "BUTTON_LANG_PT": "Português",
-  "Home" : "Início",
-  "Config" : "Configurar"
+  "createmenu_createSensorType" : "Inserir Tipo de Sensor",
+
+  "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
+
+  "menubar_config" : "Configurar",
+  "menubar_home" : "Início"
+
 }

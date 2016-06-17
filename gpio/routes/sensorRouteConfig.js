@@ -157,7 +157,20 @@ sensorRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/editSensorType/:sensorTypeId',
     callbackFunction : function(req, res) {
 
-      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
+//      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
+
+      var sensorDao = require('../system/dao/sqliteSensorDao');
+
+      sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
+
+        function (sensorType) {
+          console.log(JSON.stringify(sensorType, null, 2));
+          res.render('editSensorType', {
+             title : "GPIO",
+             pagename : "Edit Sensor Type",
+             sensorType : sensorType
+          });
+      });
 
     }
   });
@@ -174,6 +187,30 @@ sensorRouteConfig.prototype.addRoutes = function () {
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
           res.json({ sensorType : sensorType });
+      });
+
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'post',
+    requestUrl : '/updateSensorType',
+    callbackFunction : function(req, res) {
+
+      console.log("POST updateSensorType");
+
+      console.log(req.body);
+
+      var sensorDao = require('../system/dao/sqliteSensorDao');
+
+      sensorDao.sensorDao.updateSensorType (req.body,
+
+        function (status) {
+//          console.log(status);
+          res.json(status);
+      },function (status) {
+        //          console.log(status);
+          res.json(status);
       });
 
     }

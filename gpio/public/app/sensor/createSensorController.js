@@ -1,11 +1,17 @@
 angular.module("gpioModule")
-       .controller("sensorController", sensorController);
+       .controller("createSensorController", createSensorController);
 
-sensorController.$inject = ['$window', '$scope', '$timeout',
+createSensorController.$inject = ['$window', '$scope', '$timeout',
                             'sensorService', 'langService'];
 
-function sensorController($window, $scope, $timeout,
+function createSensorController($window, $scope, $timeout,
                           sensorService, langService) {
+
+  $scope.sensorType = {
+
+    sensorModel : "",
+    sensorObs : ""
+  };
 
   loadLanguage ();
 
@@ -21,11 +27,6 @@ function sensorController($window, $scope, $timeout,
         });
   }
 
-  $scope.sensorType = {
-
-    sensorModel : "",
-    sensorObs : ""
-  };
 
   function clearSensorType () {
 
@@ -107,7 +108,7 @@ function sensorController($window, $scope, $timeout,
 
           if (data) {
             console.log("data");
-            if (data.status == 'Successful') {
+            if (data.status && data.status == 'Successful') {
               showMessage(true, false, "A recorded added successfully !!");
             }
             if (data.error) {
@@ -119,7 +120,6 @@ function sensorController($window, $scope, $timeout,
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
-            clearSensorType();
           }, 5000);
 
         });
@@ -148,4 +148,4 @@ function sensorController($window, $scope, $timeout,
       });
   }
 
-} // sensorController
+} // createSensorController
