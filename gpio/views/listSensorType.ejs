@@ -2,7 +2,7 @@
 
 <div id="listSensorType"
      align="center"
-     data-ng-app="gpioModule"
+     data-ng-app="sensorTypeModule"
      data-ng-controller="listSensorTypeController"
      style="display:none">
 
@@ -34,10 +34,12 @@
 <script src='/bower_components/angular/angular.min.js'></script>
 <script src='/bower_components/angular-messages/angular-messages.js'></script>
 
-<script src='/app/sensor/gpioModule.js'></script>
-<script src='/app/sensor/sensorService.js'></script>
+<script src='/app/lang/langModule.js'></script>
 <script src="/app/lang/langService.js"></script>
-<script src='/app/sensor/listSensorTypeController.js'></script>
+
+<script src='/app/sensorType/sensorTypeModule.js'></script>
+<script src='/app/sensorType/sensorTypeService.js'></script>
+<script src='/app/sensorType/listSensorTypeController.js'></script>
 
 
 <% include templates/footer.ejs %>

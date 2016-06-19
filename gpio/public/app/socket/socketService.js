@@ -1,4 +1,4 @@
-angular.module("gpioModule")
+angular.module("langModule")
         // From http://briantford.com/blog/angular-socket-io
        .factory('socketService', socketService);
 

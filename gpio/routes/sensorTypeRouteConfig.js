@@ -2,7 +2,7 @@ var fs = require("fs");
 var sqlite3 = require('sqlite3').verbose();
 var dbInit = require('../system/db/dbInit');
 
-var sensorRouteConfig = function (app) {
+var sensorTypeRouteConfig = function (app) {
 
   this.app = app;
   this.routeTable = [];
@@ -12,7 +12,7 @@ var sensorRouteConfig = function (app) {
 
 
 /* Equivalent
-sensorRouteConfig function sensorRouteConfig(app) {
+sensorTypeRouteConfig function sensorTypeRouteConfig(app) {
 
   this.app = app;
   this.routeTable = [];
@@ -20,7 +20,7 @@ sensorRouteConfig function sensorRouteConfig(app) {
 }
 */
 
-sensorRouteConfig.prototype.init = function () {
+sensorTypeRouteConfig.prototype.init = function () {
 
   var self = this;
 
@@ -30,42 +30,41 @@ sensorRouteConfig.prototype.init = function () {
 
 }
 
-sensorRouteConfig.prototype.dbCreateTables = function () {
+sensorTypeRouteConfig.prototype.dbCreateTables = function () {
 
     var dbData = new sqlite3.Database(dbInit.dbName);
 
     dbData.serialize(function () {
 
       dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_sensor'", function (err, rows) {
+          "WHERE type='table' AND name='tbl_sensorType'", function (err, rows) {
 
           if (err !== null) {
               console.log(err);
           } else {
-            if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_sensor" ' +
-                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[num] INTEGER  UNIQUE NULL, ' +
-                    '[type_id] INTEGER  NULL, ' +
-                    '[location] VARCHAR(50)  NULL)', function (err) {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        console.log("SQL Table 'tbl_sensor' initialized.");
-                    }
-                });
-            } else {
-                console.log("SQL Table 'tbl_sensor' already initialized.");
-            }
-        }
-      }); // get
+              if (rows === undefined) {
+                  dbData.run('CREATE TABLE "tbl_sensorType" ' +
+                      '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                      '[model] VARCHAR(20)  UNIQUE NULL, ' +
+                      '[obs] VARCHAR(100)  NULL)', function (err) {
+                      if (err !== null) {
+                          console.log(err);
+                      } else {
+                          console.log("SQL Table 'tbl_sensorType' initialized.");
+                      }
+                  });
+              } else {
+                  console.log("SQL Table 'tbl_sensorType' already initialized.");
+              }
+          }
+      }); //get
 
     }); // serialize
 
 }
 
 
-sensorRouteConfig.prototype.processRoutes = function () {
+sensorTypeRouteConfig.prototype.processRoutes = function () {
 
   var self = this;
 
@@ -93,32 +92,32 @@ sensorRouteConfig.prototype.processRoutes = function () {
 
 }
 
-sensorRouteConfig.prototype.addRoutes = function () {
+sensorTypeRouteConfig.prototype.addRoutes = function () {
 
   var self = this;
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/createSensor',
+    requestUrl : '/createSensorType',
     callbackFunction : function(req, res) {
-/* TODO
-      res.render('createSensor', { title : "GPIO", pagename : "Create Sensor"});
-*/
+
+      res.render('createSensorType', { title : "GPIO", pagename : "Create Sensor Type"});
+
     }
   });
 
   self.routeTable.push ( {
     requestType : 'post',
-    requestUrl : '/createSensor',
+    requestUrl : '/createSensorType',
     callbackFunction : function(req, res) {
 
-      console.log("POST createSensor");
+      console.log("POST createSensorType");
 
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
-      sensorDao.sensorDao.createSensor (req.body,
+
+      sensorDao.sensorDao.createSensorType (req.body,
 
         function (status) {
 //          console.log(status);
@@ -127,20 +126,19 @@ sensorRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-*/
     }
   });
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/editSensor/:sensorId',
+    requestUrl : '/editSensorType/:sensorTypeId',
     callbackFunction : function(req, res) {
 
 //      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
-      sensorDao.sensorDao.getSensorById (req.params.sensorTypeId,
+
+      sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
 
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
@@ -150,7 +148,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
              sensorType : sensorType
           });
       });
-*/
+
     }
   });
 
@@ -160,28 +158,28 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
+
       sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
 
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
           res.json({ sensorType : sensorType });
       });
-*/
+
     }
   });
 
   self.routeTable.push ( {
     requestType : 'post',
-    requestUrl : '/updateSensor',
+    requestUrl : '/updateSensorType',
     callbackFunction : function(req, res) {
 
-      console.log("POST updateSensor");
+      console.log("POST updateSensorType");
 
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
+
       sensorDao.sensorDao.updateSensorType (req.body,
 
         function (status) {
@@ -191,17 +189,17 @@ sensorRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-*/
+
     }
   });
 
   self.routeTable.push ( {
     requestType : 'delete',
-    requestUrl : '/deleteSensor/:sensorId',
+    requestUrl : '/deleteSensorType/:sensorTypeId',
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
+
       sensorDao.sensorDao.deleteSensorType (req.params.sensorTypeId,
 
         function (status) {
@@ -211,38 +209,37 @@ sensorRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-*/
+
     }
   });
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/getAllSensors',
+    requestUrl : '/getAllSensorTypes',
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
+
       sensorDao.sensorDao.getAllSensorType (
 
         function (sensorTypes) {
           console.log(JSON.stringify(sensorTypes, null, 2));
           res.json({ sensorTypes : sensorTypes });
       });
-*/
+
     }
   });
 
   self.routeTable.push({
 
       requestType : 'get',
-      requestUrl : '/listSensor',
+      requestUrl : '/listSensorType',
       callbackFunction : function (request, response) {
-/* TODO
-          response.render('listSensor', { title : "GPIO", pagename : "List Sensor"});
-*/
+
+          response.render('listSensorType', { title : "GPIO", pagename : "List Sensor Type"});
       }
   });
 
 }
 
-module.exports = sensorRouteConfig;
+module.exports = sensorTypeRouteConfig;

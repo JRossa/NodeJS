@@ -1,4 +1,4 @@
-angular.module("gpioModule")
+angular.module("langModule")
        .factory("langService", langService);
 
 

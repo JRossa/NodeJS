@@ -1,11 +1,11 @@
-angular.module("gpioModule")
-       .factory("sensorService", sensorService);
+angular.module("sensorTypeModule")
+       .factory("sensorTypeService", sensorTypeService);
 
-sensorService.$inject = ['$rootScope', '$http', '$location'];
+sensorTypeService.$inject = ['$rootScope', '$http', '$location'];
 
 
 
-function sensorService ($rootScope, $http, $location) {
+function sensorTypeService ($rootScope, $http, $location) {
 
   return {
 

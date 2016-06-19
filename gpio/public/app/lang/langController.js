@@ -1,4 +1,4 @@
-angular.module("gpioModule")
+angular.module("langModule")
        .controller("langController", langController);
 
 langController.$inject = ['$rootScope', '$scope', '$window',

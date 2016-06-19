@@ -49,12 +49,17 @@ app.use('/bower_components', express.static(path.join(__dirname, '/bower_compone
 var routes = require('./routes/index');
 app.use('/', routes);
 
-
 // Sensors
+var sensorTypeRoute = require('./routes/sensorTypeRouteConfig');
 var sensorRoute = require('./routes/sensorRouteConfig');
+
+new sensorTypeRoute(app);
 new sensorRoute(app);
 
+
 // GPIO
+
+
 
 // Events
 

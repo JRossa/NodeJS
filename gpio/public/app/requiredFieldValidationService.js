@@ -1,4 +1,4 @@
-angular.module("gpioModule")
+angular.module("sensorTypeModule")
        .factory("requiredFieldValidationService", requiredFieldValidationService);
 
 

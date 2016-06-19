@@ -1,12 +1,12 @@
-angular.module("gpioModule")
+angular.module("sensorTypeModule")
        .controller("listSensorTypeController", listSensorTypeController);
 
 listSensorTypeController.$inject = ['$window', '$scope', '$timeout',
-                                    'sensorService', 'langService'];
+                                    'sensorTypeService', 'langService'];
 
 
 function listSensorTypeController($window, $scope, $timeout,
-                                  sensorService, langService) {
+                                  sensorTypeService, langService) {
 
   $scope.sensorTypes = [];
 
@@ -37,7 +37,7 @@ function listSensorTypeController($window, $scope, $timeout,
 
   function getAllSensorTypes () {
 
-    sensorService.getAllSensorTypes()
+    sensorTypeService.getAllSensorTypes()
       .success( function (data) {
 
         if (data &&
@@ -69,7 +69,7 @@ function listSensorTypeController($window, $scope, $timeout,
     console.log("Delete");
 
     if ($scope.sensorType.sensorId > 0) {
-      sensorService.deleteSensorType($scope.sensorType.sensorId)
+      sensorTypeService.deleteSensorType($scope.sensorType.sensorId)
         .success( function (data)  {
           if (data &&
               data.status &&
@@ -142,7 +142,7 @@ function listSensorTypeController($window, $scope, $timeout,
 
     } else {
 
-      sensorService.updateSensorType(sensorType)
+      sensorTypeService.updateSensorType(sensorType)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
 
