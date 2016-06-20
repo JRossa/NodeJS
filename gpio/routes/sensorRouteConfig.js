@@ -101,9 +101,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
     requestType : 'get',
     requestUrl : '/createSensor',
     callbackFunction : function(req, res) {
-/* TODO
+
       res.render('createSensor', { title : "GPIO", pagename : "Create Sensor"});
-*/
+
     }
   });
 

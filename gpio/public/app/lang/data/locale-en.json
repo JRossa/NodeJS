@@ -15,6 +15,11 @@
   "deleteSensor_delete" : "Delete",
 
   "createmenu_createSensorType" : "Create Sensor Type",
+  "createmenu_createSensor" : "Create Sensor",
+  "createmenu_sensorNumber" : "Number",
+  "createmenu_sensorType" : "Type",
+  "createmenu_sensorModel" : "Model",
+  "createmenu_sensorLocation" : "Location",
 
   "editmenu_createSensorType" : "Edit Sensor Type",
 

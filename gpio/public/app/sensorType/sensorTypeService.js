@@ -43,7 +43,7 @@ function sensorTypeService ($rootScope, $http, $location) {
           sensorObs : sensorType.sensorObs
         }
       );
-    }, // updateeSensor
+    }, // updateeSensorType
 
     deleteSensorType : function (sensorTypeId) {
 
@@ -55,18 +55,7 @@ function sensorTypeService ($rootScope, $http, $location) {
 
       // More compatible with different browsers
     //  return $http['delete']('/deleteSensorType/' + sensorTypeId);
-    }, // deleteSensor
-
-    createSensor : function (sensorData) {
-
-      return $http.post('/createSensor',
-        {
-          sensorNumber : sensorData.sensorNumber,
-          sensorType : sensorData.sensorType,
-          sensorLocation : sensorData.sensorLocation
-        }
-      );
-    }, // createSensor
+  }, // deleteSensorType
 
     getIdFromEndPoint : function () {
       var absoluteUtl = $location.absUrl();
@@ -79,7 +68,7 @@ function sensorTypeService ($rootScope, $http, $location) {
     getSensorTypeById : function (sensorTypeId) {
 
       return $http.get('/getSensorTypeById/' + sensorTypeId);
-    }
+    } // getSensorTypeById
 
   }; // return
 }

@@ -45,7 +45,7 @@
 
             <div class="row">
               <div class="form-group">
-                <div ng-class="{'has-error': validateSensorNumber.containsValidationError}">
+                <div ng-class="{'has-error': validateSensorModel.containsValidationError}">
       <!--
 formCreateSensorType.sensorModel.$invalid
 <pre>formCreateSensorType.sensorModel.$error = {{ formCreateSensorType.sensorModel.$error }}</pre>
@@ -71,12 +71,12 @@ formCreateSensorType.sensorModel.$invalid
                   </input>
 
                   <label class="help-block text-danger" for="sensorModel"
-                          data-ng-show="validateSensorNumber.containsValidationError">
+                          data-ng-show="validateSensorModel.containsValidationError">
                      {{ validateSensorNumber.errorMessage }}
                   </label>
 
                   <label class="help-block text-danger" for="sensorModel"
-                          data-ng-show="!validateSensorNumber.containsValidationError">
+                          data-ng-show="!validateSensorModel.containsValidationError">
                     <br/>
                   </label>
 
@@ -89,16 +89,14 @@ formCreateSensorType.sensorModel.$invalid
               <div class="form-group" >
                 <label for="sensorObs"> Obs: </label>
 
-                <textarea
-                       class="form-control"
-                       placeholder="Obs"
-                       name="sensorObs"
-                       id="sensorObs"
-                       rows="2"
-                       cols="29"
-                       ng-model="sensorType.sensorObs"
-                       style="width: 100%;"
-                       >
+                <textarea id="sensorObs"
+                          class="form-control"
+                          placeholder="Obs"
+                          name="sensorObs"
+                          rows="2"
+                          cols="29"
+                          ng-model="sensorType.sensorObs"
+                          style="width: 100%;">
                 </textarea>
               </div>
             </div>

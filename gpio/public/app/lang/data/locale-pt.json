@@ -15,6 +15,11 @@
   "deleteSensor_delete" : "Remover",
 
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
+  "createmenu_createSensor" : "Inserir Sensor",
+  "createmenu_sensorNumber" : "Número",
+  "createmenu_sensorType" : "Tipo",
+  "createmenu_sensorModel" : "Modelo",
+  "createmenu_sensorLocation" : "Localização",
 
   "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
 

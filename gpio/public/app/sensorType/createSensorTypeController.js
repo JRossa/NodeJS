@@ -9,6 +9,7 @@ function createSensorTypeController($window, $scope, $timeout,
 
   $scope.sensorType = {
 
+    sensorId : "",
     sensorModel : "",
     sensorObs : ""
   };
@@ -57,21 +58,21 @@ function createSensorTypeController($window, $scope, $timeout,
   };
 
 
-  $scope.validateSensorNumber = {
+  $scope.validateSensorModel = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearSensorNumberMessage () {
+  function clearSensorModelMessage () {
 
-    $scope.validateSensorNumber.containsValidationError = false;
-    $scope.validateSensorNumber.errorMessage = "";
+    $scope.validateSensorModel.containsValidationError = false;
+    $scope.validateSensorModel.errorMessage = "";
   };
 
-  function displaySensorNumberMessage () {
+  function displaySensorModelMessage () {
 
-    $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = "Enter a sensor model !!";
+    $scope.validateSensorModel.containsValidationError = true;
+    $scope.validateSensorModel.errorMessage = "Enter a sensor model !!";
   };
 
   $scope.createSensorType = function (sensorType) {
@@ -87,7 +88,7 @@ function createSensorTypeController($window, $scope, $timeout,
 
     if ($scope.sensorType.sensorModel.length == 0) {
 
-      displaySensorNumberMessage ();
+      displaySensorModelMessage ();
       validationMessages++;
     }
 
@@ -96,7 +97,7 @@ function createSensorTypeController($window, $scope, $timeout,
     if (validationMessages > 0) {
 
       $timeout( function afterTimeOut () {
-        clearSensorNumberMessage ();
+        clearSensorModelMessage ();
       }, 2000);
 
 
@@ -126,26 +127,6 @@ function createSensorTypeController($window, $scope, $timeout,
 
     } // else
 
-  }
-
-  $scope.sensorData = {
-
-    sensorId : "",
-    sensorNumber : "",
-    sensorType : "",
-    sensorLocation : ""
-
-  };
-
-
-  $scope.createSensor = function (sensorData) {
-
-    sensorTypeService.createSensor(sensorData)
-      .success(function (data) {
-
-        // $timeout( function () { TODO }, 3000);
-        alert ("Sensor Data posted successfully");
-      });
   }
 
 } // createSensorTypeController
