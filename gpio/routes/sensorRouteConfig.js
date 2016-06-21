@@ -113,11 +113,10 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       console.log("POST createSensor");
-
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
+
       sensorDao.sensorDao.createSensor (req.body,
 
         function (status) {
@@ -127,7 +126,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-*/
+
     }
   });
 
@@ -181,8 +180,8 @@ sensorRouteConfig.prototype.addRoutes = function () {
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
-      sensorDao.sensorDao.updateSensorType (req.body,
+
+      sensorDao.sensorDao.updateSensor (req.body,
 
         function (status) {
 //          console.log(status);
@@ -191,7 +190,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-*/
+
     }
   });
 
@@ -201,17 +200,16 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
-      sensorDao.sensorDao.deleteSensorType (req.params.sensorTypeId,
+
+      sensorDao.sensorDao.deleteSensor (req.params.sensorTypeId,
 
         function (status) {
-//          console.log(status);
+          console.log(status);
           res.json(status);
       },function (status) {
         //          console.log(status);
           res.json(status);
       });
-*/
     }
   });
 
@@ -221,14 +219,14 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
-/* TODO
-      sensorDao.sensorDao.getAllSensorType (
 
-        function (sensorTypes) {
-          console.log(JSON.stringify(sensorTypes, null, 2));
-          res.json({ sensorTypes : sensorTypes });
+      sensorDao.sensorDao.getAllSensor (
+
+        function (sensorsData) {
+          console.log(JSON.stringify(sensorsData, null, 2));
+          res.json({ sensorsData : sensorsData });
       });
-*/
+
     }
   });
 
@@ -237,9 +235,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listSensor',
       callbackFunction : function (request, response) {
-/* TODO
+
           response.render('listSensor', { title : "GPIO", pagename : "List Sensor"});
-*/
+
       }
   });
 

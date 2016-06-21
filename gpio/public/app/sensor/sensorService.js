@@ -8,20 +8,26 @@ function sensorService ($rootScope, $http, $location) {
 
   return {
 
-    createSensor : function (sensor) {
+    createSensor : function (sensorData) {
 
-//      console.log("Service: createSensorType");
-//      console.log("Service: " + sensorType);
+      console.log("Service: createSensor");
+      console.log(sensorData);
 
       return $http.post('/createSensor',
         {
-          sensorNumber : sensor.sensorNumber,
-          sensorTypeId : sensor.sensorTypeId,
-          sensorLocation: sensor.Location
+          sensorNumber : sensorData.sensorNumber,
+          sensorTypeId : sensorData.sensorTypeId,
+          sensorLocation: sensorData.sensorLocation
 
         }
       );
     }, // createSensor
+
+    getAllSensors: function () {
+
+      return $http.get('/getAllSensors');
+
+    }, // getAllSensors
 
     getAllSensorTypes: function () {
 
@@ -29,21 +35,23 @@ function sensorService ($rootScope, $http, $location) {
 
     }, // getAllSensorTypes
 
-    updateSensor : function (sensor) {
-/*
-      console.log("updateSensorType : Service");
-      console.log(sensorType.sensorId);
-      console.log(sensorType.sensorModel);
-      console.log(sensorType.sensorObs);
+    updateSensor : function (sensorData) {
 
-      return $http.post('/updateSensorType',
+      console.log("updateSensor : Service");
+      console.log(sensorData.sensorId);
+      console.log(sensorData.sensorNumber);
+      console.log(sensorData.sensorTypeId);
+      console.log(sensorData.sensorLocation);
+
+      return $http.post('/updateSensor',
         {
-          sensorId : sensorType.sensorId,
-          sensorModel : sensorType.sensorModel,
-          sensorObs : sensorType.sensorObs
+          sensorId : sensorData.sensorId,
+          sensorNumber : sensorData.sensorNumber,
+          sensorTypeId : sensorData.sensorTypeId,
+          sensorLocation : sensorData.sensorLocation
         }
       );
-*/
+
     }, // updateSensor
 
     deleteSensor : function (sensorId) {
@@ -52,7 +60,7 @@ function sensorService ($rootScope, $http, $location) {
 //      $rootScope.$broadcast('SOME_TAG', 'your value');
 
       // to TEST TODO
-//     return $http.delete('/deleteSensorType/' + sensorTypeId);
+     return $http.delete('/deleteSensor/' + sensorId);
 
       // More compatible with different browsers
     //  return $http['delete']('/deleteSensorType/' + sensorTypeId);

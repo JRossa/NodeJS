@@ -9,8 +9,11 @@
   "BUTTON_LANG_EN": "English",
   "BUTTON_LANG_PT": "Português",
 
+  "deleteSensorType_title" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
 
+  "deleteSensor_title" : "Remover Sensor",
+  "deleteSensor_message" : "Confirma que pretende remover o sensor   n.    ",
   "deleteSensor_close" : "Encerrar",
   "deleteSensor_delete" : "Remover",
 
@@ -23,6 +26,10 @@
 
   "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
 
+  "menubar_createSensorType" : "Inserir Tipo de Sensor",
+  "menubar_listSensorType" : "Listar Tipo de Sensores",
+  "menubar_createSensor" : "Inserir Sensor",
+  "menubar_listSensor" : "Listar Sensores",
   "menubar_config" : "Configurar",
   "menubar_home" : "Início"
 

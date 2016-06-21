@@ -14,8 +14,15 @@ function editSensorTypeController($window, $scope, $timeout, sensorTypeService, 
 
   // https://docs.angularjs.org/api/ng/function/angular.element
   //$('#sensorId').hide();
+//  console.log($('#nodeSensorType').text());
 
-  var nodeSensorType = angular.fromJson($('#nodeSensorType').text());
+  // http://stackoverflow.com/questions/29243854/difference-between-angular-fromjson-and-scope-eval-when-applied-to-json-string
+  // Gives an error with newline char(10)
+  //  var nodeSensorType = angular.fromJson($('#nodeSensorType').text());
+
+  var nodeSensorType = $scope.$eval($('#nodeSensorType').text());
+//  console.log(nodeSensorType);
+
   console.log(nodeSensorType.id);
   console.log(nodeSensorType.model);
   console.log(nodeSensorType.obs);

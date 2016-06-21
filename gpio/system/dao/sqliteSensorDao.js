@@ -2,14 +2,15 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var sensorDao = {
 
-  createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
+  createSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_sensorType VALUES(NULL,?,?)";
+    var insertStatement = "INSERT INTO tbl_sensor VALUES(NULL, ?, ?, ?)";
 
     var sensorInsert = {
 
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+      number : sensorData.sensorNumber,
+      typeId : sensorData.sensorTypeId,
+      location : sensorData.sensorLocation
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -21,7 +22,7 @@ var sensorDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(insertStatement,
-                [sensorInsert.model, sensorInsert.obs], function(err, row) {
+                [sensorInsert.number, sensorInsert.typeId, sensorInsert.location], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -43,21 +44,23 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // createSensor
 
-  updateSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
+  updateSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
-    var updateStatement = "UPDATE tbl_sensorType SET model = ?, obs = ? WHERE id = ? ";
+    var updateStatement = "UPDATE tbl_sensor SET num = ?, type_id = ?, location = ? " +
+                          "WHERE id = ? ";
 
 //    console.log("ligação  " + sensorType.sensorId);
 //    console.log("ligação  " + sensorType.sensorModel);
 //    console.log("ligação  " + sensorType.sensorObs);
 
     var sensorUpdate = {
-      id : sensorType.sensorId,
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+      id : sensorData.sensorId,
+      number : sensorData.sensorNumber,
+      typeId : sensorData.sensorTypeId,
+      location : sensorData.sensorLocation
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -69,7 +72,8 @@ var sensorDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(updateStatement,
-                [sensorUpdate.model, sensorUpdate.obs, sensorUpdate.id], function(err, row) {
+                [sensorUpdate.number, sensorUpdate.typeId,
+                 sensorUpdate.location, sensorUpdate.id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -90,21 +94,21 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // updateSensor
 
-  deleteSensorType : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
+  deleteSensor : function (sensorId, OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_sensorType WHERE id = ? ";
+    var deleteStatement = "DELETE FROM tbl_sensor WHERE id = ? ";
 
 //    console.log("ligação  " + sensorType.sensorId);
 //    console.log("ligação  " + sensorType.sensorModel);
 //    console.log("ligação  " + sensorType.sensorObs);
 
-    console.log("ligação  " + sensorTypeId);
+    console.log("ligação  " + sensorId);
 
     var sensorDelete = {
-      id : sensorTypeId,
+      id : sensorId
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -137,14 +141,63 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // deleteSensor
 
-  getAllSensorType : function (OnSuccessCallback) {
+  deleteSensorByTypeId : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
+
+    var deleteStatement = "DELETE FROM tbl_sensor WHERE typeId = ? ";
+
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
+
+    console.log("ligação  " + sensorTypeId);
+
+    var sensorDelete = {
+      typeId : sensorTypeId
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.serialize( function() {
+
+        connection.run("BEGIN TRANSACTION");
+
+        connection.run(deleteStatement,
+                [sensorDelete.typeId], function(err, row) {
+
+                if (err !== null) {
+                    // Express handles errors via its next function.
+                    // It will call the next operation layer (middleware),
+                    // which is by default one that handles errors.
+                    console.log(connection.run);
+                    console.log(err);
+                    connection.run("ROLLBACK");
+                    connectionProvider.connectionStringProvider.closeConnection(connection);
+                    //next(err);
+                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                }
+                else {
+                  connection.run("COMMIT");
+                  connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+                  OnSuccessCallback({ status : "Successful"});
+              }
+            });
+      }); // serialize
+    } // connection
+  }, // deleteSensorByTypeId
+
+  getAllSensor : function (OnSuccessCallback) {
 
 //    console.log("Config: getAllSensorType");
 
-    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY Id";
+    var insertStatement = "SELECT a.id, a.num, a.type_id, a.location, b.model " +
+                          "FROM tbl_sensor AS a, tbl_sensorType AS b " +
+                          "WHERE a.type_id = b.id ORDER BY a.id";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -163,15 +216,15 @@ var sensorDao = {
     }
   },
 
-  getSensorTypeById : function (sensorTypeId, OnSuccessCallback) {
+  getSensorById : function (sensorId, OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_sensorType WHERE Id = ?";
+    var insertStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [sensorTypeId], function (err, rows, fields)  {
+      connection.all(insertStatement, [sensorId], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
