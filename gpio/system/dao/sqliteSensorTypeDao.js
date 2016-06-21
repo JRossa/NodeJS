@@ -1,6 +1,6 @@
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
-var sensorDao = {
+var sensorTypeDao = {
 
   createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
@@ -43,8 +43,8 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // createSensorType
 
   updateSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
@@ -90,8 +90,8 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // updateSensorType
 
   deleteSensorType : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
 
@@ -104,7 +104,7 @@ var sensorDao = {
     console.log("ligação  " + sensorTypeId);
 
     var sensorDelete = {
-      id : sensorTypeId,
+      id : sensorTypeId
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -137,8 +137,8 @@ var sensorDao = {
               }
             });
       }); // serialize
-    }     // connection
-  },      // createSensorType
+    } // connection
+  }, // deleteSensorType
 
   getAllSensorType : function (OnSuccessCallback) {
 
@@ -187,4 +187,4 @@ var sensorDao = {
 
 }
 
-module.exports.sensorDao = sensorDao;
+module.exports.sensorTypeDao = sensorTypeDao;

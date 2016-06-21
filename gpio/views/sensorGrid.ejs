@@ -1,0 +1,57 @@
+<table data-ng-show="sensorsData.length > 0"
+       class="table table-striped table-hover table-bordered table-condensed"
+       id="tblsensorData" style="width:100%;">
+
+  <thead>
+    <tr class="success">
+      <td style="width: 10%"> Sensor Id </td>
+      <td style="width: 10%"> Sensor Number </td>
+      <td style="width: 20%"> Sensor Type </td>
+      <td style="width: 40%"> Location </td>
+      <td style="width: 20%">  </td>
+    </tr>
+  </thead>
+
+  <tbody id='tblsensorDataBody'>
+    <tr data-ng-repeat="sensorData in sensorsData">
+      <td>{{sensorData.id}}</td>
+      <td>{{sensorData.num}}</td>
+      <td>{{sensorData.model}}</td>
+      <td>{{sensorData.location}}</td>
+
+      <td class="info">
+<!--
+        <button id='button_edit_sensor' class='btn btn-info btn-sm' data-toggle='modal'
+            data-target='#editModal'
+           >
+           <i class="fa fa-pencil-square-o fa-fw" aria-hidden="true" ></i>
+           <span>Edit</span>
+        </button>
+-->
+
+        <button id="buttonEditSensor"
+                type="button"
+                class="btn btn-info btn-sm"
+                data-toggle="modal"
+                data-target="#editSensorModal"
+                data-ng-click="loadSensor(sensorData)">
+           <i class="glyphicon glyphicon-erase"
+              aria-hidden="true" ></i>
+           <span>Edit</span>
+        </button>
+
+        <button id="buttonDeleteSensor"
+                type="button"
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#deleteSensorModal"
+                data-ng-click="loadSensor(sensorData)">
+           <i class="glyphicon glyphicon-erase"
+              aria-hidden="true" ></i>
+           <span>Delete</span>
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

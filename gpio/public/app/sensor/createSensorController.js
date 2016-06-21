@@ -42,6 +42,7 @@ function createSensorController($window, $scope, $timeout,
             data.sensorTypes.length > 0) {
               console.log(data);
               $scope.sensorTypes = data.sensorTypes;
+              $("#createSensor").show();
             }
       });
   }
@@ -110,7 +111,7 @@ function createSensorController($window, $scope, $timeout,
     $scope.validateSensorTypeId.errorMessage = "Enter a sensor model !!";
   };
 
-  $scope.createSensor = function (sensor) {
+  $scope.createSensor = function (sensorData) {
 
     var validationMessages = 0;
 /*
@@ -156,10 +157,10 @@ function createSensorController($window, $scope, $timeout,
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
+            clearSensorData();
           }, 5000);
 
         });
-
     } // else
 
   }

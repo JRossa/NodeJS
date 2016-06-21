@@ -121,6 +121,7 @@ function createSensorTypeController($window, $scope, $timeout,
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
+            clearSensorType();
           }, 5000);
 
         });

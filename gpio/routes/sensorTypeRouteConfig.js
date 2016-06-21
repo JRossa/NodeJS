@@ -115,9 +115,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
 
       console.log(req.body);
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-      sensorDao.sensorDao.createSensorType (req.body,
+      sensorTypeDao.sensorTypeDao.createSensorType (req.body,
 
         function (status) {
 //          console.log(status);
@@ -136,9 +136,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
 
 //      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-      sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
+      sensorTypeDao.sensorTypeDao.getSensorTypeById (req.params.sensorTypeId,
 
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
@@ -157,9 +157,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/getSensorTypeById/:sensorTypeId',
     callbackFunction : function(req, res) {
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-      sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
+      sensorTypeDao.sensorTypeDao.getSensorTypeById (req.params.sensorTypeId,
 
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
@@ -178,9 +178,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
 
       console.log(req.body);
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTYpeDao');
 
-      sensorDao.sensorDao.updateSensorType (req.body,
+      sensorTypeDao.sensorTypeDao.updateSensorType (req.body,
 
         function (status) {
 //          console.log(status);
@@ -198,9 +198,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/deleteSensorType/:sensorTypeId',
     callbackFunction : function(req, res) {
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-      sensorDao.sensorDao.deleteSensorType (req.params.sensorTypeId,
+      sensorTypeDao.sensorTypeDao.deleteSensorType (req.params.sensorTypeId,
 
         function (status) {
 //          console.log(status);
@@ -218,9 +218,9 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/getAllSensorTypes',
     callbackFunction : function(req, res) {
 
-      var sensorDao = require('../system/dao/sqliteSensorDao');
+      var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-      sensorDao.sensorDao.getAllSensorType (
+      sensorTypeDao.sensorTypeDao.getAllSensorType (
 
         function (sensorTypes) {
           console.log(JSON.stringify(sensorTypes, null, 2));

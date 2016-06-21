@@ -4,14 +4,14 @@
 
   <thead>
     <tr class="success">
-      <td style="width: 10%"> Sensor Id </td>
-      <td style="width: 20%"> Sensor Number </td>
+      <td style="width: 10%"> Type Id </td>
+      <td style="width: 20%"> Sensor Model </td>
       <td style="width: 30%"> Obs </td>
       <td style="width: 40%">  </td>
     </tr>
   </thead>
 
-  <tbody id='tblDataBody'>
+  <tbody id='tblsensorTypeDataBody'>
     <tr data-ng-repeat="sensorType in sensorTypes">
       <td>{{sensorType.id}}</td>
       <td>{{sensorType.model}}</td>
@@ -26,7 +26,7 @@
            <span>Edit</span>
         </button>
 -->
-        <!-- non modal -->
+        <!-- non modal for test
         <a class='btn btn-info btn-sm'
             href='/editSensorType/{{sensorType.id}}'>
            <i class="fa fa-pencil-square-o fa-fw"
@@ -34,19 +34,19 @@
            </i>
            <span>Edit</span>
         </a>
-
-        <button id="buttonEditSensor"
+-->
+        <button id="buttonEditSensorType"
                 type="button"
-                class="btn btn-warning btn-sm"
+                class="btn btn-info btn-sm"
                 data-toggle="modal"
                 data-target="#editSensorTypeModal"
                 data-ng-click="loadSensorType(sensorType)">
            <i class="glyphicon glyphicon-erase"
               aria-hidden="true" ></i>
-           <span>Edit Mod</span>
+           <span>Edit</span>
         </button>
 
-        <button id="buttonDeleteSensor"
+        <button id="buttonDeleteSensorType"
                 type="button"
                 class="btn btn-warning btn-sm"
                 data-toggle="modal"
