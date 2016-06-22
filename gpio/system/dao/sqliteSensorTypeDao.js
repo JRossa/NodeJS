@@ -4,7 +4,7 @@ var sensorTypeDao = {
 
   createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_sensorType VALUES(NULL,?,?)";
+    var insertStatement = "INSERT INTO tbl_sensorType VALUES(NULL, ?, ?)";
 
     var sensorInsert = {
 
@@ -144,7 +144,7 @@ var sensorTypeDao = {
 
 //    console.log("Config: getAllSensorType");
 
-    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY Id";
+    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -165,7 +165,7 @@ var sensorTypeDao = {
 
   getSensorTypeById : function (sensorTypeId, OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_sensorType WHERE Id = ?";
+    var insertStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 

@@ -1,49 +1,97 @@
 
-    <div id="menuItens"
-         class='navbar navbar-default navbar-fixed-top'>
-        <div class='container-fluid'>
-            <div class='navbar-header'>
-                <button type='button'
-                        class='navbar-toggle'
-                        data-toggle='collapse'
-                        data-target='.navbar-collapse'>
-                    <span class='icon-bar'> </span>
-                    <span class='icon-bar'> </span>
-                    <span class='icon-bar'> </span>
-                </button>
-                <a href='#' class='navbar-brand'><%= title %></a>
-            </div>
-            <div class='navbar-collapse collapse'>
-                <ul class='nav navbar-nav'>
-<!--                    <li><a href='/'>Home</a></li> -->
-                    <li ><a href='/' ng-cloak>{{ label.menubar_home }}</a></li>
-                    <li class='dropdown'>
-
-                        <a href='#' class='dropdown-toggle'
-                                    data-toggle='dropdown'>
-                                    {{ label.menubar_config }}
-                                    <b class='caret'></b>
-                        </a>
-                        <ul class='dropdown-menu'>
-                            <li><a href='/createSensorType'>{{ label.menubar_createSensorType }}</a></li>
-                            <li><a href='/listSensorType'>{{ label.menubar_listSensorType }}</a></li>
-                            <li><a href='/createSensor'>{{ label.menubar_createSensor }}</a></li>
-                            <li><a href='/listSensor'>{{ label.menubar_listSensor }}</a></li>
-                        </ul>
-                    </li>
-                    <li class='dropdown'>
-                        <a href='#' class='dropdown-toggle'
-                                    data-toggle='dropdown'>
-                                    GPIO <b class='caret'></b>
-                        </a>
-                        <ul class='dropdown-menu'>
-                            <li><a href='#'>Read IO</a></li>
-                            <li><a href='#'>Write IO</a></li>
-                            <li><a href='/setGPIO'>Enable</a></li>
-                        </ul>
-                    </li>
-                    <li><a href='/Events'>List Events</a></li>
-                </ul>
-            </div>
-        </div>
+<div id="menuItens"
+     class='navbar navbar-default navbar-fixed-top'>
+  <div class='container-fluid'>
+    <div class='navbar-header'>
+      <button type='button'
+              class='navbar-toggle'
+              data-toggle='collapse'
+              data-target='.navbar-collapse'>
+        <span class='icon-bar'> </span>
+        <span class='icon-bar'> </span>
+        <span class='icon-bar'> </span>
+      </button>
+      <a href='#'
+         class='navbar-brand'>
+         {{ <%= title %> }}
+      </a>
     </div>
+    <div class='navbar-collapse collapse'>
+      <ul class='nav navbar-nav'>
+<!--                    <li><a href='/'>Home</a></li> -->
+        <li ><a href='/' ng-cloak>{{ label.menubar_home }}</a></li>
+
+        <li class='dropdown'>
+
+          <a href='#'
+             class='dropdown-toggle'
+             data-toggle='dropdown'>
+            {{ label.menubar_config }}
+            <b class='caret'>
+            </b>
+          </a>
+          <ul class='dropdown-menu'>
+            <li>
+              <a href='/createSensorType'>
+                 {{ label.menubar_createSensorType }}
+              </a>
+            </li>
+            <li>
+              <a href='/listSensorType'>
+                {{ label.menubar_listSensorType }}
+              </a>
+            </li>
+            <li>
+              <a href='/createSensor'>
+                {{ label.menubar_createSensor }}
+              </a>
+            </li>
+            <li>
+              <a href='/listSensor'>
+                {{ label.menubar_listSensor }}
+              </a>
+            </li>
+          </ul>
+        </li> <!-- Config -->
+
+        <li class='dropdown'>
+          <a href='#'
+             class='dropdown-toggle'
+             data-toggle='dropdown'>
+            GPIO
+            <b class='caret'>
+            </b>
+          </a>
+          <ul class='dropdown-menu'>
+              <li><a href='#'>Read IO</a></li>
+              <li><a href='#'>Write IO</a></li>
+              <li><a href='/setGPIO'>Enable</a></li>
+          </ul>
+        </li> <!-- GPIO -->
+
+        <li class='dropdown'>
+          <a href='#'
+             class='dropdown-toggle'
+             data-toggle='dropdown'>
+             {{ label.menubar_event }}
+             <b class='caret'>
+             </b>
+          </a>
+          <ul class='dropdown-menu'>
+            <li>
+              <a href='/createEvent'>
+                {{ label.menubar_createEvent }}
+              </a>
+            </li>
+            <li>
+              <a href='/listEvent'>
+                {{ label.menubar_listEvent }}
+              </a>
+            </li>
+          </ul>
+        </li> <!-- Events -->
+
+      </ul>
+    </div>
+  </div>
+</div>

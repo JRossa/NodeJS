@@ -9,27 +9,51 @@
   "BUTTON_LANG_EN": "English",
   "BUTTON_LANG_PT": "Português",
 
-  "deleteSensorType_title" : "Delete Sensor Type",
+  "createSensorType_pagename" : "Create Sensor Type",
+
+  "editSensorType_pagename" : "Edit Sensor Type",
+
+  "listSensorType_pagename" : "List Sensor Types",
+
+  "deleteSensorType_modalTitle" : "Delete Sensor Type",
   "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
 
-  "deleteSensor_title" : "Delete Sensor",
+
+  "createSensor_pagename" : "Create Sensor",
+
+  "editSensor_pagename" : "Edit Sensor",
+
+  "listSensor_pagename" : "List Sensors",
+
+  "deleteSensor_modalTitle" : "Delete Sensor",
   "deleteSensor_message" : "Are you sure, you want to delete the sensor n.    ",
   "deleteSensor_close" : "Close",
   "deleteSensor_delete" : "Delete",
 
   "createmenu_createSensorType" : "Create Sensor Type",
   "createmenu_createSensor" : "Create Sensor",
+  "createmenu_createEvent" : "Create Event",
+
   "createmenu_sensorNumber" : "Number",
   "createmenu_sensorType" : "Type",
   "createmenu_sensorModel" : "Model",
   "createmenu_sensorLocation" : "Location",
+  "createmenu_eventSensorId" : "Sensor Id",
+  "createmenu_eventTime" : "Activation Time",
+
+  "createEvent_pagename" : "Create Event",
+  "listEvent_pagename" : "Events List",
 
   "editmenu_createSensorType" : "Edit Sensor Type",
 
+  "menubar_appTitle" : "Pi 3",
+  "menubar_createEvent" : "Create Event",
+  "menubar_listEvent" : "List Event",
   "menubar_createSensorType" : "Create Sensor Type",
   "menubar_listSensorType" : "List Sensor Types",
   "menubar_createSensor" : "Create Sensor",
   "menubar_listSensor" : "List Sensors",
+  "menubar_event" : "Events",
   "menubar_config" : "Config",
   "menubar_home" : "Home"
 }

@@ -146,7 +146,7 @@ var sensorDao = {
 
   deleteSensorByTypeId : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_sensor WHERE typeId = ? ";
+    var deleteStatement = "DELETE FROM tbl_sensor WHERE type_id = ? ";
 
 //    console.log("ligação  " + sensorType.sensorId);
 //    console.log("ligação  " + sensorType.sensorModel);
@@ -193,7 +193,7 @@ var sensorDao = {
 
   getAllSensor : function (OnSuccessCallback) {
 
-//    console.log("Config: getAllSensorType");
+//    console.log("Config: getAllSensor");
 
     var insertStatement = "SELECT a.id, a.num, a.type_id, a.location, b.model " +
                           "FROM tbl_sensor AS a, tbl_sensorType AS b " +

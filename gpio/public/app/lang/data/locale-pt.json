@@ -9,27 +9,50 @@
   "BUTTON_LANG_EN": "English",
   "BUTTON_LANG_PT": "Português",
 
-  "deleteSensorType_title" : "Remover Tipo de Sensor",
+  "createSensorType_pagename" : "Inserir Tipo de Sensor",
+
+  "editSensorType_pagename" : "Editar Tipo de Sensor",
+
+  "listSensorType_pagename" : "Lista de Tipos de Sensores",
+
+  "deleteSensorType_modalTitle" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
 
-  "deleteSensor_title" : "Remover Sensor",
+  "createSensor_pagename" : "Inserir Sensor",
+
+  "editSensor_pagename" : "Editar Sensor",
+
+  "listSensor_pagename" : "Lista de Sensores",
+
+  "deleteSensor_modalTitle" : "Remover Sensor",
   "deleteSensor_message" : "Confirma que pretende remover o sensor   n.    ",
   "deleteSensor_close" : "Encerrar",
   "deleteSensor_delete" : "Remover",
 
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
   "createmenu_createSensor" : "Inserir Sensor",
+  "createmenu_createEvent" : "Inserir Ativação",
+
   "createmenu_sensorNumber" : "Número",
   "createmenu_sensorType" : "Tipo",
   "createmenu_sensorModel" : "Modelo",
   "createmenu_sensorLocation" : "Localização",
+  "createmenu_eventSensorId" : "Id do Sensor",
+  "createmenu_eventTime" : "Hora da Ativação",
+
+  "createEvent_pagename" : "Inserir Ativação",
+  "listEvent_pagename" : "Lista de Ativações",
 
   "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
 
+  "menubar_appTitle" : "Pi 3",
+  "menubar_createEvent" : "Inserir Ativação",
+  "menubar_listEvent" : "Listar Ativações",
   "menubar_createSensorType" : "Inserir Tipo de Sensor",
   "menubar_listSensorType" : "Listar Tipo de Sensores",
   "menubar_createSensor" : "Inserir Sensor",
   "menubar_listSensor" : "Listar Sensores",
+  "menubar_event" : "Ativações",
   "menubar_config" : "Configurar",
   "menubar_home" : "Início"
 

@@ -1,24 +1,25 @@
-angular.module("sensorModule")
-       .controller("createSensorController", createSensorController);
+angular.module("eventModule")
+       .controller("createEventController", createEventController);
 
-createSensorController.$inject = ['$window', '$scope', '$timeout',
-                                      'sensorService', 'langService'];
+createEventController.$inject = ['$window', '$scope', '$timeout',
+                                 'eventService', 'langService'];
 
-function createSensorController($window, $scope, $timeout,
-                                sensorService, langService) {
+function createEventController($window, $scope, $timeout,
+                               eventService, langService) {
 
-  $scope.sensorTypes = [];
+  $scope.sensorsData = [];
 
-  $scope.sensorData = {
+  $scope.eventData = {
 
-    sensorId : "",
-    sensorNumber : "",
-    sensorTypeId : "",
-    sensorLocation : ""
+    eventId : "",
+    eventSensorId : "",
+    eventTime : ""
 
   };
 
   loadLanguage ();
+  getAllSensors ();
+
 
   function loadLanguage () {
 
@@ -28,30 +29,29 @@ function createSensorController($window, $scope, $timeout,
         .then ( function (data) {
 //           console.log(data);
            $scope.label = data;
-           $("#createSensor").show();
+           $("#createEvent").show();
         });
   }
 
-  getSensorTypes();
-
-  function getSensorTypes () {
-    sensorService.getAllSensorTypes()
+  function getAllSensors () {
+    eventService.getAllSensors()
       .success( function (data) {
+
         if (data &&
-            data.sensorTypes &&
-            data.sensorTypes.length > 0) {
-              console.log(data);
-              $scope.sensorTypes = data.sensorTypes;
-              $("#createSensor").show();
+            data.sensorsData &&
+            data.sensorsData.length > 0) {
+
+              $scope.sensorsData = data.sensorsData;
+              $("#listSensor").show();
             }
       });
-  }
 
-  function clearSensorData () {
+  };
 
-    $scope.sensorData.sensorNumber = "";
-    $scope.sensorData.sensorTypeId = "";
-    $scope.sensorData.sensorLocation = "";
+  function clearEventData () {
+
+    $scope.eventData.eventSensorId = "";
+    $scope.eventData.eventTime = "";
   };
 
 
@@ -77,41 +77,41 @@ function createSensorController($window, $scope, $timeout,
   };
 
 
-  $scope.validateSensorNumber = {
+  $scope.validateEventSensorId = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearSensorNumberMessage () {
+  function clearEventSensorIdMessage () {
 
-    $scope.validateSensorNumber.containsValidationError = false;
-    $scope.validateSensorNumber.errorMessage = "";
+    $scope.validateEventSensorId.containsValidationError = false;
+    $scope.validateEventSensorId.errorMessage = "";
   };
 
-  function displaySensorNumberMessage () {
+  function displayEventSensorIdMessage () {
 
-    $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = "Enter a sensor number !!";
+    $scope.validateEventSensorId.containsValidationError = true;
+    $scope.validateEventSensorId.errorMessage = "Enter a sensor number !!";
   };
 
-  $scope.validateSensorTypeId = {
+  $scope.validateEventTime = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearSensorTypeIdMessage () {
+  function clearEventTimeMessage () {
 
-    $scope.validateSensorTypeId.containsValidationError = false;
-    $scope.validateSensorTypeId.errorMessage = "";
+    $scope.validateEventTime.containsValidationError = false;
+    $scope.validateEventTime.errorMessage = "";
   };
 
-  function displaySensorTypeIdMessage () {
+  function displayEventTimeMessage () {
 
-    $scope.validateSensorTypeId.containsValidationError = true;
-    $scope.validateSensorTypeId.errorMessage = "Enter a sensor model !!";
+    $scope.validateEventTime.containsValidationError = true;
+    $scope.validateEventTime.errorMessage = "Enter a sensor model !!";
   };
 
-  $scope.createSensor = function (sensorData) {
+  $scope.createEvent = function (eventData) {
 
     var validationMessages = 0;
 /*
@@ -122,9 +122,15 @@ function createSensorController($window, $scope, $timeout,
       ]);
 */
 
-    if ($scope.sensorData.sensorNumber.length == 0) {
+    if ($scope.eventData.eventSensorId.length == 0) {
 
-      displaySensorNumberMessage ();
+      displayEventSensorIdMessage ();
+      validationMessages++;
+    }
+
+    if ($scope.eventData.eventTime.length == 0) {
+
+      displayEventTimeMessage ();
       validationMessages++;
     }
 
@@ -133,13 +139,14 @@ function createSensorController($window, $scope, $timeout,
     if (validationMessages > 0) {
 
       $timeout( function afterTimeOut () {
-        clearSensorNumberMessage ();
+        clearEventSensorIdMessage ();
+        clearEventTimeMessage ();
       }, 2000);
 
 
     } else {
 
-      sensorService.createSensor(sensorData)
+      eventService.createEvent(eventData)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
 
@@ -157,8 +164,8 @@ function createSensorController($window, $scope, $timeout,
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
-            clearSensorData();
-          }, 5000);
+            clearEventData();
+          }, 3000);
 
         });
     } // else

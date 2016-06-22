@@ -100,9 +100,10 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
     requestType : 'get',
     requestUrl : '/createSensorType',
     callbackFunction : function(req, res) {
-
-      res.render('createSensorType', { title : "GPIO", pagename : "Create Sensor Type"});
-
+      res.render('createSensorType', {
+        title : "label.menubar_appTitle",
+        pagename : "label.createSensorType_pagename"
+      });
     }
   });
 
@@ -143,8 +144,8 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
         function (sensorType) {
           console.log(JSON.stringify(sensorType, null, 2));
           res.render('editSensorType', {
-             title : "GPIO",
-             pagename : "Edit Sensor Type",
+             title : "label.menubar_appTitle",
+             pagename : "label.editSensorType_pagename",
              sensorType : sensorType
           });
       });
@@ -235,8 +236,10 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listSensorType',
       callbackFunction : function (request, response) {
-
-          response.render('listSensorType', { title : "GPIO", pagename : "List Sensor Type"});
+          response.render('listSensorType', {
+            title : "label.menubar_appTitle",
+            pagename : "label.listSensorType_pagename"
+          });
       }
   });
 

@@ -1,0 +1,146 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#createEvent {
+   width:400px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="createEvent"
+     data-ng-app="eventModule"
+     data-ng-controller="createEventController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  </br>
+
+  <div class="panel panel-info"
+       style="width: 100%; ">
+
+    <% include templates/pagetitle.ejs %>
+
+    <div class="panel-body" >
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="container">
+
+          <% include ./message.ejs %>
+
+          <form class="navbar-form navbar-left"
+                role="search"
+                method="POST"
+                name="formCreateEvent"
+                novalidate="">
+
+            <div class="row"
+                align="left">
+              <div class="form-group"
+                   style="padding-left: 5%;">
+                <div ng-class="{'has-error': validateEventSensorId.containsValidationError}">
+
+                  <label for="sensorId">
+                    {{label.createmenu_eventSensorId}}
+                  </label>
+
+                  <select id="eventSensorId"
+                          class="form-control"
+                          name="eventSensorId"
+                          ng-model="eventData.eventSensorId"
+                          style="width: 80%;"
+                          required>
+                    <option value="">
+                      Please select a sensor model !!
+                    </option>
+                    <option data-ng-repeat = "sensorData in sensorsData"
+                             value = {{sensorData.id}} > {{sensorData.num}}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <br/>
+
+            <!-- https://material.angularjs.org/latest/demo/datepicker -->
+            <!-- https://www.youtube.com/watch?v=VKRuSryBaNk#t=62.097994 -->
+
+            <div class="row"
+                 align="left">
+              <div class="form-group"
+                   style="padding-left: 5%;">
+                <div ng-class="{'has-error': validateEventTime.containsValidationError}">
+
+                  <label for="sensorTypeId">
+                    {{label.createmenu_eventTime}}
+                  </label>
+
+
+                  <input id="eventTime"
+                         class="form-control"
+                         type="datetime-local"
+                         step="1"
+                         placeholder="Event Time"
+                         name="eventTime"
+                         ng-model="eventData.eventTime"
+                         ng-maxlength="60"
+                         style="width: 77%;"
+                         required>
+                  </input>
+
+                  <label class="help-block text-danger" for="sensorNumber"
+                          data-ng-show="validateEventTime.containsValidationError">
+                     {{ validateSensorNumber.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="sensorNumber"
+                          data-ng-show="!validateEventTime.containsValidationError">
+                    <br/>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <br/>
+
+            <div class="modal-footer"
+                 style="width: 85%;">
+            <div align="center"
+                 class="row">
+              <div class="form-group"
+                   style="padding-left: 0%;">
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-disabled="!formCreateEvent.$valid"
+                        ng-click="createEvent(eventData)">
+                  {{label.createmenu_createEvent}}
+                </button>
+              </div>
+            </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Angular core -->
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langService.js"></script>
+
+<script src='/app/event/eventModule.js'></script>
+<script src='/app/event/eventService.js'></script>
+<script src='/app/event/createEventController.js'></script>
+
+<% include templates/footer.ejs %>

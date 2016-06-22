@@ -51,17 +51,16 @@ app.use('/', routes);
 
 // Sensors
 var sensorTypeRoute = require('./routes/sensorTypeRouteConfig');
-var sensorRoute = require('./routes/sensorRouteConfig');
-
 new sensorTypeRoute(app);
-new sensorRoute(app);
 
+var sensorRoute = require('./routes/sensorRouteConfig');
+new sensorRoute(app);
 
 // GPIO
 
-
-
 // Events
+var eventRoute = require('./routes/eventRouteConfig');
+new eventRoute(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
