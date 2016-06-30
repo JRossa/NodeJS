@@ -236,7 +236,7 @@ function listEventController($window, $scope, $timeout, $filter,
 
   }
 
-  function selectTime(searchTime, itemTime) {
+  function selectTime(searchTime, itemTime, greater) {
 
     if (typeof searchTime === "undefined") {
       return true;
@@ -246,14 +246,15 @@ function listEventController($window, $scope, $timeout, $filter,
       return true;
     }
 
-    var startDate = searchTime;
+//    console.log(itemTime);
+//    console.log(searchTime);
 
-    console.log(itemTime);
-    console.log(startDate);
-
-    console.log(itemTime > startDate);
-
-    return itemTime > startDate;
+    console.log(itemTime > searchTime);
+    if (greater) {
+      return itemTime >= searchTime;
+    } else {
+      return itemTime <= searchTime;
+    }
   }
 
   $scope.matchSelection = function(item){
@@ -261,7 +262,7 @@ function listEventController($window, $scope, $timeout, $filter,
     var sensorOk = true;
     var timeOk   = true;
 
-    console.log($scope.searchText);
+//    console.log($scope.searchText);
 
     if ($scope.searchText != null &&
         $scope.searchText.sensor_id != null) {
@@ -270,11 +271,24 @@ function listEventController($window, $scope, $timeout, $filter,
 
     if ($scope.searchText != null &&
         $scope.searchText.startTime != null) {
-          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.time);
+          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.time, true);
     }
 
-    console.log(sensorOk);
-    console.log(timeOk);
+    if (timeOk) {
+      if ($scope.searchText != null &&
+          $scope.searchText.endTime != null) {
+            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.time, false);
+      }
+    }
+
+//    console.log(sensorOk);
+//    console.log(timeOk);
     return sensorOk && timeOk;
   }
+
+  $scope.sort = function (item) {
+    $scope.sortKey = item;
+    $scope.reverse = !$scope.reverse;
+  };
+
 }

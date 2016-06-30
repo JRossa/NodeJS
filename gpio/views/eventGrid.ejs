@@ -7,55 +7,85 @@
     }
 </style>
 
-<table data-ng-show="eventsData.length > 0"
+<table id="tbleventData"
+       data-ng-show="eventsData.length > 0"
        class="table table-striped table-hover table-bordered table-condensed"
-       id="tbleventData" style="width:100%;">
+       style="width:100%;">
 
   <thead>
     <tr class="success">
-      <td style="width: 10%"> Event Id </td>
-      <td style="width: 10%">
+      <td ng-click="sort('id')"
+          style="width: 10%">
+          Event Id
+          <b ng-show="sortKey != 'id'"
+            class="fa fa-sort"
+            aria-hidden="true">
+          </b>
+          <b ng-show="sortKey == 'id'"
+             ng-class="{'fa fa-sort-asc':reverse,
+                        'fa fa-sort-desc':!reverse}">
+          </b>
+      </td>
+      <td ng-click="sort('sensor_id')"
+          style="width: 10%">
         Sensor Id
+        <b ng-show="sortKey != 'sensor_id'"
+          class="fa fa-sort"
+          aria-hidden="true">
+        </b>
+        <b ng-show="sortKey == 'sensor_id'"
+           ng-class="{'fa fa-sort-asc':reverse,
+                      'fa fa-sort-desc':!reverse}">
+        </b>
         <input ng-model="searchText.sensor_id"
                type="text"
                class="form-control"
                style="font-size:6pt;height:20px;width:100px;"
                placeholder="Search for...">
       </td>
-      <td style="width: 20%">
+      <td ng-click="sort('time')"
+          style="width: 20%">
          Time
+         <b ng-show="sortKey != 'time'"
+           class="fa fa-sort"
+           aria-hidden="true">
+         </b>
+         <b ng-show="sortKey == 'time'"
+            ng-class="{'fa fa-sort-asc':reverse,
+                       'fa fa-sort-desc':!reverse}">
+         </b>
          <div class="form-group">
            <div class="col-md-8">
              <div class="form-group row">
-           <label for="inputStartTime"
-                  class="col-md-4 control-label"
-                  style="font-size:7pt;">Start :</label>
-           <div class="col-md-4">
-           <input id="inputStartTime"
-                  ng-model="searchText.startTime"
-                  ng-model-options="{ getterSetter: true }"
-                  type="date"
-                  datetime="dd-MM-yyyy HH:mm:ss"
-                  class="form-control"
-                  style="font-size:7pt;height:20px;width:150px;"
-                  placeholder="Search for...">
-            </input>
-          </div>
-          <br/>
-          <label for="inputEndTime"
-                 class="col-md-4 control-label"
-                 style="font-size:7pt;">End :  </label>
-          <div class="col-md-4">
-          <input id="inputEndTime"
-                 ng-model="searchText.endTime"
-                 ng-model-options="{ getterSetter: true }"
-                 type="date"
-                 datetime="dd-MM-yyyy HH:mm:ss"
-                 class="form-control"
-                 style="font-size:7pt;height:20px;width:150px;"
-                 placeholder="Search for...">
-           </input>
-         </div>
+               <label for="inputStartTime"
+                      class="col-md-4 control-label"
+                      style="font-size:7pt;">Start :</label>
+               <div class="col-md-4">
+               <input id="inputStartTime"
+                      ng-model="searchText.startTime"
+                      ng-model-options="{ getterSetter: true }"
+                      type="date"
+                      datetime="dd-MM-yyyy HH:mm:ss"
+                      class="form-control"
+                      style="font-size:7pt;height:20px;width:150px;"
+                      placeholder="Search for...">
+                </input>
+              </div>
+              <br/>
+              <label for="inputEndTime"
+                     class="col-md-4 control-label"
+                     style="font-size:7pt;">End :  </label>
+              <div class="col-md-4">
+              <input id="inputEndTime"
+                     ng-model="searchText.endTime"
+                     ng-model-options="{ getterSetter: true }"
+                     type="date"
+                     datetime="dd-MM-yyyy HH:mm:ss"
+                     class="form-control"
+                     style="font-size:7pt;height:20px;width:150px;"
+                     placeholder="Search for...">
+               </input>
+             </div>
            </div>
           </div>
          </div>
@@ -65,7 +95,7 @@
   </thead>
 
   <tbody id='tblsensorDataBody'>
-    <tr data-ng-repeat="eventData in eventsData | filter: matchSelection ">
+    <tr data-ng-repeat="eventData in eventsData | filter: matchSelection | orderBy: sortKey: reverse">
       <td>{{eventData.id}}</td>
       <td>{{eventData.sensor_id}}</td>
       <td>{{eventData.time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
