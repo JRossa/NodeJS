@@ -29,6 +29,11 @@
   "deleteSensor_close" : "Encerrar",
   "deleteSensor_delete" : "Remover",
 
+  "deleteEvent_modalTitle" : "Remover Ativação",
+  "deleteEvent_message" : "Confirma que pretende remover a ativação ocorrida em    ",
+  "deleteEvent_close" : "Encerrar",
+  "deleteEvent_delete" : "Remover",
+
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
   "createmenu_createSensor" : "Inserir Sensor",
   "createmenu_createEvent" : "Inserir Ativação",

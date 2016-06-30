@@ -56,7 +56,9 @@ new sensorTypeRoute(app);
 var sensorRoute = require('./routes/sensorRouteConfig');
 new sensorRoute(app);
 
-// GPIO
+// Pin - GPIO
+var pinRoute = require('./routes/pinRouteConfig');
+new pinRoute(app);
 
 // Events
 var eventRoute = require('./routes/eventRouteConfig');

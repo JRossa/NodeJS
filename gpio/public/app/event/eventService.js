@@ -10,7 +10,7 @@ function eventService ($rootScope, $http, $location) {
 
     createEvent : function (eventData) {
 
-      console.log("Service: eventSensor");
+      console.log("Service: createEvent");
       console.log(eventData);
 
       return $http.post('/createEvent',
@@ -45,6 +45,16 @@ function eventService ($rootScope, $http, $location) {
       // More compatible with different browsers
     //  return $http['delete']('/deleteSensorType/' + sensorTypeId);
   }, // deleteEvent
+
+  deleteAllEvent : function () {
+
+    console.log("deleteAllEvent : Service");
+    // to TEST TODO
+   return $http.delete('/deleteAllEvent');
+
+    // More compatible with different browsers
+  //  return $http['delete']('/deleteSensorType/' + sensorTypeId);
+}, // deleteAllEvent
 
   }; // return
 }

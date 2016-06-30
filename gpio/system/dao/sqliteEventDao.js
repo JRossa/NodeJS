@@ -6,11 +6,22 @@ var eventDao = {
 
     var insertStatement = "INSERT INTO tbl_event VALUES(NULL, ?, ?)";
 
+    console.log(eventData);
+/*
+    if (eventData.eventTime == "") {
+      console.log("NULO");
+      eventData.eventTime = new Date();
+    }
+*/
+    console.log(eventData);
+
     var eventInsert = {
 
       sensorId : eventData.eventSensorId,
       time : eventData.eventTime
     };
+
+    console.log(eventInsert);
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -50,10 +61,6 @@ var eventDao = {
 
     var deleteStatement = "DELETE FROM tbl_event WHERE id = ? ";
 
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
-
     console.log("ligação  " + eventId);
 
     var eventDelete = {
@@ -80,7 +87,7 @@ var eventDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Event error !!!", srvErr : err});
                 }
                 else {
                   connection.run("COMMIT");
@@ -93,20 +100,62 @@ var eventDao = {
     } // connection
   }, // deleteEvent
 
+  deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
+
+    var deleteStatement = "DELETE FROM tbl_event";
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.serialize( function() {
+
+        connection.run("BEGIN TRANSACTION");
+
+        connection.run(deleteStatement,
+                [], function(err, row) {
+
+                if (err !== null) {
+                    // Express handles errors via its next function.
+                    // It will call the next operation layer (middleware),
+                    // which is by default one that handles errors.
+                    console.log(connection.run);
+                    console.log(err);
+                    connection.run("ROLLBACK");
+                    connectionProvider.connectionStringProvider.closeConnection(connection);
+                    //next(err);
+                    OnErrorCallback({ error : "Event error !!!", srvErr : err});
+                }
+                else {
+                  connection.run("COMMIT");
+                  connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+                  OnSuccessCallback({ status : "Successful"});
+              }
+            });
+      }); // serialize
+    } // connection
+  }, // deleteAllEvent
+
   getAllEvent : function (OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_event ORDER BY id ";
+    var selectStatement = "SELECT * FROM tbl_event ORDER BY id ";
+
+    console.log(selectStatement);
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+      if (err) {
+        console.log(err);
+        throw err;
+      }
 
-//        console.log(rows);
-        OnSuccessCallback(rows);
+//      console.log(rows);
+      OnSuccessCallback(rows);
 
       });
 

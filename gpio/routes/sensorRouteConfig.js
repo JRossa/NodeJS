@@ -238,7 +238,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       callbackFunction : function (request, response) {
           response.render('listSensor', {
             title : "label.menubar_appTitle",
-            pagename : "label.listSensorType_pagename"
+            pagename : "label.listSensor_pagename"
           });
       }
   });

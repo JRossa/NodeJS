@@ -1,0 +1,67 @@
+<!--
+<div ng-init="friends = [{name:'John', phone:'555-1276'},
+                         {name:'Mary', phone:'800-BIG-MARY'},
+                         {name:'Mike', phone:'555-4321'},
+                         {name:'Adam', phone:'555-5678'},
+                         {name:'Julie', phone:'555-8765'},
+                         {name:'Juliette', phone:'555-5678'}]"></div>
+
+<label>Search: <input ng-model="searchText"></label>
+<table id="searchTextResults">
+  <tr><th>Name</th><th>Phone</th></tr>
+  <tr ng-repeat="friend in friends | filter:searchText">
+    <td>{{friend.name}}</td>
+    <td>{{friend.phone}}</td>
+  </tr>
+</table>
+<hr>
+<label>Any: <input ng-model="search.$"></label> <br>
+<label>Name only <input ng-model="search.name"></label><br>
+<label>Phone only <input ng-model="search.phone"></label><br>
+<label>Equality <input type="checkbox" ng-model="strict"></label><br>
+<table id="searchObjResults">
+  <tr><th>Name</th><th>Phone</th></tr>
+  <tr ng-repeat="friendObj in friends | filter:search:strict">
+    <td>{{friendObj.name}}</td>
+    <td>{{friendObj.phone}}</td>
+  </tr>
+</table>
+-->
+<br/>
+<div row>
+  <div class="col-xs-12 col-sm-8"
+       style="font-size:10pt;height:30px;width:200px;">
+    <div class="input-group input-group-sm">
+      <input ng-model="searchGlobalText"
+             type="text"
+             class="form-control"
+             placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Go!</button>
+        </span>
+      </input>
+    </div><!-- /input-group -->
+  </div>
+
+  <div class="col-xs-12 col-sm-4 text-center">
+    <button id="buttonInsertEvent"
+            type="button"
+            class="btn btn-xs btn-success text-center"
+            data-ng-click="insertEvent()">
+      <i class="glyphicon glyphicon-user"></i> <br/>
+        Insert Event
+    </button>
+  </div>
+
+  <div class="col-xs-12 col-sm-4 text-center">
+    <button id="buttonDeleteEvent"
+            type="button"
+            class="btn btn-md btn-warning"
+            data-ng-click="deleteAllEvent()">
+            <i class="glyphicon glyphicon-erase"
+               aria-hidden="true" ></i>
+            <span>Delete All</span>
+    </button>
+  </div>
+</div>
+<br/>

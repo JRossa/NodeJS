@@ -1,0 +1,88 @@
+<style>
+.txtbox
+    {
+     font-size:18pt;
+     height:420px;
+     width:200px;
+    }
+</style>
+
+<table data-ng-show="eventsData.length > 0"
+       class="table table-striped table-hover table-bordered table-condensed"
+       id="tbleventData" style="width:100%;">
+
+  <thead>
+    <tr class="success">
+      <td style="width: 10%"> Event Id </td>
+      <td style="width: 10%">
+        Sensor Id
+        <input ng-model="searchText.sensor_id"
+               type="text"
+               class="form-control"
+               style="font-size:6pt;height:20px;width:100px;"
+               placeholder="Search for...">
+      </td>
+      <td style="width: 20%">
+         Time
+         <div class="form-group">
+           <div class="col-md-8">
+             <div class="form-group row">
+           <label for="inputStartTime"
+                  class="col-md-4 control-label"
+                  style="font-size:7pt;">Start :</label>
+           <div class="col-md-4">
+           <input id="inputStartTime"
+                  ng-model="searchText.startTime"
+                  ng-model-options="{ getterSetter: true }"
+                  type="date"
+                  datetime="dd-MM-yyyy HH:mm:ss"
+                  class="form-control"
+                  style="font-size:7pt;height:20px;width:150px;"
+                  placeholder="Search for...">
+            </input>
+          </div>
+          <br/>
+          <label for="inputEndTime"
+                 class="col-md-4 control-label"
+                 style="font-size:7pt;">End :  </label>
+          <div class="col-md-4">
+          <input id="inputEndTime"
+                 ng-model="searchText.endTime"
+                 ng-model-options="{ getterSetter: true }"
+                 type="date"
+                 datetime="dd-MM-yyyy HH:mm:ss"
+                 class="form-control"
+                 style="font-size:7pt;height:20px;width:150px;"
+                 placeholder="Search for...">
+           </input>
+         </div>
+           </div>
+          </div>
+         </div>
+       </td>
+      <td style="width: 40%">  </td>
+    </tr>
+  </thead>
+
+  <tbody id='tblsensorDataBody'>
+    <tr data-ng-repeat="eventData in eventsData | filter: matchSelection ">
+      <td>{{eventData.id}}</td>
+      <td>{{eventData.sensor_id}}</td>
+      <td>{{eventData.time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td class="info">
+
+        <button id="buttonDeleteEvent"
+                type="button"
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#deleteEventModal"
+                data-ng-click="loadEvent(eventData)">
+           <i class="glyphicon glyphicon-erase"
+              aria-hidden="true" ></i>
+           <span>Delete</span>
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

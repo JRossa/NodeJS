@@ -91,7 +91,7 @@ function createEventController($window, $scope, $timeout,
   function displayEventSensorIdMessage () {
 
     $scope.validateEventSensorId.containsValidationError = true;
-    $scope.validateEventSensorId.errorMessage = "Enter a sensor number !!";
+    $scope.validateEventSensorId.errorMessage = "Select a sensor !!";
   };
 
   $scope.validateEventTime = {
@@ -108,7 +108,13 @@ function createEventController($window, $scope, $timeout,
   function displayEventTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
-    $scope.validateEventTime.errorMessage = "Enter a sensor model !!";
+    $scope.validateEventTime.errorMessage = "Enter a date !!";
+  };
+
+  function displayEventCurrentTimeMessage () {
+
+    $scope.validateEventTime.containsValidationError = true;
+    $scope.validateEventTime.errorMessage = "Inserted current date !!";
   };
 
   $scope.createEvent = function (eventData) {
@@ -121,17 +127,23 @@ function createEventController($window, $scope, $timeout,
         { name : $scope.sensorType.sensorObs || "", errorMessage : "Please enter sensor obs !!"}
       ]);
 */
-
-    if ($scope.eventData.eventSensorId.length == 0) {
+    if (eventData.eventSensorId.length == 0) {
 
       displayEventSensorIdMessage ();
       validationMessages++;
     }
 
-    if ($scope.eventData.eventTime.length == 0) {
+    if (eventData.eventTime.toString().length == 0) {
+//      displayEventTimeMessage ();
+//      validationMessages++;
+      if (validationMessages === 0) {
+        var currDate = new Date();
 
-      displayEventTimeMessage ();
-      validationMessages++;
+        $scope.eventData.eventTime = currDate;
+        displayEventCurrentTimeMessage();
+      }
+    } else {
+      console.log(eventData.eventTime);
     }
 
     console.log("validationMessages : " + validationMessages);
@@ -146,6 +158,35 @@ function createEventController($window, $scope, $timeout,
 
     } else {
 
+      var currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
+/*
+      eventData.eventTime = currDate;
+
+      console.log(currDate);
+
+      var year = eventData.eventTime.getFullYear();
+          date = eventData.eventTime.getDate(),
+          month = eventData.eventTime.getMonth(),
+          hours = eventData.eventTime.getHours(),
+          minutes = eventData.eventTime.getMinutes(),
+          seconds = eventData.eventTime.getSeconds();
+
+      date = date < 10 ? '0'+(date+1) : date+1;
+      month = month < 10 ? '0'+(month+1) : month+1;
+
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      console.log(eventData.eventTime.getTimezoneOffset());
+
+      var timeStamp = date + "-" + month + "-" + year +
+                             "" + hours+ ":" + minutes + ":" + seconds + "Z";
+
+      console.log(eventData.eventTime);
+      console.log(timeStamp);
+      eventData.eventTime = timeStamp;
+*/
       eventService.createEvent(eventData)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
@@ -165,11 +206,16 @@ function createEventController($window, $scope, $timeout,
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
             clearEventData();
+            clearEventTimeMessage ();
           }, 3000);
 
         });
     } // else
 
-  }
+  }; // createEvent
+
+  $scope.datetimeChange = function () {
+    console.log("Change");
+  };
 
 } // createSensorController

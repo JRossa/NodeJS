@@ -6,7 +6,7 @@ var connectionString =  {
       // Development
       dev : {
 
-        dbName: './system/db/gpio.db',
+        dbName: './system/db/gpio.sqlite',
 
       },
 

@@ -2,7 +2,7 @@ var fs = require("fs");
 var sqlite3 = require('sqlite3').verbose();
 var dbInit = require('../system/db/dbInit');
 
-var eventRouteConfig = function (app) {
+var pinRouteConfig = function (app) {
 
   this.app = app;
   this.routeTable = [];
@@ -20,7 +20,7 @@ sensorRouteConfig function sensorRouteConfig(app) {
 }
 */
 
-eventRouteConfig.prototype.init = function () {
+pinRouteConfig.prototype.init = function () {
 
   var self = this;
 
@@ -30,32 +30,35 @@ eventRouteConfig.prototype.init = function () {
 
 }
 
-eventRouteConfig.prototype.dbCreateTables = function () {
+pinRouteConfig.prototype.dbCreateTables = function () {
 
     var dbData = new sqlite3.Database(dbInit.dbName);
 
     dbData.serialize(function () {
 
       dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_event'", function (err, rows) {
+          "WHERE type='table' AND name='tbl_pin'", function (err, rows) {
 
           if (err !== null) {
               console.log(err);
           } else {
             if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_event" ' +
+                dbData.run('CREATE TABLE "tbl_pin" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[sensor_id] INTEGER NULL, ' +
-                    '[time] TIMESTAMP UNIQUE  NULL, ' +
+                    '[bcm] INTEGER UNIQUE NULL, ' +
+                    '[board] INTEGER UNIQUE NULL, ' +
+                    '[sensor_id] INTEGER UNIQUE NULL, ' +
+                    '[input] BOOLEAN NULL, ' +
+                    '[used] BOOLEAN  NULL, ' +
                     'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
                     if (err !== null) {
                         console.log(err);
                     } else {
-                        console.log("SQL Table 'tbl_event' initialized.");
+                        console.log("SQL Table 'tbl_pin' initialized.");
                     }
                 });
             } else {
-                console.log("SQL Table 'tbl_event' already initialized.");
+                console.log("SQL Table 'tbl_pin' already initialized.");
             }
         }
       }); // get
@@ -65,7 +68,7 @@ eventRouteConfig.prototype.dbCreateTables = function () {
 }
 
 
-eventRouteConfig.prototype.processRoutes = function () {
+pinRouteConfig.prototype.processRoutes = function () {
 
   var self = this;
 
@@ -93,22 +96,21 @@ eventRouteConfig.prototype.processRoutes = function () {
 
 }
 
-eventRouteConfig.prototype.addRoutes = function () {
+pinRouteConfig.prototype.addRoutes = function () {
 
   var self = this;
 
   self.routeTable.push ( {
     requestType : 'post',
-    requestUrl : '/createEvent',
+    requestUrl : '/createPin',
     callbackFunction : function(req, res) {
 
-      console.log("POST createEvent");
+      console.log("POST createPin");
       console.log(req.body);
-      console.log("POST createEvent");
 
-      var eventDao = require('../system/dao/sqliteEventDao');
+      var pinDao = require('../system/dao/sqliteEventDao');
 
-      eventDao.eventDao.createEvent (req.body,
+      pinDao.pinDao.createEvent (req.body,
 
         function (status) {
           // console.log(status);
@@ -123,10 +125,10 @@ eventRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/createEvent',
+    requestUrl : '/createPin',
     callbackFunction : function(req, res) {
 
-      res.render('createEvent', {
+      res.render('createPin', {
            title : "label.menubar_appTitle",
            pagename : "label.createEvent_pagename"
          });
@@ -136,12 +138,12 @@ eventRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push ( {
     requestType : 'delete',
-    requestUrl : '/deleteEvent/:eventId',
+    requestUrl : '/deletePin/:pinId',
     callbackFunction : function(req, res) {
 
       var eventDao = require('../system/dao/sqliteEventDao');
 
-      eventDao.eventDao.deleteEvent (req.params.eventId,
+      pinDao.pinDao.deleteEvent (req.params.pinId,
 
         function (status) {
           console.log(status);
@@ -150,52 +152,15 @@ eventRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
-    }
-  });
-
-  self.routeTable.push ( {
-    requestType : 'delete',
-    requestUrl : '/deleteAllEvent',
-    callbackFunction : function(req, res) {
-
-      var eventDao = require('../system/dao/sqliteEventDao');
-
-      eventDao.eventDao.deleteAllEvent (
-
-        function (status) {
-          console.log(status);
-          res.json(status);
-      },function (status) {
-        //          console.log(status);
-          res.json(status);
-      });
-    }
-  });
-
-  self.routeTable.push ( {
-    requestType : 'get',
-    requestUrl : '/getAllEvents',
-    callbackFunction : function(req, res) {
-
-      var eventDao = require('../system/dao/sqliteEventDao');
-
-
-      eventDao.eventDao.getAllEvent (
-
-        function (eventsData) {
-          console.log(JSON.stringify(eventsData, null, 2));
-          res.json({ eventsData : eventsData });
-      });
-
     }
   });
 
   self.routeTable.push({
 
       requestType : 'get',
-      requestUrl : '/listEvent',
+      requestUrl : '/listPin',
       callbackFunction : function (request, response) {
-          response.render('listEvent', {
+          response.render('listPin', {
             title : "label.menubar_appTitle",
             pagename : "label.listEvent_pagename"
           });
@@ -204,4 +169,4 @@ eventRouteConfig.prototype.addRoutes = function () {
 
 }
 
-module.exports = eventRouteConfig;
+module.exports = pinRouteConfig;

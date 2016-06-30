@@ -30,6 +30,11 @@
   "deleteSensor_close" : "Close",
   "deleteSensor_delete" : "Delete",
 
+  "deleteEvent_modalTitle" : "Remove Event",
+  "deleteEvent_message" : "Are you sure, you want to delete the event at ",
+  "deleteEvent_close" : "Close",
+  "deleteEvent_delete" : "Delete",
+
   "createmenu_createSensorType" : "Create Sensor Type",
   "createmenu_createSensor" : "Create Sensor",
   "createmenu_createEvent" : "Create Event",

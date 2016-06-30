@@ -56,13 +56,24 @@
                           name="eventSensorId"
                           ng-model="eventData.eventSensorId"
                           style="width: 80%;"
-                          required>
+                          ngRequired>
                     <option value="">
                       Please select a sensor model !!
                     </option>
                     <option data-ng-repeat = "sensorData in sensorsData"
                              value = {{sensorData.id}} > {{sensorData.num}}
                   </select>
+
+                  <label class="help-block text-danger" for="eventSensorId"
+                          data-ng-show="validateEventSensorId.containsValidationError">
+                     {{ validateEventSensorId.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="eventSensorId"
+                          data-ng-show="!validateEventSensorId.containsValidationError">
+                    <br/>
+                  </label>
+
                 </div>
               </div>
             </div>
@@ -78,7 +89,7 @@
                    style="padding-left: 5%;">
                 <div ng-class="{'has-error': validateEventTime.containsValidationError}">
 
-                  <label for="sensorTypeId">
+                  <label for="eventTime">
                     {{label.createmenu_eventTime}}
                   </label>
 
@@ -91,16 +102,15 @@
                          name="eventTime"
                          ng-model="eventData.eventTime"
                          ng-maxlength="60"
-                         style="width: 77%;"
-                         required>
+                         style="width: 73%;">
                   </input>
 
-                  <label class="help-block text-danger" for="sensorNumber"
+                  <label class="help-block text-danger" for="eventTime"
                           data-ng-show="validateEventTime.containsValidationError">
-                     {{ validateSensorNumber.errorMessage }}
+                     {{ validateEventTime.errorMessage }}
                   </label>
 
-                  <label class="help-block text-danger" for="sensorNumber"
+                  <label class="help-block text-danger" for="eventTime"
                           data-ng-show="!validateEventTime.containsValidationError">
                     <br/>
                   </label>
