@@ -224,7 +224,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       sensorDao.sensorDao.getAllSensor (
 
         function (sensorsData) {
-          console.log(JSON.stringify(sensorsData, null, 2));
+//          console.log(JSON.stringify(sensorsData, null, 2));
           res.json({ sensorsData : sensorsData });
       });
 

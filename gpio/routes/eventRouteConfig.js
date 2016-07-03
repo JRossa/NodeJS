@@ -46,7 +46,7 @@ eventRouteConfig.prototype.dbCreateTables = function () {
                 dbData.run('CREATE TABLE "tbl_event" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '[sensor_id] INTEGER NULL, ' +
-                    '[time] TIMESTAMP UNIQUE  NULL, ' +
+                    '[act_time] TIMESTAMP UNIQUE  NULL, ' +
                     'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
                     if (err !== null) {
                         console.log(err);
@@ -106,9 +106,10 @@ eventRouteConfig.prototype.addRoutes = function () {
       console.log(req.body);
       console.log("POST createEvent");
 
-      var eventDao = require('../system/dao/sqliteEventDao');
+//      var eventDao = require('../system/dao/sqliteEventDao');
+      var eventDao = require('../system/pi3GPIO/pi3GPIO');
 
-      eventDao.eventDao.createEvent (req.body,
+      eventDao.pi3GPIO.createEvent (req.body,
 
         function (status) {
           // console.log(status);
@@ -163,7 +164,7 @@ eventRouteConfig.prototype.addRoutes = function () {
       eventDao.eventDao.deleteAllEvent (
 
         function (status) {
-          console.log(status);
+//          console.log(status);
           res.json(status);
       },function (status) {
         //          console.log(status);
@@ -183,7 +184,7 @@ eventRouteConfig.prototype.addRoutes = function () {
       eventDao.eventDao.getAllEvent (
 
         function (eventsData) {
-          console.log(JSON.stringify(eventsData, null, 2));
+//          console.log(JSON.stringify(eventsData, null, 2));
           res.json({ eventsData : eventsData });
       });
 

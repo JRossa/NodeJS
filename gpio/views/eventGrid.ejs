@@ -98,7 +98,7 @@
     <tr data-ng-repeat="eventData in eventsData | filter: matchSelection | orderBy: sortKey: reverse">
       <td>{{eventData.id}}</td>
       <td>{{eventData.sensor_id}}</td>
-      <td>{{eventData.time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+      <td>{{eventData.act_time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
       <td class="info">
 
         <button id="buttonDeleteEvent"

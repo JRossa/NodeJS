@@ -61,7 +61,7 @@ function listEventController($window, $scope, $timeout, $filter,
     console.log(eventData);
     $scope.eventData.eventId = eventData.id;
     $scope.eventData.eventSensorId = eventData.sensor_id.toString();
-    $scope.eventData.eventTime = eventData.time;
+    $scope.eventData.eventTime = eventData.act_time;
   }
 
   $scope.deleteEvent = function () {

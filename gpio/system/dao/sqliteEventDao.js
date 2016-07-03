@@ -6,7 +6,6 @@ var eventDao = {
 
     var insertStatement = "INSERT INTO tbl_event VALUES(NULL, ?, ?)";
 
-    console.log(eventData);
 /*
     if (eventData.eventTime == "") {
       console.log("NULO");
@@ -18,7 +17,7 @@ var eventDao = {
     var eventInsert = {
 
       sensorId : eventData.eventSensorId,
-      time : eventData.eventTime
+      act_time : eventData.eventTime
     };
 
     console.log(eventInsert);
@@ -32,7 +31,7 @@ var eventDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(insertStatement,
-                [eventInsert.sensorId, eventInsert.time], function(err, row) {
+                [eventInsert.sensorId, eventInsert.act_time], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -161,7 +160,51 @@ var eventDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
+  },
+
+  checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
+
+    var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
+                          "WHERE sensor_id = ? " +
+                          "AND act_time > ? "
+                          "ORDER BY id";
+
+    console.log("ligação  " + eventId);
+
+    var currTime = new Date();
+    var topTime = new Date(currTime - intervalTime).toJSON();
+
+//    console.log(selectStatement);
+//    console.log(currTime);
+//    console.log(topTime);
+
+    var eventCheck = {
+      id : eventId,
+      fromDate: topTime
+    };
+
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(selectStatement, [eventCheck.id, eventCheck.fromDate], function (err, rows, fields)  {
+
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+
+//      console.log(rows);
+      console.log(rows);
+      OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
   }
+
 
 }
 

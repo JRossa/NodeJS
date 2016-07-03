@@ -58,8 +58,8 @@ function listSensorTypeController($window, $scope, $timeout,
   };
 
   $scope.loadSensorType = function (sensorType) {
-    console.log("Load");
-    console.log(sensorType);
+//    console.log("Load");
+//    console.log(sensorType);
     $scope.sensorType.sensorTypeId = sensorType.id;
     $scope.sensorType.sensorModel = sensorType.model;
     $scope.sensorType.sensorObs = sensorType.obs;
