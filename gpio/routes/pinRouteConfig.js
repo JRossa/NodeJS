@@ -1,6 +1,3 @@
-var fs = require("fs");
-var sqlite3 = require('sqlite3').verbose();
-var dbInit = require('../system/db/dbInit');
 
 var pinRouteConfig = function (app) {
 
@@ -24,46 +21,17 @@ pinRouteConfig.prototype.init = function () {
 
   var self = this;
 
-  self.dbCreateTables();
+  self.dbCreateTable();
   self.addRoutes();
   self.processRoutes();
 
 }
 
-pinRouteConfig.prototype.dbCreateTables = function () {
+pinRouteConfig.prototype.dbCreateTable = function () {
 
-    var dbData = new sqlite3.Database(dbInit.dbName);
+  var pinDao = require('../system/dao/sqlitePinDao');
 
-    dbData.serialize(function () {
-
-      dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_pin'", function (err, rows) {
-
-          if (err !== null) {
-              console.log(err);
-          } else {
-            if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_pin" ' +
-                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[bcm] INTEGER UNIQUE NULL, ' +
-                    '[board] INTEGER UNIQUE NULL, ' +
-                    '[sensor_id] INTEGER UNIQUE NULL, ' +
-                    '[input] BOOLEAN NULL, ' +
-                    '[used] BOOLEAN  NULL, ' +
-                    'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        console.log("SQL Table 'tbl_pin' initialized.");
-                    }
-                });
-            } else {
-                console.log("SQL Table 'tbl_pin' already initialized.");
-            }
-        }
-      }); // get
-
-    }); // serialize
+  pinDao.pinDao.createTable();
 
 }
 
@@ -108,7 +76,7 @@ pinRouteConfig.prototype.addRoutes = function () {
       console.log("POST createPin");
       console.log(req.body);
 
-      var pinDao = require('../system/dao/sqliteEventDao');
+      var pinDao = require('../system/dao/sqlitePinDao');
 
       pinDao.pinDao.createEvent (req.body,
 
@@ -141,7 +109,7 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/deletePin/:pinId',
     callbackFunction : function(req, res) {
 
-      var eventDao = require('../system/dao/sqliteEventDao');
+      var pinDao = require('../system/dao/sqlitePinDao');
 
       pinDao.pinDao.deleteEvent (req.params.pinId,
 

@@ -24,8 +24,8 @@ global.i18n = require('./system/i18n');
 global.i18n.setLanguage('pt');
 
 // Database
-var dbInit = require('./system/db/dbInit');
-dbInit.dbCreate();
+var sqliteInit = require('./system/db/sqliteInit');
+sqliteInit.dbCreate();
 
 
 // view engine setup

@@ -1,6 +1,3 @@
-var fs = require("fs");
-var sqlite3 = require('sqlite3').verbose();
-var dbInit = require('../system/db/dbInit');
 
 var sensorTypeRouteConfig = function (app) {
 
@@ -24,42 +21,17 @@ sensorTypeRouteConfig.prototype.init = function () {
 
   var self = this;
 
-  self.dbCreateTables();
+  self.dbCreateTable();
   self.addRoutes();
   self.processRoutes();
 
 }
 
-sensorTypeRouteConfig.prototype.dbCreateTables = function () {
+sensorTypeRouteConfig.prototype.dbCreateTable = function () {
 
-    var dbData = new sqlite3.Database(dbInit.dbName);
+  var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
-    dbData.serialize(function () {
-
-      dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_sensorType'", function (err, rows) {
-
-          if (err !== null) {
-              console.log(err);
-          } else {
-              if (rows === undefined) {
-                  dbData.run('CREATE TABLE "tbl_sensorType" ' +
-                      '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                      '[model] VARCHAR(20)  UNIQUE NULL, ' +
-                      '[obs] VARCHAR(100)  NULL)', function (err) {
-                      if (err !== null) {
-                          console.log(err);
-                      } else {
-                          console.log("SQL Table 'tbl_sensorType' initialized.");
-                      }
-                  });
-              } else {
-                  console.log("SQL Table 'tbl_sensorType' already initialized.");
-              }
-          }
-      }); //get
-
-    }); // serialize
+  sensorTypeDao.sensorTypeDao.createTable();
 
 }
 

@@ -1,12 +1,9 @@
-var connectionProvider = require('../db/sqliteConnectionStringProvider');
+var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var sensorTypeDao = {
 
 
   createTable : function () {
-
-    var sqlite3 = require('sqlite3').verbose();
-    var sqliteInit = require('../db/sqliteInit');
 
     var dbData = new sqlite3.Database(sqliteInit.dbName);
 

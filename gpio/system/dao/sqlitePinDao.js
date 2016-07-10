@@ -2,6 +2,46 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var pinDao = {
 
+
+  createTable : function () {
+
+    var sqlite3 = require('sqlite3').verbose();
+    var sqliteInit = require('../db/sqliteInit');
+    var dbData = new sqlite3.Database(sqliteInit.dbName);
+
+    dbData.serialize(function () {
+
+      dbData.get("SELECT name FROM sqlite_master " +
+          "WHERE type='table' AND name='tbl_pin'", function (err, rows) {
+
+          if (err !== null) {
+              console.log(err);
+          } else {
+            if (rows === undefined) {
+                dbData.run('CREATE TABLE "tbl_pin" ' +
+                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '[bcm] INTEGER UNIQUE NULL, ' +
+                    '[board] INTEGER UNIQUE NULL, ' +
+                    '[sensor_id] INTEGER UNIQUE NULL, ' +
+                    '[input] BOOLEAN NULL, ' +
+                    '[used] BOOLEAN  NULL, ' +
+                    'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
+                    if (err !== null) {
+                        console.log(err);
+                    } else {
+                        console.log("SQL Table 'tbl_pin' initialized.");
+                    }
+                });
+            } else {
+                console.log("SQL Table 'tbl_pin' already initialized.");
+            }
+        }
+      }); // get
+
+    }); // serialize
+
+  },
+
   createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
     var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?)";

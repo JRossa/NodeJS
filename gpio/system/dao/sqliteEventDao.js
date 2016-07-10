@@ -2,6 +2,44 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var eventDao = {
 
+
+  createTable : function () {
+
+    var sqlite3 = require('sqlite3').verbose();
+    var sqliteInit = require('../db/sqliteInit');
+
+    var dbData = new sqlite3.Database(sqliteInit.dbName);
+
+    dbData.serialize(function () {
+
+      dbData.get("SELECT name FROM sqlite_master " +
+          "WHERE type='table' AND name='tbl_event'", function (err, rows) {
+
+          if (err !== null) {
+              console.log(err);
+          } else {
+            if (rows === undefined) {
+                dbData.run('CREATE TABLE "tbl_event" ' +
+                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '[sensor_id] INTEGER NULL, ' +
+                    '[act_time] TIMESTAMP UNIQUE  NULL, ' +
+                    'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
+                    if (err !== null) {
+                        console.log(err);
+                    } else {
+                        console.log("SQL Table 'tbl_event' initialized.");
+                    }
+                });
+            } else {
+                console.log("SQL Table 'tbl_event' already initialized.");
+            }
+        }
+      }); // get
+
+    }); // serialize
+
+  },
+
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
     var insertStatement = "INSERT INTO tbl_event VALUES(NULL, ?, ?)";

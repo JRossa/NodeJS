@@ -1,3 +1,4 @@
+// https://www.npmjs.com/package/mysql
 var mysql = require('mysql');
 
 var mysqlConnectionString = require('./mysqlConnectionString');

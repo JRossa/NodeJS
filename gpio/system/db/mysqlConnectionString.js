@@ -6,7 +6,7 @@ var mysqlConnectionString = {
       // Development
       dev : {
 
-        host: 'localhost',
+        host: '192.168.1.61',
         user: 'root',
         password : 'root',
         database : 'gpio'

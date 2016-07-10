@@ -2,6 +2,45 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var sensorDao = {
 
+
+  createTable : function () {
+
+    var sqlite3 = require('sqlite3').verbose();
+    var sqliteInit = require('../db/sqliteInit');
+
+    var dbData = new sqlite3.Database(sqliteInit.dbName);
+
+    dbData.serialize(function () {
+
+      dbData.get("SELECT name FROM sqlite_master " +
+          "WHERE type='table' AND name='tbl_sensor'", function (err, rows) {
+
+          if (err !== null) {
+              console.log(err);
+          } else {
+            if (rows === undefined) {
+                dbData.run('CREATE TABLE "tbl_sensor" ' +
+                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '[num] INTEGER  UNIQUE NULL, ' +
+                    '[type_id] INTEGER  NULL, ' +
+                    '[location] VARCHAR(50)  NULL)', function (err) {
+                    if (err !== null) {
+                        console.log(err);
+                    } else {
+                        console.log("SQL Table 'tbl_sensor' initialized.");
+                    }
+                });
+            } else {
+                console.log("SQL Table 'tbl_sensor' already initialized.");
+            }
+        }
+      }); // get
+
+    }); // serialize
+
+  },
+
+
   createSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
     var insertStatement = "INSERT INTO tbl_sensor VALUES(NULL, ?, ?, ?)";
