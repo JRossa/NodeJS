@@ -195,6 +195,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       sensorDao.sensorDao.getAllSensor (
 
         function (sensorsData) {
+
 //          console.log(JSON.stringify(sensorsData, null, 2));
           res.json({ sensorsData : sensorsData });
       });
@@ -207,6 +208,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listSensor',
       callbackFunction : function (request, response) {
+
           response.render('listSensor', {
             title : "label.menubar_appTitle",
             pagename : "label.listSensor_pagename"

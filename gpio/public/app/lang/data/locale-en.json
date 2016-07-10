@@ -26,6 +26,12 @@
   "listSensor_pagename" : "List Sensors",
 
   "deleteSensor_modalTitle" : "Delete Sensor",
+
+  "deleteSensorType_title" : "Delete Sensor Type",
+  "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
+
+  "deleteSensor_title" : "Delete Sensor",
+
   "deleteSensor_message" : "Are you sure, you want to delete the sensor n.    ",
   "deleteSensor_close" : "Close",
   "deleteSensor_delete" : "Delete",
@@ -54,10 +60,12 @@
   "menubar_appTitle" : "Pi 3",
   "menubar_createEvent" : "Create Event",
   "menubar_listEvent" : "List Event",
+
   "menubar_createSensorType" : "Create Sensor Type",
   "menubar_listSensorType" : "List Sensor Types",
   "menubar_createSensor" : "Create Sensor",
   "menubar_listSensor" : "List Sensors",
+
   "menubar_event" : "Events",
   "menubar_config" : "Config",
   "menubar_home" : "Home"
