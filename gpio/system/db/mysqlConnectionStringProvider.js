@@ -1,21 +1,26 @@
 // https://www.npmjs.com/package/mysql
 var mysql = require('mysql');
 
-var mysqlConnectionString = require('./mysqlConnectionString');
+var connectionString = require('./mysqlConnectionString');
 
 var mysqlConnectionStringProvider =  {
 
   getMySqlConnection: function () {
 
-    var connection = mysql.createConnection(mysqlConnectionString.mysqlConnectionString.connection.dev);
+    var connection = mysql.createConnection(connectionString.connectionString.connection.dev);
 
     connection.connect( function (err) {
 
-      if (err) { thow err;}
+      console.log(connection);
 
-      console.log('Connected Successefully !!');
+      if (err) {
+        console.log('Connection problem !! !!' + err);
+        thow err;
+      }
 
     });
+
+    console.log('Connected Successefully !!');
 
     return connection;
   }

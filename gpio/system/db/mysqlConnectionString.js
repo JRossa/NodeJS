@@ -1,5 +1,5 @@
 
-var mysqlConnectionString = {
+var connectionString = {
 
   connection :  {
 
@@ -38,7 +38,4 @@ var mysqlConnectionString = {
 
 }
 
-module.exports.mysqlConnectionString = mysqlConnectionString;
-
-
-module.exports.mysqlConnectionString = mysqlConnectionString;
+module.exports.connectionString = connectionString;
