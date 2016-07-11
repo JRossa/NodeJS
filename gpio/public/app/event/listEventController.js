@@ -238,16 +238,16 @@ function listEventController($window, $scope, $timeout, $filter,
 
   function selectTime(searchTime, itemTime, greater) {
 
-    if (typeof searchTime === "undefined") {
+    console.log("----------------" + itemTime);
+    console.log(searchTime);
+
+  if (typeof searchTime === "undefined") {
       return true;
     }
 
     if (searchTime == "") {
       return true;
     }
-
-//    console.log(itemTime);
-//    console.log(searchTime);
 
     console.log(itemTime > searchTime);
     if (greater) {
@@ -262,7 +262,9 @@ function listEventController($window, $scope, $timeout, $filter,
     var sensorOk = true;
     var timeOk   = true;
 
-//    console.log($scope.searchText);
+    console.log(item);
+
+    console.log($scope.searchText);
 
     if ($scope.searchText != null &&
         $scope.searchText.sensor_id != null) {
@@ -271,13 +273,13 @@ function listEventController($window, $scope, $timeout, $filter,
 
     if ($scope.searchText != null &&
         $scope.searchText.startTime != null) {
-          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.time, true);
+          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.act_time, true);
     }
 
     if (timeOk) {
       if ($scope.searchText != null &&
           $scope.searchText.endTime != null) {
-            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.time, false);
+            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.act_time, false);
       }
     }
 

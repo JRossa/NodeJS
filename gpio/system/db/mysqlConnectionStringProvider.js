@@ -3,9 +3,9 @@ var mysql = require('mysql');
 
 var connectionString = require('./mysqlConnectionString');
 
-var mysqlConnectionStringProvider =  {
+var connectionStringProvider =  {
 
-  getMySqlConnection: function () {
+  getConnection: function () {
 
     var connection = mysql.createConnection(connectionString.connectionString.connection.dev);
 
@@ -15,7 +15,7 @@ var mysqlConnectionStringProvider =  {
 
       if (err) {
         console.log('Connection problem !! !!' + err);
-        thow err;
+        throw err;
       }
 
     });
@@ -23,14 +23,16 @@ var mysqlConnectionStringProvider =  {
     console.log('Connected Successefully !!');
 
     return connection;
-  }
+  },
 
-  closeMySqlConnection: function (currentConnection) {
+  closeConnection: function (currentConnection) {
 
     if (currentConnection) {
 
       currentConnection.end( function (err) {
-        if (err) { thow err;}
+        if (err) {
+          throw err;
+        }
 
         console.log('Connection Closed Successefully !!');
       });
@@ -38,4 +40,4 @@ var mysqlConnectionStringProvider =  {
   }
 }
 
-module.exports.mysqlConnectionStringProvider = mysqlConnectionStringProvider;
+module.exports.connectionStringProvider = connectionStringProvider;

@@ -5,6 +5,9 @@ var pi3GPIO = {
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
     var eventDao = require('../dao/sqliteEventDao');
+    if (global.config.site.database === 'mysql') {
+      eventDao = require('../dao/mysqlEventDao');
+    }
 
     eventDao.eventDao.createEvent (eventData,
 

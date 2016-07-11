@@ -7,6 +7,24 @@ var mysqlInit = {
 
       var mysql = require('mysql');
 
+/*
+      createStatement = 'CREATE DATABASE IF NOT EXISTS ' +
+                        connectionString.connectionString.connection.dev.database;
+      connection.query('CREATE DATABASE IF NOT EXISTS gpio', function (err) {
+        if (err) {
+          throw err;
+        }
+        useStatement = 'USE ' +
+                       connectionString.connectionString.connection.dev.database;
+        connection.query(useStatement, function (err) {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+        });   // Use Database
+      });       // Create Database
+*/
+
       connString = {
         host: connectionString.connectionString.connection.dev.host,
         user: connectionString.connectionString.connection.dev.user,
@@ -20,7 +38,6 @@ var mysqlInit = {
       connection.connect( function (err) {
 
         if (err) {
-
           throw err;
         }
 
@@ -38,11 +55,11 @@ var mysqlInit = {
             exists = false;
             dbName = connectionString.connectionString.connection.dev.database;
 
-            console.log(result);
-            console.log(dbName);
+//            console.log(result);
+//            console.log(dbName);
 
             result.forEach( function (db) {
-              console.log(db.Database);
+//              console.log(db.Database);
               if (db.Database === dbName) {
                 exists = true;
                 return;

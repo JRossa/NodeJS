@@ -1,61 +1,308 @@
-var ConnectionProvider = require('../db/mysqlConnectionStringProvider');
+var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var sensorDao = {
 
-  createSensorType : function (sensorTypeData, OnSuccessCallback) {
+  createTable : function () {
 
-    console.log("Config: createSensorType");
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
-    var insertStatement = "INSERT INTO tbl_sensorType SET ?";
+    connection.connect( function (err) {
 
-    var sensorType = {
+      if (err) {
+        console.log("Connection error");
+      }
 
-      model : sensorTypeData.sensorModel,
-      obs : sensorTypeData.sensorObs
-    }
+      if (connection) {
+          connection.query('SHOW TABLES LIKE "tbl_sensor"', function (err, row, fields) {
 
-    console.log(sensorTypeData);
+          if (err !== null) {
+              console.log(err);
+              throw err;
+          } else {
+            if (row.length > 0) {
+              console.log("SQL Table 'tbl_sensor' already initialized.");
+            } else {
+              connection.query('CREATE TABLE IF NOT EXISTS tbl_sensor' +
+                   '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+                   'num INTEGER UNIQUE NOT NULL,' +
+                   'type_id INTEGER NOT NULL,' +
+                   'location VARCHAR(50) NULL,' +
+                   'PRIMARY KEY(id),' +
+                   'INDEX FK_tbl_sensor_tbl_sensorType (type_id),' +
+                   'CONSTRAINT FK_tbl_sensor_tbl_sensorType FOREIGN KEY (type_id) ' +
+                   'REFERENCES tbl_sensorType (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
+                if (err !== null) {
+                  console.log(err);
+                    throw err;
+                } else {
+                  console.log("SQL Table 'tbl_sensor' initialized.");
+                }
+              }); // Create Table
+            }
+          }
+        }); // get
+      }
+    }); // connection
 
-    var connection = ConnectionProvider.ConnectionStringProvider.getConnection();
+  },
 
-    console.log(connection);
+
+  createSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
+
+    var insertStatement = "INSERT INTO tbl_sensor VALUES(NULL, ?, ?, ?)";
+
+    var sensorInsert = {
+
+      number : sensorData.sensorNumber,
+      typeId : sensorData.sensorTypeId,
+      location : sensorData.sensorLocation
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query(insertStatement, sensorType, fumction (err, result) {
+      connection.beginTransaction(function(err) {
+        connection.query(insertStatement,
+                [sensorInsert.number, sensorInsert.typeId, sensorInsert.location], function(err, row) {
 
-        if (err) { throw "Query error"}
+            if (err !== null) {
+                // Express handles errors via its next function.
+                // It will call the next operation layer (middleware),
+                // which is by default one that handles errors.
+                console.log(connection.run);
+                console.log(err);
+                connection.rollback(function() {
+                  throw err;
+                });
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                //next(err);
+                OnErrorCallback({ error : "Sensor already exists !!!"});
+            }
+            else {
+              connection.commit(function(err) {
+                if (err) {
+                  return connection.rollback(function() {
+                    throw err;
+                  });
+                }
+              });
+              connectionProvider.connectionStringProvider.closeConnection(connection);
 
-        console.log(result);
-        
-        OnSuccessCallback({ status : "Successful"});
-      });
+//                  console.log(row);
+              OnSuccessCallback({ status : "Successful"});
+          }
+        });
+      }); // beginTransaction
     }     // connection
-  },      // createSensorType
+  },      // createSensor
 
+  updateSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
-  getAllSensorType : function (OnSuccessCallback) {
-/*    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY Id";
+    var updateStatement = "UPDATE tbl_sensor SET num = ?, type_id = ?, location = ? " +
+                          "WHERE id = ? ";
 
-    connection = ConnectionProvider.ConnectionStringProvider.getConnection();
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
 
+    var sensorUpdate = {
+      id : sensorData.sensorId,
+      number : sensorData.sensorNumber,
+      typeId : sensorData.sensorTypeId,
+      location : sensorData.sensorLocation
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query(insertStatement, sensorType, function (err, rows, fields)  {
+      connection.beginTransaction(function(err) {
+        connection.query(updateStatement,
+                [sensorUpdate.number, sensorUpdate.typeId,
+                 sensorUpdate.location, sensorUpdate.id], function(err, row) {
 
-        if (err) { throw err;}
+                if (err !== null) {
+                    // Express handles errors via its next function.
+                    // It will call the next operation layer (middleware),
+                    // which is by default one that handles errors.
+                    console.log(connection.run);
+                    console.log(err);
+                    connection.rollback(function() {
+                      throw err;
+                    });
+                    connectionProvider.connectionStringProvider.closeConnection(connection);
+                    //next(err);
+                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                }
+                else {
+                  connection.commit(function(err) {
+                    if (err) {
+                      return connection.rollback(function() {
+                        throw err;
+                      });
+                    }
+                  });
+                  connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+                  OnSuccessCallback({ status : "Successful"});
+              }
+            });
+      }); // beginTransaction
+    }     // connection
+  },      // updateSensor
 
-        console.log(rows);
+  deleteSensor : function (sensorId, OnSuccessCallback, OnErrorCallback) {
+
+    var deleteStatement = "DELETE FROM tbl_sensor WHERE id = ? ";
+
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
+
+    console.log("ligação  " + sensorId);
+
+    var sensorDelete = {
+      id : sensorId
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.beginTransaction(function(err) {
+        connection.query(deleteStatement,
+                [sensorDelete.id], function(err, row) {
+
+            if (err !== null) {
+                // Express handles errors via its next function.
+                // It will call the next operation layer (middleware),
+                // which is by default one that handles errors.
+                console.log(connection.run);
+                console.log(err);
+                connection.rollback(function() {
+                  throw err;
+                });
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                //next(err);
+                OnErrorCallback({ error : "Sensor already exists !!!"});
+            }
+            else {
+              connection.commit(function(err) {
+                if (err) {
+                  return connection.rollback(function() {
+                    throw err;
+                  });
+                }
+              });
+              connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+              OnSuccessCallback({ status : "Successful"});
+          }
+        });
+      }); // beginTransaction
+    }     // connection
+  },      // deleteSensor
+
+  deleteSensorByTypeId : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
+
+    var deleteStatement = "DELETE FROM tbl_sensor WHERE type_id = ? ";
+
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
+
+    console.log("ligação  " + sensorTypeId);
+
+    var sensorDelete = {
+      typeId : sensorTypeId
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.beginTransaction(function(err) {
+        connection.query(deleteStatement,
+                [sensorDelete.typeId], function(err, row) {
+
+            if (err !== null) {
+                // Express handles errors via its next function.
+                // It will call the next operation layer (middleware),
+                // which is by default one that handles errors.
+                console.log(connection.run);
+                console.log(err);
+                connection.rollback(function() {
+                  throw err;
+                });
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                //next(err);
+                OnErrorCallback({ error : "Sensor already exists !!!"});
+            }
+            else {
+              connection.commit(function(err) {
+                if (err) {
+                  return connection.rollback(function() {
+                    throw err;
+                  });
+                }
+              });
+              connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+              OnSuccessCallback({ status : "Successful"});
+          }
+        });
+      }); // beginTransaction
+    }     // connection
+  },      // deleteSensorByTypeId
+
+  getAllSensor : function (OnSuccessCallback) {
+
+//    console.log("Config: getAllSensor");
+
+    var insertStatement = "SELECT a.id, a.num, a.type_id, a.location, b.model " +
+                          "FROM tbl_sensor AS a, tbl_sensorType AS b " +
+                          "WHERE a.type_id = b.id ORDER BY a.id";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.query(insertStatement, [], function (err, rows, fields)  {
+
+      if (err) { throw err;}
+
+//        console.log(rows);
         OnSuccessCallback(rows);
 
       });
 
-      ConnectionProvider.ConnectionStringProvider.closeConnection(connection);
+      connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-*/
+  },
 
+  getSensorById : function (sensorId, OnSuccessCallback) {
+
+    var insertStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.query(insertStatement, [sensorId], function (err, rows, fields)  {
+
+      if (err) { throw err;}
+
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
   }
+
+
 }
 
 module.exports.sensorDao = sensorDao;

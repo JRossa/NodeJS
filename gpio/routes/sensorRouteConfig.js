@@ -30,6 +30,9 @@ sensorRouteConfig.prototype.init = function () {
 sensorRouteConfig.prototype.dbCreateTable = function () {
 
   var sensorDao = require('../system/dao/sqliteSensorDao');
+  if (global.config.site.database === 'mysql') {
+    sensorDao = require('../system/dao/mysqlSensorDao');
+  }
 
   sensorDao.sensorDao.createTable();
 
@@ -44,19 +47,19 @@ sensorRouteConfig.prototype.processRoutes = function () {
 
       if (route.requestType == 'get') {
 
-          console.log(route);
+//          console.log(route);
           self.app.get(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'post') {
 
-          console.log(route);
+//          console.log(route);
           self.app.post(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'delete') {
 
-          console.log(route);
+//          console.log(route);
           self.app.delete(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'put') {
 
-          console.log(route);
+//          console.log(route);
           self.app.put(route.requestUrl, route.callbackFunction);
       }
 
@@ -88,6 +91,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
 
       sensorDao.sensorDao.createSensor (req.body,
 
@@ -110,6 +116,10 @@ sensorRouteConfig.prototype.addRoutes = function () {
 //      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
+
 /* TODO
       sensorDao.sensorDao.getSensorById (req.params.sensorTypeId,
 
@@ -131,6 +141,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
 /* TODO
       sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
 
@@ -152,6 +165,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
       console.log(req.body);
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
 
       sensorDao.sensorDao.updateSensor (req.body,
 
@@ -172,6 +188,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
 
       sensorDao.sensorDao.deleteSensor (req.params.sensorTypeId,
 
@@ -191,6 +210,9 @@ sensorRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var sensorDao = require('../system/dao/sqliteSensorDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlSensorDao');
+      }
 
       sensorDao.sensorDao.getAllSensor (
 

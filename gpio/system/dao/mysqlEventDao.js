@@ -1,7 +1,6 @@
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
-var sensorTypeDao = {
-
+var eventDao = {
 
   createTable : function () {
 
@@ -14,25 +13,27 @@ var sensorTypeDao = {
       }
 
       if (connection) {
-          connection.query('SHOW TABLES LIKE "tbl_sensorType"', function (err, row, fields) {
+          connection.query('SHOW TABLES LIKE "tbl_event"', function (err, row, fields) {
 
           if (err !== null) {
               console.log(err);
               throw err;
           } else {
             if (row.length > 0) {
-              console.log("SQL Table 'tbl_sensorType' already initialized.");
+              console.log("SQL Table 'tbl_event' already initialized.");
             } else {
-              connection.query('CREATE TABLE IF NOT EXISTS tbl_sensorType' +
-                   '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                   'model VARCHAR(30) UNIQUE NOT NULL,' +
-                   'obs LONGTEXT NULL,' +
-                   'PRIMARY KEY(id))', function (err) {
+              connection.query('CREATE TABLE IF NOT EXISTS tbl_event' +
+              '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+              'sensor_id INTEGER NOT NULL,' +
+              'act_time TIMESTAMP UNIQUE NOT NULL,' +
+              'PRIMARY KEY(id),' +
+              'CONSTRAINT FK_tbl_event_tbl_sensor FOREIGN KEY (sensor_id) ' +
+              'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
                 if (err !== null) {
                   console.log(err);
                     throw err;
                 } else {
-                  console.log("SQL Table 'tbl_sensorType' initialized.");
+                  console.log("SQL Table 'tbl_event' initialized.");
                 }
               }); // Create Table
             }
@@ -40,25 +41,35 @@ var sensorTypeDao = {
         });
       }
     }); // connection
-
   },
 
-  createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
+  createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_sensorType VALUES(NULL, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_event VALUES(NULL, ?, ?)";
 
-    var sensorInsert = {
+/*
+    if (eventData.eventTime == "") {
+      console.log("NULO");
+      eventData.eventTime = new Date();
+    }
+*/
+    console.log(eventData);
 
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+    var eventInsert = {
+
+      sensorId : eventData.eventSensorId,
+      act_time : eventData.eventTime
     };
+
+    console.log(eventInsert);
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
-        connection.beginTransaction(function(err) {
-          connection.query(insertStatement,
-                  [sensorInsert.model, sensorInsert.obs], function(err, row) {
+
+      connection.beginTransaction(function(err) {
+        connection.query(insertStatement,
+                [eventInsert.sensorId, eventInsert.act_time], function(err, row) {
 
             if (err !== null) {
                 // Express handles errors via its next function.
@@ -81,29 +92,24 @@ var sensorTypeDao = {
                   });
                 }
               });
-
               connectionProvider.connectionStringProvider.closeConnection(connection);
 
 //                  console.log(row);
               OnSuccessCallback({ status : "Successful"});
           }
         });
-      }); // beginTransaction
-    }     // connection
-  },      // createSensorType
+      }); // serialize
+    } // connection
+  }, // createEvent
 
-  updateSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
+  deleteEvent : function (eventId, OnSuccessCallback, OnErrorCallback) {
 
-    var updateStatement = "UPDATE tbl_sensorType SET model = ?, obs = ? WHERE id = ? ";
+    var deleteStatement = "DELETE FROM tbl_event WHERE id = ? ";
 
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
+    console.log("ligação  " + eventId);
 
-    var sensorUpdate = {
-      id : sensorType.sensorId,
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+    var eventDelete = {
+      id : eventId
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -111,8 +117,8 @@ var sensorTypeDao = {
     if (connection) {
 
       connection.beginTransaction(function(err) {
-        connection.query(updateStatement,
-                [sensorUpdate.model, sensorUpdate.obs, sensorUpdate.id], function(err, row) {
+        connection.query(deleteStatement,
+                [eventDelete.id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -125,7 +131,7 @@ var sensorTypeDao = {
                     });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Event error !!!", srvErr : err});
                 }
                 else {
                   connection.commit(function(err) {
@@ -140,23 +146,13 @@ var sensorTypeDao = {
                   OnSuccessCallback({ status : "Successful"});
               }
             });
-      }); // beginTransaction
-    }     // connection
-  },      // updateSensorType
+      }); // serialize
+    } // connection
+  }, // deleteEvent
 
-  deleteSensorType : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
+  deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_sensorType WHERE id = ? ";
-
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
-
-    console.log("ligação  " + sensorTypeId);
-
-    var sensorDelete = {
-      id : sensorTypeId
-    };
+    var deleteStatement = "DELETE FROM tbl_event";
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -164,7 +160,7 @@ var sensorTypeDao = {
 
       connection.beginTransaction(function(err) {
         connection.query(deleteStatement,
-                [sensorDelete.id], function(err, row) {
+            [], function(err, row) {
 
             if (err !== null) {
                 // Express handles errors via its next function.
@@ -177,7 +173,7 @@ var sensorTypeDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Sensor already exists !!!"});
+                OnErrorCallback({ error : "Event error !!!", srvErr : err});
             }
             else {
               connection.commit(function(err) {
@@ -192,26 +188,29 @@ var sensorTypeDao = {
               OnSuccessCallback({ status : "Successful"});
           }
         });
-      }); // beginTransaction
-    }     // connection
-  },      // deleteSensorType
+      }); // serialize
+    } // connection
+  }, // deleteAllEvent
 
-  getAllSensorType : function (OnSuccessCallback) {
+  getAllEvent : function (OnSuccessCallback) {
 
-//    console.log("Config: getAllSensorType");
+    var selectStatement = "SELECT * FROM tbl_event ORDER BY id ";
 
-    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
+    console.log(selectStatement);
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query(insertStatement, [], function (err, rows, fields)  {
+      connection.query(selectStatement, [], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+      if (err) {
+        console.log(err);
+        throw err;
+      }
 
-//        console.log(rows);
-        OnSuccessCallback(rows);
+//      console.log(rows);
+      OnSuccessCallback(rows);
 
       });
 
@@ -219,20 +218,42 @@ var sensorTypeDao = {
     }
   },
 
-  getSensorTypeById : function (sensorTypeId, OnSuccessCallback) {
+  checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
+    var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
+                          "WHERE sensor_id = ? " +
+                          "AND act_time > ? "
+                          "ORDER BY id";
+
+    console.log("ligação  " + eventId);
+
+    var currTime = new Date();
+    var topTime = new Date(currTime - intervalTime).toJSON();
+
+//    console.log(selectStatement);
+//    console.log(currTime);
+//    console.log(topTime);
+
+    var eventCheck = {
+      id : eventId,
+      fromDate: topTime
+    };
+
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query(insertStatement, [sensorTypeId], function (err, rows, fields)  {
+      connection.query(selectStatement, [eventCheck.id, eventCheck.fromDate], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+      if (err) {
+        console.log(err);
+        throw err;
+      }
 
-//        console.log(rows);
-        OnSuccessCallback(rows);
+//      console.log(rows);
+      console.log(rows);
+      OnSuccessCallback(rows);
 
       });
 
@@ -243,4 +264,4 @@ var sensorTypeDao = {
 
 }
 
-module.exports.sensorTypeDao = sensorTypeDao;
+module.exports.eventDao = eventDao;

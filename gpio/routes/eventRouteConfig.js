@@ -30,6 +30,9 @@ eventRouteConfig.prototype.init = function () {
 eventRouteConfig.prototype.dbCreateTable = function () {
 
   var eventDao = require('../system/dao/sqliteEventDao');
+  if (global.config.site.database === 'mysql') {
+    eventDao = require('../system/dao/mysqlEventDao');
+  }
 
   eventDao.eventDao.createTable();
 
@@ -44,19 +47,19 @@ eventRouteConfig.prototype.processRoutes = function () {
 
       if (route.requestType == 'get') {
 
-          console.log(route);
+//          console.log(route);
           self.app.get(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'post') {
 
-          console.log(route);
+//          console.log(route);
           self.app.post(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'delete') {
 
-          console.log(route);
+//          console.log(route);
           self.app.delete(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'put') {
 
-          console.log(route);
+//          console.log(route);
           self.app.put(route.requestUrl, route.callbackFunction);
       }
 
@@ -112,6 +115,9 @@ eventRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var eventDao = require('../system/dao/sqliteEventDao');
+      if (global.config.site.database === 'mysql') {
+        eventDao = require('../system/dao/mysqlEventDao');
+      }
 
       eventDao.eventDao.deleteEvent (req.params.eventId,
 
@@ -131,6 +137,9 @@ eventRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var eventDao = require('../system/dao/sqliteEventDao');
+      if (global.config.site.database === 'mysql') {
+        eventDao = require('../system/dao/mysqlEventDao');
+      }
 
       eventDao.eventDao.deleteAllEvent (
 
@@ -150,7 +159,9 @@ eventRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var eventDao = require('../system/dao/sqliteEventDao');
-
+      if (global.config.site.database === 'mysql') {
+        eventDao = require('../system/dao/mysqlEventDao');
+      }
 
       eventDao.eventDao.getAllEvent (
 

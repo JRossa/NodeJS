@@ -5,15 +5,16 @@ var config = {
         password: '',
         database: '',
         port: 3306,
-        debug: true,
         //socket: '/var/run/mysqld/mysqld.sock', // For linux...
-        socket: '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock' //For mac...
+        //socket: '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock', //For mac...
+        debug: true
     },
 
     site: {
         url: 'http://localhost:3000',
-        title: 'GPIO App',
-        language: 'en',
+        title: 'Pi 3',
+        language: 'pt',
+        database: 'mysql',
         html: {
             engine: 'ejs',
             minify: true
