@@ -25,12 +25,6 @@
   "listSensor_pagename" : "Lista de Sensores",
 
   "deleteSensor_modalTitle" : "Remover Sensor",
-
-  "deleteSensorType_title" : "Remover Tipo de Sensor",
-  "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
-
-  "deleteSensor_title" : "Remover Sensor",
-
   "deleteSensor_message" : "Confirma que pretende remover o sensor   n.    ",
   "deleteSensor_close" : "Encerrar",
   "deleteSensor_delete" : "Remover",
@@ -56,17 +50,14 @@
 
   "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
 
-
   "menubar_appTitle" : "Pi 3",
   "menubar_createEvent" : "Inserir Ativação",
   "menubar_listEvent" : "Listar Ativações",
-
   "menubar_createSensorType" : "Inserir Tipo de Sensor",
   "menubar_listSensorType" : "Listar Tipo de Sensores",
   "menubar_createSensor" : "Inserir Sensor",
   "menubar_listSensor" : "Listar Sensores",
   "menubar_event" : "Ativações",
-
   "menubar_config" : "Configurar",
   "menubar_home" : "Início"
 

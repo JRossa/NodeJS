@@ -29,6 +29,7 @@ sensorTypeRouteConfig.prototype.init = function () {
 
 sensorTypeRouteConfig.prototype.dbCreateTable = function () {
 
+//  var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
   var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
 
   sensorTypeDao.sensorTypeDao.createTable();
