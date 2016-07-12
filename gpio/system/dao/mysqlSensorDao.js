@@ -6,43 +6,40 @@ var sensorDao = {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
-    connection.connect( function (err) {
+    if (connection) {
 
-      if (err) {
-        console.log("Connection error");
-      }
+      connection.query('SHOW TABLES LIKE "tbl_sensor"', function (err, row, fields) {
 
-      if (connection) {
-          connection.query('SHOW TABLES LIKE "tbl_sensor"', function (err, row, fields) {
-
-          if (err !== null) {
-              console.log(err);
-              throw err;
+        if (err !== null) {
+            console.log(err);
+            throw err;
+        } else {
+          if (row.length > 0) {
+            console.log("SQL Table 'tbl_sensor' already initialized.");
           } else {
-            if (row.length > 0) {
-              console.log("SQL Table 'tbl_sensor' already initialized.");
-            } else {
-              connection.query('CREATE TABLE IF NOT EXISTS tbl_sensor' +
-                   '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                   'num INTEGER UNIQUE NOT NULL,' +
-                   'type_id INTEGER NOT NULL,' +
-                   'location VARCHAR(50) NULL,' +
-                   'PRIMARY KEY(id),' +
-                   'INDEX FK_tbl_sensor_tbl_sensorType (type_id),' +
-                   'CONSTRAINT FK_tbl_sensor_tbl_sensorType FOREIGN KEY (type_id) ' +
-                   'REFERENCES tbl_sensorType (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
-                if (err !== null) {
-                  console.log(err);
-                    throw err;
-                } else {
-                  console.log("SQL Table 'tbl_sensor' initialized.");
-                }
-              }); // Create Table
-            }
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_sensor' +
+                 '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+                 'num INTEGER UNIQUE NOT NULL,' +
+                 'type_id INTEGER NOT NULL,' +
+                 'location VARCHAR(50) NULL,' +
+                 'PRIMARY KEY(id),' +
+                 'INDEX FK_tbl_sensor_tbl_sensorType (type_id),' +
+                 'CONSTRAINT FK_tbl_sensor_tbl_sensorType FOREIGN KEY (type_id) ' +
+                 'REFERENCES tbl_sensorType (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
+
+              if (err !== null) {
+                console.log(err);
+                  throw err;
+              } else {
+                console.log("SQL Table 'tbl_sensor' initialized.");
+              }
+            }); // Create Table
           }
-        }); // get
-      }
-    }); // connection
+        }
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    } // connection
 
   },
 
@@ -260,9 +257,10 @@ var sensorDao = {
 
 //    console.log("Config: getAllSensor");
 
-    var insertStatement = "SELECT a.id, a.num, a.type_id, a.location, b.model " +
-                          "FROM tbl_sensor AS a, tbl_sensorType AS b " +
-                          "WHERE a.type_id = b.id ORDER BY a.id";
+    var insertStatement = "SELECT s.*, t.model " +
+                          "FROM tbl_sensor AS s, tbl_sensorType AS t " +
+                          "WHERE s.type_id = t.id " +
+                          "ORDER BY s.id ";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 

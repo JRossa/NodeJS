@@ -10,7 +10,7 @@ var mysqlInit = {
 /*
       createStatement = 'CREATE DATABASE IF NOT EXISTS ' +
                         connectionString.connectionString.connection.dev.database;
-      connection.query('CREATE DATABASE IF NOT EXISTS gpio', function (err) {
+      connection.query(createStatement, function (err) {
         if (err) {
           throw err;
         }

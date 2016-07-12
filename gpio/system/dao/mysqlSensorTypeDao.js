@@ -7,39 +7,35 @@ var sensorTypeDao = {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
-    connection.connect( function (err) {
+    if (connection) {
 
-      if (err) {
-        console.log("Connection error");
-      }
+      connection.query('SHOW TABLES LIKE "tbl_sensorType"', function (err, row, fields) {
 
-      if (connection) {
-          connection.query('SHOW TABLES LIKE "tbl_sensorType"', function (err, row, fields) {
-
-          if (err !== null) {
-              console.log(err);
-              throw err;
+        if (err !== null) {
+            console.log(err);
+            throw err;
+        } else {
+          if (row.length > 0) {
+            console.log("SQL Table 'tbl_sensorType' already initialized.");
           } else {
-            if (row.length > 0) {
-              console.log("SQL Table 'tbl_sensorType' already initialized.");
-            } else {
-              connection.query('CREATE TABLE IF NOT EXISTS tbl_sensorType' +
-                   '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                   'model VARCHAR(30) UNIQUE NOT NULL,' +
-                   'obs LONGTEXT NULL,' +
-                   'PRIMARY KEY(id))', function (err) {
-                if (err !== null) {
-                  console.log(err);
-                    throw err;
-                } else {
-                  console.log("SQL Table 'tbl_sensorType' initialized.");
-                }
-              }); // Create Table
-            }
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_sensorType' +
+                 '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+                 'model VARCHAR(30) UNIQUE NOT NULL,' +
+                 'obs LONGTEXT NULL,' +
+                 'PRIMARY KEY(id))', function (err) {
+              if (err !== null) {
+                console.log(err);
+                  throw err;
+              } else {
+                console.log("SQL Table 'tbl_sensorType' initialized.");
+              }
+            }); // Create Table
           }
-        });
-      }
-    }); // connection
+        }
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    } // connection
 
   },
 

@@ -132,7 +132,11 @@ function listEventController($window, $scope, $timeout, $filter,
       eventData.eventTime = new Date();
       var currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
 
-      eventData.eventSensorId = getRandomInt(1, sensorsData.length);
+      indSensor = getRandomInt(1, sensorsData.length);
+
+//      console.log("Ind Sensor " + indSensor);
+//      console.log("Data Sensor " + sensorsData[indSensor].id);
+      eventData.eventSensorId = sensorsData[indSensor].id;
 
       eventService.createEvent(eventData)
         .success(function (data) {
@@ -238,8 +242,8 @@ function listEventController($window, $scope, $timeout, $filter,
 
   function selectTime(searchTime, itemTime, greater) {
 
-    console.log("----------------" + itemTime);
-    console.log(searchTime);
+//    console.log("----------------" + itemTime);
+//    console.log(searchTime);
 
   if (typeof searchTime === "undefined") {
       return true;
@@ -262,13 +266,13 @@ function listEventController($window, $scope, $timeout, $filter,
     var sensorOk = true;
     var timeOk   = true;
 
-    console.log(item);
+//    console.log(item);
 
-    console.log($scope.searchText);
+//    console.log($scope.searchText);
 
     if ($scope.searchText != null &&
-        $scope.searchText.sensor_id != null) {
-          sensorOk = selectSensor($scope.searchText.sensor_id, item.sensor_id);
+        $scope.searchText.sensor_num != null) {
+          sensorOk = selectSensor($scope.searchText.sensor_num, item.sensor_num);
     }
 
     if ($scope.searchText != null &&

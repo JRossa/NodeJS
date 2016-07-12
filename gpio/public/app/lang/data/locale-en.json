@@ -47,7 +47,11 @@
   "createmenu_eventTime" : "Activation Time",
 
   "createEvent_pagename" : "Create Event",
+
   "listEvent_pagename" : "Events List",
+  "listEvent_eventId" : "Event Id",
+  "listEvent_sensorNum" : "Sensor Num",
+  "listEvent_actTime" : "Time",
 
   "editmenu_createSensorType" : "Edit Sensor Type",
 

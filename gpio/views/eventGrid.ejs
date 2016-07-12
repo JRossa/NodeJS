@@ -16,7 +16,7 @@
     <tr class="success">
       <td ng-click="sort('id')"
           style="width: 10%">
-          Event Id
+          {{ label.listEvent_eventId }}
           <b ng-show="sortKey != 'id'"
             class="fa fa-sort"
             aria-hidden="true">
@@ -26,18 +26,18 @@
                         'fa fa-sort-desc':!reverse}">
           </b>
       </td>
-      <td ng-click="sort('sensor_id')"
+      <td ng-click="sort('sensor_num')"
           style="width: 10%">
-        Sensor Id
-        <b ng-show="sortKey != 'sensor_id'"
+          {{ label.listEvent_sensorNum }}
+        <b ng-show="sortKey != 'sensor_num'"
           class="fa fa-sort"
           aria-hidden="true">
         </b>
-        <b ng-show="sortKey == 'sensor_id'"
+        <b ng-show="sortKey == 'sensor_num'"
            ng-class="{'fa fa-sort-asc':reverse,
                       'fa fa-sort-desc':!reverse}">
         </b>
-        <input ng-model="searchText.sensor_id"
+        <input ng-model="searchText.sensor_num"
                type="text"
                class="form-control"
                style="font-size:6pt;height:20px;width:100px;"
@@ -45,7 +45,7 @@
       </td>
       <td ng-click="sort('time')"
           style="width: 20%">
-         Time
+         {{ label.listEvent_actTime }}
          <b ng-show="sortKey != 'time'"
            class="fa fa-sort"
            aria-hidden="true">
@@ -97,7 +97,7 @@
   <tbody id='tblsensorDataBody'>
     <tr data-ng-repeat="eventData in eventsData | filter: matchSelection | orderBy: sortKey: reverse">
       <td>{{eventData.id}}</td>
-      <td>{{eventData.sensor_id}}</td>
+      <td>{{eventData.sensor_num}}</td>
       <td>{{eventData.act_time | date:'dd-MM-yyyy HH:mm:ss'}}</td>
       <td class="info">
 

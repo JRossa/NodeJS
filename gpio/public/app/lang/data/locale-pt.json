@@ -46,7 +46,11 @@
   "createmenu_eventTime" : "Hora da Ativação",
 
   "createEvent_pagename" : "Inserir Ativação",
+
   "listEvent_pagename" : "Lista de Ativações",
+  "listEvent_eventId" : "Num Ativ",
+  "listEvent_sensorNum" : "Num Sensor",
+  "listEvent_actTime" : "Hora",
 
   "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
 

@@ -6,41 +6,40 @@ var eventDao = {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
-    connection.connect( function (err) {
+    if (connection) {
 
-      if (err) {
-        console.log("Connection error");
-      }
+      connection.query('SHOW TABLES LIKE "tbl_event"', function (err, row, fields) {
 
-      if (connection) {
-          connection.query('SHOW TABLES LIKE "tbl_event"', function (err, row, fields) {
-
-          if (err !== null) {
-              console.log(err);
-              throw err;
+        if (err !== null) {
+            console.log(err);
+            throw err;
+        } else {
+          if (row.length > 0) {
+            console.log("SQL Table 'tbl_event' already initialized.");
           } else {
-            if (row.length > 0) {
-              console.log("SQL Table 'tbl_event' already initialized.");
-            } else {
-              connection.query('CREATE TABLE IF NOT EXISTS tbl_event' +
-              '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-              'sensor_id INTEGER NOT NULL,' +
-              'act_time TIMESTAMP UNIQUE NOT NULL,' +
-              'PRIMARY KEY(id),' +
-              'CONSTRAINT FK_tbl_event_tbl_sensor FOREIGN KEY (sensor_id) ' +
-              'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
-                if (err !== null) {
-                  console.log(err);
-                    throw err;
-                } else {
-                  console.log("SQL Table 'tbl_event' initialized.");
-                }
-              }); // Create Table
-            }
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_event' +
+                '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+                'sensor_id INTEGER NOT NULL,' +
+                'act_time TIMESTAMP UNIQUE NOT NULL,' +
+                'PRIMARY KEY(id),' +
+                'INDEX FK_tbl_event_tbl_sensor (sensor_id),' +
+                'CONSTRAINT FK_tbl_event_tbl_sensor FOREIGN KEY (sensor_id) ' +
+                'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
+
+              if (err !== null) {
+                console.log(err);
+                throw err;
+              } else {
+                console.log("SQL Table 'tbl_event' initialized.");
+              }
+            }); // Create Table
           }
-        });
-      }
-    }); // connection
+        }
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }  // connection
+
   },
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
@@ -152,7 +151,7 @@ var eventDao = {
 
   deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_event";
+    var deleteStatement = "DELETE FROM tbl_event ";
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -194,7 +193,11 @@ var eventDao = {
 
   getAllEvent : function (OnSuccessCallback) {
 
-    var selectStatement = "SELECT * FROM tbl_event ORDER BY id ";
+//    var selectStatement = "SELECT * FROM tbl_event ORDER BY id ";
+    var selectStatement = "SELECT e.*, s.num AS sensor_num " +
+                          "FROM tbl_event AS e, tbl_sensor AS s " +
+                          "WHERE e.sensor_id = s.id " +
+                          "ORDER BY e.id ";
 
     console.log(selectStatement);
 
@@ -223,7 +226,7 @@ var eventDao = {
     var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
                           "WHERE sensor_id = ? " +
                           "AND act_time > ? "
-                          "ORDER BY id";
+                          "ORDER BY id ";
 
     console.log("ligação  " + eventId);
 
@@ -258,10 +261,9 @@ var eventDao = {
       });
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
-    }
+    } // connection
+
   }
-
-
 }
 
 module.exports.eventDao = eventDao;

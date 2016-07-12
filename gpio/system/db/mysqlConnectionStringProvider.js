@@ -11,7 +11,8 @@ var connectionStringProvider =  {
 
     connection.connect( function (err) {
 
-      console.log(connection);
+      // it prints a lot of information
+      // console.log(connection);
 
       if (err) {
         console.log('Connection problem !! !!' + err);
