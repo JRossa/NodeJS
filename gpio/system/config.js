@@ -15,6 +15,7 @@ var config = {
         title: 'Pi 3',
         language: 'pt',
         database: 'mysql',
+        os: 'windows',
         html: {
             engine: 'ejs',
             minify: true

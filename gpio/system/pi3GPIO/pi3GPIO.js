@@ -30,8 +30,25 @@ var pi3GPIO = {
         var NEvents = [];
         NEvents = nEvents;
 
-        // TODO - arm the alarm
         console.log("N Events  " + NEvents[0].numEvents);
+
+        // TODO - arm the alarm
+        if (global.config.site.database === 'rpio') {
+          var rpio = require('rpio');
+
+          var options = {
+            gpiomem: true,          /* Use /dev/gpiomem */
+            mapping: 'physical',    /* Use the P1-P40 numbering scheme */
+          }
+          rpio.init(options);
+
+          /* Configure P12 as output with the initiate state set high */
+          rpio.open(12, rpio.OUTPUT, rpio.HIGH);
+          
+          setTimeout(function() {
+            rpio.close(12);
+          }, 60000);
+        }
     });
 
   }, // createEvent
