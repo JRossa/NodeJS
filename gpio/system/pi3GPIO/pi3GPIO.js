@@ -32,19 +32,29 @@ var pi3GPIO = {
 
         console.log("N Events  " + NEvents[0].numEvents);
 
+        var mode   = process.env.ENV_OS;
+        console.log("------ ENV ---------  " + mode);
+
         // TODO - arm the alarm
-        if (global.config.site.database === 'rpio') {
+        if (process.env.ENV_OS === 'rpi') {
           var rpio = require('rpio');
 
           var options = {
             gpiomem: true,          /* Use /dev/gpiomem */
             mapping: 'physical',    /* Use the P1-P40 numbering scheme */
           }
+
+          console.log("------ RPIO --------- OK ");
+
           rpio.init(options);
+
+          console.log('Pin 12(A) = %d', rpio.read(12));
 
           /* Configure P12 as output with the initiate state set high */
           rpio.open(12, rpio.OUTPUT, rpio.HIGH);
-          
+
+          console.log('Pin 12(B) = %d', rpio.read(12));
+
           setTimeout(function() {
             rpio.close(12);
           }, 60000);

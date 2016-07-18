@@ -2,7 +2,6 @@
  *  Module dependencies.
  */
 
-
 var express = require('express');
 var path = require('path');
 
@@ -10,6 +9,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var env = require('node-env-file');
 
 var app = express();
 
@@ -46,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Angular
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')));
 
+env(__dirname + '/.env', {overwrite: true});
 
 // Routing
 // Home Page
