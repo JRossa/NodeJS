@@ -68,7 +68,7 @@ var pi3GPIO = {
 
     function pin_button(pin)
     {
-      console.log('Nuke button on pin %d pressed', pin);
+//      console.log('Nuke button on pin %d pressed', pin);
 
       var eventDao = require('../dao/sqliteEventDao');
       if (global.config.site.database === 'mysql') {
@@ -76,7 +76,10 @@ var pi3GPIO = {
       }
 
       /* Watch pin forever. */
-      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
+//      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
+      if (rpio.read(pin) == 1) {
+        console.log('INSERT');
+      }
 
       /* No need to read pin more than once. */
 //    rpio.poll(pin, null);
@@ -101,7 +104,7 @@ var pi3GPIO = {
       if (pinData.direction == 'input') {
         /* Configure PXX as input with the internal pulldown resistor enabled */
         rpio.open(pinData.pinId, rpio.INPUT);
-        rpio.pud(pinData.pinId, rpio.PULL_UP);
+        rpio.pud(pinData.pinId, rpio.PULL_DOWN);
         
         rpio.poll(pinData.pinId, pin_button, rpio.POLL_HIGH);
       }
