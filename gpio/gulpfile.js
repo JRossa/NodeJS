@@ -52,7 +52,7 @@ gulp.task('default', function() {
 // Usamos o `gulp.run` para rodar as tarefas
 // E usamos o `gulp.watch` para o Gulp esperar mudanças nos arquivos para rodar novamente
 //    gulp.run('lint', 'default');
-    gulp.run('nodemon');
+    gulp.start('nodemon');
 
     gulp.watch(files, function(evt) {
 //    gulp.run('lint', 'default');

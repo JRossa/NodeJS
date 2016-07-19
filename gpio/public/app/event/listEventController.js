@@ -154,6 +154,22 @@ function listEventController($window, $scope, $timeout, $filter,
     }
   }
 
+  pinData = {
+
+    Id : "",
+    Direction : "",
+    SensorId : "",
+    Time : ""
+
+  };
+
+  $scope.setPinData = function () {
+
+    pinData.Id = 38;
+    pinData.Direction = 'input';
+
+    eventService.setPinData(pinData)
+  }
 
   $scope.message = {
 

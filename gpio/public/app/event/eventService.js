@@ -22,6 +22,19 @@ function eventService ($rootScope, $http, $location) {
       );
     }, // createEvent
 
+    setPinData : function (pinData) {
+
+      console.log("Service: setPinData");
+      console.log(eventData);
+
+      return $http.post('/setPinData',
+        {
+          pinId : pinData.Id,
+          direction : pinData.Direction
+        }
+      );
+    }, // setPinData
+
     getAllEvents: function () {
 
       return $http.get('/getAllEvents');
