@@ -66,18 +66,22 @@ var pi3GPIO = {
 
   setPinData : function (pinData) {
 
-    function nuke_button(pin)
+    function pin_button(pin)
     {
-            console.log('Nuke button on pin %d pressed', pin);
+      console.log('Nuke button on pin %d pressed', pin);
 
-            /* No need to nuke more than once. */
-//            rpio.poll(pin, null);
+      var eventDao = require('../dao/sqliteEventDao');
+      if (global.config.site.database === 'mysql') {
+        eventDao = require('../dao/mysqlEventDao');
+      }
+
+      /* Watch pin forever. */
+      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
+
+      /* No need to read pin more than once. */
+//    rpio.poll(pin, null);
     };
 
-    var eventDao = require('../dao/sqliteEventDao');
-    if (global.config.site.database === 'mysql') {
-      eventDao = require('../dao/mysqlEventDao');
-    }
 
     console.log('pi3GPIO - ' + process.env.ENV_OS);
     console.log(pinData);
@@ -96,13 +100,23 @@ var pi3GPIO = {
 
       if (pinData.direction == 'input') {
         /* Configure PXX as input with the internal pulldown resistor enabled */
-        rpio.open(pinData.pinId, rpio.INPUT, rpio.PULL_DOWN);
+        rpio.open(pinData.pinId, rpio.INPUT);
+        rpio.pud(pinData.pinId, rpio.PULL_UP);
+        
+        rpio.poll(pinData.pinId, pin_button, rpio.POLL_HIGH);
+      }
 
-        rpio.poll(pinData.pinId, nuke_button, rpio.POLL_HIGH);
+      if (pinData.direction == 'null') {
+        /* No need to read pin more than once. */
+        rpio.poll(pinData.pinId, null);
+      }
+
+      if (pinData.direction == 'output') {
+
       }
     }
 
-  }, // createPiEvent
+  }, // setPinData
 
 }
 
