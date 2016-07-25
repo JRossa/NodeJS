@@ -12,6 +12,7 @@ var sensorDao = {
 
         if (err !== null) {
             console.log(err);
+            connectionProvider.connectionStringProvider.closeConnection(connection);
             throw err;
         } else {
           if (row.length > 0) {
@@ -29,16 +30,17 @@ var sensorDao = {
 
               if (err !== null) {
                 console.log(err);
-                  throw err;
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                throw err;
               } else {
                 console.log("SQL Table 'tbl_sensor' initialized.");
               }
             }); // Create Table
           }
         }
-      });
 
-      connectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
+      });
     } // connection
 
   },

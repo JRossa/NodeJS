@@ -50,7 +50,9 @@
 formCreateSensorType.sensorModel.$invalid
 <pre>formCreateSensorType.sensorModel.$error = {{ formCreateSensorType.sensorModel.$error }}</pre>
 -->
-                  <label for="sensorModel"> Sensor Model </label>
+                  <label for="sensorModel">
+                    {{label.createmenu_sensorModel}}
+                  </label>
 
                   <input id="sensorModel"
                          type="text"
@@ -87,7 +89,9 @@ formCreateSensorType.sensorModel.$invalid
 
             <div class="row">
               <div class="form-group" >
-                <label for="sensorObs"> Obs: </label>
+                <label for="sensorObs">
+                   {{label.createmenu_obs}}
+                </label>
 
                 <textarea id="sensorObs"
                           class="form-control"

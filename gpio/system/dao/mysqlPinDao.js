@@ -1,45 +1,51 @@
-var connectionProvider = require('../db/sqliteConnectionStringProvider');
+var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var pinDao = {
 
 
   createTable : function () {
 
-    var sqlite3 = require('sqlite3').verbose();
-    var sqliteInit = require('../db/sqliteInit');
-    var dbData = new sqlite3.Database(sqliteInit.dbName);
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
-    dbData.serialize(function () {
+    if (connection) {
 
-      dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_pin'", function (err, rows) {
+      connection.query('SHOW TABLES LIKE "tbl_pin"', function (err, row, fields) {
 
-          if (err !== null) {
-              console.log(err);
+        if (err !== null) {
+            console.log(err);
+            connectionProvider.connectionStringProvider.closeConnection(connection);
+            throw err;
+        } else {
+          if (row.length > 0) {
+            console.log("SQL Table 'tbl_pin' already initialized.");
           } else {
-            if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_pin" ' +
-                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[bcm] INTEGER UNIQUE NULL, ' +
-                    '[board] INTEGER UNIQUE NULL, ' +
-                    '[sensor_id] INTEGER UNIQUE NULL, ' +
-                    '[input] BOOLEAN NULL, ' +
-                    '[used] BOOLEAN  NULL, ' +
-                    '[alarm_duration] INTEGER NULL, ' +
-                    'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        console.log("SQL Table 'tbl_pin' initialized.");
-                    }
-                });
-            } else {
-                console.log("SQL Table 'tbl_pin' already initialized.");
-            }
-        }
-      }); // get
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_pin' +
+                '(id INTEGER NOT NULL AUTO_INCREMENT,' +
+                'bcm INTEGER UNIQUE NOT NULL,' +
+                'board INTEGER UNIQUE NOT NULL,' +
+                'sensor_id INTEGER UNIQUE NOT NULL,' +
+                'input BOOLEAN NULL,' +
+                'used BOOLEAN NULL,' +
+                'alarm_duration INTEGER NULL,' +
+                'PRIMARY KEY(id),' +
+                'INDEX FK_tbl_pin_tbl_sensor (sensor_id),' +
+                'CONSTRAINT FK_tbl_pin_tbl_sensor FOREIGN KEY (sensor_id) ' +
+                'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
 
-    }); // serialize
+              if (err !== null) {
+                console.log(err);
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                throw err;
+              } else {
+                console.log("SQL Table 'tbl_pin' initialized.");
+              }
+            }); // Create Table
+          }
+        }
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+      });
+    }  // connection
 
   },
 
@@ -60,11 +66,8 @@ var pinDao = {
 
     if (connection) {
 
-      connection.serialize( function() {
-
-        connection.run("BEGIN TRANSACTION");
-
-        connection.run(insertStatement,
+      connection.beginTransaction(function(err) {
+        connection.query(insertStatement,
                 [pinInsert.bcm, pinInsert.board, pinInsert.sensorId,
                   pinInsert.input, pinInsert.used], function(err, row) {
 
@@ -72,24 +75,31 @@ var pinDao = {
                     // Express handles errors via its next function.
                     // It will call the next operation layer (middleware),
                     // which is by default one that handles errors.
-                    console.log(connection.run);
                     console.log(err);
-                    connection.run("ROLLBACK");
+                    connection.rollback(function() {
+                      throw err;
+                    });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
                     OnErrorCallback({ error : "Pin already exists !!!"});
                 }
                 else {
-                  connection.run("COMMIT");
+                  connection.commit(function(err) {
+                    if (err) {
+                      return connection.rollback(function() {
+                        throw err;
+                      });
+                    }
+                  });
                   connectionProvider.connectionStringProvider.closeConnection(connection);
 
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful"});
               }
-            });
-      }); // serialize
-    } // connection
-  }, // createPin
+          });
+      }); // beginTransation
+    }     // connection
+  },      // createPin
 
   deletePin : function (pinId, OnSuccessCallback, OnErrorCallback) {
 
@@ -109,34 +119,38 @@ var pinDao = {
 
     if (connection) {
 
-      connection.serialize( function() {
-
-        connection.run("BEGIN TRANSACTION");
-
-        connection.run(deleteStatement,
+      connection.beginTransaction(function(err) {
+        connection.query(deleteStatement,
                 [pinDelete.id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
                     // It will call the next operation layer (middleware),
                     // which is by default one that handles errors.
-                    console.log(connection.run);
                     console.log(err);
-                    connection.run("ROLLBACK");
+                    connection.rollback(function() {
+                      throw err;
+                    });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
                     OnErrorCallback({ error : "Pin already exists !!!"});
                 }
                 else {
-                  connection.run("COMMIT");
+                  connection.commit(function(err) {
+                    if (err) {
+                      return connection.rollback(function() {
+                        throw err;
+                      });
+                    }
+                  });
                   connectionProvider.connectionStringProvider.closeConnection(connection);
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful"});
               }
             });
-      }); // serialize
-    } // connection
-  }, // deletePin
+      }); // beginTransaction
+    }     // connection
+  },      // deletePin
 
   getAllPin : function (OnSuccessCallback) {
 

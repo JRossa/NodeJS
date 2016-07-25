@@ -72,6 +72,19 @@ eventRouteConfig.prototype.addRoutes = function () {
   var self = this;
 
   self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/createEvent',
+    callbackFunction : function(req, res) {
+
+      res.render('createEvent', {
+           title : "label.menubar_appTitle",
+           pagename : "label.createEvent_pagename"
+         });
+
+    }
+  });
+
+  self.routeTable.push ( {
     requestType : 'post',
     requestUrl : '/createEvent',
     callbackFunction : function(req, res) {
@@ -108,19 +121,6 @@ eventRouteConfig.prototype.addRoutes = function () {
       var eventDao = require('../system/pi3GPIO/pi3GPIO');
 
       eventDao.pi3GPIO.setPinData (req.body);
-
-    }
-  });
-
-  self.routeTable.push ( {
-    requestType : 'get',
-    requestUrl : '/createEvent',
-    callbackFunction : function(req, res) {
-
-      res.render('createEvent', {
-           title : "label.menubar_appTitle",
-           pagename : "label.createEvent_pagename"
-         });
 
     }
   });

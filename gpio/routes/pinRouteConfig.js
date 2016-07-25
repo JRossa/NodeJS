@@ -30,6 +30,9 @@ pinRouteConfig.prototype.init = function () {
 pinRouteConfig.prototype.dbCreateTable = function () {
 
   var pinDao = require('../system/dao/sqlitePinDao');
+  if (global.config.site.database === 'mysql') {
+    pinDao = require('../system/dao/mysqlPinDao');
+  }
 
   pinDao.pinDao.createTable();
 
@@ -44,19 +47,19 @@ pinRouteConfig.prototype.processRoutes = function () {
 
       if (route.requestType == 'get') {
 
-          console.log(route);
+//          console.log(route);
           self.app.get(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'post') {
 
-          console.log(route);
+//          console.log(route);
           self.app.post(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'delete') {
 
-          console.log(route);
+//          console.log(route);
           self.app.delete(route.requestUrl, route.callbackFunction);
       } else if (route.requestType == 'put') {
 
-          console.log(route);
+//          console.log(route);
           self.app.put(route.requestUrl, route.callbackFunction);
       }
 
@@ -69,6 +72,19 @@ pinRouteConfig.prototype.addRoutes = function () {
   var self = this;
 
   self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/createPin',
+    callbackFunction : function(req, res) {
+
+      res.render('createPin', {
+           title : "label.menubar_appTitle",
+           pagename : "label.createPin_pagename"
+         });
+
+    }
+  });
+
+  self.routeTable.push ( {
     requestType : 'post',
     requestUrl : '/createPin',
     callbackFunction : function(req, res) {
@@ -77,6 +93,9 @@ pinRouteConfig.prototype.addRoutes = function () {
       console.log(req.body);
 
       var pinDao = require('../system/dao/sqlitePinDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlPinDao');
+      }
 
       pinDao.pinDao.createEvent (req.body,
 
@@ -93,16 +112,18 @@ pinRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/createPin',
+    requestUrl : '/editPin/:pinId',
     callbackFunction : function(req, res) {
 
-      res.render('createPin', {
-           title : "label.menubar_appTitle",
-           pagename : "label.createEvent_pagename"
-         });
+//      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
 
+      var sensorDao = require('../system/dao/sqlitePinDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlPinDao');
+      }
     }
   });
+
 
   self.routeTable.push ( {
     requestType : 'delete',
@@ -110,6 +131,9 @@ pinRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
       var pinDao = require('../system/dao/sqlitePinDao');
+      if (global.config.site.database === 'mysql') {
+        sensorDao = require('../system/dao/mysqlPinDao');
+      }
 
       pinDao.pinDao.deleteEvent (req.params.pinId,
 
@@ -130,7 +154,7 @@ pinRouteConfig.prototype.addRoutes = function () {
       callbackFunction : function (request, response) {
           response.render('listPin', {
             title : "label.menubar_appTitle",
-            pagename : "label.listEvent_pagename"
+            pagename : "label.listPin_pagename"
           });
       }
   });

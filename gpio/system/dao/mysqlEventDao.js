@@ -12,6 +12,7 @@ var eventDao = {
 
         if (err !== null) {
             console.log(err);
+            connectionProvider.connectionStringProvider.closeConnection(connection);
             throw err;
         } else {
           if (row.length > 0) {
@@ -28,6 +29,7 @@ var eventDao = {
 
               if (err !== null) {
                 console.log(err);
+                connectionProvider.connectionStringProvider.closeConnection(connection);
                 throw err;
               } else {
                 console.log("SQL Table 'tbl_event' initialized.");
@@ -35,9 +37,9 @@ var eventDao = {
             }); // Create Table
           }
         }
-      });
 
-      connectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
+      });
     }  // connection
 
   },
@@ -74,7 +76,6 @@ var eventDao = {
                 // Express handles errors via its next function.
                 // It will call the next operation layer (middleware),
                 // which is by default one that handles errors.
-                console.log(connection.run);
                 console.log(err);
                 connection.rollback(function() {
                   throw err;
@@ -97,9 +98,9 @@ var eventDao = {
               OnSuccessCallback({ status : "Successful"});
           }
         });
-      }); // serialize
-    } // connection
-  }, // createEvent
+      }); // beginTransation
+    }     // connection
+  },      // createEvent
 
   deleteEvent : function (eventId, OnSuccessCallback, OnErrorCallback) {
 
@@ -123,7 +124,6 @@ var eventDao = {
                     // Express handles errors via its next function.
                     // It will call the next operation layer (middleware),
                     // which is by default one that handles errors.
-                    console.log(connection.run);
                     console.log(err);
                     connection.rollback(function() {
                       throw err;
@@ -145,9 +145,9 @@ var eventDao = {
                   OnSuccessCallback({ status : "Successful"});
               }
             });
-      }); // serialize
-    } // connection
-  }, // deleteEvent
+      }); // beginTransaction
+    }     // connection
+  },      // deleteEvent
 
   deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
 

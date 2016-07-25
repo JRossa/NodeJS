@@ -13,6 +13,7 @@ var sensorTypeDao = {
 
         if (err !== null) {
             console.log(err);
+            connectionProvider.connectionStringProvider.closeConnection(connection);
             throw err;
         } else {
           if (row.length > 0) {
@@ -25,16 +26,17 @@ var sensorTypeDao = {
                  'PRIMARY KEY(id))', function (err) {
               if (err !== null) {
                 console.log(err);
-                  throw err;
+                connectionProvider.connectionStringProvider.closeConnection(connection);
+                throw err;
               } else {
                 console.log("SQL Table 'tbl_sensorType' initialized.");
               }
             }); // Create Table
           }
         }
-      });
 
-      connectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
+      });
     } // connection
 
   },

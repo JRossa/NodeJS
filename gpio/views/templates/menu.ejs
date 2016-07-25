@@ -63,9 +63,37 @@
             </b>
           </a>
           <ul class='dropdown-menu'>
-              <li><a href='#'>Read IO</a></li>
-              <li><a href='#'>Write IO</a></li>
-              <li><a href='/setGPIO'>Enable</a></li>
+              <li>
+                <a href='/armRPi'>
+                  {{ label.menubar_armRPi }}
+                </a>
+              </li>
+              <li>
+                <a href='/disarmRPi'>
+                  {{ label.menubar_disarmRPi }}
+                </a>
+              </li>
+              <li>
+                <a href='/setGPIO'>
+                  {{ label.menubar_setGPIO }}
+                </a>
+              </li>
+              <li>
+                <a href='/clearGPIO'>
+                  {{ label.menubar_clearGPIO }}
+                </a>
+              </li>
+              <li>
+                <a href='/createPin'>
+                   {{ label.menubar_createPin }}
+                </a>
+              </li>
+              <li>
+                <a href='/listPin'>
+                  {{ label.menubar_listPin }}
+                </a>
+              </li>
+              <li>
           </ul>
         </li> <!-- GPIO -->
 

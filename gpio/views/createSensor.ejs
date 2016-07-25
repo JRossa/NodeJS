@@ -85,7 +85,7 @@
                         style="width: 90%;"
                         required>
                   <option value="">
-                    Please select a sensor model !!
+                    {{label.createmenu_selectSensorType}}
                   </option>
                   <option data-ng-repeat = "sensorType in sensorTypes"
                            value = {{sensorType.id}} > {{sensorType.model}}

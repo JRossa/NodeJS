@@ -1,0 +1,161 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#createPin {
+   width:400px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="createPin"
+     data-ng-app="pinModule"
+     data-ng-controller="createPinController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  </br>
+
+  <div class="panel panel-info"
+       style="width: 100%; ">
+
+    <% include templates/pagetitle.ejs %>
+
+    <div class="panel-body" >
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="container">
+
+          <% include ./message.ejs %>
+
+          <form class="navbar-form navbar-left"
+                role="search"
+                method="POST"
+                name="formCreatePin"
+                novalidate="">
+
+            <div class="row">
+              <div class="form-group">
+                <div ng-class="{'has-error': validatePinBOARD.containsValidationError}">
+
+                  <label for="PinBOARD">
+                    {{label.createmenu_PinBOARD}}
+                  </label>
+
+                  <input id="PinBOARD"
+                         class="form-control"
+                         type="text"
+                         placeholder={{label.createmenu_enterPinBOARD}}
+                         name="pinNumber"
+                         ng-model="pinData.pinNumber"
+                         ng-maxlength="40"
+                         style="width: 110%;"
+                         required>
+                  </input>
+                  <label class="help-block text-danger" for="pinNumber"
+                          data-ng-show="validatePinBOARD.containsValidationError">
+                     {{ validatePinBOARD.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="sensorNumber"
+                          data-ng-show="!validatePinNumber.containsValidationError">
+                    <br/>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group">
+                <div ng-class="{'has-error': validatePinBCM.containsValidationError}">
+
+                  <label for="PinBCM">
+                    {{label.createmenu_PinBCM}}
+                  </label>
+
+                  <input id="PinBCM"
+                         class="form-control"
+                         type="text"
+                         placeholder={{label.createmenu_enterPinBCM}}
+                         name="pinNumber"
+                         ng-model="pinData.pinNumber"
+                         ng-maxlength="40"
+                         style="width: 110%;"
+                         required>
+                  </input>
+                  <label class="help-block text-danger" for="pinNumber"
+                          data-ng-show="validatePinBOARD.containsValidationError">
+                     {{ validatePinBOARD.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="sensorNumber"
+                          data-ng-show="!validatePinNumber.containsValidationError">
+                    <br/>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <br/>
+<!--
+            <div class="row">
+              <div class="form-group ">
+                <label for="sensorId">
+                  {{label.createmenu_sensorNumber}}
+                </label>
+
+                <select id="sensorId"
+                        class="form-control"
+                        name="sensorType"
+                        ng-model="sensorData.sensorTypeId"
+                        style="width: 90%;"
+                        required>
+                  <option value="">
+                    {{label.createmenu_selectSensor}}
+                  </option>
+                  <option data-ng-repeat = "sensorData in sensorsData"
+                           value = {{sensorData.id}} > {{sensorData.location}}
+                </select>
+              </div>
+            </div>
+-->
+
+            <div align="center"
+                 class="row">
+              <div class="form-group"
+                   style="padding-left: 0%;">
+                <button type="button"
+                        class="btn btn-primary"
+                        ng-disabled="!formCreateSensor.$valid"
+                        ng-click="createSensor(sensorData)">
+                  {{label.createmenu_createPin}}
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Angular core -->
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langService.js"></script>
+
+<script src='/app/pin/pinModule.js'></script>
+<script src='/app/pin/pinService.js'></script>
+<script src='/app/pin/createPinController.js'></script>
+
+<% include templates/footer.ejs %>

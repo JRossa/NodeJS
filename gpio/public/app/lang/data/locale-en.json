@@ -10,20 +10,22 @@
   "BUTTON_LANG_PT": "Português",
 
   "createSensorType_pagename" : "Create Sensor Type",
-
   "editSensorType_pagename" : "Edit Sensor Type",
-
   "listSensorType_pagename" : "List Sensor Types",
+
+  "createSensor_pagename" : "Create Sensor",
+  "editSensor_pagename" : "Edit Sensor",
+  "listSensor_pagename" : "List Sensors",
+
+  "createEvent_pagename" : "Create Event",
+  "listEvent_pagename" : "Events List",
+
+  "createPin_pagename" : "Create Pin",
+  "listPin_pagename" : "List Pins",
 
   "deleteSensorType_modalTitle" : "Delete Sensor Type",
   "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
 
-
-  "createSensor_pagename" : "Create Sensor",
-
-  "editSensor_pagename" : "Edit Sensor",
-
-  "listSensor_pagename" : "List Sensors",
 
   "deleteSensor_modalTitle" : "Delete Sensor",
   "deleteSensor_message" : "Are you sure, you want to delete the sensor n.    ",
@@ -38,17 +40,25 @@
   "createmenu_createSensorType" : "Create Sensor Type",
   "createmenu_createSensor" : "Create Sensor",
   "createmenu_createEvent" : "Create Event",
+  "createmenu_createPin" : "Insert Pin",
 
   "createmenu_sensorNumber" : "Number",
   "createmenu_sensorType" : "Type",
-  "createmenu_sensorModel" : "Model",
+  "createmenu_sensorModel" : "Sensor Model",
   "createmenu_sensorLocation" : "Location",
   "createmenu_eventSensorId" : "Sensor Id",
   "createmenu_eventTime" : "Activation Time",
+  "createmenu_obs" : "Obs :",
+  "createmenu_selectSensor" : "Please select a sensor !!",
+  "createmenu_selectSensorType" : "Please select a sensor model !!",
+  "createmenu_enterSensorType" : "Insira o tipo de sensor",
+  "createmenu_enterSensor" : "Insira ....",
+  "createmenu_enterPinBOARD" : "Enter BCM number",
+  "createmenu_enterPinBCM" : "Enter GPIO number",
 
-  "createEvent_pagename" : "Create Event",
+  "createmenu_PinBCM" : "GPIO Number",
+  "createmenu_PinBOARD" : "BOARD Number",
 
-  "listEvent_pagename" : "Events List",
   "listEvent_eventId" : "Event Id",
   "listEvent_sensorNum" : "Sensor Num",
   "listEvent_actTime" : "Time",
@@ -62,6 +72,12 @@
   "menubar_listSensorType" : "List Sensor Types",
   "menubar_createSensor" : "Create Sensor",
   "menubar_listSensor" : "List Sensors",
+  "menubar_armRPi" : "Arm Alarm",
+  "menubar_disarmRPi" : "Disarm Alarm",
+  "menubar_setGPIO" : "Set RPi",
+  "menubar_clearGPIO" : "Clear RPi",
+  "menubar_createPin" : "Create IO Pin",
+  "menubar_listPin" : "List IO Pins",
   "menubar_event" : "Events",
   "menubar_config" : "Config",
   "menubar_home" : "Home"

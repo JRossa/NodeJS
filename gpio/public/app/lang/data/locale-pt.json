@@ -10,19 +10,22 @@
   "BUTTON_LANG_PT": "Português",
 
   "createSensorType_pagename" : "Inserir Tipo de Sensor",
-
   "editSensorType_pagename" : "Editar Tipo de Sensor",
-
   "listSensorType_pagename" : "Lista de Tipos de Sensores",
+
+  "createSensor_pagename" : "Inserir Sensor",
+  "editSensor_pagename" : "Editar Sensor",
+  "listSensor_pagename" : "Lista de Sensores",
+
+  "createEvent_pagename" : "Inserir Ativação",
+  "listEvent_pagename" : "Lista de Ativações",
+
+  "createPin_pagename" : "Inserir Pin",
+  "listPin_pagename" : "Lista de Pinos",
 
   "deleteSensorType_modalTitle" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
 
-  "createSensor_pagename" : "Inserir Sensor",
-
-  "editSensor_pagename" : "Editar Sensor",
-
-  "listSensor_pagename" : "Lista de Sensores",
 
   "deleteSensor_modalTitle" : "Remover Sensor",
   "deleteSensor_message" : "Confirma que pretende remover o sensor   n.    ",
@@ -37,17 +40,25 @@
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
   "createmenu_createSensor" : "Inserir Sensor",
   "createmenu_createEvent" : "Inserir Ativação",
+  "createmenu_createPin" : "Inserir Pino",
 
   "createmenu_sensorNumber" : "Número",
   "createmenu_sensorType" : "Tipo",
-  "createmenu_sensorModel" : "Modelo",
+  "createmenu_sensorModel" : "Modelo do Sensor",
   "createmenu_sensorLocation" : "Localização",
   "createmenu_eventSensorId" : "Id do Sensor",
   "createmenu_eventTime" : "Hora da Ativação",
+  "createmenu_obs" : "Obs :",
+  "createmenu_selectSensor" : "Selecione um sensor !!",
+  "createmenu_selectSensorType" : "Selecione um modelo de sensor !!",
+  "createmenu_enterSensorType" : "Insira o tipo de sensor",
+  "createmenu_enterSensor" : "Insira ....",
+  "createmenu_enterPinBOARD" : "Insira número do Pino",
+  "createmenu_enterPinBCM" : "Insira número GPIO",
 
-  "createEvent_pagename" : "Inserir Ativação",
+  "createmenu_PinBCM" : "Número GPIO",
+  "createmenu_PinBOARD" : "Número do Pino",
 
-  "listEvent_pagename" : "Lista de Ativações",
   "listEvent_eventId" : "Num Ativ",
   "listEvent_sensorNum" : "Num Sensor",
   "listEvent_actTime" : "Hora",
@@ -61,6 +72,12 @@
   "menubar_listSensorType" : "Listar Tipo de Sensores",
   "menubar_createSensor" : "Inserir Sensor",
   "menubar_listSensor" : "Listar Sensores",
+  "menubar_armRPi" : "Ligar Alarme",
+  "menubar_disarmRPi" : "Desligar Alarme",
+  "menubar_setGPIO" : "Aplicar Config RPi",
+  "menubar_clearGPIO" : "Limpar Config RPi",
+  "menubar_createPin" : "Criar Pino IO",
+  "menubar_listPin" : "Listar Pinos IO",
   "menubar_event" : "Ativações",
   "menubar_config" : "Configurar",
   "menubar_home" : "Início"
