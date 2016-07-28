@@ -27,9 +27,10 @@ global.i18n.setLanguage('pt');
 var sqliteInit = require('./system/db/sqliteInit');
 sqliteInit.dbCreate();
 
-var mysqlInit = require('./system/db/mysqlInit');
-mysqlInit.dbCreate();
-
+if (global.config.site.database === 'mysql') {
+  var mysqlInit = require('./system/db/mysqlInit');
+  mysqlInit.dbCreate();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

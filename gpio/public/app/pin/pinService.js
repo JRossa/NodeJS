@@ -15,8 +15,12 @@ function pinService ($rootScope, $http, $location) {
 
       return $http.post('/createPin',
         {
-          pinNumber : pinData.pinNumber
-
+          pinBCM : pinData.pinBCM,
+          pinBOARD : pinData.pinBOARD,
+          pinSensorId : pinData.pinSensorId,
+          pinInput : pinData.pinInput,
+          pinUsed : pinData.pinUsed,
+          pinAlarmDuration : pinData.pinAlarmDuration
         }
       );
     }, // createSensor

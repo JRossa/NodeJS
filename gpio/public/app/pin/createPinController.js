@@ -13,7 +13,7 @@ function createPinController($window, $scope, $timeout,
 
     pinId : "",
     pinBCM : "",
-    PinBOARD : "",
+    pinBOARD : "",
     pinSensorId : "",
     pinInput : "",
     pinUsed : "",
@@ -54,7 +54,7 @@ function createPinController($window, $scope, $timeout,
 
     $scope.pinData.pinId = "";
     $scope.pinData.pinBCM = "";
-    $scope.pinData.PinBOARD = "";
+    $scope.pinData.pinBOARD = "";
     $scope.pinData.pinSensorId = "";
     $scope.pinData.pinInput = "";
     $scope.pinData.pinUsed = "";
@@ -98,24 +98,24 @@ function createPinController($window, $scope, $timeout,
   function displayPinBOARDMessage () {
 
     $scope.validatePinBOARD.containsValidationError = true;
-    $scope.validatePinBOARD.errorMessage = "Enter a pin number !!";
+    $scope.validatePinBOARD.errorMessage = "Enter a BOARD pin number !!";
   };
 
-  $scope.validateSensorId = {
+  $scope.validatePinBCM = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearSensorIdMessage () {
+  function clearPinBCMMessage () {
 
-    $scope.validateSensorId.containsValidationError = false;
-    $scope.validateSensorId.errorMessage = "";
+    $scope.validatePinBCM.containsValidationError = false;
+    $scope.validatePinBCM.errorMessage = "";
   };
 
-  function displaySensorIdMessage () {
+  function displayPinBCMMessage () {
 
-    $scope.validateSensorId.containsValidationError = true;
-    $scope.validateSensorId.errorMessage = "Enter a sensor id !!";
+    $scope.validatePinBCM.containsValidationError = true;
+    $scope.validatePinBCM.errorMessage = "Enter a BCM pin number !!";
   };
 
   $scope.createPin = function (pinData) {
@@ -129,9 +129,15 @@ function createPinController($window, $scope, $timeout,
       ]);
 */
 
-    if ($scope.pinData.PinBOARD.length == 0) {
+    if ($scope.pinData.pinBOARD.length == 0) {
 
       displayPinBOARDMessage ();
+      validationMessages++;
+    }
+
+    if ($scope.pinData.pinBCM.length == 0) {
+
+      displayPinBCMMessage ();
       validationMessages++;
     }
 
@@ -141,8 +147,8 @@ function createPinController($window, $scope, $timeout,
 
       $timeout( function afterTimeOut () {
         clearPinBOARDMessage ();
+        clearPinBCMMessage ();
       }, 2000);
-
 
     } else {
 

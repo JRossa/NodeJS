@@ -97,7 +97,7 @@ pinRouteConfig.prototype.addRoutes = function () {
         sensorDao = require('../system/dao/mysqlPinDao');
       }
 
-      pinDao.pinDao.createEvent (req.body,
+      pinDao.pinDao.createPin (req.body,
 
         function (status) {
           // console.log(status);

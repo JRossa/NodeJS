@@ -14,7 +14,7 @@ var config = {
         url: 'http://localhost:3000',
         title: 'Pi 3',
         language: 'pt',
-        database: 'mysql',
+        database: 'sqlite',
         html: {
             engine: 'ejs',
             minify: true

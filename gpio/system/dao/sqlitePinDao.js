@@ -45,15 +45,15 @@ var pinDao = {
 
   createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
     var pinInsert = {
-
-      bcm : pinData.gpioBCM,
-      board : pinData.gpioBOARD,
-      sensorId : pinData.gpioSensorId,
-      input : pinData.gpioInput,
-      used : pinData.gpioUsed
+      bcm : pinData.pinBCM,
+      board : pinData.pinBOARD,
+      sensorId : pinData.pinSensorId,
+      input : pinData.pinInput,
+      used : pinData.pinUsed,
+      alarmDuration : pinData.pinAlarmDuration
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -66,7 +66,7 @@ var pinDao = {
 
         connection.run(insertStatement,
                 [pinInsert.bcm, pinInsert.board, pinInsert.sensorId,
-                  pinInsert.input, pinInsert.used], function(err, row) {
+                  pinInsert.input, pinInsert.used, pinInsert.alarmDuration], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.

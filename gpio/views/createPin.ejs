@@ -54,9 +54,9 @@
                          type="text"
                          placeholder={{label.createmenu_enterPinBOARD}}
                          name="pinNumber"
-                         ng-model="pinData.pinNumber"
+                         ng-model="pinData.pinBOARD"
                          ng-maxlength="40"
-                         style="width: 110%;"
+                         style="width: 100%;"
                          required>
                   </input>
                   <label class="help-block text-danger" for="pinNumber"
@@ -64,8 +64,8 @@
                      {{ validatePinBOARD.errorMessage }}
                   </label>
 
-                  <label class="help-block text-danger" for="sensorNumber"
-                          data-ng-show="!validatePinNumber.containsValidationError">
+                  <label class="help-block text-danger" for="pinNumber"
+                          data-ng-show="!validatePinBOARD.containsValidationError">
                     <br/>
                   </label>
                 </div>
@@ -85,18 +85,18 @@
                          type="text"
                          placeholder={{label.createmenu_enterPinBCM}}
                          name="pinNumber"
-                         ng-model="pinData.pinNumber"
+                         ng-model="pinData.pinBCM"
                          ng-maxlength="40"
-                         style="width: 110%;"
+                         style="width: 100%;"
                          required>
                   </input>
-                  <label class="help-block text-danger" for="pinNumber"
-                          data-ng-show="validatePinBOARD.containsValidationError">
+                  <label class="help-block text-danger" for="PinBCM"
+                          data-ng-show="validatePinBCM.containsValidationError">
                      {{ validatePinBOARD.errorMessage }}
                   </label>
 
-                  <label class="help-block text-danger" for="sensorNumber"
-                          data-ng-show="!validatePinNumber.containsValidationError">
+                  <label class="help-block text-danger" for="PinBCM"
+                          data-ng-show="!validatePinBCM.containsValidationError">
                     <br/>
                   </label>
                 </div>
@@ -133,8 +133,8 @@
                    style="padding-left: 0%;">
                 <button type="button"
                         class="btn btn-primary"
-                        ng-disabled="!formCreateSensor.$valid"
-                        ng-click="createSensor(sensorData)">
+                        ng-disabled="!formCreatePin.$valid"
+                        ng-click="createPin(pinData)">
                   {{label.createmenu_createPin}}
                 </button>
               </div>
