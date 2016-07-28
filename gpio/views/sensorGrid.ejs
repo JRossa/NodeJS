@@ -4,11 +4,11 @@
 
   <thead>
     <tr class="success">
-      <td style="width: 10%"> Sensor Id </td>
-      <td style="width: 10%"> Sensor Number </td>
-      <td style="width: 20%"> Sensor Type </td>
-      <td style="width: 40%"> Location </td>
-      <td style="width: 20%">  </td>
+      <td style="width: 10%"> {{label.sensorGrid_sensorId}} </td>
+      <td style="width: 10%"> {{label.sensorGrid_sensorNumber}} </td>
+      <td style="width: 20%"> {{label.sensorGrid_sensorType}} </td>
+      <td style="width: 40%"> {{label.sensorGrid_location}} </td>
+      <td style="width: 20%"> {{label.sensorGrid_options}} </td>
     </tr>
   </thead>
 
@@ -37,7 +37,9 @@
                 data-ng-click="loadSensor(sensorData)">
            <i class="glyphicon glyphicon-pencil"
               aria-hidden="true" ></i>
-           <span>Edit</span>
+           <span>
+             {{label.sensorGrid_edit}}
+           </span>
         </button>
 
         <button id="buttonDeleteSensor"
@@ -48,7 +50,9 @@
                 data-ng-click="loadSensor(sensorData)">
            <i class="glyphicon glyphicon-erase"
               aria-hidden="true" ></i>
-           <span>Delete</span>
+           <span>
+             {{label.sensorGrid_delete}}
+           </span>
         </button>
 
       </td>

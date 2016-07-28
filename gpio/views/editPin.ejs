@@ -1,0 +1,156 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#editPin {
+   width:380px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="editPinModal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog">
+
+  <div id="editPin"
+       class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="panel panel-info"
+           style="width: 100%;"
+           align="left">
+
+        <% include templates/modaltitle.ejs %>
+
+        <div class="panel-body" >
+          <div class="container">
+
+            <% include ./message.ejs %>
+
+            <form class="navbar-form navbar-left"
+                  role="search"
+                  method="POST"
+                  name="formEditPin"
+                  novalidate="">
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="form-group"
+                       style="padding-left: 0%;">
+                    <div ng-class="{'has-error': validatePinSensorId.containsValidationError}">
+
+                      <label for="sensorId">
+                        {{label.createmenu_pinInput}}
+                      </label>
+
+                      <input id="pinInput"
+                             class="form-control"
+                             type="text"
+                             placeholder="Enter Sensor Number"
+                             name="pinInput"
+                             ng-model="pinData.pinInput"
+                             ng-maxlength="10"
+                             style="width: 100%;"
+                             required>
+                      </input>
+                      <label class="help-block text-danger" for="pinInput"
+                              data-ng-show="validatePinInput.containsValidationError">
+                         {{ validatePinInput.errorMessage }}
+                      </label>
+
+                      <label class="help-block text-danger" for="pinInput"
+                              data-ng-show="!validatePinInput.containsValidationError">
+                        <br/>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="form-group"
+                       style="padding-left: 0%;">
+                    <label for="pinSensorId">
+                      {{label.createmenu_sensorLocation}}
+                    </label>
+
+                    <select id="pinSensorId"
+                            class="form-control"
+                            name="sensorType"
+                            data-ng-model="pinData.pinSensorId"
+                            style="width: 100%;"
+                            required>
+                      <option value="">
+                        Please select a sensor model !!
+                      </option>
+
+                      <option data-ng-repeat = "sensorData in sensorsData"
+                              value = {{sensorData.id}} > {{sensorData.location}}
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <br/>
+
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="form-group" >
+                    <label for="pinAlarmDuration">
+                      {{label.createmenu_pinAlarmDuration}}
+                    </label>
+
+                    <input id="pinAlarmDuration"
+                           class="form-control"
+                           type="text"
+                           placeholder="Enter Sensor Number"
+                           name="pinAlarmDuration"
+                           ng-model="pinData.pinAlarmDuration"
+                           ng-maxlength="40"
+                           style="width: 100%;"
+                           required>
+                    </input>
+                  </div>
+                </div>
+              </div>
+              </br>
+
+
+              <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <div class="modal-footer">
+                  <div class="row"
+                       align="center">
+                    <div class="form-group"
+                         style="padding-left: 0%;">
+                         <button type="button"
+                                 class="btn btn-default"
+                                 data-dismiss="modal">
+                           {{ label.deletePin_close }}
+                         </button>
+                      <button type="button"
+                              class="btn btn-primary"
+                              ng-disabled="!formEditPin.$valid"
+                              ng-click="updatePin(pinData)">
+                        {{label.editmenu_updatePin}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

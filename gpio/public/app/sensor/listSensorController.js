@@ -27,10 +27,11 @@ function listSensorController($window, $scope, $timeout,
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
-           $scope.label = data;
+          $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-           $("#listSensor").show();
+          $scope.modalname = data.editSensor_pagename
+          $("#listSensor").show();
         });
   };
 
@@ -79,17 +80,17 @@ function listSensorController($window, $scope, $timeout,
     $scope.sensorData.sensorLocation = sensorData.location;
   }
 
-  $scope.deleteSensorType = function () {
+  $scope.deleteSensor = function () {
     console.log("Delete");
 
     if ($scope.sensorData.sensorId > 0) {
-      sensorService.deleteSensorType($scope.sensorData.sensorId)
+      sensorService.deleteSensor($scope.sensorData.sensorId)
         .success( function (data)  {
           if (data &&
               data.status &&
               data.status === 'Successful') {
 
-                $window.location.href = '/listSensorType';
+                $window.location.href = '/listSensor';
               }
 
         });
@@ -135,7 +136,7 @@ function listSensorController($window, $scope, $timeout,
     $scope.validateSensorNumber.errorMessage = "Enter a sensor model !!";
   };
 
-  $scope.updateSensorType = function (sensorData) {
+  $scope.updateSensor = function (sensorData) {
 
     var validationMessages = 0;
 

@@ -1,0 +1,61 @@
+<table data-ng-show="pinsData.length > 0"
+       class="table table-striped table-hover table-bordered table-condensed"
+       id="tblpinData" style="width:100%;">
+
+  <thead>
+    <tr class="success">
+      <td style="width: 10%"> {{label.pinGrid_pinId}} </td>
+      <td style="width: 10%"> {{label.pinGrid_BCM}} </td>
+      <td style="width: 10%"> {{label.pinGrid_BOARD}} </td>
+      <td style="width: 20%"> {{label.pinGrid_location}} </td>
+      <td style="width: 20%"> {{label.pinGrid_options}} </td>
+    </tr>
+  </thead>
+
+  <tbody id='tblpinDataBody'>
+    <tr data-ng-repeat="pinData in pinsData">
+      <td>{{pinData.id}}</td>
+      <td>{{pinData.bcm}}</td>
+      <td>{{pinData.board}}</td>
+      <td>{{pinData.sensor_id}}</td>
+
+      <td class="info">
+<!--
+        <button id='button_edit_sensor' class='btn btn-info btn-sm' data-toggle='modal'
+            data-target='#editModal'
+           >
+           <i class="fa fa-pencil-square-o fa-fw" aria-hidden="true" ></i>
+           <span>Edit</span>
+        </button>
+-->
+
+        <button id="buttonEditPin"
+                type="button"
+                class="btn btn-info btn-sm"
+                data-toggle="modal"
+                data-target="#editPinModal"
+                data-ng-click="loadPin(pinData)">
+           <i class="glyphicon glyphicon-pencil"
+              aria-hidden="true" ></i>
+           <span>
+             {{label.pinGrid_edit}}
+           </span>
+        </button>
+
+        <button id="buttonDeletePin"
+                type="button"
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#deletePinModal"
+                data-ng-click="loadPin(pinData)">
+           <i class="glyphicon glyphicon-erase"
+              aria-hidden="true" ></i>
+           <span>
+             {{label.pinGrid_delete}}
+           </span>
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -94,7 +94,7 @@ pinRouteConfig.prototype.addRoutes = function () {
 
       var pinDao = require('../system/dao/sqlitePinDao');
       if (global.config.site.database === 'mysql') {
-        sensorDao = require('../system/dao/mysqlPinDao');
+        pinDao = require('../system/dao/mysqlPinDao');
       }
 
       pinDao.pinDao.createPin (req.body,
@@ -117,9 +117,9 @@ pinRouteConfig.prototype.addRoutes = function () {
 
 //      res.render('editSensorType', { title : "GPIO", pagename : "Edit Sensor Type"});
 
-      var sensorDao = require('../system/dao/sqlitePinDao');
+      var pinDao = require('../system/dao/sqlitePinDao');
       if (global.config.site.database === 'mysql') {
-        sensorDao = require('../system/dao/mysqlPinDao');
+        pinDao = require('../system/dao/mysqlPinDao');
       }
     }
   });
@@ -132,7 +132,7 @@ pinRouteConfig.prototype.addRoutes = function () {
 
       var pinDao = require('../system/dao/sqlitePinDao');
       if (global.config.site.database === 'mysql') {
-        sensorDao = require('../system/dao/mysqlPinDao');
+        pinDao = require('../system/dao/mysqlPinDao');
       }
 
       pinDao.pinDao.deleteEvent (req.params.pinId,
@@ -144,6 +144,26 @@ pinRouteConfig.prototype.addRoutes = function () {
         //          console.log(status);
           res.json(status);
       });
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/getAllPins',
+    callbackFunction : function(req, res) {
+
+      var pinDao = require('../system/dao/sqlitePinDao');
+      if (global.config.site.database === 'mysql') {
+        pinDao = require('../system/dao/mysqlPinDao');
+      }
+
+      pinDao.pinDao.getAllPin (
+
+        function (pinsData) {
+//          console.log(JSON.stringify(sensorsData, null, 2));
+          res.json({ pinsData : pinsData });
+      });
+
     }
   });
 

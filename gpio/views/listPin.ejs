@@ -1,0 +1,46 @@
+<% include templates/header.ejs %>
+
+<div id="listPin"
+     align="center"
+     data-ng-app="pinModule"
+     data-ng-controller="listPinController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  </br>
+
+  <div class="panel panel-info">
+
+    <% include templates/pagetitle.ejs %>
+
+    </br>
+
+    <div class="container">
+
+      <% include pinGrid.ejs %>
+
+    </div>
+  </div>
+
+
+  <% include editPin.ejs %>
+  <% include deletePin.ejs %>
+
+</div> <!-- listPinController -->
+
+
+
+
+<script src='/bower_components/angular/angular.min.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langService.js"></script>
+
+<script src='/app/pin/pinModule.js'></script>
+<script src='/app/pin/pinService.js'></script>
+<script src='/app/pin/listPinController.js'></script>
+
+
+<% include templates/footer.ejs %>

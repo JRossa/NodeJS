@@ -31,9 +31,9 @@ function pinService ($rootScope, $http, $location) {
 
     }, // getAllSensors
 
-    getAllSensorTypes: function () {
+    getAllPins: function () {
 
-      return $http.get('/getAllSensorTypes');
+      return $http.get('/getAllPins');
 
     }, // getAllSensorTypes
 

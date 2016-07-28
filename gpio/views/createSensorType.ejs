@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #createSensorType {
-   width:400px;
+   width:360px;
    margin:0 auto;
 }
 #left_col {
@@ -26,24 +26,25 @@
   </br>
 
   <div class="panel panel-info"
-       style="width: 100%;" >
+       style="width: 100%;"
+       align="left">
 
     <% include templates/pagetitle.ejs %>
 
     <div  class="panel-body" >
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
-        <div class="container">
+      <div class="container">
 
-          <% include ./message.ejs %>
+        <% include ./message.ejs %>
 
-          <form class="navbar-form navbar-left"
-                role="search"
-                method="POST"
-                name="formCreateSensorType"
-                novalidate="">
+        <form class="navbar-form navbar-left"
+              role="search"
+              method="POST"
+              name="formCreateSensorType"
+              novalidate="">
 
-            <div class="row">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="form-group">
                 <div ng-class="{'has-error': validateSensorModel.containsValidationError}">
       <!--
@@ -85,9 +86,11 @@ formCreateSensorType.sensorModel.$invalid
                 </div>
               </div>
             </div>
+          </div>
 
 
-            <div class="row">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="form-group" >
                 <label for="sensorObs">
                    {{label.createmenu_obs}}
@@ -104,25 +107,27 @@ formCreateSensorType.sensorModel.$invalid
                 </textarea>
               </div>
             </div>
+          </div>
+          </br>
 
-            </br>
-
-            <div align="center"
-                 class="row">
-              <div class="form-group"
-                   style="padding-left: 0%;">
-                <button type="button"
-                        class="btn btn-primary"
-                        ng-disabled="!formCreateSensorType.$valid"
-                        ng-click="createSensorType(sensorType)">
-                  {{label.createmenu_createSensorType}}
-                </button>
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="modal-footer">
+              <div class="row"
+                   align="center">
+                <div class="form-group"
+                     style="padding-left: 0%;">
+                  <button type="button"
+                          class="btn btn-primary"
+                          ng-disabled="!formCreateSensorType.$valid"
+                          ng-click="createSensorType(sensorType)">
+                    {{label.createmenu_createSensorType}}
+                  </button>
+                </div>
               </div>
             </div>
+          </div>
+        </form>
 
-          </form>
-
-        </div>
       </div>
     </div>
   </div>

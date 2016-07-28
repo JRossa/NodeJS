@@ -1,5 +1,5 @@
 
-<div id="deleteSensorModal"
+<div id="deletePinModal"
      class="modal fade"
      tabindex="-1"
      role="dialog">
@@ -13,24 +13,24 @@
                 aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">{{ label.deleteSensor_modalTitle }}</h4>
+        <h4 class="modal-title">{{ label.deletePin_modalTitle }}</h4>
       </div>
 
       <div class="modal-body">
         <br/>
-        <p>{{ label.deleteSensor_message }} <strong> {{ sensorData.sensorNumber }} </strong> !!! &hellip;</p>
+        <p>{{ label.deletePin_message }} <strong> {{ pinData.pinBCM }} </strong> !!! &hellip;</p>
       </div>
 
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-default"
                 data-dismiss="modal">
-          {{ label.deleteSensor_close }}
+          {{ label.deletePin_close }}
         </button>
         <button type="button"
                 class="btn btn-primary"
-                data-ng-click="deleteSensor()">
-          {{ label.deleteSensor_delete }}
+                data-ng-click="deleteSensorType()">
+          {{ label.deletePin_delete }}
         </button>
       </div>
 

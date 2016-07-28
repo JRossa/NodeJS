@@ -1,14 +1,15 @@
-angular.module("sensorTypeModule")
-       .controller("listSensorTypeController", listSensorTypeController);
+angular.module("pinModule")
+       .controller("listPinController", listPinController);
 
-listSensorTypeController.$inject = ['$window', '$scope', '$timeout',
-                                    'sensorTypeService', 'langService'];
+listPinController.$inject = ['$window', '$scope', '$timeout',
+                                'pinService', 'langService'];
 
 
-function listSensorTypeController($window, $scope, $timeout,
-                                  sensorTypeService, langService) {
+function listPinController($window, $scope, $timeout,
+                              pinService, langService) {
 
-  $scope.sensorTypes = [];
+  $scope.sensorsData = [];
+  $scope.pinsData = [];
 
   var langKey = $window.localStorage.getItem('langKey');
 
@@ -20,63 +21,84 @@ function listSensorTypeController($window, $scope, $timeout,
 
   loadLanguage();
 
-  getAllSensorTypes();
-
   function loadLanguage () {
-
-
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-          $scope.modalname = data.editSensorType_pagename
-          $("#listSensorType").show();
+          $scope.modalname = data.editPin_pagename
+          $("#listSensor").show();
         });
   };
 
-  function getAllSensorTypes () {
+  getSensors();
+  getAllPins();
 
-    sensorTypeService.getAllSensorTypes()
+  function getSensors () {
+    pinService.getAllSensors()
+      .success( function (data) {
+        if (data &&
+            data.sensorsData &&
+            data.sensorsData.length > 0) {
+              console.log(data);
+              $scope.sensorsData = data.sensorsData;
+              $("#listPin").show();
+            }
+      });
+  }
+
+  function getAllPins () {
+    pinService.getAllPins()
       .success( function (data) {
 
         if (data &&
-            data.sensorTypes &&
-            data.sensorTypes.length > 0) {
+            data.pinsData &&
+            data.pinsData.length > 0) {
 
-              $scope.sensorTypes = data.sensorTypes;
-              $("#listSensorType").show();
+              $scope.pinsData = data.pinsData;
+              $("#listPin").show();
             }
       });
 
   };
 
-  $scope.sensorType = {
-    sensorTypeId : "",
-    sensorModel : "",
-    sensorObs : ""
+  $scope.pinData = {
+
+    pinId : "",
+    pinBCM : "",
+    pinBOARD : "",
+    pinSensorId : "",
+    pinInput : "",
+    pinUsed : "",
+    pinAlarmDuration : ""
+
   };
 
-  $scope.loadSensorType = function (sensorType) {
-//    console.log("Load");
-//    console.log(sensorType);
-    $scope.sensorType.sensorTypeId = sensorType.id;
-    $scope.sensorType.sensorModel = sensorType.model;
-    $scope.sensorType.sensorObs = sensorType.obs;
+  $scope.loadPin = function (pinData) {
+    console.log("Load");
+    console.log(pinData);
+    $scope.pinData.pinId = pinData.id;
+    $scope.pinData.pinBCM = pinData.bcm;
+    $scope.pinData.pinBOARD = pinData.board;
+    $scope.pinData.pinSensorId = pinData.sensor_id;
+    $scope.pinData.pinInput = pinData.input;
+    $scope.pinData.pinUsed = pinData.used;
+    $scope.pinData.pinAlarmDuration = pinData.alarm_duration;
   }
 
-  $scope.deleteSensorType = function () {
+  $scope.deletePin = function () {
     console.log("Delete");
 
-    if ($scope.sensorType.sensorTypeId > 0) {
-      sensorTypeService.deleteSensorType($scope.sensorType.sensorTypeId)
+    if ($scope.pinData.pinId > 0) {
+      pinService.deletePin($scope.pinData.pinId)
         .success( function (data)  {
           if (data &&
               data.status &&
               data.status === 'Successful') {
 
-                $window.location.href = '/listSensorType';
+                $window.location.href = '/listPin';
               }
 
         });
@@ -122,15 +144,9 @@ function listSensorTypeController($window, $scope, $timeout,
     $scope.validateSensorNumber.errorMessage = "Enter a sensor model !!";
   };
 
-  $scope.updateSensorType = function (sensorType) {
+  $scope.updatePin = function (pinData) {
 
     var validationMessages = 0;
-
-    if ($scope.sensorType.sensorModel.length == 0) {
-
-      displaySensorNumberMessage ();
-      validationMessages++;
-    }
 
     console.log("validationMessages : " + validationMessages);
 
@@ -143,7 +159,7 @@ function listSensorTypeController($window, $scope, $timeout,
 
     } else {
 
-      sensorTypeService.updateSensorType(sensorType)
+      pinService.updatePin(pinData)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
 
@@ -161,7 +177,7 @@ function listSensorTypeController($window, $scope, $timeout,
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
-            $window.location.href = '/listSensorType';
+            $window.location.href = '/listSensor';
 //            clearSensorType();
           }, 3000);
 

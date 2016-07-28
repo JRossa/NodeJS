@@ -21,11 +21,11 @@
   "listEvent_pagename" : "Lista de Ativações",
 
   "createPin_pagename" : "Inserir Pin",
+  "editPin_pagename" : "Editar Pino",
   "listPin_pagename" : "Lista de Pinos",
 
   "deleteSensorType_modalTitle" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
-
 
   "deleteSensor_modalTitle" : "Remover Sensor",
   "deleteSensor_message" : "Confirma que pretende remover o sensor   n.    ",
@@ -36,6 +36,11 @@
   "deleteEvent_message" : "Confirma que pretende remover a ativação ocorrida em    ",
   "deleteEvent_close" : "Encerrar",
   "deleteEvent_delete" : "Remover",
+
+  "deletePin_modalTitle" : "Remover Pino",
+  "deletePin_message" : "Confirma que pretende remover o pino   n.    ",
+  "deletePin_close" : "Encerrar",
+  "deletePin_delete" : "Remover",
 
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
   "createmenu_createSensor" : "Inserir Sensor",
@@ -49,21 +54,57 @@
   "createmenu_eventSensorId" : "Id do Sensor",
   "createmenu_eventTime" : "Hora da Ativação",
   "createmenu_obs" : "Obs :",
+
   "createmenu_selectSensor" : "Selecione um sensor !!",
   "createmenu_selectSensorType" : "Selecione um modelo de sensor !!",
+
   "createmenu_enterSensorType" : "Insira o tipo de sensor",
-  "createmenu_enterSensor" : "Insira ....",
+  "createmenu_enterSensorNumber" : "Insira o número do sensor",
+  "createmenu_enterSensorLocation" : "Insira a localização do sensor",
+  "createmenu_enterSensor" : "Insira o sensor",
   "createmenu_enterPinBOARD" : "Insira número do Pino",
   "createmenu_enterPinBCM" : "Insira número GPIO",
 
-  "createmenu_PinBCM" : "Número GPIO",
-  "createmenu_PinBOARD" : "Número do Pino",
+  "createmenu_pinBCM" : "Número GPIO",
+  "createmenu_pinBOARD" : "Número do Pino",
+  "createmenu_pinInput" : "Sentido",
+  "createmenu_pinSensorId" : "Sensor Id",
+  "createmenu_pinUsed" : "Em utilização",
+  "createmenu_pinAlarmDuration" : "Duração do Alarme",
 
   "listEvent_eventId" : "Num Ativ",
   "listEvent_sensorNum" : "Num Sensor",
   "listEvent_actTime" : "Hora",
 
-  "editmenu_createSensorType" : "Atualizar Tipo de Sensor",
+  "editmenu_updateSensor" : "Atualizar Sensor",
+  "editmenu_updateSensorType" : "Atualizar Tipo de Sensor",
+  "editmenu_updatePin" : "Atualizar Pin",
+
+  "sensorGrid_sensorId" : "Sensor Id",
+  "sensorGrid_sensorNumber" : "Número",
+  "sensorGrid_sensorType" : "Tipo de Sensor",
+  "sensorGrid_location" : "Localização",
+  "sensorGrid_options" : "Opções",
+  "sensorGrid_edit" : "Editar",
+  "sensorGrid_delete" : "Remover",
+
+  "sensorTypeGrid_typeId" : "Tipo Id",
+  "sensorTypeGrid_model" : "Modelo",
+  "sensorTypeGrid_obs" : "Obs",
+  "sensorTypeGrid_options" : "Opções",
+  "sensorTypeGrid_edit" : "Editar",
+  "sensorTypeGrid_delete" : "Remover",
+
+  "pinGrid_pinId" : "Pin Id",
+  "pinGrid_BOARD" : "Número BOARD",
+  "pinGrid_BCM" : "Número BCM",
+  "pinGrid_location" : "Localização",
+  "pinGrid_sensorId" : "Sensor Id",
+  "pinGrid_used" : "Em Utilização",
+  "pinGrid_alarmDuration" : "Duração do Alarme",
+  "pinGrid_options" : "Opções",
+  "pinGrid_edit" : "Editar",
+  "pinGrid_delete" : "Remover",
 
   "menubar_appTitle" : "Pi 3",
   "menubar_createEvent" : "Inserir Ativação",

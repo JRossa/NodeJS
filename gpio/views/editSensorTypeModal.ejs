@@ -19,32 +19,33 @@
      class="modal fade"
      tabindex="-1"
      role="dialog">
+
   <div id="editSensorType"
        class="modal-dialog">
     <div class="modal-content">
 
       <div class="panel panel-info"
-           style="width: 100%;">
+           style="width: 100%;"
+           align="left">
 
-        <% include templates/pagetitle.ejs %>
+        <% include templates/modaltitle.ejs %>
 
         <div class="panel-body" >
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 
-            <div class="container">
+          <div class="container">
 
-              <% include ./message.ejs %>
+            <% include ./message.ejs %>
 
-              <form class="navbar-form navbar-left"
-                    role="search"
-                    method="POST"
-                    name="formEditSensorType"
-                    novalidate="">
+            <form class="navbar-form navbar-left"
+                  role="search"
+                  method="POST"
+                  name="formEditSensorType"
+                  novalidate="">
 
-                <div class="row"
-                     align="left">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <div class="form-group"
-                       style="padding-left: 5%;">
+                       style="padding-left: 0%;">
                     <div ng-class="{'has-error': validateSensorNumber.containsValidationError}">
 
                       <br/>
@@ -77,14 +78,14 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
-
-                <div class="row"
-                     align="left">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <div class="form-group"
-                       style="padding-left: 5%;">
+                       style="padding-left: 0%;">
                     <label for="sensorObs">
-                       {{label.createmenu_obs}} 
+                       {{label.createmenu_obs}}
                     </label>
 
                     <textarea
@@ -100,30 +101,30 @@
                     </textarea>
                   </div>
                 </div>
+              </div>
+              </br>
 
-                </br>
-
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="modal-footer">
-                <div lass="row"
-                     align="center">
-                  <div class="form-group"
-                       style="padding-left: 0%;">
-                       <button type="button"
-                               class="btn btn-default"
-                               data-dismiss="modal">
-                         {{ label.deleteSensor_close }}
-                       </button>
-                    <button type="button"
-                            class="btn btn-primary"
-                            ng-disabled="!formEditSensorType.$valid"
-                            ng-click="updateSensorType(sensorType)">
-                      {{label.editmenu_createSensorType}}
-                    </button>
+                  <div lass="row"
+                       align="center">
+                    <div class="form-group"
+                         style="padding-left: 0%;">
+                      <button type="button"
+                             class="btn btn-default"
+                             data-dismiss="modal">
+                       {{ label.deleteSensor_close }}
+                      </button>
+                      <button type="button"
+                              class="btn btn-primary"
+                              ng-disabled="!formEditSensorType.$valid"
+                              ng-click="updateSensorType(sensorType)">
+                        {{label.editmenu_updateSensorType}}
+                      </button>
+                    </div>
                   </div>
-                </div>
-               </div>
+                 </div>
               </form>
-
             </div>
           </div>
         </div>

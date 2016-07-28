@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editSensor {
-   width:400px;
+   width:380px;
    margin:0 auto;
 }
 #left_col {
@@ -24,27 +24,25 @@
     <div class="modal-content">
 
       <div class="panel panel-info"
-           style="width: 100%;">
+           style="width: 100%;"
+           align="left">
 
-        <% include templates/pagetitle.ejs %>
+        <% include templates/modaltitle.ejs %>
 
         <div class="panel-body" >
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="container">
 
-            <div class="container">
+            <% include ./message.ejs %>
 
-              <% include ./message.ejs %>
+            <form class="navbar-form navbar-left"
+                  role="search"
+                  method="POST"
+                  name="formEditSensor"
+                  novalidate="">
 
-              <form class="navbar-form navbar-left"
-                    role="search"
-                    method="POST"
-                    name="formEditSensorType"
-                    novalidate="">
-
-                <div class="row"
-                     align="left">
-                  <div class="form-group"
-                       style="padding-left: 5%;">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                  <div class="form-group">
                     <div ng-class="{'has-error': validateSensorNumber.containsValidationError}">
 
                       <label for="sensorNumber">
@@ -54,11 +52,11 @@
                       <input id="sensorNumber"
                              class="form-control"
                              type="text"
-                             placeholder="Enter Sensor Number"
+                             placeholder={{label.createmenu_enterSensorNumber}}
                              name="sensorNumber"
                              ng-model="sensorData.sensorNumber"
                              ng-maxlength="40"
-                             style="width: 110%;"
+                             style="width: 100%;"
                              required>
                       </input>
                       <label class="help-block text-danger" for="sensorNumber"
@@ -73,45 +71,46 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row"
-                     align="left">
-                  <div class="form-group"
-                       style="padding-left: 5%;">
-                    <label for="sensorTypeId">
-                      {{label.createmenu_sensorModel}}
-                    </label>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div class="form-group">
+                  <label for="sensorTypeId">
+                    {{label.createmenu_sensorModel}}
+                  </label>
 
-                    <select id="sensorTypeIdfdfd"
-                            class="form-control"
-                            name="sensorType"
-                            data-ng-model="sensorData.sensorTypeId"
-                            style="width: 90%;"
-                            required>
-                      <option value="">
-                        Please select a sensor model !!
-                      </option>
+                  <select id="sensorTypeId"
+                          class="form-control"
+                          name="sensorType"
+                          data-ng-model="sensorData.sensorTypeId"
+                          style="width: 100%;"
+                          required>
+                    <option value="">
+                      Please select a sensor model !!
+                    </option>
 
-                      <option data-ng-repeat = "sensorType in sensorTypes"
-                              value = {{sensorType.id}} > {{sensorType.model}}
+                    <option data-ng-repeat = "sensorType in sensorTypes"
+                            value = {{sensorType.id}} > {{sensorType.model}}
 
-                    </select>
-                  </div>
+                  </select>
                 </div>
+              </div>
+              </div>
 
-                <br/>
+              <br/>
 
-                <div class="row"
-                     align="left">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                   <div class="form-group"
-                       style="padding-left: 5%;">
+                       style="padding-left: 0%;">
                     <label for="sensorLocation">
                       {{label.createmenu_sensorLocation}}
                     </label>
 
                     <textarea id="sensorLocation"
                               class="form-control"
-                              placeholder="Enter Sensor Location"
+                              placeholder={{label.createmenu_enterSensorLocation}}
                               name="sensorLocation"
                               rows="2"
                               cols="20"
@@ -120,14 +119,16 @@
                     </textarea>
                   </div>
                 </div>
+              </div>
 
-                </br>
+              </br>
 
-                <div class="modal-footer">
+              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div  class="modal-footer">
                   <div class="row"
-                       align="center">
+                       align="left">
                     <div class="form-group"
-                         style="padding-left: 0%;">
+                         style="padding-left: -10%;">
                          <button type="button"
                                  class="btn btn-default"
                                  data-dismiss="modal">
@@ -135,14 +136,15 @@
                          </button>
                       <button type="button"
                               class="btn btn-primary"
-                              ng-disabled="!formEditSensorType.$valid"
-                              ng-click="updateSensorType(sensorData)">
-                        {{label.editmenu_createSensorType}}
+                              ng-disabled="!formEditSensor.$valid"
+                              ng-click="updateSensor(sensorData)">
+                        {{label.editmenu_updateSensor}}
                       </button>
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
+            </form>
 
             </div>
           </div>

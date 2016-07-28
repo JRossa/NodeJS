@@ -8,6 +8,7 @@ function createPinController($window, $scope, $timeout,
                                 pinService, langService) {
 
   $scope.sensorsData = [];
+  $scope.pinsData = [];
 
   $scope.pinData = {
 
