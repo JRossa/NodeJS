@@ -124,6 +124,32 @@ pinRouteConfig.prototype.addRoutes = function () {
     }
   });
 
+  self.routeTable.push ( {
+    requestType : 'post',
+    requestUrl : '/updatePin',
+    callbackFunction : function(req, res) {
+
+      console.log("POST updatePin");
+
+      console.log(req.body);
+
+      var pinDao = require('../system/dao/sqlitePinDao');
+      if (global.config.site.database === 'mysql') {
+        pinDao = require('../system/dao/mysqlPinDao');
+      }
+
+      pinDao.pinDao.updatePin (req.body,
+
+        function (status) {
+  //          console.log(status);
+          res.json(status);
+      },function (status) {
+        //          console.log(status);
+          res.json(status);
+      });
+
+    }
+  });
 
   self.routeTable.push ( {
     requestType : 'delete',
@@ -135,7 +161,7 @@ pinRouteConfig.prototype.addRoutes = function () {
         pinDao = require('../system/dao/mysqlPinDao');
       }
 
-      pinDao.pinDao.deleteEvent (req.params.pinId,
+      pinDao.pinDao.deletePin (req.params.pinId,
 
         function (status) {
           console.log(status);

@@ -46,56 +46,46 @@
                   <div class="form-group"
                        style="padding-left: 0%;">
                     <div ng-class="{'has-error': validatePinSensorId.containsValidationError}">
-
-                      <label for="sensorId">
-                        {{label.createmenu_pinInput}}
-                      </label>
-
-                      <input id="pinInput"
-                             class="form-control"
-                             type="text"
-                             placeholder="Enter Sensor Number"
-                             name="pinInput"
-                             ng-model="pinData.pinInput"
-                             ng-maxlength="10"
-                             style="width: 100%;"
-                             required>
-                      </input>
-                      <label class="help-block text-danger" for="pinInput"
-                              data-ng-show="validatePinInput.containsValidationError">
-                         {{ validatePinInput.errorMessage }}
-                      </label>
-
-                      <label class="help-block text-danger" for="pinInput"
-                              data-ng-show="!validatePinInput.containsValidationError">
-                        <br/>
-                      </label>
+                        Pin {{pinData.pinBCM}} -  GPIO {{pinData.pinBOARD}}
                     </div>
                   </div>
                 </div>
               </div>
 
+              <br/>
+
+              <pre>{{pinData.pinInput || 'null'}}</pre>
+              <pre>{{pinData.pinUsed || 'null'}}</pre>
+
+              <% include editPinInputToggle.ejs %>
+
+              <br/>
+
+              <% include editPinUsedToggle.ejs %>
+
+              <br/>
+
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-                  <div class="form-group"
-                       style="padding-left: 0%;">
+                  <div class="form-group">
+
                     <label for="pinSensorId">
                       {{label.createmenu_sensorLocation}}
                     </label>
 
                     <select id="pinSensorId"
                             class="form-control"
-                            name="sensorType"
+                            name="pinSensor"
                             data-ng-model="pinData.pinSensorId"
                             style="width: 100%;"
                             required>
                       <option value="">
-                        Please select a sensor model !!
+                        Please select a sensor !!
                       </option>
 
                       <option data-ng-repeat = "sensorData in sensorsData"
                               value = {{sensorData.id}} > {{sensorData.location}}
-
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -103,13 +93,13 @@
               <br/>
 
 
-              <div class="row">
+              <div id="alarmDuration"
+                   class="row">
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <div class="form-group" >
                     <label for="pinAlarmDuration">
                       {{label.createmenu_pinAlarmDuration}}
                     </label>
-
                     <input id="pinAlarmDuration"
                            class="form-control"
                            type="text"
@@ -117,9 +107,17 @@
                            name="pinAlarmDuration"
                            ng-model="pinData.pinAlarmDuration"
                            ng-maxlength="40"
-                           style="width: 100%;"
-                           required>
+                           style="width: 100%;">
                     </input>
+                    <label class="help-block text-danger" for="pinAlarmDuration"
+                            data-ng-show="validateAlarmDuration.containsValidationError">
+                       {{ validateAlarmDuration.errorMessage }}
+                    </label>
+
+                    <label class="help-block text-danger" for="pinAlarmDuration"
+                            data-ng-show="!validateAlarmDuration.containsValidationError">
+                      <br/>
+                    </label>
                   </div>
                 </div>
               </div>

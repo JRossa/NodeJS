@@ -71,6 +71,11 @@
   "createmenu_pinSensorId" : "Sensor Id",
   "createmenu_pinUsed" : "Em utilização",
   "createmenu_pinAlarmDuration" : "Duração do Alarme",
+  "createmenu_pinInput_ON" : "Ligado",
+  "createmenu_pinInput_OFF" : "Desligado",
+  "createmenu_pinInput_IN" : "Entrada",
+  "createmenu_pinInput_OUT" : "Saída",
+
 
   "listEvent_eventId" : "Num Ativ",
   "listEvent_sensorNum" : "Num Sensor",
@@ -100,6 +105,7 @@
   "pinGrid_BCM" : "Número BCM",
   "pinGrid_location" : "Localização",
   "pinGrid_sensorId" : "Sensor Id",
+  "pinGrid_input" : "Sentido",
   "pinGrid_used" : "Em Utilização",
   "pinGrid_alarmDuration" : "Duração do Alarme",
   "pinGrid_options" : "Opções",

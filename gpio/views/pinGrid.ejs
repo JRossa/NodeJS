@@ -4,10 +4,13 @@
 
   <thead>
     <tr class="success">
-      <td style="width: 10%"> {{label.pinGrid_pinId}} </td>
-      <td style="width: 10%"> {{label.pinGrid_BCM}} </td>
-      <td style="width: 10%"> {{label.pinGrid_BOARD}} </td>
-      <td style="width: 20%"> {{label.pinGrid_location}} </td>
+      <td style="width: 5%"> {{label.pinGrid_pinId}} </td>
+      <td style="width: 5%"> {{label.pinGrid_used}} </td>
+      <td style="width: 5%"> {{label.pinGrid_input}} </td>
+      <td style="width: 5%"> {{label.pinGrid_BCM}} </td>
+      <td style="width: 5%"> {{label.pinGrid_BOARD}} </td>
+      <td style="width: 40%"> {{label.pinGrid_location}} </td>
+      <td style="width: 10%"> {{label.pinGrid_alarmDuration}} </td>
       <td style="width: 20%"> {{label.pinGrid_options}} </td>
     </tr>
   </thead>
@@ -15,9 +18,19 @@
   <tbody id='tblpinDataBody'>
     <tr data-ng-repeat="pinData in pinsData">
       <td>{{pinData.id}}</td>
+      <td>
+        <span style="padding-left: 20px; display:inline-block;"> </span>
+        <img ng-src="images/{{pinData.pinUsedImage}}"> </image>
+      </td>
+      <td>
+        <span style="padding-left: 15px; display:inline-block;"> </span>
+        <img ng-src="images/{{pinData.pinInputImage}}"> </image>
+      </td>
       <td>{{pinData.bcm}}</td>
       <td>{{pinData.board}}</td>
-      <td>{{pinData.sensor_id}}</td>
+      <td>{{setLocation(pinData.sensor_id)}}
+      </td>
+      <td>{{pinData.alarm_duration}}</td>
 
       <td class="info">
 <!--

@@ -91,6 +91,61 @@ var pinDao = {
     } // connection
   }, // createPin
 
+  updatePin : function (pinData, OnSuccessCallback, OnErrorCallback) {
+
+    var updateStatement = "UPDATE tbl_pin SET bcm = ?, board = ?, sensor_id = ?, " +
+                          "input = ?, used = ?, alarm_duration = ? " +
+                          "WHERE id = ? ";
+
+//    console.log("ligação  " + sensorType.sensorId);
+//    console.log("ligação  " + sensorType.sensorModel);
+//    console.log("ligação  " + sensorType.sensorObs);
+
+    var pinUpdate = {
+      id : pinData.pinId,
+      bcm : pinData.pinBCM,
+      board : pinData.pinBOARD,
+      sensorId : pinData.pinSensorId,
+      input : pinData.pinInput,
+      used : pinData.pinUsed,
+      alarmDuration : pinData.pinAlarmDuration
+    };
+
+    var connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.serialize( function() {
+
+        connection.run("BEGIN TRANSACTION");
+
+        connection.run(updateStatement,
+                [pinUpdate.bcm, pinUpdate.board, pinUpdate.sensorId,
+                 pinUpdate.input, pinUpdate.used, pinUpdate.alarmDuration,
+                 pinUpdate.id], function(err, row) {
+
+                if (err !== null) {
+                    // Express handles errors via its next function.
+                    // It will call the next operation layer (middleware),
+                    // which is by default one that handles errors.
+                    console.log(connection.run);
+                    console.log(err);
+                    connection.run("ROLLBACK");
+                    connectionProvider.connectionStringProvider.closeConnection(connection);
+                    //next(err);
+                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                }
+                else {
+                  connection.run("COMMIT");
+                  connectionProvider.connectionStringProvider.closeConnection(connection);
+//                  console.log(row);
+                  OnSuccessCallback({ status : "Successful"});
+              }
+            });
+      }); // serialize
+    } // connection
+  }, // updatePin
+
   deletePin : function (pinId, OnSuccessCallback, OnErrorCallback) {
 
     var deleteStatement = "DELETE FROM tbl_pin WHERE id = ? ";

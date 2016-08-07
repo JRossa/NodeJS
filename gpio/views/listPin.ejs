@@ -23,14 +23,15 @@
     </div>
   </div>
 
+  <pre><code>{{ pinData | json }}</code></pre>
+
 
   <% include editPin.ejs %>
   <% include deletePin.ejs %>
 
 </div> <!-- listPinController -->
 
-
-
+<script src='/bower_components/jquery/dist/jquery.js'></script>
 
 <script src='/bower_components/angular/angular.min.js'></script>
 <script src='/bower_components/angular-messages/angular-messages.js'></script>
@@ -41,6 +42,8 @@
 <script src='/app/pin/pinModule.js'></script>
 <script src='/app/pin/pinService.js'></script>
 <script src='/app/pin/listPinController.js'></script>
+
+<script src='app/pin/editPinJQuery.js'></script>
 
 
 <% include templates/footer.ejs %>

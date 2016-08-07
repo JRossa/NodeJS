@@ -23,7 +23,7 @@ function pinService ($rootScope, $http, $location) {
           pinAlarmDuration : pinData.pinAlarmDuration
         }
       );
-    }, // createSensor
+    }, // createPin
 
     getAllSensors: function () {
 
@@ -35,7 +35,7 @@ function pinService ($rootScope, $http, $location) {
 
       return $http.get('/getAllPins');
 
-    }, // getAllSensorTypes
+    }, // getAllPins
 
     updatePin : function (pinData) {
 
@@ -43,11 +43,17 @@ function pinService ($rootScope, $http, $location) {
 
       return $http.post('/updatePin',
         {
-          pinId : pinData.pinId
+          pinId : pinData.pinId,
+          pinBCM : pinData.pinBCM,
+          pinBOARD : pinData.pinBOARD,
+          pinSensorId : pinData.pinSensorId,
+          pinInput : pinData.pinInput,
+          pinUsed : pinData.pinUsed,
+          pinAlarmDuration : pinData.pinAlarmDuration
         }
       );
 
-    }, // updateSensor
+    }, // updatePin
 
     deletePin : function (pinId) {
 
