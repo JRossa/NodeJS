@@ -1,10 +1,12 @@
 angular.module("sensorTypeModule")
        .controller("editSensorTypeController", editSensorTypeController);
 
-editSensorTypeController.$inject = ['$window', '$scope', '$timeout', 'sensorTypeService', 'langService'];
+editSensorTypeController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
+                                        'sensorTypeService', 'langService'];
 
 
-function editSensorTypeController($window, $scope, $timeout, sensorTypeService, langService) {
+function editSensorTypeController($rootScope, $scope, $window, $timeout,
+                                         sensorTypeService, langService) {
 
   $scope.sensorType = {
     sensorId : "",
@@ -45,6 +47,22 @@ function editSensorTypeController($window, $scope, $timeout, sensorTypeService, 
            $scope.label = data;
            $("#editSensorType").show();
         });
+  }
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+           $scope.label = data;
+           $("#editSensorType").show();
+        });
+
   }
 
   function bindView (sensorType) {

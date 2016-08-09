@@ -74,6 +74,8 @@
   "createmenu_pinInput_IN" : "In",
   "createmenu_pinInput_OUT" : "Out",
 
+  "editmenu_enterAlarmDuration" : "Enter Alarm Duration",
+
   "listEvent_eventId" : "Event Id",
   "listEvent_sensorNum" : "Sensor Num",
   "listEvent_actTime" : "Time",

@@ -1,12 +1,12 @@
 angular.module("sensorTypeModule")
        .controller("listSensorTypeController", listSensorTypeController);
 
-listSensorTypeController.$inject = ['$window', '$scope', '$timeout',
-                                    'sensorTypeService', 'langService'];
+listSensorTypeController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
+                                           'sensorTypeService', 'langService'];
 
 
-function listSensorTypeController($window, $scope, $timeout,
-                                  sensorTypeService, langService) {
+function listSensorTypeController($rootScope, $scope, $window, $timeout,
+                                        sensorTypeService, langService) {
 
   $scope.sensorTypes = [];
 
@@ -35,6 +35,25 @@ function listSensorTypeController($window, $scope, $timeout,
           $("#listSensorType").show();
         });
   };
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+          $scope.label = data;
+//           $scope.label = {"menubar_home" : "Home"};
+//           console.log(data);
+          $scope.modalname = data.editSensorType_pagename
+          $("#listSensorType").show();
+        });
+
+  }
 
   function getAllSensorTypes () {
 

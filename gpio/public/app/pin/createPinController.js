@@ -1,10 +1,10 @@
 angular.module("pinModule")
        .controller("createPinController", createPinController);
 
-createPinController.$inject = ['$window', '$scope', '$timeout',
+createPinController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                       'pinService', 'langService'];
 
-function createPinController($window, $scope, $timeout,
+function createPinController($rootScope, $scope, $window, $timeout,
                                 pinService, langService) {
 
   $scope.sensorsData = [];
@@ -34,6 +34,22 @@ function createPinController($window, $scope, $timeout,
            $scope.label = data;
            $("#createPin").show();
         });
+  }
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+           $scope.label = data;
+           $("#createPin").show();
+        });
+
   }
 
   getSensors();

@@ -103,7 +103,7 @@
                     <input id="pinAlarmDuration"
                            class="form-control"
                            type="text"
-                           placeholder="Enter Sensor Number"
+                           placeholder={{label.editmenu_enterAlarmDuration}}
                            name="pinAlarmDuration"
                            ng-model="pinData.pinAlarmDuration"
                            ng-maxlength="40"
@@ -111,7 +111,9 @@
                     </input>
                     <label class="help-block text-danger" for="pinAlarmDuration"
                             data-ng-show="validateAlarmDuration.containsValidationError">
-                       {{ validateAlarmDuration.errorMessage }}
+                      <span class="text-danger">
+                         {{ validateAlarmDuration.errorMessage }}
+                      </span>
                     </label>
 
                     <label class="help-block text-danger" for="pinAlarmDuration"

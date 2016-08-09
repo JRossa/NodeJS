@@ -1,10 +1,10 @@
 angular.module("sensorTypeModule")
        .controller("createSensorTypeController", createSensorTypeController);
 
-createSensorTypeController.$inject = ['$window', '$scope', '$timeout',
+createSensorTypeController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                       'sensorTypeService', 'langService'];
 
-function createSensorTypeController($window, $scope, $timeout,
+function createSensorTypeController($rootScope, $scope, $window, $timeout,
                                     sensorTypeService, langService) {
 
   $scope.sensorType = {
@@ -28,6 +28,21 @@ function createSensorTypeController($window, $scope, $timeout,
         });
   }
 
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+           $scope.label = data;
+           $("#createSensorType").show();
+        });
+
+  }
 
   function clearSensorType () {
 

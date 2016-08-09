@@ -12,22 +12,27 @@
 
   <% include templates/menu.ejs %>
 
-
+  <br/>
+  <br/>
+  
   <p>1. Was f&#252;r ein gro&#223;artiges Modul!</p>
 
   <p>3. {{ label.HEADLINE }}</p>
 
 
   <button class="btn btn-primary"
+          style="display: none;"
           ng-click="changeLanguage('en')">
           English
   </buton>
   <span> </span>
   <button class="btn btn-primary"
+          style="display: none;"
           ng-click="changeLanguage('pt')">
           Português
   </button>
   <button class="btn btn-primary"
+          style="display: none;"
           ng-click="changeLanguage('de')">
           German
   </button>
@@ -79,6 +84,8 @@
   </div>
 </div> <!-- controller -->
 
+
+<script src='/bower_components/jquery/dist/jquery.js'></script>
 
 <!-- Anguler  core -->
 <script src='/bower_components/angular/angular.js'></script>

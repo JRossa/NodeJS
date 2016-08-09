@@ -1,11 +1,11 @@
 angular.module("pinModule")
        .controller("listPinController", listPinController);
 
-listPinController.$inject = ['$window', '$scope', '$timeout',
+listPinController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                 'pinService', 'langService'];
 
 
-function listPinController($window, $scope, $timeout,
+function listPinController($rootScope, $scope, $window, $timeout,
                               pinService, langService) {
 
   $scope.sensorsData = [];
@@ -24,6 +24,7 @@ function listPinController($window, $scope, $timeout,
 //  console.log(langKey)
   setToggleLang(langKey)
 
+  // used in toggle buttons labels
   function setToggleLang(langKey) {
 
     if (langKey == 'pt') {
@@ -36,6 +37,7 @@ function listPinController($window, $scope, $timeout,
       $scope.showLang.show_EN = true;
     }
   }
+
 
 
 /*
@@ -58,6 +60,26 @@ function listPinController($window, $scope, $timeout,
         });
   };
 
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+//    console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+          $scope.label = data;
+//           $scope.label = {"menubar_home" : "Home"};
+//           console.log(data);
+          $scope.modalname = data.editPin_pagename
+          $("#listSensor").show();
+        });
+
+  }
+
   getSensors();
   getAllPins();
 
@@ -72,7 +94,7 @@ function listPinController($window, $scope, $timeout,
               $("#listPin").show();
             }
       });
-  }
+  };
 
   function getAllPins () {
     pinService.getAllPins()
@@ -92,18 +114,34 @@ function listPinController($window, $scope, $timeout,
   }
 
 
+  function convertBoolean(value) {
+
+    if (value == 0) {
+      return 'false';
+    }
+    if (pinData.input == 1) {
+      return 'true';
+    }
+
+    return value;
+  };
+
   function processPinsData(pinsData) {
 
     console.log(pinsData);
     angular.forEach(pinsData, function (pinData) {
 //      console.log(pinData);
+
+      pinData.input = convertBoolean(pinData.input);
+      pinData.used = convertBoolean(pinData.used);
+
       if (pinData.input == 'false') {
         pinData.pinInputImage = "Data-Export-icon.png";
       } else {
         if (pinData.input == 'true')  {
           pinData.pinInputImage = "Data-Import-icon.png";
         } else {
-          pinData.pinInputImage = "false.png";
+          pinData.pinInputImage = "Data-Undefined-icon.png";
         }
       }
 
@@ -117,11 +155,14 @@ function listPinController($window, $scope, $timeout,
         }
       }
 
+
     });
 
     return pinsData;
   }
 
+  $scope.pinInputState = "";
+  $scope.pinUsedState = "";
 
   $scope.pinData = {
 
@@ -145,9 +186,12 @@ function listPinController($window, $scope, $timeout,
     $scope.pinData.pinBCM = pinData.bcm;
     $scope.pinData.pinBOARD = pinData.board;
     $scope.pinData.pinSensorId = pinData.sensor_id.toString();
-    $scope.pinData.pinInput = pinData.input.toString();
+    $scope.pinData.pinInput = pinData.input;
     $scope.pinData.pinUsed = pinData.used;
     $scope.pinData.pinAlarmDuration = pinData.alarm_duration;
+
+    $scope.pinInputState = $scope.pinData.pinInput
+    $scope.pinUsedState = $scope.pinData.pinUsed;
   }
 
   $scope.deletePin = function () {
@@ -203,17 +247,14 @@ function listPinController($window, $scope, $timeout,
   function displayAlarmDurationMessage () {
 
     $scope.validateAlarmDuration.containsValidationError = true;
-    $scope.validateAlarmDuration.errorMessage = "Enter a sensor model !!";
+    $scope.validateAlarmDuration.errorMessage = "Enter a valid alarm duration !!";
   };
 
   $scope.updatePin = function (pinData) {
 
     var validationMessages = 0;
 
-    var pinInputState = $scope.$eval($('#pinInputState').text());
-    pinData.pinInput = pinInputState.state
-
-    if (pinInputState.state == 'false') {
+    if ($scope.pinData.pinInput == 'false') {
       if ($scope.pinData.pinAlarmDuration.length == 0) {
 
         displayAlarmDurationMessage ();
@@ -222,10 +263,7 @@ function listPinController($window, $scope, $timeout,
 
     }
 
-    var pinUsedState = $scope.$eval($('#pinUsedState').text());
-    pinData.pinUsed = pinUsedState.state
-
-    console.log(pinData)
+    $scope.pinData.pinUsed = $scope.pinUsedState;
 
     console.log("validationMessages : " + validationMessages);
 
@@ -288,6 +326,39 @@ function listPinController($window, $scope, $timeout,
 
   }
 
+  $scope.setPinInputValue = function(value) {
 
+    $scope.pinInputState = value;
+  }
 
+  $scope.setPinUsedValue = function(value) {
+
+    $scope.pinUsedState = value;
+  }
+
+  $scope.resetAlarmDuration = function (value) {
+
+    $scope.pinData.pinAlarmDuration = "";
+    updateAlarmDuration();
+  }
+
+  function updateAlarmDuration () {
+
+    var validationMessages = 0;
+
+    if ($scope.pinData.pinInput == 'false') {
+      if ($scope.pinData.pinAlarmDuration.length == 0) {
+
+        displayAlarmDurationMessage ();
+        validationMessages++;
+      }
+
+    }
+
+    if (validationMessages > 0) {
+      $timeout( function afterTimeOut () {
+        clearAlarmDurationMessage ();
+      }, 10);
+    }
+  };
 }

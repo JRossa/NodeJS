@@ -1,5 +1,5 @@
 {
-  "HEADLINE": "What an awesome module!",
+  "HEADLINE": "Que módulo fantástico !",
   "PARAGRAPH": "Srsly!",
   "PASSED_AS_TEXT": "Hey there! I'm passed as text value!",
   "PASSED_AS_ATTRIBUTE": "I'm passed as attribute value, cool ha?",
@@ -76,6 +76,7 @@
   "createmenu_pinInput_IN" : "Entrada",
   "createmenu_pinInput_OUT" : "Saída",
 
+  "editmenu_enterAlarmDuration" : "Insira a duração do alarme",
 
   "listEvent_eventId" : "Num Ativ",
   "listEvent_sensorNum" : "Num Sensor",

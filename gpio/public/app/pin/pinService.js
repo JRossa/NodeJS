@@ -40,7 +40,8 @@ function pinService ($rootScope, $http, $location) {
     updatePin : function (pinData) {
 
       console.log("updatePin : Service");
-
+      console.log(pinData);
+      
       return $http.post('/updatePin',
         {
           pinId : pinData.pinId,

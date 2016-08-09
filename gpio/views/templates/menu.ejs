@@ -1,3 +1,7 @@
+<style>
+  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+  .toggle.ios .toggle-handle { border-radius: 20px; }
+</style>
 
 <div id="menuItens"
      class='navbar navbar-default navbar-fixed-top'>
@@ -17,8 +21,29 @@
       </a>
     </div>
     <div class='navbar-collapse collapse'>
+
+
       <ul class='nav navbar-nav'>
 <!--                    <li><a href='/'>Home</a></li> -->
+
+        <li>
+          <div style="padding-top: 10px;">
+            <input id="selectLang"
+               class='input'
+               type="checkbox"
+               onchange="setLanguage()"
+               data-toggle="toggle"
+               data-style="ios"
+               data-width="50"
+               data-on="PT"
+               data-off="EN"
+               data-onstyle="success"
+               data-offstyle="danger"
+               data-size="small">
+            </input>
+          </div>
+        </li>
+
         <li ><a href='/' ng-cloak>{{ label.menubar_home }}</a></li>
 
         <li class='dropdown'>
@@ -119,7 +144,43 @@
           </ul>
         </li> <!-- Events -->
 
+        <li>
+          <div style="padding-top: 5px;">
+
+            <button id="btnLangPT"
+                    class="btn btn-primary"
+                    style="display: none;"
+                    ng-click="changeLanguage('pt')">
+                    PT
+            </buton>
+            <button id="btnLangEN"
+                    class="btn btn-primary"
+                    style="display: none;"
+                    ng-click="changeLanguage('en')">
+                    EN
+            </buton>
+            <label id=langSelected>
+            </label>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
 </div>
+
+
+<script>
+
+function setLanguage() {
+
+  var state = $('#selectLang').prop('checked');
+
+  if (state) {
+    angular.element('#langSelected').scope().changeLanguage('en');
+  } else {
+    angular.element('#langSelected').scope().changeLanguage('pt');
+  }
+
+}
+
+</script>

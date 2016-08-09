@@ -4,7 +4,7 @@ var socket = io.connect();
 socket.on('messages', function (data) {
   console.log("socketClient");
   console.log(data);
-})
+});
 
 function render (data) {
   var html = '<div><strong> ${data.author} </strong><em> ${data.text} </em></div>';
@@ -27,3 +27,4 @@ function addMessage ()  {
     console.log(data);
     render(data);
   });
+}

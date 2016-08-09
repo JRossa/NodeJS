@@ -46,13 +46,13 @@ function createEventController($window, $scope, $timeout,
             }
       });
 
-  };
+  }
 
   function clearEventData () {
 
     $scope.eventData.eventSensorId = "";
     $scope.eventData.eventTime = "";
-  };
+  }
 
 
   $scope.message = {
@@ -74,7 +74,7 @@ function createEventController($window, $scope, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateEventSensorId = {
@@ -86,13 +86,13 @@ function createEventController($window, $scope, $timeout,
 
     $scope.validateEventSensorId.containsValidationError = false;
     $scope.validateEventSensorId.errorMessage = "";
-  };
+  }
 
   function displayEventSensorIdMessage () {
 
     $scope.validateEventSensorId.containsValidationError = true;
     $scope.validateEventSensorId.errorMessage = "Select a sensor !!";
-  };
+  }
 
   $scope.validateEventTime = {
     containsValidationError : false,
@@ -103,19 +103,19 @@ function createEventController($window, $scope, $timeout,
 
     $scope.validateEventTime.containsValidationError = false;
     $scope.validateEventTime.errorMessage = "";
-  };
+  }
 
   function displayEventTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
     $scope.validateEventTime.errorMessage = "Enter a date !!";
-  };
+  }
 
   function displayEventCurrentTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
     $scope.validateEventTime.errorMessage = "Inserted current date !!";
-  };
+  }
 
   $scope.createEvent = function (eventData) {
 
@@ -127,17 +127,18 @@ function createEventController($window, $scope, $timeout,
         { name : $scope.sensorType.sensorObs || "", errorMessage : "Please enter sensor obs !!"}
       ]);
 */
-    if (eventData.eventSensorId.length == 0) {
+    if (eventData.eventSensorId.length === 0) {
 
       displayEventSensorIdMessage ();
       validationMessages++;
     }
 
-    if (eventData.eventTime.toString().length == 0) {
+    var currDate = new Date();
+
+    if (eventData.eventTime.toString().length === 0) {
 //      displayEventTimeMessage ();
 //      validationMessages++;
       if (validationMessages === 0) {
-        var currDate = new Date();
 
         $scope.eventData.eventTime = currDate;
         displayEventCurrentTimeMessage();
@@ -158,7 +159,7 @@ function createEventController($window, $scope, $timeout,
 
     } else {
 
-      var currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
+      currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
 /*
       eventData.eventTime = currDate;
 
