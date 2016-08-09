@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editPin {
-   width:380px;
+   width:400px;
    margin:0 auto;
 }
 #left_col {
@@ -54,8 +54,15 @@
 
               <br/>
 
-              <pre>{{pinData.pinInput || 'null'}}</pre>
-              <pre>{{pinData.pinUsed || 'null'}}</pre>
+              <div class="row" hidden>
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="form-group"
+                       style="padding-left: 0%;">
+                    <pre>{{pinData.pinInput || 'null'}}</pre>
+                    <pre>{{pinData.pinUsed || 'null'}}</pre>
+                  </div>
+                </div>
+              </div>
 
               <% include editPinInputToggle.ejs %>
 
@@ -80,7 +87,7 @@
                             style="width: 100%;"
                             required>
                       <option value="">
-                        Please select a sensor !!
+                        {{label.createmenu_selectSensor}}
                       </option>
 
                       <option data-ng-repeat = "sensorData in sensorsData"

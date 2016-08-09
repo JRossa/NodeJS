@@ -55,11 +55,13 @@
                        'fa fa-sort-desc':!reverse}">
          </b>
          <div class="form-group">
-           <div class="col-md-8">
+           <div class="col-md-10">
              <div class="form-group row">
                <label for="inputStartTime"
                       class="col-md-4 control-label"
-                      style="font-size:7pt;">Start :</label>
+                      style="font-size:7pt;">
+                      {{ label.listEvent_actTimeStart }}
+                </label>
                <div class="col-md-4">
                <input id="inputStartTime"
                       ng-model="searchText.startTime"
@@ -74,7 +76,9 @@
               <br/>
               <label for="inputEndTime"
                      class="col-md-4 control-label"
-                     style="font-size:7pt;">End :  </label>
+                     style="font-size:7pt;">
+                       {{ label.listEvent_actTimeEnd }}
+              </label>
               <div class="col-md-4">
               <input id="inputEndTime"
                      ng-model="searchText.endTime"
@@ -109,7 +113,9 @@
                 data-ng-click="loadEvent(eventData)">
            <i class="glyphicon glyphicon-erase"
               aria-hidden="true" ></i>
-           <span>Delete</span>
+           <span>
+             {{label.pinGrid_delete}}
+           </span>
         </button>
 
       </td>

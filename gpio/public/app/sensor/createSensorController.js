@@ -107,7 +107,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = "Enter a sensor number !!";
+    $scope.validateSensorNumber.errorMessage = $scope.label.createSensor_controller_enterSensorNum;
   };
 
   $scope.validateSensorTypeId = {
@@ -124,7 +124,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
   function displaySensorTypeIdMessage () {
 
     $scope.validateSensorTypeId.containsValidationError = true;
-    $scope.validateSensorTypeId.errorMessage = "Enter a sensor model !!";
+    $scope.validateSensorTypeId.errorMessage = $scope.label.createSensor_controller_enterSensorModel;
   };
 
   $scope.createSensor = function (sensorData) {
@@ -162,7 +162,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
           if (data) {
             console.log("data");
             if (data.status && data.status == 'Successful') {
-              showMessage(true, false, "A recorded added successfully !!");
+              showMessage(true, false, $scope.label.createSensor_controller_recordAdded);
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");

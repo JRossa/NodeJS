@@ -247,7 +247,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
   function displayAlarmDurationMessage () {
 
     $scope.validateAlarmDuration.containsValidationError = true;
-    $scope.validateAlarmDuration.errorMessage = "Enter a valid alarm duration !!";
+    $scope.validateAlarmDuration.errorMessage = $scope.label.listPin_controller_enterAlarmDuration;
   };
 
   $scope.updatePin = function (pinData) {
@@ -255,7 +255,8 @@ function listPinController($rootScope, $scope, $window, $timeout,
     var validationMessages = 0;
 
     if ($scope.pinData.pinInput == 'false') {
-      if ($scope.pinData.pinAlarmDuration.length == 0) {
+      if ($scope.pinData.pinAlarmDuration.length == 0 ||
+               $scope.pinData.pinAlarmDuration < 0) {
 
         displayAlarmDurationMessage ();
         validationMessages++;
@@ -283,7 +284,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
           if (data) {
             console.log("data");
             if (data.status && data.status == 'Successful') {
-              showMessage(true, false, "A recorded updated successfully !!");
+              showMessage(true, false, $scope.label.listPin_controller_recordUpdated);
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");

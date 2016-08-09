@@ -138,7 +138,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = "Enter a sensor model !!";
+    $scope.validateSensorNumber.errorMessage = $scope.label.listSensorType_controller_enterSensorNum;
   };
 
   $scope.updateSensorType = function (sensorType) {
@@ -169,7 +169,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
           if (data) {
             console.log("data");
             if (data.status && data.status == 'Successful') {
-              showMessage(true, false, "A recorded updated successfully !!");
+              showMessage(true, false, $scope.label.listSensorType_controller_recordUpdated);
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");

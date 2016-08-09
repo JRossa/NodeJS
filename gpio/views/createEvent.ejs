@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #createEvent {
-   width:400px;
+   width:340px;
    margin:0 auto;
 }
 #left_col {
@@ -30,35 +30,33 @@
     <% include templates/pagetitle.ejs %>
 
     <div class="panel-body" >
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="container">
+      <div class="container">
 
-          <% include ./message.ejs %>
+        <% include ./message.ejs %>
 
-          <form class="navbar-form navbar-left"
-                role="search"
-                method="POST"
-                name="formCreateEvent"
-                novalidate="">
+        <form class="navbar-form navbar-left"
+              role="search"
+              method="POST"
+              name="formCreateEvent"
+              novalidate="">
 
-            <div class="row"
-                align="left">
-              <div class="form-group"
-                   style="padding-left: 5%;">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="form-group">
                 <div ng-class="{'has-error': validateEventSensorId.containsValidationError}">
 
                   <label for="sensorId">
-                    {{label.createmenu_eventSensorId}}
+                    {{label.createmenu_eventSensorNumber}}
                   </label>
 
                   <select id="eventSensorId"
                           class="form-control"
                           name="eventSensorId"
                           ng-model="eventData.eventSensorId"
-                          style="width: 80%;"
+                          style="width: 100%;"
                           ngRequired>
                     <option value="">
-                      Please select a sensor model !!
+                      {{label.createmenu_selectSensorNum}}
                     </option>
                     <option data-ng-repeat = "sensorData in sensorsData"
                              value = {{sensorData.id}} > {{sensorData.num}}
@@ -77,16 +75,16 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <br/>
+          <br/>
 
-            <!-- https://material.angularjs.org/latest/demo/datepicker -->
-            <!-- https://www.youtube.com/watch?v=VKRuSryBaNk#t=62.097994 -->
+          <!-- https://material.angularjs.org/latest/demo/datepicker -->
+          <!-- https://www.youtube.com/watch?v=VKRuSryBaNk#t=62.097994 -->
 
-            <div class="row"
-                 align="left">
-              <div class="form-group"
-                   style="padding-left: 5%;">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="form-group">
                 <div ng-class="{'has-error': validateEventTime.containsValidationError}">
 
                   <label for="eventTime">
@@ -101,8 +99,8 @@
                          placeholder="Event Time"
                          name="eventTime"
                          ng-model="eventData.eventTime"
-                         ng-maxlength="60"
-                         style="width: 73%;">
+                         ng-maxlength="40"
+                         style="width: 100%;">
                   </input>
 
                   <label class="help-block text-danger" for="eventTime"
@@ -117,30 +115,36 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <br/>
+          <br/>
 
-            <div class="modal-footer"
-                 style="width: 85%;">
-            <div align="center"
-                 class="row">
-              <div class="form-group"
-                   style="padding-left: 0%;">
-                <button type="button"
-                        class="btn btn-primary"
-                        ng-disabled="!formCreateEvent.$valid"
-                        ng-click="createEvent(eventData)">
-                  {{label.createmenu_createEvent}}
-                </button>
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="modal-footer">
+              <div class="row"
+                   align="center">
+                <div class="form-group"
+                     style="padding-left: 0%;">
+                  <button type="button"
+                          class="btn btn-primary"
+                          ng-disabled="!formCreateEvent.$valid"
+                          ng-click="createEvent(eventData)">
+                    {{label.createmenu_createEvent}}
+                  </button>
+                </div>
               </div>
             </div>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
+
     </div>
   </div>
 </div>
+
+
+
+<script src='/bower_components/jquery/dist/jquery.js'></script>
 
 <!-- Angular core -->
 <script src='/bower_components/angular/angular.js'></script>

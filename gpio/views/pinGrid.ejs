@@ -1,3 +1,4 @@
+
 <table data-ng-show="pinsData.length > 0"
        class="table table-striped table-hover table-bordered table-condensed"
        id="tblpinData" style="width:100%;">
@@ -9,7 +10,7 @@
       <td style="width: 5%"> {{label.pinGrid_input}} </td>
       <td style="width: 5%"> {{label.pinGrid_BCM}} </td>
       <td style="width: 5%"> {{label.pinGrid_BOARD}} </td>
-      <td style="width: 40%"> {{label.pinGrid_location}} </td>
+      <td style="width: 35%"> {{label.pinGrid_location}} </td>
       <td style="width: 10%"> {{label.pinGrid_alarmDuration}} </td>
       <td style="width: 20%"> {{label.pinGrid_options}} </td>
     </tr>
@@ -18,6 +19,7 @@
   <tbody id='tblpinDataBody'>
     <tr data-ng-repeat="pinData in pinsData">
       <td>{{pinData.id}}</td>
+
       <td>
         <span style="padding-left: 20px; display:inline-block;"> </span>
         <img ng-src="images/{{pinData.pinUsedImage}}" width="28px" height="28px"> </image>
@@ -26,6 +28,7 @@
         <span style="padding-left: 15px; display:inline-block;"> </span>
         <img ng-src="images/{{pinData.pinInputImage}}" width="30px" height="28px"> </image>
       </td>
+
       <td>{{pinData.bcm}}</td>
       <td>{{pinData.board}}</td>
       <td>{{setLocation(pinData.sensor_id)}}

@@ -115,7 +115,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
   function displayPinBOARDMessage () {
 
     $scope.validatePinBOARD.containsValidationError = true;
-    $scope.validatePinBOARD.errorMessage = "Enter a BOARD pin number !!";
+    $scope.validatePinBOARD.errorMessage = $scope.label.createPin_controller_enterPinBCM;
   };
 
   $scope.validatePinBCM = {
@@ -132,7 +132,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
   function displayPinBCMMessage () {
 
     $scope.validatePinBCM.containsValidationError = true;
-    $scope.validatePinBCM.errorMessage = "Enter a BCM pin number !!";
+    $scope.validatePinBCM.errorMessage = $scope.label.createPin_controller_enterPinBOARD;
   };
 
   $scope.createPin = function (pinData) {
@@ -176,7 +176,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
           if (data) {
             console.log("data");
             if (data.status && data.status == 'Successful') {
-              showMessage(true, false, "A recorded added successfully !!");
+              showMessage(true, false, $scope.label.createPin_controller_recordAdded);
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");

@@ -21,7 +21,7 @@ var eventDao = {
             if (rows === undefined) {
                 dbData.run('CREATE TABLE "tbl_event" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[sensor_id] INTEGER NULL, ' +
+                    '[sensor_num] INTEGER NULL, ' +
                     '[act_time] TIMESTAMP UNIQUE  NULL, ' +
                     'FOREIGN KEY(sensor_id) REFERENCES tbl_sensor(id))', function (err) {
                     if (err !== null) {
@@ -176,7 +176,10 @@ var eventDao = {
 
   getAllEvent : function (OnSuccessCallback) {
 
-    var selectStatement = "SELECT * FROM tbl_event ORDER BY id ";
+    var selectStatement = "SELECT e.*, s.num AS sensor_num " +
+                          "FROM tbl_event AS e, tbl_sensor AS s " +
+                          "WHERE e.sensor_id = s.id " +
+                          "ORDER BY e.id ";
 
     console.log(selectStatement);
 
@@ -203,7 +206,7 @@ var eventDao = {
   checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
 
     var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
-                          "WHERE sensor_id = ? " +
+                          "WHERE sensor_num = ? " +
                           "AND act_time > ? "
                           "ORDER BY id";
 

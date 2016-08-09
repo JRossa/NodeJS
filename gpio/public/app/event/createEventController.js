@@ -1,10 +1,10 @@
 angular.module("eventModule")
        .controller("createEventController", createEventController);
 
-createEventController.$inject = ['$window', '$scope', '$timeout',
+createEventController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                  'eventService', 'langService'];
 
-function createEventController($window, $scope, $timeout,
+function createEventController($rootScope, $scope, $window, $timeout,
                                eventService, langService) {
 
   $scope.sensorsData = [];
@@ -31,6 +31,22 @@ function createEventController($window, $scope, $timeout,
            $scope.label = data;
            $("#createEvent").show();
         });
+  }
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+           $scope.label = data;
+           $("#createEvent").show();
+        });
+
   }
 
   function getAllSensors () {
@@ -91,7 +107,7 @@ function createEventController($window, $scope, $timeout,
   function displayEventSensorIdMessage () {
 
     $scope.validateEventSensorId.containsValidationError = true;
-    $scope.validateEventSensorId.errorMessage = "Select a sensor !!";
+    $scope.validateEventSensorId.errorMessage = $scope.label.createEvent_controller_enterSensor;
   }
 
   $scope.validateEventTime = {
@@ -108,13 +124,13 @@ function createEventController($window, $scope, $timeout,
   function displayEventTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
-    $scope.validateEventTime.errorMessage = "Enter a date !!";
+    $scope.validateEventTime.errorMessage = $scope.label.createEvent_controller_enterDate;
   }
 
   function displayEventCurrentTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
-    $scope.validateEventTime.errorMessage = "Inserted current date !!";
+    $scope.validateEventTime.errorMessage = $scope.label.createEvent_controller_insertedCurrDate;;
   }
 
   $scope.createEvent = function (eventData) {
@@ -195,7 +211,7 @@ function createEventController($window, $scope, $timeout,
           if (data) {
             console.log("data");
             if (data.status && data.status == 'Successful') {
-              showMessage(true, false, "A recorded added successfully !!");
+              showMessage(true, false, $scope.label.createEvent_controller_recordAdded);
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");

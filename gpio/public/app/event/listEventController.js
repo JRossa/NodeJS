@@ -1,11 +1,11 @@
 angular.module("eventModule")
        .controller("listEventController", listEventController);
 
-listEventController.$inject = ['$window', '$scope', '$timeout', '$filter',
+listEventController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                 'eventService', 'langService'];
 
 
-function listEventController($window, $scope, $timeout, $filter,
+function listEventController($rootScope, $scope, $window, $timeout,
                               eventService, langService) {
 
   $scope.eventsData = [];
@@ -20,9 +20,13 @@ function listEventController($window, $scope, $timeout, $filter,
 
   loadLanguage();
 
+  getAllSensors();
   getAllEvents();
 
   function loadLanguage () {
+
+    var langKey = $window.localStorage.getItem('langKey');
+
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
@@ -31,6 +35,40 @@ function listEventController($window, $scope, $timeout, $filter,
 //           console.log(data);
            $("#listEvent").show();
         });
+  };
+
+  $scope.changeLanguage = function (langKey)  {
+    $rootScope.currentLang = langKey;
+
+  //  console.log($window.navigator.language);
+    $window.localStorage.setItem('langKey', langKey);
+    $window.localStorage.setItem('langSet', 'teste');
+
+    langService.loadLanguage(langKey)
+        .then ( function (data) {
+//           console.log(data);
+           $scope.label = data;
+//           $scope.label = {"menubar_home" : "Home"};
+//           console.log(data);
+           $("#listEvent").show();
+        });
+
+  }
+
+  var sensorsData = [];
+
+  function getAllSensors () {
+    eventService.getAllSensors()
+      .success( function (data) {
+
+        if (data &&
+            data.sensorsData &&
+            data.sensorsData.length > 0) {
+
+              sensorsData = data.sensorsData;
+            }
+      });
+
   };
 
   function getAllEvents () {
@@ -52,6 +90,7 @@ function listEventController($window, $scope, $timeout, $filter,
 
     eventId : 0,
     eventSensorId : "",
+    eventSensorNum : "",
     eventTime : ""
 
   };
@@ -61,6 +100,7 @@ function listEventController($window, $scope, $timeout, $filter,
     console.log(eventData);
     $scope.eventData.eventId = eventData.id;
     $scope.eventData.eventSensorId = eventData.sensor_id.toString();
+    $scope.eventData.eventSensorNum = eventData.sensor_num.toString();
     $scope.eventData.eventTime = eventData.act_time;
   }
 
@@ -103,28 +143,11 @@ function listEventController($window, $scope, $timeout, $filter,
 
   };
 
-  var sensorsData = [];
-
-  function getAllSensors () {
-    eventService.getAllSensors()
-      .success( function (data) {
-
-        if (data &&
-            data.sensorsData &&
-            data.sensorsData.length > 0) {
-
-              sensorsData = data.sensorsData;
-            }
-      });
-
-  };
-
   // Returns a random integer between min (included) and max (included)
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  getAllSensors();
 
   $scope.insertEvent = function () {
 
@@ -207,7 +230,7 @@ function listEventController($window, $scope, $timeout, $filter,
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = "Enter a sensor model !!";
+    $scope.validateSensorNumber.errorMessage = $scope.label.listEvent_controller_enterSensorNum;
   };
 
 

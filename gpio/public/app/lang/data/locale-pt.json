@@ -47,14 +47,16 @@
   "createmenu_createEvent" : "Inserir Ativação",
   "createmenu_createPin" : "Inserir Pino",
 
-  "createmenu_sensorNumber" : "Número",
-  "createmenu_sensorType" : "Tipo",
+  "createmenu_sensorNumber" : "Número do Sensor",
+  "createmenu_sensorType" : "Tipo do Sensor",
   "createmenu_sensorModel" : "Modelo do Sensor",
-  "createmenu_sensorLocation" : "Localização",
+  "createmenu_sensorLocation" : "Localização do Sensor",
   "createmenu_eventSensorId" : "Id do Sensor",
   "createmenu_eventTime" : "Hora da Ativação",
   "createmenu_obs" : "Obs :",
 
+  "createmenu_selectSensorId" : "Selecione o Id do Sensor !!",
+  "createmenu_selectSensorNum" : "Selecione o Número do Sensor !!",
   "createmenu_selectSensor" : "Selecione um sensor !!",
   "createmenu_selectSensorType" : "Selecione um modelo de sensor !!",
 
@@ -81,6 +83,8 @@
   "listEvent_eventId" : "Num Ativ",
   "listEvent_sensorNum" : "Num Sensor",
   "listEvent_actTime" : "Hora",
+  "listEvent_actTimeStart" : "Início :",
+  "listEvent_actTimeEnd" : "Fim :",
 
   "editmenu_updateSensor" : "Atualizar Sensor",
   "editmenu_updateSensorType" : "Atualizar Tipo de Sensor",
@@ -112,6 +116,32 @@
   "pinGrid_options" : "Opções",
   "pinGrid_edit" : "Editar",
   "pinGrid_delete" : "Remover",
+
+  "createEvent_controller_enterDate" : "Insira uma data !!",
+  "createEvent_controller_enterSensor" : "Insira um sensor !!",
+  "createEvent_controller_insertedCurrDate" : "Inserida a data atual !!",
+  "createEvent_controller_recordAdded" : "Registo inserido com sucesso !!",
+  "createPin_controller_enterPinBCM" :"Insira o número BCM GPIO !!",
+  "createPin_controller_enterPinBOARD" :"Insira o número do pin BOARD !!",
+  "createPin_controller_recordAdded" : "Registo inserido com sucesso !!",
+  "createSensor_controller_enterSensorNum" : "Insira o número do sensor !!",
+  "createSensor_controller_enterSensorModel" : "Insira o modelo do sensor !!",
+  "createSensor_controller_recordAdded" : "Registo inserido com sucesso !!",
+  "createSensorType_controller_enterSensorModel" : "Insira o modelo do sensor !!",
+  "createSensorType_controller_recordAdded" : "Registo inserido com sucesso !!",
+
+  "editSensorType_controller_enterSensorModel" : "Insira o modelo do sensor !!",
+  "editSensorType_controller_recordUpdated" : "Registo atualizado com sucesso !!",
+  "listSensorType_controller_enterSensorModel" : "Insira o modelo do sensor !!",
+  "listSensorType_controller_recordUpdated" : "Registo atualizado com sucesso !!",
+
+  "listEvent_controller_enterSensorNum" : "Insira o número do sensor !!",
+
+  "listPin_controller_enterAlarmDuration" : "Insira a duração do alarme !!",
+  "listPin_controller_recordUpdated" : "Registo atualizado com sucesso !!",
+
+  "listSensor_controller_enterSensorNum" : "Insira o número do sensor !!",
+  "listSensor_controller_recordUpdated" : "Registo atualizado com sucesso !!",
 
   "menubar_appTitle" : "Pi 3",
   "menubar_createEvent" : "Inserir Ativação",
