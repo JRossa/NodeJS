@@ -65,6 +65,10 @@ new sensorRoute(app);
 var pinRoute = require('./routes/pinRouteConfig');
 new pinRoute(app);
 
+// Action - alarm setup
+var actionRoute = require('./routes/actionRouteConfig');
+new actionRoute(app);
+
 // Events
 var eventRoute = require('./routes/eventRouteConfig');
 new eventRoute(app);
