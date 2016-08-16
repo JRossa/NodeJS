@@ -148,12 +148,13 @@ actionRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/createAction',
+    requestUrl : '/setAlarmRPi',
     callbackFunction : function(req, res) {
 
-      res.render('createAction', {
+      res.render('setAlarmRPi', {
            title : "label.menubar_appTitle",
-           pagename : "label.createAction_pagename"
+           pagename : "label.setAlarmRPi_pagename",
+           modalname : "label.setAlarmRPi_pagename"
          });
 
     }

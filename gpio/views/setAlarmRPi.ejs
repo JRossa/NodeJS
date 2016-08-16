@@ -1,0 +1,168 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#setAlarmRPi {
+   width:360px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="setAlarmRPi"
+     data-ng-app="alarmModule"
+     data-ng-controller="setAlarmController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  <br/>
+  <div class="panel panel-info"
+       style="width: 100%;"
+       align="left">
+
+    <% include templates/pagetitle.ejs %>
+
+    <div class="panel-body" >
+      <div class="container">
+
+        <% include ./message.ejs %>
+
+        <form id="formSetAlarmRPi"
+              class="navbar-form navbar-left"
+              role="search"
+              method="POST"
+              name="formSetAlarmRPi"
+              novalidate="">
+
+          <% include setAlarmToggle.ejs %>
+          <br/>
+          <% include setAlarmToggle.ejs %>
+          <br/>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="form-group">
+                <div ng-class="{'has-error': validateEventTime.containsValidationError}">
+
+                  <label for="eventTime">
+                    {{label.createmenu_eventTime}}
+                  </label>
+
+
+                  <input id="startTimeInput"
+                         class="form-control"
+                         type="time"
+                         step="1"
+                         placeholder="Event Time"
+                         name="eventTime"
+                         ng-model="eventData.eventTime"
+                         ng-maxlength="40"
+                         style="width: 100%;">
+                  </input>
+
+                  <label class="help-block text-danger" for="eventTime"
+                          data-ng-show="validateEventTime.containsValidationError">
+                     {{ validateEventTime.errorMessage }}
+                  </label>
+
+                  <label class="help-block text-danger" for="eventTime"
+                          data-ng-show="!validateEventTime.containsValidationError">
+                    <br/>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="endTime"
+               class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="form-group">
+                <div ng-class="{'has-error': validateEventTime.containsValidationError}">
+                  <label for="eventTime">
+                    {{label.createmenu_eventTime}}
+                  </label>
+          <div id="endTimeInput" class='input-group date'
+               datetimepicker
+               ng-model="date">
+            <input type='text'
+                   class="form-control"/>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time">
+
+<!--
+                <span class="glyphicon glyphicon-calendar">
+-->
+                </span>
+              </span>
+            </div>
+      			<br />
+      			<p>
+      				ng-model value: {{date}}
+      		</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="modal-footer">
+              <div align="center"
+                   class="row">
+                <div class="form-group"
+                     style="padding-left: 0%;">
+                  <button type="button"
+                          class="btn btn-primary"
+                          ng-click="goInit()">
+                    {{label.createmenu_createPin}}
+                  </button>
+                  <button type="button"
+                          class="btn btn-primary"
+                          ng-disabled="!formCreatePin.$valid"
+                          ng-click="setAlarmConfig()">
+                    {{label.createmenu_createPin}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
+
+<!-- JQuery do not work
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+<script type="text/javascript" src="/javascripts/moment.min.js"></script>
+
+<!-- Angular core -->
+<script src='/bower_components/angular/angular.min.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+
+<script src='/javascripts/bootstrap-datetimepicker.js'></script>
+
+<script src='/app/lang/langModule.js'></script>
+<script src='/app/lang/langService.js'></script>
+<script src="/app/lang/langJQuery.js"></script>
+
+<script src='/app/alarm/alarmModule.js'></script>
+<script src='/app/alarm/alarmService.js'></script>
+<script src='/app/alarm/setAlarmController.js'></script>
+<script src='/app/alarm/alarmDirective.js'></script>
+
+
+
+
+<% include templates/footer.ejs %>

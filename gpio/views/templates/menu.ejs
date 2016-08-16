@@ -89,7 +89,7 @@
           </a>
           <ul class='dropdown-menu'>
               <li>
-                <a href='/armRPi'>
+                <a href='/setAlarmRPi'>
                   {{ label.menubar_armRPi }}
                 </a>
               </li>
@@ -98,6 +98,7 @@
                   {{ label.menubar_disarmRPi }}
                 </a>
               </li>
+              <li class="divider"></li>
               <li>
                 <a href='/setGPIO'>
                   {{ label.menubar_setGPIO }}
@@ -108,6 +109,7 @@
                   {{ label.menubar_clearGPIO }}
                 </a>
               </li>
+              <li class="divider"></li>
               <li>
                 <a href='/createPin'>
                    {{ label.menubar_createPin }}
@@ -159,7 +161,7 @@
                     ng-click="changeLanguage('en')">
                     EN
             </buton>
-            <label id=langSelected>
+            <label id="langSelected">
             </label>
           </div>
         </li>
@@ -167,20 +169,3 @@
     </div>
   </div>
 </div>
-
-
-<script>
-
-function setLanguage() {
-
-  var state = $('#selectLang').prop('checked');
-
-  if (state) {
-    angular.element('#langSelected').scope().changeLanguage('en');
-  } else {
-    angular.element('#langSelected').scope().changeLanguage('pt');
-  }
-
-}
-
-</script>

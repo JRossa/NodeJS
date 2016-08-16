@@ -23,6 +23,8 @@
   "createPin_pagename" : "Create Pin",
   "listPin_pagename" : "List Pins",
 
+  "setAlarmRpi_pagename" : "Alarm Set",
+
   "deleteSensorType_modalTitle" : "Delete Sensor Type",
   "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
 

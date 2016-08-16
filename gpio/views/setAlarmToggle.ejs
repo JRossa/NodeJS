@@ -1,0 +1,33 @@
+
+<label id="alarmValue" hidden>
+  {{actionData.alarmAction}}
+</label>
+
+
+<div class="row"
+     data-ng-show="true">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+    <div class="form-group"
+         style="padding-left: 0%;">
+      <div ng-class="{'has-error': validatePinSensorId.containsValidationError}">
+        <label for="pinInput">
+          {{label.createmenu_pinInput}}
+        </label>
+
+        <span style="padding-left: 50px; display:inline-block;"> </span>
+
+        <input id="pinInput"
+               type="checkbox"
+               onchange="setPinInputState()"
+               data-toggle="toggle"
+               data-width="100"
+               data-on="Entrada"
+               data-off="Saída"
+               data-onstyle="success"
+               data-offstyle="danger"
+               data-size="small">
+        </input>
+      </div>
+    </div>
+  </div>
+</div>

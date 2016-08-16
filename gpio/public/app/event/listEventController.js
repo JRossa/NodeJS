@@ -10,7 +10,29 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   $scope.eventsData = [];
 
+  $scope.showLang = {
+   disabled: true,
+   show_PT: false,
+   show_EN : false
+  };
+
   var langKey = $window.localStorage.getItem('langKey');
+
+  setToggleLang(langKey)
+
+  // used in toggle buttons labels
+  function setToggleLang(langKey) {
+
+    if (langKey == 'pt') {
+      $scope.showLang.show_PT = true;
+      $scope.showLang.show_EN = false;
+    }
+
+    if (langKey == 'en') {
+      $scope.showLang.show_PT = false;
+      $scope.showLang.show_EN = true;
+    }
+  }
 
 /*
   $scope.$on('SOME_TAG', function(response) {
@@ -279,12 +301,44 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   }
 
+  function convertDateTimePicker(dateTime) {
+
+    if (dateTime === "undefined" ||
+               dateTime.toString() == "") {
+      return dateTime;
+    }
+
+    var splitSearch = dateTime.split(" ");
+    var splitDate = splitSearch[0].split("/");
+    //var now = new Date("2008-08-28 23:30:00");
+
+    var searchDate = new Date(splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0] +
+              " " + splitSearch[1] + ":00");
+
+//    console.log(searchDate.getTime());
+    if (isNaN(searchDate.getTime())) {  // d.valueOf() could also work
+        // date is not valid
+        return "";
+      }
+
+    // convert to localTime
+    var minutes = searchDate.getTimezoneOffset();
+    searchDate = new Date(searchDate.getTime() - minutes * 60000);
+    //  searchDate.toISOString().substr(0, 10);
+    // "2014-11-19"
+    // searchDate.toISOString()
+    // "2014-11-19T17:30:34.015Z"
+    return searchDate.toISOString();
+  }
+
   function selectTime(searchTime, itemTime, greater) {
 
 //    console.log("----------------" + itemTime);
+    searchTime = convertDateTimePicker(searchTime);
+
 //    console.log(searchTime);
 
-  if (typeof searchTime === "undefined") {
+    if (typeof searchTime === "undefined") {
       return true;
     }
 
@@ -292,7 +346,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
       return true;
     }
 
-    console.log(itemTime > searchTime);
+//    console.log(itemTime > searchTime);
     if (greater) {
       return itemTime >= searchTime;
     } else {
@@ -316,13 +370,15 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
     if ($scope.searchText != null &&
         $scope.searchText.startTime != null) {
-          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.act_time, true);
+//          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.act_time, true);
+          timeOk = selectTime($scope.searchText.startTime, item.act_time, true);
     }
 
     if (timeOk) {
       if ($scope.searchText != null &&
           $scope.searchText.endTime != null) {
-            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.act_time, false);
+//            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.act_time, false);
+            timeOk = selectTime($scope.searchText.endTime, item.act_time, false);
       }
     }
 

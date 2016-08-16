@@ -21,7 +21,10 @@ var actionDao = {
                 dbData.run('CREATE TABLE "tbl_action" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '[type_id] INTEGER NULL, ' +
-                    '[time] TIMESTAMP UNIQUE  NULL, ' +
+                    '[switch] BOOLEAN NULL, ' +
+                    '[period] BOOLEAN NULL, ' +
+                    '[set_time] DATETIME UNIQUE  NULL, ' +
+                    '[user_id] INTEGER NULL, ' +
                     'FOREIGN KEY(type_id) REFERENCES tbl_actionType(id))', function (err) {
                     if (err !== null) {
                         console.log(err);

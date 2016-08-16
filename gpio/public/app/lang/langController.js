@@ -10,6 +10,7 @@ function langController ($rootScope, $scope, $window,
 
   $scope.msg = [];
 
+
   function render (data) {
 
     $scope.msg = data;
@@ -35,7 +36,6 @@ function langController ($rootScope, $scope, $window,
 
   $scope.loadLanguage = function ()  {
 
-    var langKey = $scope.currentLang;
 
     socketService.on('messages', function (data) {
       console.log("socketService");
@@ -51,6 +51,33 @@ function langController ($rootScope, $scope, $window,
         });
 
 
+  }
+
+  $scope.showLang = {
+    disabled: false,
+    show_PT: true,
+    show_EN : false
+  };
+
+
+  var langKey = $window.localStorage.getItem('langKey');
+
+
+//  console.log(langKey)
+  setToggleLang(langKey)
+
+  // used in toggle buttons labels
+  function setToggleLang(langKey) {
+
+    if (langKey == 'pt') {
+      $scope.showLang.show_PT = true;
+      $scope.showLang.show_EN = false;
+    }
+
+    if (langKey == 'en') {
+      $scope.showLang.show_PT = false;
+      $scope.showLang.show_EN = true;
+    }
   }
 
 

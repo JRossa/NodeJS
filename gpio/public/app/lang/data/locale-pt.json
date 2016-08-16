@@ -24,6 +24,8 @@
   "editPin_pagename" : "Editar Pino",
   "listPin_pagename" : "Lista de Pinos",
 
+  "setAlarmRPi_pagename" : "Configurar o Alarme",
+
   "deleteSensorType_modalTitle" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
 

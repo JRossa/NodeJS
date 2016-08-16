@@ -62,7 +62,24 @@
                       style="font-size:7pt;">
                       {{ label.listEvent_actTimeStart }}
                 </label>
-               <div class="col-md-4">
+               <div class="col-md-8">
+<!---->
+                <div class='input-group date'
+                     datetimepicker
+                     ng-model="searchText.startTime">
+                  <input id="inputStartTime"
+                         type='text'
+                         style="font-size:7pt;height:10px;width:130px;"
+                         class="form-control"
+                         ng-model="searchText.startTime"/>
+                  <span class="input-group-addon">
+                    <span style="font-size:2pt;height:0px;width:3px;"
+                      class="glyphicon glyphicon-calendar">
+                    </span>
+                  </span>
+                </div>
+
+<!--
                <input id="inputStartTime"
                       ng-model="searchText.startTime"
                       ng-model-options="{ getterSetter: true }"
@@ -72,6 +89,7 @@
                       style="font-size:7pt;height:20px;width:150px;"
                       placeholder="Search for...">
                 </input>
+-->
               </div>
               <br/>
               <label for="inputEndTime"
@@ -80,6 +98,21 @@
                        {{ label.listEvent_actTimeEnd }}
               </label>
               <div class="col-md-4">
+                <div class='input-group date'
+                     datetimepicker
+                     ng-model="searchText.endTime">
+                  <input id="inputEndTime"
+                         type='text'
+                         style="font-size:7pt;height:10px;width:130px;"
+                         class="form-control"
+                         ng-model="searchText.endTime"/>
+                  <span class="input-group-addon">
+                    <span style="font-size:2pt;height:0px;width:3px;"
+                      class="glyphicon glyphicon-calendar">
+                    </span>
+                  </span>
+                </div>
+<!--
               <input id="inputEndTime"
                      ng-model="searchText.endTime"
                      ng-model-options="{ getterSetter: true }"
@@ -89,6 +122,7 @@
                      style="font-size:7pt;height:20px;width:150px;"
                      placeholder="Search for...">
                </input>
+-->
              </div>
            </div>
           </div>

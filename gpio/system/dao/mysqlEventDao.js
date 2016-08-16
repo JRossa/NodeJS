@@ -21,7 +21,7 @@ var eventDao = {
             connection.query('CREATE TABLE IF NOT EXISTS tbl_event' +
                 '(id INTEGER NOT NULL AUTO_INCREMENT,' +
                 'sensor_id INTEGER NOT NULL,' +
-                'act_time TIMESTAMP UNIQUE NOT NULL,' +
+                'act_time DATETIME UNIQUE NOT NULL,' +
                 'PRIMARY KEY(id),' +
                 'INDEX FK_tbl_event_tbl_sensor (sensor_id),' +
                 'CONSTRAINT FK_tbl_event_tbl_sensor FOREIGN KEY (sensor_id) ' +

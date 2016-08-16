@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS fix datetimepicker</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker.min.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<!-- Angular core
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+-->
+	<script src='/bower_components/angular/angular.min.js'></script>
+	<script src='/bower_components/angular-messages/angular-messages.js'></script>
+	<script type="text/javascript" src="/javascripts/moment.min.js"></script>
+</head>
+<body ng-app="alarmModule">
+	<div class="container" ng-controller="setAlarmController">
+		<h4>AngularJS ng-model value not change on select different day</h4>
+		<div class="form-group">
+		<div class='input-group date' datetimepicker  ng-model="date">
+        <input type='text' class="form-control" />
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+			<br />
+			<p>
+				ng-model value: {{date}}
+		</div>
+	</div>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="/javascripts/bootstrap-datetimepicker.js"></script>
+
+	<script src='/app/lang/langModule.js'></script>
+	<script src='/app/lang/langService.js'></script>
+
+	<script src='/app/alarm/alarmModule.js'></script>
+	<script src='/app/alarm/alarmService.js'></script>
+	<script src='/app/alarm/setAlarmController.js'></script>
+	<script src='/app/alarm/alarmDirective.js'></script>
+
+</body>
+</html>
