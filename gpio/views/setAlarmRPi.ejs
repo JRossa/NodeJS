@@ -3,7 +3,7 @@
 <script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-#setAlarmRPi {
+#setAlarmRPiModal {
    width:300px;
    margin:0 auto;
 }
@@ -37,6 +37,10 @@ hr {
   <% include templates/menu.ejs %>
 
   <br/>
+  <div id="setAlarmRPiModal"
+       class="modal-dialog">
+  <div class="modal-content">
+
   <div class="panel panel-info"
        style="width: 100%;">
 
@@ -55,10 +59,12 @@ hr {
               novalidate="">
 
           <% include setAlarmToggle.ejs %>
+
           <br/>
 
           <div id="startTime"
-               class="row" style="width: 80%;">
+               class="row"
+               style="width: 80%;">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
                 <div ng-class="{'has-error': validateStartTimeInput.containsValidationError}">
@@ -133,6 +139,7 @@ hr {
             </div>
           </div>
 
+<!--
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
               <hr>
               <div class="row">
@@ -147,13 +154,30 @@ hr {
                 </div>
             </div>
           </div>
-
+-->
+          <div class="row" >
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group"
+                   style="padding-left: 0%;">
+                <div class="modal-footer" >
+                 <span style="padding-left: 70px; display:inline-block;"></span>
+                 <button type="button"
+                         class="btn btn-primary"
+                         ng-disabled="!formSetAlarmRPi.$valid"
+                         ng-click="setAlarmConfig()">
+                   {{label.createmenu_setAlarmSave}}
+                 </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
+  </div>
+  </div>
 </div>
-
 
 <!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>

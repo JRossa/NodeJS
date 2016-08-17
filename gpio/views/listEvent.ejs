@@ -1,5 +1,19 @@
 <% include templates/header.ejs %>
 
+<style type="text/css">
+#listEventModal {
+   width:100%;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
 
 <div id="listEvent"
      align="center"
@@ -12,6 +26,9 @@
   <% include eventMenu.ejs %>
 
   </br>
+  <div id="listEventModal"
+       class="modal-dialog">
+  <div class="modal-content">
 
   <div class="panel panel-info">
 
@@ -23,6 +40,8 @@
       <% include eventGrid.ejs %>
 
     </div>
+  </div>
+  </div>
   </div>
 
   <% include deleteEvent.ejs %>
