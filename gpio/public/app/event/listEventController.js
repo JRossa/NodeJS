@@ -2,37 +2,15 @@ angular.module("eventModule")
        .controller("listEventController", listEventController);
 
 listEventController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                'eventService', 'langService'];
+                               '$controller', 'eventService', 'langService'];
 
 
 function listEventController($rootScope, $scope, $window, $timeout,
-                              eventService, langService) {
+                             $controller, eventService, langService) {
 
   $scope.eventsData = [];
 
-  $scope.showLang = {
-   disabled: true,
-   show_PT: false,
-   show_EN : false
-  };
-
-  var langKey = $window.localStorage.getItem('langKey');
-
-  setToggleLang(langKey)
-
-  // used in toggle buttons labels
-  function setToggleLang(langKey) {
-
-    if (langKey == 'pt') {
-      $scope.showLang.show_PT = true;
-      $scope.showLang.show_EN = false;
-    }
-
-    if (langKey == 'en') {
-      $scope.showLang.show_PT = false;
-      $scope.showLang.show_EN = true;
-    }
-  }
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
   $scope.$on('SOME_TAG', function(response) {
@@ -65,6 +43,8 @@ function listEventController($rootScope, $scope, $window, $timeout,
   //  console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
+
+    $scope.setToggleLang(langKey);
 
     langService.loadLanguage(langKey)
         .then ( function (data) {
@@ -309,7 +289,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
     }
 
     var splitSearch = dateTime.split(" ");
-    var splitDate = splitSearch[0].split("/");
+    var splitDate = splitSearch[0].split("-");
     //var now = new Date("2008-08-28 23:30:00");
 
     var searchDate = new Date(splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0] +
@@ -322,8 +302,8 @@ function listEventController($rootScope, $scope, $window, $timeout,
       }
 
     // convert to localTime
-    var minutes = searchDate.getTimezoneOffset();
-    searchDate = new Date(searchDate.getTime() - minutes * 60000);
+//    var minutes = searchDate.getTimezoneOffset();
+//    searchDate = new Date(searchDate.getTime() - 1000 * 60 * minutes);
     //  searchDate.toISOString().substr(0, 10);
     // "2014-11-19"
     // searchDate.toISOString()
@@ -333,10 +313,10 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   function selectTime(searchTime, itemTime, greater) {
 
-//    console.log("----------------" + itemTime);
+    console.log("----------------" + itemTime);
     searchTime = convertDateTimePicker(searchTime);
 
-//    console.log(searchTime);
+    console.log(searchTime);
 
     if (typeof searchTime === "undefined") {
       return true;
@@ -346,7 +326,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
       return true;
     }
 
-//    console.log(itemTime > searchTime);
+    console.log(itemTime > searchTime);
     if (greater) {
       return itemTime >= searchTime;
     } else {

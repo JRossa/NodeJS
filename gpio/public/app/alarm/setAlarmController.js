@@ -2,38 +2,19 @@ angular.module("alarmModule")
        .controller("setAlarmController", setAlarmController);
 
 setAlarmController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                        'alarmService', 'langService'];
+                              '$controller', 'alarmService', 'langService'];
 
 
 function setAlarmController($rootScope, $scope, $window, $timeout,
-                                         alarmService, langService) {
+                            $controller, alarmService, langService) {
 
 
-  $scope.date = moment();
-
-  $scope.showLang = {
-   disabled: true,
-   show_PT: false,
-   show_EN : false
-  };
-
-  var langKey = $window.localStorage.getItem('langKey');
-
-  setToggleLang(langKey)
-
-  // used in toggle buttons labels
-  function setToggleLang(langKey) {
-
-    if (langKey == 'pt') {
-      $scope.showLang.show_PT = true;
-      $scope.showLang.show_EN = false;
-    }
-
-    if (langKey == 'en') {
-      $scope.showLang.show_PT = false;
-      $scope.showLang.show_EN = true;
-    }
+  $scope.alarmPeriod = {
+    start: "",
+    end: ""
   }
+
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage ();
 
@@ -41,7 +22,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
   function loadLanguage () {
 
-//    var langKey = $window.localStorage.getItem('langKey');
+    var langKey = $window.localStorage.getItem('langKey');
 
     langService.loadLanguage(langKey)
         .then ( function (data) {
@@ -58,6 +39,8 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
 
+    $scope.setToggleLang(langKey);
+
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
@@ -73,6 +56,97 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
     $window.location.href = '/';
   }
 
+  $scope.message = {
+
+    containsSucessfulMessage : false,
+    sucessfulMessage : ""
+  };
+
+
+  $scope.validationResult = {
+
+    containsValidationError: false,
+    validationResult : ""
+  };
+
+
+  function showMessage (successStatus, errorStatus, text) {
+
+    $scope.message.containsSucessfulMessage = successStatus;
+    $scope.message.containsErrorMessage = errorStatus;
+    $scope.message.textMessage = text;
+  };
+
+
+  $scope.validateAlarmSet = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearAlarmSetMessage () {
+
+    $scope.validateAlarmSet.containsValidationError = false;
+    $scope.validateAlarmSet.errorMessage = "";
+  };
+
+  function displayAlarmSetMessage () {
+
+    $scope.validateAlarmSet.containsValidationError = true;
+    $scope.validateAlarmSet.errorMessage = "";
+  };
+
+  $scope.validateAlarmDuration = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearAlarmDurationMessage () {
+
+    $scope.validateAlarmDuration.containsValidationError = false;
+    $scope.validateAlarmDuration.errorMessage = "";
+  };
+
+  function displayAlarmDurationMessage () {
+
+    $scope.validateAlarmDuration.containsValidationError = true;
+    $scope.validateAlarmDuration.errorMessage = "";
+  };
+
+  $scope.validateStartTimeInput = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearStartTimeInputMessage () {
+
+    $scope.validateStartTimeInput.containsValidationError = false;
+    $scope.validateStartTimeInput.errorMessage = "";
+  };
+
+  function displayStartTimeInputMessage () {
+
+    $scope.validateStartTimeInput.containsValidationError = true;
+    $scope.validateStartTimeInput.errorMessage = "";
+  };
+
+  $scope.validateEndTimeInput = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearEndTimeInputMessage () {
+
+    $scope.validateEndTimeInput.containsValidationError = false;
+    $scope.validateEndTimeInput.errorMessage = "";
+  };
+
+  function displayEndTimeInputMessage () {
+
+    $scope.validateEndTimeInput.containsValidationError = true;
+    $scope.validateEndTimeInput.errorMessage = "";
+  };
+
+
   $scope.reloadPage = function () {
 
     if ($scope.showLang.changed == true) {
@@ -81,5 +155,6 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
       $scope.showLang.changed = false;
     }
   }
+
 
 }

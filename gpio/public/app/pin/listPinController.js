@@ -2,43 +2,16 @@ angular.module("pinModule")
        .controller("listPinController", listPinController);
 
 listPinController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                'pinService', 'langService'];
+                             '$controller', 'pinService', 'langService'];
 
 
 function listPinController($rootScope, $scope, $window, $timeout,
-                              pinService, langService) {
+                           $controller, pinService, langService) {
 
   $scope.sensorsData = [];
   $scope.pinsData = [];
 
-  $scope.showLang = {
-
-    show_PT: false,
-    show_EN : false
-  };
-
-
-  var langKey = $window.localStorage.getItem('langKey');
-
-
-//  console.log(langKey)
-  setToggleLang(langKey)
-
-  // used in toggle buttons labels
-  function setToggleLang(langKey) {
-
-    if (langKey == 'pt') {
-      $scope.showLang.show_PT = true;
-      $scope.showLang.show_EN = false;
-    }
-
-    if (langKey == 'en') {
-      $scope.showLang.show_PT = false;
-      $scope.showLang.show_EN = true;
-    }
-  }
-
-
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
   $scope.$on('SOME_TAG', function(response) {
@@ -49,6 +22,9 @@ function listPinController($rootScope, $scope, $window, $timeout,
   loadLanguage();
 
   function loadLanguage () {
+
+    var langKey = $window.localStorage.getItem('langKey');
+    
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
@@ -67,6 +43,8 @@ function listPinController($rootScope, $scope, $window, $timeout,
 //    console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
+
+    $scope.setToggleLang(langKey);
 
     langService.loadLanguage(langKey)
         .then ( function (data) {

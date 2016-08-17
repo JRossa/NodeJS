@@ -80,6 +80,15 @@
   "createmenu_pinInput_IN" : "Entrada",
   "createmenu_pinInput_OUT" : "Saída",
 
+  "createmenu_alarmSet" : "Alarme",
+  "createmenu_alarmDuration" : "Período",
+  "createmenu_alarmStartTime" : "Liga às :",
+  "createmenu_alarmEndTime" : "Desliga às :",
+  "createmenu_setAlarmCancel" : "Início",
+  "createmenu_setAlarmSave" : "Aplicar",
+
+  "createmenu_eventSensorNumber" : "Número do Sensor",
+
   "editmenu_enterAlarmDuration" : "Insira a duração do alarme",
 
   "listEvent_eventId" : "Num Ativ",

@@ -2,30 +2,33 @@ angular.module("sensorModule")
        .controller("listSensorController", listSensorController);
 
 listSensorController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                'sensorService', 'langService'];
+                                '$controller', 'sensorService', 'langService'];
 
 
 function listSensorController($rootScope, $scope, $window, $timeout,
-                              sensorService, langService) {
+                              $controller, sensorService, langService) {
 
   $scope.sensorTypes = [];
   $scope.sensorsData = [];
 
-  var langKey = $window.localStorage.getItem('langKey');
 
 /*
   $scope.$on('SOME_TAG', function(response) {
       console.log("Some tag");
   })
 */
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage();
   getSensorTypes();
   getAllSensors();
 
   function loadLanguage () {
-    langService.loadLanguage(langKey)
-        .then ( function (data) {
+
+  var langKey = $window.localStorage.getItem('langKey');
+
+  langService.loadLanguage(langKey)
+      .then ( function (data) {
 //           console.log(data);
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
@@ -41,6 +44,8 @@ function listSensorController($rootScope, $scope, $window, $timeout,
   //  console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
+
+    $scope.setToggleLang(langKey);
 
     langService.loadLanguage(langKey)
         .then ( function (data) {

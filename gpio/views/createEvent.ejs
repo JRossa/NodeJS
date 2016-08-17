@@ -91,7 +91,23 @@
                     {{label.createmenu_eventTime}}
                   </label>
 
+                  <div id="eventTime"
+                       class='input-group date'
+                       datetimepicker
+                       ng-model="eventData.eventTime">
+                    <input type='text'
+                           class="form-control"
+                           data-format="dd/MM/yyyy hh:mm:ss"
+                           ng-model="eventTime"
+                           readonly/>
+                    <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-time">
+<!--              <span class="glyphicon glyphicon-calendar"> -->
+                      </span>
+                    </span>
+                  </div>
 
+<!--
                   <input id="eventTime"
                          class="form-control"
                          type="datetime-local"
@@ -102,7 +118,7 @@
                          ng-maxlength="40"
                          style="width: 100%;">
                   </input>
-
+-->
                   <label class="help-block text-danger" for="eventTime"
                           data-ng-show="validateEventTime.containsValidationError">
                      {{ validateEventTime.errorMessage }}
@@ -143,18 +159,27 @@
 </div>
 
 
+<script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
+<!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+<script type="text/javascript" src="/javascripts/moment.min.js"></script>
 
 <!-- Angular core -->
 <script src='/bower_components/angular/angular.js'></script>
 <script src='/bower_components/angular-messages/angular-messages.js'></script>
 
+<script src='/javascripts/bootstrap-datetimepicker.js'></script>
+
 <script src='/app/lang/langModule.js'></script>
 <script src="/app/lang/langService.js"></script>
+<script src="/app/lang/langJQuery.js"></script>
 
 <script src='/app/event/eventModule.js'></script>
 <script src='/app/event/eventService.js'></script>
+<script src='/app/event/eventDirective.js'></script>
+<script src='/app/event/eventLangController.js'></script>
 <script src='/app/event/createEventController.js'></script>
 
 <% include templates/footer.ejs %>

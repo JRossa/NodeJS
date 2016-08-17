@@ -23,7 +23,7 @@
   "createPin_pagename" : "Create Pin",
   "listPin_pagename" : "List Pins",
 
-  "setAlarmRpi_pagename" : "Alarm Set",
+  "setAlarmRPi_pagename" : "Alarm Set",
 
   "deleteSensorType_modalTitle" : "Delete Sensor Type",
   "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
@@ -79,6 +79,15 @@
   "createmenu_pinInput_OFF" : "Off",
   "createmenu_pinInput_IN" : "In",
   "createmenu_pinInput_OUT" : "Out",
+
+  "createmenu_alarmSet" : "Alarm",
+  "createmenu_alarmDuration" : "Duration",
+  "createmenu_alarmStartTime" : "Start time :",
+  "createmenu_alarmEndTime" : "End time :",
+  "createmenu_setAlarmCancel" : "Init",
+  "createmenu_setAlarmSave" : "Save",
+
+  "createmenu_eventSensorNumber" : "Sensor Number",
 
   "editmenu_enterAlarmDuration" : "Enter Alarm Duration",
 

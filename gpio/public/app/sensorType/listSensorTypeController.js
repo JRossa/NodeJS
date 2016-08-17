@@ -2,15 +2,15 @@ angular.module("sensorTypeModule")
        .controller("listSensorTypeController", listSensorTypeController);
 
 listSensorTypeController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                           'sensorTypeService', 'langService'];
+                                    '$controller', 'sensorTypeService', 'langService'];
 
 
 function listSensorTypeController($rootScope, $scope, $window, $timeout,
-                                        sensorTypeService, langService) {
+                                  $controller, sensorTypeService, langService) {
 
   $scope.sensorTypes = [];
 
-  var langKey = $window.localStorage.getItem('langKey');
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
   $scope.$on('SOME_TAG', function(response) {
@@ -24,6 +24,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
   function loadLanguage () {
 
+    var langKey = $window.localStorage.getItem('langKey');
 
     langService.loadLanguage(langKey)
         .then ( function (data) {
@@ -42,6 +43,8 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
   //  console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
+
+    $scope.setToggleLang(langKey);
 
     langService.loadLanguage(langKey)
         .then ( function (data) {

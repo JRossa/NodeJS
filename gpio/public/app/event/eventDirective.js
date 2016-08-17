@@ -61,7 +61,8 @@ function datetimepicker ($window) {
 
       element.datetimepicker({
 				language: langKey,
-				format: 'DD/MM/YYYY HH:mm'
+        useSeconds: true,
+				format: 'DD-MM-YYYY HH:mm:ss'
 			});
 
 			if(!ngModel) return; // do nothing if no ng-model

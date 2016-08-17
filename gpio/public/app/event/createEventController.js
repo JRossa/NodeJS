@@ -2,20 +2,15 @@ angular.module("eventModule")
        .controller("createEventController", createEventController);
 
 createEventController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                                 'eventService', 'langService'];
+                                 '$controller', 'eventService', 'langService'];
 
 function createEventController($rootScope, $scope, $window, $timeout,
-                               eventService, langService) {
+                               $controller, eventService, langService) {
 
   $scope.sensorsData = [];
 
-  $scope.eventData = {
+  angular.extend(this, $controller('langController', {$scope: $scope}));
 
-    eventId : "",
-    eventSensorId : "",
-    eventTime : ""
-
-  };
 
   loadLanguage ();
   getAllSensors ();
@@ -39,6 +34,8 @@ function createEventController($rootScope, $scope, $window, $timeout,
   //  console.log($window.navigator.language);
     $window.localStorage.setItem('langKey', langKey);
     $window.localStorage.setItem('langSet', 'teste');
+
+    $scope.setToggleLang(langKey);
 
     langService.loadLanguage(langKey)
         .then ( function (data) {
@@ -133,6 +130,38 @@ function createEventController($rootScope, $scope, $window, $timeout,
     $scope.validateEventTime.errorMessage = $scope.label.createEvent_controller_insertedCurrDate;;
   }
 
+  function convertDateTimePicker(dateTime) {
+
+    if (dateTime === "undefined" ||
+               dateTime.toString() == "") {
+      return dateTime;
+    }
+
+    var splitSearch = dateTime.split(" ");
+    var splitDate = splitSearch[0].split("-");
+    //var now = new Date("2008-08-28 23:30:00");
+
+    var searchDate = new Date(splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0] +
+              " " + splitSearch[1] + ":00");
+
+//    console.log(searchDate.getTime());
+    if (isNaN(searchDate.getTime())) {  // d.valueOf() could also work
+        // date is not valid
+        return "";
+      }
+
+    // convert to localTime
+//    var minutes = searchDate.getTimezoneOffset();
+//    searchDate = new Date(searchDate.getTime() - 1000 * 60 * minutes);
+    //  searchDate.toISOString().substr(0, 10);
+    // "2014-11-19"
+    // searchDate.toISOString()
+    // "2014-11-19T17:30:34.015Z"
+    return searchDate.toISOString();
+  }
+
+  $scope.eventTime = "";
+
   $scope.createEvent = function (eventData) {
 
     var validationMessages = 0;
@@ -174,8 +203,11 @@ function createEventController($rootScope, $scope, $window, $timeout,
 
 
     } else {
+      // datetimepick
+      eventData.eventTime = convertDateTimePicker($scope.eventTime);
 
-      currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
+      // input -> time
+//      currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
 /*
       eventData.eventTime = currDate;
 

@@ -1,14 +1,11 @@
-window.onload = setListenOpenModal
+window.onload = setInputStates
 
 function setInputStates() {
   setListenOpenModal();
+  menuDropDown();
 }
 
-function setPinInputState() {
-
-  var inputState = $('#pinInput').prop('checked');
-
-  angular.element('#pinInput').scope().setPinInputValue(inputState);
+function setAlarmDuration (inputState) {
 
   if (inputState) {
     document.getElementById('alarmDuration').style.display = 'none';
@@ -20,9 +17,33 @@ function setPinInputState() {
     document.getElementById("alarmDuration").style.display = 'block';
   }
 
-  // not used - for example
+}
+
+function setPinInputStatePT() {
+
+  var inputState = $('#pinInputPT').prop('checked');
+
+  angular.element('#pinInputPT').scope().setPinInputValue(inputState);
+
+  setAlarmDuration (inputState);
+
+  // not used - for sample
   $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}')
 }
+
+
+function setPinInputStateEN() {
+
+  var inputState = $('#pinInputEN').prop('checked');
+
+  angular.element('#pinInputEN').scope().setPinInputValue(inputState);
+
+  setAlarmDuration (inputState);
+
+  // not used - for sample
+  $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}')
+}
+
 
 function setPinUsedState() {
   var usedState = $('#pinUsed').prop('checked');
@@ -48,7 +69,8 @@ function setListenOpenModal() {
         var usedState = (usedValue.search("true") >= 0)? true : false;
         $('#pinUsed').prop('checked', usedState).change();
 
-        setPinInputState();
+        setPinInputStatePT();
+        setPinInputStateEN();
         setPinUsedState();
 
       });
