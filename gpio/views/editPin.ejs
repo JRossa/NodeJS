@@ -109,7 +109,10 @@
                     </label>
                     <input id="pinAlarmDuration"
                            class="form-control"
-                           type="text"
+                           type="number"
+                           min="0.0"
+                           max="60.0"
+                           step="0.1"
                            placeholder={{label.editmenu_enterAlarmDuration}}
                            name="pinAlarmDuration"
                            ng-model="pinData.pinAlarmDuration"
