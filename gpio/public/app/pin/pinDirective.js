@@ -1,19 +1,16 @@
 angular.module("pinModule")
-       .directive("editPinDirective", editPinDirective);
+       .directive("toggleCheckbox", toggleCheckbox);
 
-editPinDirective.$inject = ['$window', '$scope', '$timeout'];
+toggleCheckbox.$inject = ['$scope', '$timeout'];
 
 
-function editPinDirective(window, scope, timeout) {
+function toggleCheckbox(scope, timeout) {
 
   return {
-    restrict : 'E',
+    require: '?ngModel',
+		restrict: 'A',
+		link: function(scope, element, attrs, ngModel){
 
-
-    link : function (scope, el, attrs) {
-
-
-    } // link
-
-  }; // return
+    }
+  }
 }

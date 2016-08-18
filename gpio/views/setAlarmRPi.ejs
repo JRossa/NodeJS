@@ -4,7 +4,7 @@
 
 <style type="text/css">
 #setAlarmRPiModal {
-   width:300px;
+   width:290px;
    margin:0 auto;
 }
 #left_col {
@@ -64,7 +64,7 @@ hr {
 
           <div id="startTime"
                class="row"
-               style="width: 80%;">
+               style="width: 215px;">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
                 <div ng-class="{'has-error': validateStartTimeInput.containsValidationError}">
@@ -76,9 +76,11 @@ hr {
                        class='input-group date'
                        timepicker
                        ng-model="alarmPeriod.start">
-                    <input type='text'
+                    <input id="startTimeInputType"
+                           type='text'
                            class="form-control"
                            ng-model="alarmPeriod.start"
+                           required
                            readonly/>
                     <span class="input-group-addon">
                       <span class="glyphicon glyphicon-time">
@@ -103,7 +105,7 @@ hr {
 
           <div id="endTime"
                class="row"
-               style="width: 80%;">
+               style="width: 215px;">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
                 <div ng-class="{'has-error': validateEndTimeInput.containsValidationError}">
@@ -155,16 +157,17 @@ hr {
             </div>
           </div>
 -->
-          <div class="row" >
+          <div class="row"
+               align="center" >
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group"
                    style="padding-left: 0%;">
                 <div class="modal-footer" >
-                 <span style="padding-left: 70px; display:inline-block;"></span>
-                 <button type="button"
+                 <button id="setAlarmSaveButton"
+                         type="button"
                          class="btn btn-primary"
                          ng-disabled="!formSetAlarmRPi.$valid"
-                         ng-click="setAlarmConfig()">
+                         ng-click="setAlarmConfig(alarmPeriod)">
                    {{label.createmenu_setAlarmSave}}
                  </button>
                 </div>

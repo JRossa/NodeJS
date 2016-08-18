@@ -1,9 +1,4 @@
 
-<label id="alarmValue" hidden>
-  {{actionData.alarmAction}}
-</label>
-
-
 <div class="row"
      data-ng-show="true">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -48,9 +43,9 @@
         <span data-ng-show="showLang.show_PT" style="padding-left: 28px; display:inline-block;"></span>
         <span data-ng-show="showLang.show_EN" style="padding-left: 20px; display:inline-block;"></span>
 
-        <input id="alarmDuration"
+        <input id="alarmPeriod"
                type="checkbox"
-               onchange="setAlarmDurationState()"
+               onchange="setAlarmPeriodState()"
                data-toggle="toggle"
                data-width="100"
                data-on="Total"

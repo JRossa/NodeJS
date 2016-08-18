@@ -114,7 +114,8 @@
                            name="pinAlarmDuration"
                            ng-model="pinData.pinAlarmDuration"
                            ng-maxlength="40"
-                           style="width: 100%;">
+                           style="width: 100%;"
+                           required>
                     </input>
                     <label class="help-block text-danger" for="pinAlarmDuration"
                             data-ng-show="validateAlarmDuration.containsValidationError">
@@ -144,7 +145,8 @@
                                  data-dismiss="modal">
                            {{ label.deletePin_close }}
                          </button>
-                      <button type="button"
+                      <button id="updatePinButton"
+                              type="button"
                               class="btn btn-primary"
                               ng-disabled="!formEditPin.$valid"
                               ng-click="updatePin(pinData)">

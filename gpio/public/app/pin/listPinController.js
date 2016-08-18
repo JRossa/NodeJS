@@ -24,7 +24,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
   function loadLanguage () {
 
     var langKey = $window.localStorage.getItem('langKey');
-    
+
     langService.loadLanguage(langKey)
         .then ( function (data) {
 //           console.log(data);
@@ -97,7 +97,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     if (value == 0) {
       return 'false';
     }
-    if (pinData.input == 1) {
+    if (value == 1) {
       return 'true';
     }
 
@@ -139,8 +139,11 @@ function listPinController($rootScope, $scope, $window, $timeout,
     return pinsData;
   }
 
-  $scope.pinInputState = "";
-  $scope.pinUsedState = "";
+  $scope.controlData = {
+    pinInputState : "",
+    pinUsedState : "",
+    unlockAlarmDuration : ""
+  };
 
   $scope.pinData = {
 
@@ -157,6 +160,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
   };
 
+
   $scope.loadPin = function (pinData) {
     console.log("Load");
     console.log(pinData);
@@ -168,8 +172,9 @@ function listPinController($rootScope, $scope, $window, $timeout,
     $scope.pinData.pinUsed = pinData.used;
     $scope.pinData.pinAlarmDuration = pinData.alarm_duration;
 
-    $scope.pinInputState = $scope.pinData.pinInput
-    $scope.pinUsedState = $scope.pinData.pinUsed;
+    $scope.controlData.pinInputState = $scope.pinData.pinInput;
+    $scope.controlData.pinUsedState = $scope.pinData.pinUsed;
+    $scope.controlData.unlockAlarmDuration ='false';
   }
 
   $scope.deletePin = function () {
@@ -228,11 +233,16 @@ function listPinController($rootScope, $scope, $window, $timeout,
     $scope.validateAlarmDuration.errorMessage = $scope.label.listPin_controller_enterAlarmDuration;
   };
 
+
   $scope.updatePin = function (pinData) {
 
     var validationMessages = 0;
 
-    if ($scope.pinData.pinInput == 'false') {
+    pinData.pinInput = $scope.controlData.pinInputState;
+    pinData.pinUsed = $scope.controlData.pinUsedState;
+
+    if ($scope.pinData.pinInput == false) {
+
       if ($scope.pinData.pinAlarmDuration.length == 0 ||
                $scope.pinData.pinAlarmDuration < 0) {
 
@@ -240,10 +250,11 @@ function listPinController($rootScope, $scope, $window, $timeout,
         validationMessages++;
       }
 
+    } else {
+      pinData.pinAlarmDuration = "";
     }
 
-    $scope.pinData.pinUsed = $scope.pinUsedState;
-
+    console.log(pinData);
     console.log("validationMessages : " + validationMessages);
 
     if (validationMessages > 0) {
@@ -287,7 +298,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
   $scope.setLocation = function (id) {
 
-    console.log(id);
+//    console.log(id);
 
     for (var i = 0; i < $scope.sensorsData.length; i++) {
       var sensor = $scope.sensorsData[i];
@@ -298,6 +309,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     }
   }
 
+
   $scope.matchSelection = function (item, b , pinsData, d) {
 
     var sensorOk = true;
@@ -305,21 +317,33 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
   }
 
+
   $scope.setPinInputValue = function(value) {
 
-    $scope.pinInputState = value;
+    $scope.controlData.pinInputState = value;
   }
 
   $scope.setPinUsedValue = function(value) {
 
-    $scope.pinUsedState = value;
+    $scope.controlData.pinUsedState = value;
   }
+
+
+  $scope.setResetAlarmDuration = function () {
+
+    $scope.controlData.unlockAlarmDuration = 'true';
+  }
+
 
   $scope.resetAlarmDuration = function (value) {
 
-    $scope.pinData.pinAlarmDuration = "";
-    updateAlarmDuration();
+//    console.log($scope.controlData.unlockAlarmDuration);
+    if ($scope.controlData.unlockAlarmDuration == 'true') {
+      $scope.pinData.pinAlarmDuration = "";
+      updateAlarmDuration();
+    }
   }
+
 
   function updateAlarmDuration () {
 

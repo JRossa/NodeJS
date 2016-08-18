@@ -10,6 +10,8 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
 
   $scope.alarmPeriod = {
+    set: "",
+    period: "",
     start: "",
     end: ""
   }
@@ -147,13 +149,11 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
   };
 
 
-  $scope.reloadPage = function () {
+  $scope.setAlarmConfig = function (alarmPeriod) {
 
-    if ($scope.showLang.changed == true) {
       console.log('passou');
-      $window.location.href = '/setAlarmRPi';
-      $scope.showLang.changed = false;
-    }
+      console.log(alarmPeriod);
+//      $window.location.href = '/setAlarmRPi';
   }
 
 
