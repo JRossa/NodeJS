@@ -91,6 +91,9 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
   });
 }
 
+actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
+}
+
 
 actionRouteConfig.prototype.dbCreateTable = function () {
 
@@ -108,6 +111,14 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     if (status.status == "Finished") {
       console.log("Insert Action Types !!")
       self.dbCreateActionType();
+    }
+  });
+
+  actionDao.actionDao.createTableAlarmPeriod(function (status) {
+
+    if (status.status == "Finished") {
+      console.log("Insert Initial Period !!")
+      self.dbCreateAlarmPeriod();
     }
   });
 

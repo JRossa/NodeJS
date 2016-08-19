@@ -107,6 +107,23 @@ function setPinUsedState() {
   $('#pinUsedState').html('{ \'state\' : \'' + $('#pinUsed').prop('checked') + '\'}')
 }
 
+
+function setTimePicker(timeValue, timePicker) {
+
+  var splitTimeValue = timeValue.split(':');
+
+  // http://momentjs.com/docs/
+  // var dateNow = new Date();
+  // var momentSet =  moment(dateNow).hours(splitTimeValue[0]) .....
+  var momentSet = moment().hours(splitTimeValue[0])
+                          .minutes(splitTimeValue[1])
+                          .seconds(splitTimeValue[2])
+                          .milliseconds(0)
+
+  timePicker.setValue(momentSet);
+}
+
+
 function setListenOpenModal() {
 
   $('#editPinModal').on('shown.bs.modal', function() {
@@ -122,6 +139,10 @@ function setListenOpenModal() {
     var usedState = (usedValue.search("true") >= 0)? true : false;
     $('#pinUsedPT').prop('checked', usedState).change();
     $('#pinUsedEN').prop('checked', usedState).change();
+
+    var alarmDuration = angular.element('#editPinModal').scope().pinData.pinAlarmDuration;
+    var timePicker = $('#pinAlarmDuration').data("DateTimePicker");
+    setTimePicker(alarmDuration, timePicker);
 
     setPinInputState();
     setPinUsedState();

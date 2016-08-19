@@ -181,6 +181,43 @@ var actionDao = {
   }, // createActionType
 
 
+  createTableAlarmPeriod : function (OnSuccessCallback) {
+
+    var sqlite3 = require('sqlite3').verbose();
+    var sqliteInit = require('../db/sqliteInit');
+    var dbData = new sqlite3.Database(sqliteInit.dbName);
+
+    dbData.serialize(function () {
+
+      dbData.get("SELECT name FROM sqlite_master " +
+          "WHERE type='table' AND name='tbl_alarmPeriod'", function (err, rows) {
+
+          if (err !== null) {
+              console.log(err);
+          } else {
+            if (rows === undefined) {
+                dbData.run('CREATE TABLE "tbl_alarmPeriod" ' +
+                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                    '[start] VARCHAR(20) UNIQUE NULL, ' +
+                    '[end] VARCHAR(50)  NULL)', function (err) {
+                    if (err !== null) {
+                        console.log(err);
+                    } else {
+                        console.log("SQL Table 'tbl_alarmPeriod' initialized.");
+                        OnSuccessCallback({ status : "Finished"});
+                    }
+                });
+            } else {
+                console.log("SQL Table 'tbl_alarmPeriod' already initialized.");
+            }
+        }
+      }); // get
+
+    }); // serialize
+
+  },
+
+
   deleteAction : function (actionId, OnSuccessCallback, OnErrorCallback) {
 
     var deleteStatement = "DELETE FROM tbl_action WHERE id = ? ";

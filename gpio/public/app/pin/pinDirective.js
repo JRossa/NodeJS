@@ -4,11 +4,15 @@
  * Bootstrap-toggle Directive
  * @link https://github.com/minhur/bootstrap-toggle
  *
- *
+ */
+
+ /*
   toggle - checkbox directive
   https://jsfiddle.net/az3rq4na/
   https://gist.github.com/dave-newson/f6c5e9c2f3bc315e292c
   http://indrimuska.github.io/angular-switcher/
+
+  http://weblogs.asp.net/dwahlin/creating-custom-angularjs-directives-part-3-isolate-scope-and-function-parameters
  */
 
 angular.module("pinModule")
