@@ -13,6 +13,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
+
 /*
   $scope.$on('SOME_TAG', function(response) {
       console.log("Some tag");

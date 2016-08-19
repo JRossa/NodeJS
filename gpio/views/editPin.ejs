@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editPin {
-   width:400px;
+   width:340px;
    margin:0 auto;
 }
 #left_col {
@@ -73,7 +73,7 @@
               <br/>
 
               <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                   <div class="form-group">
 
                     <label for="pinSensorId">
@@ -107,6 +107,23 @@
                     <label for="pinAlarmDuration">
                       {{label.createmenu_pinAlarmDuration}}
                     </label>
+
+                    <div id="pinAlarmDuration"
+                         class='input-group date'
+                         timepicker
+                         ng-model="alarmPeriod.end">
+                      <input type='text'
+                             class="form-control"
+                             ng-model="pinData.pinAlarmDuration"
+                             readonly
+                             required/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time">
+<!--              <span class="glyphicon glyphicon-calendar"> -->
+                        </span>
+                      </span>
+                    </div>
+<!--
                     <input id="pinAlarmDuration"
                            class="form-control"
                            type="number"
@@ -120,6 +137,7 @@
                            style="width: 100%;"
                            required>
                     </input>
+-->
                     <label class="help-block text-danger" for="pinAlarmDuration"
                             data-ng-show="validateAlarmDuration.containsValidationError">
                       <span class="text-danger">
@@ -137,7 +155,7 @@
               </br>
 
 
-              <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="modal-footer">
                   <div class="row"
                        align="center">

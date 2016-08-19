@@ -9,6 +9,25 @@
 
 
 <div class="row"
+     data-ng-show="false">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+    <div class="form-group"
+         style="padding-left: 0%;">
+
+         <input type="checkbox"
+         id="myInterview"
+         data-checkbox-toggle="toggle"
+         data-style="ios"
+         data-onstyle="info"
+         data-size="small"
+         data-on="On"
+         data-off="Off"
+         ng-model="pinData.pinInput">
+     </div>
+   </div>
+ </div>
+
+<div class="row"
      data-ng-show="showLang.show_PT">
   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
     <div class="form-group"
@@ -23,13 +42,14 @@
         <input id="pinInputPT"
                type="checkbox"
                onchange="setPinInputState()"
-               data-toggle="toggle"
+               data-checkbox-toggle="toggle"
                data-width="100"
-               data-on="Entrada"
+               data-on={{label.createmenu_sensorLocation}}
                data-off="Saída"
                data-onstyle="success"
                data-offstyle="danger"
-               data-size="small">
+               data-size="small"
+               ng-model="pinData.pinInput">
         </input>
       </div>
     </div>
@@ -51,13 +71,14 @@
         <input id="pinInputEN"
                type="checkbox"
                onchange="setPinInputState()"
-               data-toggle="toggle"
+               data-checkbox-toggle="toggle"
                data-width="100"
                data-on="In"
                data-off="Out"
                data-onstyle="success"
                data-offstyle="danger"
-               data-size="small">
+               data-size="small"
+               ng-model="pinData.pinInput">
         </input>
       </div>
     </div>

@@ -64,7 +64,6 @@
 
   "createmenu_enterSensorType" : "Insira o tipo de sensor",
   "createmenu_enterSensorNumber" : "Enter Sensor Number",
-  "createmenu_enterSensorNumber" : "Enter Sensor Location",
   "createmenu_enterSensor" : "Enter Sensor",
   "createmenu_enterPinBOARD" : "Enter BCM number",
   "createmenu_enterPinBCM" : "Enter GPIO number",
@@ -74,7 +73,7 @@
   "createmenu_pinInput" : "Direction",
   "createmenu_pinSensorId" : "Sensor Id",
   "createmenu_pinUsed" : "Used",
-  "createmenu_pinAlarmDuration" : "Alarm Duration (min.)",
+  "createmenu_pinAlarmDuration" : "Alarm Duration",
   "createmenu_pinInput_ON" : "On",
   "createmenu_pinInput_OFF" : "Off",
   "createmenu_pinInput_IN" : "In",
@@ -89,7 +88,7 @@
 
   "createmenu_eventSensorNumber" : "Sensor Number",
 
-  "editmenu_enterAlarmDuration" : "Enter Alarm Duration (min.)",
+  "editmenu_enterAlarmDuration" : "Enter Alarm Duration",
 
   "listEvent_eventId" : "Event Id",
   "listEvent_sensorNum" : "Sensor Num",
@@ -123,7 +122,7 @@
   "pinGrid_sensorId" : "Sensor Id",
   "pinGrid_input" : "Input",
   "pinGrid_used" : "Used",
-  "pinGrid_alarmDuration" : "Alarm Duration (min.)",
+  "pinGrid_alarmDuration" : "Alarm Duration",
   "pinGrid_options" : "Options",
   "pinGrid_edit" : "Edit",
   "pinGrid_delete" : "Delete",
@@ -161,8 +160,8 @@
   "menubar_listSensorType" : "List Sensor Types",
   "menubar_createSensor" : "Create Sensor",
   "menubar_listSensor" : "List Sensors",
-  "menubar_armRPi" : "Arm Alarm",
-  "menubar_disarmRPi" : "Disarm Alarm",
+  "menubar_armRPi" : "Set Alarm",
+  "menubar_disarmRPi" : "List Settings",
   "menubar_setGPIO" : "Set RPi",
   "menubar_clearGPIO" : "Clear RPi",
   "menubar_createPin" : "Create IO Pin",
