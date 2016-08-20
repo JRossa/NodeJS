@@ -5,7 +5,7 @@ function setInputStates() {
   menuDropDown();
 }
 
-function setAlarmDuration (inputState) {
+function setAlarmDuration (inputState, resetAlarmDuration) {
 
   if (inputState) {
     document.getElementById('alarmDuration').style.display = 'none';
@@ -13,11 +13,17 @@ function setAlarmDuration (inputState) {
     document.getElementById('pinAlarmDuration').removeAttribute('required');
     document.getElementById('updatePinButton').removeAttribute('disabled');
 
-    angular.element('#alarmDuration').scope().setResetAlarmDuration();
+    // old way
+    //angular.element('#alarmDuration').scope().setResetAlarmDuration();
+    if (resetAlarmDuration) {
+      angular.element("#alarmDuration").scope().pinData.pinAlarmDuration = "";
+      document.getElementById("pinAlarmDurationInput").click();
+    }
 
   } else {
 
-    angular.element('#alarmDuration').scope().resetAlarmDuration();
+    // old way
+    //angular.element('#alarmDuration').scope().resetAlarmDuration();
 
     document.getElementById("alarmDuration").style.display = 'block';
 
@@ -39,7 +45,7 @@ function setAlarmDuration (inputState) {
 }
 
 
-function setPinInputState () {
+function setPinInputState (resetAlarmDuration) {
 
   var inputState = "";
 
@@ -53,7 +59,7 @@ function setPinInputState () {
 
   angular.element('#editPinModal').scope().setPinInputValue(inputState);
 
-  setAlarmDuration (inputState);
+  setAlarmDuration (inputState, resetAlarmDuration);
 }
 
 // old
@@ -144,7 +150,7 @@ function setListenOpenModal() {
     var timePicker = $('#pinAlarmDuration').data("DateTimePicker");
     setTimePicker(alarmDuration, timePicker);
 
-    setPinInputState();
+    setPinInputState(false);
     setPinUsedState();
 
   });

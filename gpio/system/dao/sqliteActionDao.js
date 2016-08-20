@@ -21,11 +21,13 @@ var actionDao = {
                 dbData.run('CREATE TABLE "tbl_action" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
                     '[type_id] INTEGER NULL, ' +
-                    '[switch] BOOLEAN NULL, ' +
-                    '[period] BOOLEAN NULL, ' +
-                    '[set_time] DATETIME UNIQUE  NULL, ' +
+                    '[armed] BOOLEAN NULL, ' +
+                    '[all_day] BOOLEAN NULL, ' +
+                    '[period_id] INTEGER NULL, ' +
+                    '[set_time] DATETIME UNIQUE NULL, ' +
                     '[user_id] INTEGER NULL, ' +
-                    'FOREIGN KEY(type_id) REFERENCES tbl_actionType(id))', function (err) {
+                    'FOREIGN KEY(type_id) REFERENCES tbl_actionType(id), ' +
+                    'FOREIGN KEY(period_id) REFERENCES tbl_alarmPeriod(id))', function (err) {
                     if (err !== null) {
                         console.log(err);
                     } else {
@@ -40,17 +42,33 @@ var actionDao = {
 
     }); // serialize
 
-  },
+  }, // createTableAction
 
 
   createAction : function (actionData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_action VALUES(NULL, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_action VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+
+    var d = new Date();
+    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+
+    var stamp = d.getFullYear() + "-" +
+        ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+        ("0" +  d.getDate()).slice(-2) + " " +
+        ("0" +  d.getHours()).slice(-2) + ":" +
+        ("0" +  d.getMinutes()).slice(-2) + ":" +
+        ("0" +  d.getSeconds()).slice(-2);
 
     var actionInsert = {
-      type : actionType.type,
-      description : actionType.description
+      type_id : '1',
+      armed : actionData.armed,
+      all_day : actionData.allDay,
+      period_id : actionData.periodId,
+      set_time : stamp,
+      user_id: '1'
     };
+
+    console.log(actionInsert);
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -61,7 +79,9 @@ var actionDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(insertStatement,
-                [actionInsert.bcm, actionInsert.board], function(err, row) {
+                [actionInsert.type_id, actionInsert.armed,
+                 actionInsert.all_day, actionInsert.period_id,
+                 actionInsert.set_time, actionInsert.user_id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -83,148 +103,13 @@ var actionDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // createPin
-
-
-  createTableActionType : function (OnSuccessCallback) {
-
-    var sqlite3 = require('sqlite3').verbose();
-    var sqliteInit = require('../db/sqliteInit');
-    var dbData = new sqlite3.Database(sqliteInit.dbName);
-
-    dbData.serialize(function () {
-
-      dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_actionType'", function (err, rows) {
-
-          if (err !== null) {
-              console.log(err);
-          } else {
-            if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_actionType" ' +
-                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[type] VARCHAR(20) UNIQUE NULL, ' +
-                    '[description] VARCHAR(50)  NULL)', function (err) {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        console.log("SQL Table 'tbl_actionType' initialized.");
-                        OnSuccessCallback({ status : "Finished"});
-                    }
-                });
-            } else {
-                console.log("SQL Table 'tbl_actionType' already initialized.");
-            }
-        }
-      }); // get
-
-    }); // serialize
-
-  },
-
-
-  createActionType : function (actionTypeLst, OnSuccessCallback, OnErrorCallback) {
-
-    var insertStatement = "INSERT INTO tbl_actionType VALUES(NULL, ?, ?)";
-
-
-    var connection = connectionProvider.connectionStringProvider.getConnection();
-
-    if (connection) {
-
-
-      connection.serialize( function() {
-
-        connection.run("BEGIN TRANSACTION");
-
-        actionTypeLst.forEach( function (actionType) {
-
-          var actionTypeInsert = {
-            type : actionType.type,
-            description : actionType.description
-          };
-
-          console.log(actionTypeInsert);
-
-          connection.run(insertStatement,
-                  [actionTypeInsert.type, actionTypeInsert.description], function(err, row) {
-
-                  if (err !== null) {
-                      // Express handles errors via its next function.
-                      // It will call the next operation layer (middleware),
-                      // which is by default one that handles errors.
-                      console.log(connection.run);
-                      console.log(err);
-                      connection.run("ROLLBACK");
-                      connectionProvider.connectionStringProvider.closeConnection(connection);
-                      //next(err);
-                      OnErrorCallback({ error : "Action Type already exists !!!"});
-                  }
-                  else {
-
-  //                  console.log(row);
-  //                  OnSuccessCallback({ status : "Successful"});
-                }
-              });
-
-        });
-
-        connection.run("COMMIT");
-        connectionProvider.connectionStringProvider.closeConnection(connection);
-
-        OnSuccessCallback({ status : "Successful"});
-
-      }); // serialize
-    } // connection
-
-  }, // createActionType
-
-
-  createTableAlarmPeriod : function (OnSuccessCallback) {
-
-    var sqlite3 = require('sqlite3').verbose();
-    var sqliteInit = require('../db/sqliteInit');
-    var dbData = new sqlite3.Database(sqliteInit.dbName);
-
-    dbData.serialize(function () {
-
-      dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_alarmPeriod'", function (err, rows) {
-
-          if (err !== null) {
-              console.log(err);
-          } else {
-            if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_alarmPeriod" ' +
-                    '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[start] VARCHAR(20) UNIQUE NULL, ' +
-                    '[end] VARCHAR(50)  NULL)', function (err) {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        console.log("SQL Table 'tbl_alarmPeriod' initialized.");
-                        OnSuccessCallback({ status : "Finished"});
-                    }
-                });
-            } else {
-                console.log("SQL Table 'tbl_alarmPeriod' already initialized.");
-            }
-        }
-      }); // get
-
-    }); // serialize
-
-  },
+    }     // connection
+  },      // createAction
 
 
   deleteAction : function (actionId, OnSuccessCallback, OnErrorCallback) {
 
     var deleteStatement = "DELETE FROM tbl_action WHERE id = ? ";
-
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
 
     console.log("ligação  " + pinId);
 
@@ -262,8 +147,9 @@ var actionDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // deletePin
+    }     // connection
+  },      // deleteAction
+
 
   getAllAction : function (OnSuccessCallback) {
 
@@ -284,7 +170,88 @@ var actionDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
+  }, // getAllAction
+
+
+  getLastAction : function (OnSuccessCallback) {
+
+    var insertStatement = "SELECT * FROM tbl_action ORDER BY id DESC LIMIT 1";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(insertStatement, [], function (err, rows, fields)  {
+
+      if (err) { throw err;}
+
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  }, // getLastAction
+
+
+  /*
+   ******************************************************************************
+   * tbl_actionType
+   ******************************************************************************
+   */
+
+  createTableActionType : function (OnSuccessCallback) {
+
+    var actionTypeDao = require('./sqliteActionTypeDao');
+
+    actionTypeDao.actionTypeDao.createTableActionType(OnSuccessCallback);
+
+  }, // createTableActionType
+
+
+  createActionType : function (actionTypeLst, OnSuccessCallback, OnErrorCallback) {
+
+    var actionTypeDao = require('./sqliteActionTypeDao');
+
+    actionTypeDao.actionTypeDao.createActionType(actionTypeLst, OnSuccessCallback, OnErrorCallback);
+
+  }, // createActionType
+
+
+
+  /*
+   ******************************************************************************
+   * tbl_alarmPeriod
+   ******************************************************************************
+   */
+
+  createTableAlarmPeriod : function (OnSuccessCallback) {
+
+    var alarmPeriodDao = require('./sqliteAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.createTableAlarmPeriod(OnSuccessCallback);
+
+  }, // createTableAlarmPeriod
+
+
+  createAlarmPeriod : function (alarmPeriod, OnSuccessCallback, OnErrorCallback) {
+
+
+    var alarmPeriodDao = require('./sqliteAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.createAlarmPeriod(alarmPeriod, OnSuccessCallback, OnErrorCallback);
+
+  }, // createAlarmPeriod
+
+
+  getAlarmPeriod : function (periodId, OnSuccessCallback) {
+
+    var alarmPeriodDao = require('./sqliteAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.getAlarmPeriod(periodId, OnSuccessCallback);
+
+  } // getAlarmPeriod
 
 }
 

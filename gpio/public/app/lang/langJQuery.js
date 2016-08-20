@@ -30,8 +30,8 @@ function setLanguage() {
     }
 
     for(var i=0; i<labelON.length; i++) {
-      if (labelON[i].innerHTML == 'Total')
-        labelON[i].innerHTML = 'Total';
+      if (labelON[i].innerHTML == 'Permanente')
+        labelON[i].innerHTML = 'Permanent';
     }
 
     for(var i=0; i<labelOFF.length; i++) {
@@ -63,8 +63,8 @@ function setLanguage() {
     }
 
     for(var i=0; i<labelON.length; i++) {
-      if (labelON[i].innerHTML == 'Total')
-        labelON[i].innerHTML = 'Total';
+      if (labelON[i].innerHTML == 'Permanent')
+        labelON[i].innerHTML = 'Permanente';
     }
 
     for(var i=0; i<labelOFF.length; i++) {

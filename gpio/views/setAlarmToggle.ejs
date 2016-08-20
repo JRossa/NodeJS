@@ -15,13 +15,14 @@
         <input id="alarmSet"
                type="checkbox"
                onchange="setAlarmSetState()"
-               data-toggle="toggle"
+               data-checkbox-toggle="toggle"
                data-width="100"
                data-on="Ligado"
                data-off="Desligado"
                data-onstyle="success"
                data-offstyle="danger"
-               data-size="small">
+               data-size="small"
+               ng-model="alarmSettings.armed">
         </input>
       </div>
     </div>
@@ -36,7 +37,7 @@
     <div class="form-group"
          style="padding-left: 0%;">
       <div ng-class="{'has-error': validateAlarmDuration.containsValidationError}">
-        <label for="alarmDuration">
+        <label for="alarmPeriod">
           {{label.createmenu_alarmDuration}}
         </label>
 
@@ -45,14 +46,15 @@
 
         <input id="alarmPeriod"
                type="checkbox"
-               onchange="setAlarmPeriodState()"
-               data-toggle="toggle"
+               onchange="setAlarmPeriodState(true)"
+               data-checkbox-toggle="toggle"
                data-width="100"
-               data-on="Total"
+               data-on="Permanente"
                data-off="Parcial"
                data-onstyle="success"
                data-offstyle="danger"
-               data-size="small">
+               data-size="small"
+               ng-model="alarmSettings.allDay">
         </input>
       </div>
     </div>

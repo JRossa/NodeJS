@@ -1,0 +1,77 @@
+<% include templates/header.ejs %>
+
+<style type="text/css">
+#listAlarmModal {
+   width:100%;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+
+<div id="listAlarm"
+     align="center"
+     data-ng-app="alarmModule"
+     data-ng-controller="listAlarmController"
+     style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  <% include eventMenu.ejs %>
+
+  </br>
+  <div id="listAlarmModal"
+       class="modal-dialog">
+  <div class="modal-content">
+
+  <div class="panel panel-info">
+
+    <% include templates/pagetitle.ejs %>
+
+    </br>
+    <div class="container" style="width:100%;">
+
+      <% include alarmGrid.ejs %>
+
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <% include deleteAlarm.ejs %>
+
+</div> <!-- listEventController -->
+
+
+
+<script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
+
+<!-- JQuery do not work
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+<script type="text/javascript" src="/javascripts/moment.min.js"></script>
+
+<!-- Angular core -->
+<script src='/bower_components/angular/angular.min.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+
+<script src='/javascripts/bootstrap-datetimepicker.js'></script>
+
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langService.js"></script>
+<script src="/app/lang/langJQuery.js"></script>
+
+<script src='/app/alarm/alarmModule.js'></script>
+<script src='/app/alarm/alarmService.js'></script>
+<script src='/app/alarm/alarmDirective.js'></script>
+<script src='/app/alarm/alarmLangController.js'></script>
+<script src='/app/alarm/listAlarmController.js'></script>
+
+
+<% include templates/footer.ejs %>

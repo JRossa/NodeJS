@@ -69,8 +69,8 @@ function checkboxToggle() {
   };
 }
 
-timepicker.$inject = ['$window'];
 
+timepicker.$inject = ['$window'];
 
 function timepicker ($window) {
 	return {

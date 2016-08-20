@@ -92,6 +92,25 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
 }
 
 actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
+
+  var actionDao = require('../system/dao/sqliteActionDao');
+  if (global.config.site.database === 'mysql') {
+    actionDao = require('../system/dao/mysqlActionDao');
+  }
+
+  alarmPeriod = {
+    start : '09:00',
+    end   : '20:00'
+  };
+
+  actionDao.actionDao.createAlarmPeriod(alarmPeriod,
+    function (status){
+      console.log(status);
+  },
+    function (status){
+      console.log(status);
+  });
+
 }
 
 
@@ -122,6 +141,28 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     }
   });
 
+/* for testing data storage
+  actionDao.actionDao.getAlarmPeriod (1,
+
+    function (actionsData) {
+    console.log("Get Alarm Period !!");
+    console.log(actionsData)
+  });
+*/
+
+}
+
+actionRouteConfig.prototype.convertBoolean = function (value) {
+
+  if (value === 0) {
+    value = false;
+  }
+
+  if (valuey === 1) {
+    value = true;
+  }
+
+  return value;
 }
 
 
@@ -176,24 +217,50 @@ actionRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/createAction',
     callbackFunction : function(req, res) {
 
-      console.log("POST createAction");
-      console.log(req.body);
 
       var actionDao = require('../system/dao/sqliteActionDao');
       if (global.config.site.database === 'mysql') {
         actionDao = require('../system/dao/mysqlActionDao');
       }
 
-      actionDao.actionDao.createAction (req.body,
+      console.log("POST createAction");
+      console.log(req.body);
 
-        function (status) {
-          // console.log(status);
-          res.json(status);
-      },function (status) {
-          // console.log(status);
-          res.json(status);
-      });
+      if (req.body.allDay == false) {
+        actionDao.actionDao.createAlarmPeriod (req.body,
 
+          function (status) {
+            // console.log(status);
+            req.body.periodId = status.id;
+
+            actionDao.actionDao.createAction (req.body,
+
+              function (status) {
+                // console.log(status);
+                res.json(status);
+            },function (status) {
+                // console.log(status);
+                res.json(status);
+            });
+
+        },function (status) {
+            // console.log(status);
+            res.json(status);
+        });
+      } else {
+
+        req.body.periodId = -1;
+
+        actionDao.actionDao.createAction (req.body,
+
+          function (status) {
+            // console.log(status);
+            res.json(status);
+        },function (status) {
+            // console.log(status);
+            res.json(status);
+        });
+      }
     }
   });
 
@@ -242,14 +309,54 @@ actionRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push({
 
-      requestType : 'get',
-      requestUrl : '/listAction',
-      callbackFunction : function (request, response) {
-          response.render('listAction', {
-            title : "label.menubar_appTitle",
-            pagename : "label.listAction_pagename"
-          });
+    requestType : 'get',
+    requestUrl : '/listAction',
+    callbackFunction : function (request, response) {
+        response.render('listAlarmRPi', {
+          title : "label.menubar_appTitle",
+          pagename : "label.listAction_pagename"
+        });
+    }
+  });
+
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/getAlarmSettings',
+    callbackFunction : function(req, res) {
+
+      var actionDao = require('../system/dao/sqliteActionDao');
+      if (global.config.site.database === 'mysql') {
+        actionDao = require('../system/dao/mysqlActionDao');
       }
+
+      actionDao.actionDao.getLastAction (
+
+        function (actionsData) {
+          console.log(JSON.stringify(actionsData, null, 2));
+
+          actionsData[0].all_day = new Boolean(actionsData[0].all_day);
+          actionsData[0].armed = new Boolean(actionsData[0].armed);
+//          console.log(actionsData[0].all_day);
+//          console.log(actionsData[0].all_day == false);
+          if (actionsData[0].all_day == false) {
+
+            actionDao.actionDao.getAlarmPeriod (actionsData[0].period_id,
+
+              function (periodData) {
+//                console.log(JSON.stringify(periodData, null, 2));
+                actionsData[0].startPeriod = periodData[0].start;
+                actionsData[0].endPeriod = periodData[0].end;
+                res.json({ actionsData : actionsData });
+            });
+          } else {
+            actionsData[0].startPeriod = "";
+            actionsData[0].endPeriod = "";
+            res.json({ actionsData : actionsData });
+          }
+      });
+
+    }
   });
 
 }

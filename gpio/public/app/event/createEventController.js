@@ -65,6 +65,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
 
     $scope.eventData.eventSensorId = "";
     $scope.eventData.eventTime = "";
+    $scope.eventTime = "";
   }
 
 
@@ -180,7 +181,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
 
     var currDate = new Date();
 
-    if (eventData.eventTime.toString().length === 0) {
+    if ($scope.eventTime.toString().length === 0) {
 //      displayEventTimeMessage ();
 //      validationMessages++;
       if (validationMessages === 0) {
@@ -204,8 +205,9 @@ function createEventController($rootScope, $scope, $window, $timeout,
 
     } else {
       // datetimepick
-      eventData.eventTime = convertDateTimePicker($scope.eventTime);
-
+      if ($scope.eventTime.toString().length !== 0) {
+        eventData.eventTime = convertDateTimePicker($scope.eventTime);
+      }
       // input -> time
 //      currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
 /*
