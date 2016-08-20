@@ -183,11 +183,19 @@ var actionDao = {
 
       connection.all(insertStatement, [], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+        if (err) {
+          throw err;
+        }
 
+        // convert boolean 0 -> false & 1 -> true
+        for (row in rows) {
+          rows[row].add_day  = (rows[row].add_day == 0)? false: true;
+          rows[row].armed  = (rows[row].armed == 0)? false: true;
+        }
+
+//        console.log(rows.length);
 //        console.log(rows);
         OnSuccessCallback(rows);
-
       });
 
       connectionProvider.connectionStringProvider.closeConnection(connection);

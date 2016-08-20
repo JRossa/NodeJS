@@ -335,23 +335,25 @@ actionRouteConfig.prototype.addRoutes = function () {
         function (actionsData) {
           console.log(JSON.stringify(actionsData, null, 2));
 
-          actionsData[0].all_day = new Boolean(actionsData[0].all_day);
-          actionsData[0].armed = new Boolean(actionsData[0].armed);
-//          console.log(actionsData[0].all_day);
-//          console.log(actionsData[0].all_day == false);
-          if (actionsData[0].all_day == false) {
+          if (actionsData.length == 1) {
+            var alarmSettings = actionsData[0];
 
-            actionDao.actionDao.getAlarmPeriod (actionsData[0].period_id,
+            if (alarmSettings.all_day == false) {
 
-              function (periodData) {
+              actionDao.actionDao.getAlarmPeriod (alarmSettings.period_id,
+
+                function (periodData) {
 //                console.log(JSON.stringify(periodData, null, 2));
-                actionsData[0].startPeriod = periodData[0].start;
-                actionsData[0].endPeriod = periodData[0].end;
-                res.json({ actionsData : actionsData });
-            });
+                  alarmSettings.startPeriod = periodData[0].start;
+                  alarmSettings.endPeriod = periodData[0].end;
+                  res.json({ actionsData : [alarmSettings] });
+              });
+            } else {
+              alarmSettings.startPeriod = "";
+              alarmSettings.endPeriod = "";
+              res.json({ actionsData : [alarmSettings] });
+            }
           } else {
-            actionsData[0].startPeriod = "";
-            actionsData[0].endPeriod = "";
             res.json({ actionsData : actionsData });
           }
       });

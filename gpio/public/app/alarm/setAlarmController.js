@@ -64,14 +64,18 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
             data.actionsData &&
             data.actionsData.length > 0) {
 
-              var alarmSettings = data.actionsData[0];
+              if (data.actionsData.length == 1) {
+                var alarmSettings = data.actionsData[0];
 
-              $scope.alarmSettings.armed = alarmSettings.armed;
-              $scope.alarmSettings.allDay = alarmSettings.all_day;
-              $scope.alarmSettings.startPeriod = alarmSettings.startPeriod;
-              $scope.alarmSettings.endPeriod = alarmSettings.endPeriod;
-              console.log(alarmSettings);
-              $("#setAlarmRPi").show();
+                $scope.alarmSettings.armed = alarmSettings.armed;
+                $scope.alarmSettings.allDay = alarmSettings.all_day;
+                $scope.alarmSettings.startPeriod = alarmSettings.startPeriod;
+                $scope.alarmSettings.endPeriod = alarmSettings.endPeriod;
+                console.log(alarmSettings);
+                $("#setAlarmRPi").show();
+              } else {
+                clearAlarmSettings();
+              }
             }
       });
   }

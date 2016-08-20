@@ -135,14 +135,16 @@ function setListenOpenModal() {
   $('#editPinModal').on('shown.bs.modal', function() {
     var inputValue = angular.element('#editPinModal').scope().pinData.pinInput;
     // or
-    //var inputValue = $('#pinInputValue').text();
-    var inputState = (inputValue.search("true") >= 0)? true : false;
+    // var inputValue = $('#pinInputValue').text();
+    // var inputState = (inputValue.search("true") >= 0)? true : false;
+    var inputState = inputValue;
     $('#pinInputPT').prop('checked', inputState).change();
     $('#pinInputEN').prop('checked', inputState).change();
 
     var usedValue = angular.element('#editPinModal').scope().pinData.pinUsed;
-    //var usedValue = $('#pinUsedValue').text();
-    var usedState = (usedValue.search("true") >= 0)? true : false;
+    // var usedValue = $('#pinUsedValue').text();
+    // var usedState = (usedValue.search("true") >= 0)? true : false;
+    var usedState = usedValue;
     $('#pinUsedPT').prop('checked', usedState).change();
     $('#pinUsedEN').prop('checked', usedState).change();
 

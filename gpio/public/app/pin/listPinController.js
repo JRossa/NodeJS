@@ -93,41 +93,26 @@ function listPinController($rootScope, $scope, $window, $timeout,
   }
 
 
-  function convertBoolean(value) {
-
-    if (value == 0) {
-      return 'false';
-    }
-    if (value == 1) {
-      return 'true';
-    }
-
-    return value;
-  };
-
   function processPinsData(pinsData) {
 
     console.log(pinsData);
     angular.forEach(pinsData, function (pinData) {
 //      console.log(pinData);
 
-      pinData.input = convertBoolean(pinData.input);
-      pinData.used = convertBoolean(pinData.used);
-
-      if (pinData.input == 'false') {
+      if (pinData.input == false) {
         pinData.pinInputImage = "Data-Export-icon.png";
       } else {
-        if (pinData.input == 'true')  {
+        if (pinData.input == true)  {
           pinData.pinInputImage = "Data-Import-icon.png";
         } else {
           pinData.pinInputImage = "Data-Undefined-icon.png";
         }
       }
 
-      if (pinData.used == 'false') {
+      if (pinData.used == false) {
         pinData.pinUsedImage = "on_off_red.png";
       } else {
-        if (pinData.used == 'true')  {
+        if (pinData.used == true)  {
           pinData.pinUsedImage = "on_off_green.png";
         } else {
           pinData.pinUsedImage = "on_off_blue.png";
