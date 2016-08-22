@@ -152,19 +152,6 @@ actionRouteConfig.prototype.dbCreateTable = function () {
 
 }
 
-actionRouteConfig.prototype.convertBoolean = function (value) {
-
-  if (value === 0) {
-    value = false;
-  }
-
-  if (valuey === 1) {
-    value = true;
-  }
-
-  return value;
-}
-
 
 actionRouteConfig.prototype.processRoutes = function () {
 

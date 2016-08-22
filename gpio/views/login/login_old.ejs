@@ -1,0 +1,116 @@
+
+<% include ../templates/header.ejs %>
+
+<style type="text/css">
+#loginModal {
+   width:330px;
+   max-height: 300px;
+   overflow:auto;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+<link type='text/css' rel="stylesheet" href="/stylesheets/login-style.css">
+
+<div  id="login"
+      data-ng-app="langModule"
+      data-ng-controller="langController"
+      data-ng-init="loadLanguage()">
+
+  <% include ../templates/menu.ejs %>
+
+
+  <div id="login" class="modal-dialog center-vertical">
+    <form id="form-login" method="post" class="well">
+      <h2>Hello!</h2>
+      <h6>Please Login To Your Account</h6>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="user-tf" name="user" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="pass-tf" name="pass" class="form-control">
+      </div>
+      <div class="controls">
+        <button type="button" class="btn btn-default button-rememember-me"><span class="glyphicon glyphicon-unchecked button-rememember-me-glyph"></span>Remember Me</button>
+        <button type="submit" class="btn btn-primary button-sign-in"><span class="glyphicon glyphicon-lock"></span>Sign In</button>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="btm-links">
+        <div id="forgot-password"><a href="#">Forgot Your Password?</a></div>
+        <div id="create-account"><a href="/signup">Create An Account</a></div>
+      </div>
+      <div class="clearfix"></div>
+    </form>
+
+  </div>
+  <div class="modal-alert modal fade" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--button.close(data-dismiss='modal') x-->
+          <h4>Whoops!</h4>
+        </div>
+        <div class="modal-body">Please enter a valid username</div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" id="ok" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="get-credentials" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button data-dismiss="modal" class="close">x</button>
+          <h4>Retrieve Password</h4>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="get-credentials-form" class="well">
+            <div class="form-group">
+              <label>Please enter the email address associated with your account</label>
+              <input type="text" id="email-tf" name="email" class="form-control required" />
+              <div class="alert alert-danger hide"></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" id="cancel" class="btn btn-default">Cancel</button>
+          <button type="submit" id="retrieve-password-submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- controller -->
+
+
+<script src='/javascripts/jquery-2.2.4.min.js'></script>
+<!--
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+
+<!-- Anguler  core -->
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- GPIO -->
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langController.js"></script>
+<script src="/app/lang/langService.js"></script>
+<script src="/app/socket/socketService.js"></script>
+
+<script src="/app/lang/langJQuery.js"></script>
+<!--
+<script src="/app/socketClient/socketClient.js"></script>
+-->
+<% include ../templates/footer.ejs %>

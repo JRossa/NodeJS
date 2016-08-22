@@ -1,0 +1,156 @@
+
+<% include ../templates/header.ejs %>
+
+<style type="text/css">
+#logindiv {
+   width:500px;
+   margin:0 auto;
+}
+#left_col {
+   float:left;
+   width:100px;
+}
+#right_col {
+   float:right;
+   width:100px;
+}
+</style>
+<!--
+<link type='text/css' rel="stylesheet" href="/stylesheets/login-style.css">
+-->
+
+<div  id="index"
+      data-ng-app="langModule"
+      data-ng-controller="langController"
+      data-ng-init="loadLanguage()"
+      style="display:none">
+
+  <% include ../templates/menu.ejs %>
+
+  <% include ./loginForm.ejs %>
+
+  <div class="modal-alert modal fade" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--button.close(data-dismiss='modal') x-->
+          <h4>Whoops!</h4>
+        </div>
+        <div class="modal-body">Please enter a valid username</div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" id="ok" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="get-credentials" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button data-dismiss="modal" class="close">x</button>
+          <h4>Retrieve Password</h4>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="get-credentials-form" class="well">
+            <div class="form-group">
+              <label>Please enter the email address associated with your account</label>
+              <input type="text" id="email-tf" name="email" class="form-control required" />
+              <div class="alert alert-danger hide"></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" id="cancel" class="btn btn-default">Cancel</button>
+          <button type="submit" id="retrieve-password-submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+</div> <!-- controller -->
+
+<script>
+window.onload = LoginController
+function LoginController()
+{
+// bind event listeners to button clicks //
+	$('#retrieve-password-submit').click(function(){ $('#get-credentials-form').submit();});
+	$('#login #forgot-password').click(function(){
+		$('#cancel').html('Cancel');
+		$('#retrieve-password-submit').show();
+		$('#get-credentials').modal('show');
+	});
+	$('#login .button-rememember-me').click(function(e) {
+		var span = $(this).find('span');
+		if (span.hasClass('glyphicon-unchecked')){
+			span.addClass('glyphicon-ok');
+			span.removeClass('glyphicon-unchecked');
+		}	else{
+			span.removeClass('glyphicon-ok');
+			span.addClass('glyphicon-unchecked');
+		}
+	});
+
+// automatically toggle focus between the email modal window and the login form //
+	$('#get-credentials').on('shown.bs.modal', function(){ $('#email-tf').focus(); });
+	$('#get-credentials').on('hidden.bs.modal', function(){ $('#user-tf').focus(); });
+}
+</script>
+
+
+<script src='/javascripts/jquery-2.2.4.min.js'></script>
+<!--
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+
+<!-- Anguler  core -->
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- GPIO -->
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langController.js"></script>
+<script src="/app/lang/langService.js"></script>
+<script src="/app/socket/socketService.js"></script>
+
+<script src="/app/lang/langJQuery.js"></script>
+
+<script>
+window.onload = LoginController
+function LoginController()
+{
+// bind event listeners to button clicks //
+	$('#retrieve-password-submit').click(function(){ $('#get-credentials-form').submit();});
+	$('#login #forgot-password').click(function(){
+		$('#cancel').html('Cancel');
+		$('#retrieve-password-submit').show();
+		$('#get-credentials').modal('show');
+	});
+	$('#login .button-rememember-me').click(function(e) {
+		var span = $(this).find('span');
+		if (span.hasClass('glyphicon-unchecked')){
+			span.addClass('glyphicon-ok');
+			span.removeClass('glyphicon-unchecked');
+		}	else{
+			span.removeClass('glyphicon-ok');
+			span.addClass('glyphicon-unchecked');
+		}
+	});
+
+// automatically toggle focus between the email modal window and the login form //
+	$('#get-credentials').on('shown.bs.modal', function(){ $('#email-tf').focus(); });
+	$('#get-credentials').on('hidden.bs.modal', function(){ $('#user-tf').focus(); });
+}
+</script>
+
+<!--
+<script src="/app/socketClient/socketClient.js"></script>
+-->
+<% include ../templates/footer.ejs %>
