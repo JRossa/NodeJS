@@ -11,19 +11,20 @@
 
   "createSensorType_pagename" : "Create Sensor Type",
   "editSensorType_pagename" : "Edit Sensor Type",
-  "listSensorType_pagename" : "List Sensor Types",
+  "listSensorType_pagename" : "Sensor Types List",
 
   "createSensor_pagename" : "Create Sensor",
   "editSensor_pagename" : "Edit Sensor",
-  "listSensor_pagename" : "List Sensors",
+  "listSensor_pagename" : "Sensors List",
 
   "createEvent_pagename" : "Create Event",
   "listEvent_pagename" : "Events List",
 
   "createPin_pagename" : "Create Pin",
-  "listPin_pagename" : "List Pins",
+  "listPin_pagename" : "Pins List",
 
-  "setAlarmRPi_pagename" : "Alarm Set",
+  "setAction_pagename" : "Alarm Set",
+  "listAction_pagename" : "Actions List",
 
   "deleteSensorType_modalTitle" : "Delete Sensor Type",
   "deleteSensorType_message" : "Are you sure, you want to delete the sensor type    ",
@@ -43,6 +44,11 @@
   "deletePin_message" : "Are you sure, you want to delete the pin n.    ",
   "deletePin_close" : "Close",
   "deletePin_delete" : "Delete",
+
+  "deleteAction_modalTitle" : "Remove Ation",
+  "deleteAction_message" : "Are you sure, you want to delete the action   n.    ",
+  "deleteAction_close" : "Close",
+  "deleteAction_delete" : "Delete",
 
   "createmenu_createSensorType" : "Create Sensor Type",
   "createmenu_createSensor" : "Create Sensor",
@@ -126,6 +132,17 @@
   "pinGrid_options" : "Options",
   "pinGrid_edit" : "Edit",
   "pinGrid_delete" : "Delete",
+
+  "alarmGrid_actionId" : "Action Id",
+  "alarmGrid_armed" : "Armed",
+  "alarmGrid_allDay" : "Permanent",
+  "alarmGrid_startPeriod" : "Start",
+  "alarmGrid_endPeriod" : "End",
+  "alarmGrid_type" : "Type",
+  "alarmGrid_time" : "Date",
+  "alarmGrid_user" : "User",
+  "alarmGrid_options" : "Options",
+  "alarmGrid_delete" : "Delete",
 
   "createEvent_controller_enterDate" : "Enter a date !!",
   "createEvent_controller_enterSensor" : "Enter a sensor !!",

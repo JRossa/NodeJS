@@ -8,7 +8,7 @@ listEventController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
 function listEventController($rootScope, $scope, $window, $timeout,
                              $controller, alarmService, langService) {
 
-  $scope.eventsData = [];
+  $scope.actionsData = [];
 
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
@@ -51,12 +51,11 @@ function listEventController($rootScope, $scope, $window, $timeout,
            $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-           $("#listEvent").show();
+           $("#listAlarm").show();
         });
 
   }
 
-  var sensorsData = [];
 
   function getAllActions () {
     alarmService.getAllActions()
@@ -66,12 +65,43 @@ function listEventController($rootScope, $scope, $window, $timeout,
             data.actionsData &&
             data.actionsData.length > 0) {
 
-              actionsData = data.actionsData;
+              $scope.actionsData = processActionssData(data.actionsData);
+              $("#listAlarm").show();
             }
       });
 
   };
 
+  function processActionssData(actionsData) {
+
+    angular.forEach(actionsData, function (actionData) {
+//      console.log(actionData);
+
+      if (actionData.armed == false) {
+        actionData.alarmArmedImage = "Data-Export-icon.png";
+      } else {
+        if (actionData.armed == true)  {
+          actionData.alarmArmedImage = "Data-Import-icon.png";
+        } else {
+          actionData.alarmArmedImage = "Data-Undefined-icon.png";
+        }
+      }
+
+      if (actionData.all_day == false) {
+        actionData.alarmAllDayImage = "on_off_red.png";
+      } else {
+        if (actionData.all_day == true)  {
+          actionData.alarmAllDayImage = "on_off_green.png";
+        } else {
+          actionData.alarmAllDayImage = "on_off_blue.png";
+        }
+      }
+      actionData.startPeriod = "";
+      actionData.endPeriod = "";
+    });
+
+    return actionsData;
+  }
 
   $scope.alarmData = {
 

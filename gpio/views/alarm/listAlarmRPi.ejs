@@ -1,4 +1,4 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
 
 <style type="text/css">
 #listAlarmModal {
@@ -21,9 +21,8 @@
      data-ng-controller="listAlarmController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
-  <% include eventMenu.ejs %>
 
   </br>
   <div id="listAlarmModal"
@@ -32,7 +31,7 @@
 
   <div class="panel panel-info">
 
-    <% include templates/pagetitle.ejs %>
+    <% include ../templates/pagetitle.ejs %>
 
     </br>
     <div class="container" style="width:100%;">
@@ -74,4 +73,4 @@
 <script src='/app/alarm/listAlarmController.js'></script>
 
 
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>

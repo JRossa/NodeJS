@@ -1,4 +1,4 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
 
 <script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
@@ -34,7 +34,7 @@ hr {
      data-ng-controller="setAlarmController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
   <br/>
   <div id="setAlarmRPiModal"
@@ -44,12 +44,12 @@ hr {
   <div class="panel panel-info"
        style="width: 100%;">
 
-    <% include templates/pagetitle.ejs %>
+    <% include ../templates/pagetitle.ejs %>
 
     <div class="panel-body" >
       <div class="container">
 
-        <% include ./message.ejs %>
+        <% include ../templates/message.ejs %>
 
         <form id="formSetAlarmRPi"
               class="navbar-form navbar-left"
@@ -57,14 +57,11 @@ hr {
               method="POST"
               name="formSetAlarmRPi"
               novalidate="">
-
+<!--
               <pre><code>{{ alarmSettings | json }}</code></pre>
-
+-->
           <% include setAlarmToggle.ejs %>
-
           <br/>
-          <label id="sP"> {{alarmSettings.startPeriod}} </label>
-
           <div id="startTime"
                class="row"
                style="width: 215px;">
@@ -115,6 +112,7 @@ hr {
                   <label for="periodEndTime">
                     {{label.createmenu_alarmEndTime}}
                   </label>
+
                     <div id="periodEndTime"
                          class='input-group date'
                          timepicker
@@ -172,7 +170,8 @@ hr {
                          type="button"
                          class="btn btn-primary"
                          ng-disabled="!formSetAlarmRPi.$valid"
-                         ng-click="setAlarmConfig(alarmSettings)">
+                         ng-click="setAlarmConfig(alarmSettings)"
+                         style="font-size: 12px;">
                    {{label.createmenu_setAlarmSave}}
                  </button>
                 </div>
@@ -212,4 +211,4 @@ hr {
 
 
 
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>

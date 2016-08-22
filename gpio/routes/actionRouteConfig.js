@@ -187,13 +187,12 @@ actionRouteConfig.prototype.addRoutes = function () {
 
   self.routeTable.push ( {
     requestType : 'get',
-    requestUrl : '/setAlarmRPi',
+    requestUrl : '/setAction',
     callbackFunction : function(req, res) {
 
-      res.render('setAlarmRPi', {
+      res.render('alarm/setAlarmRPi', {
            title : "label.menubar_appTitle",
-           pagename : "label.setAlarmRPi_pagename",
-           modalname : "label.setAlarmRPi_pagename"
+           pagename : "label.setAction_pagename",
          });
 
     }
@@ -299,7 +298,7 @@ actionRouteConfig.prototype.addRoutes = function () {
     requestType : 'get',
     requestUrl : '/listAction',
     callbackFunction : function (request, response) {
-        response.render('listAlarmRPi', {
+        response.render('alarm/listAlarmRPi', {
           title : "label.menubar_appTitle",
           pagename : "label.listAction_pagename"
         });

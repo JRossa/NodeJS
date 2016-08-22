@@ -1,0 +1,65 @@
+
+<table data-ng-show="actionsData.length > 0"
+       class="table table-striped table-hover table-bordered table-condensed"
+       id="tblactionData" style="width:100%;">
+
+  <thead>
+    <tr class="success">
+      <td style="width: 6%"> {{label.alarmGrid_actionId}} </td>
+      <td style="width: 6%"> {{label.alarmGrid_armed}} </td>
+      <td style="width: 5%"> {{label.alarmGrid_allDay}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_startPeriod}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_endPeriod}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_type}} </td>
+      <td style="width: 20%"> {{label.alarmGrid_time}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_user}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_options}} </td>
+    </tr>
+  </thead>
+
+  <tbody id='tblactionDataBody'>
+    <tr data-ng-repeat="actionData in actionsData">
+      <td>{{actionData.id}}</td>
+
+      <td>
+        <span style="padding-left: 20px; display:inline-block;"> </span>
+        <img ng-src="../images/{{actionData.alarmArmedImage}}" width="28px" height="28px"> </image>
+      </td>
+      <td>
+        <span style="padding-left: 15px; display:inline-block;"> </span>
+        <img ng-src="../images/{{actionData.alarmAllDayImage}}" width="30px" height="28px"> </image>
+      </td>
+
+      <td>{{actionData.startPeriod}}</td>
+      <td>{{actionData.endPeriod}}</td>
+      <td>{{actionData.type_id}}</td>
+      <td>{{actionData.set_time}}</td>
+      <td>{{actionData.user_id}}</td>
+
+      <td class="info">
+<!--
+        <button id='button_edit_sensor' class='btn btn-info btn-sm' data-toggle='modal'
+            data-target='#editModal'
+           >
+           <i class="fa fa-pencil-square-o fa-fw" aria-hidden="true" ></i>
+           <span>Edit</span>
+        </button>
+-->
+
+        <button id="buttonDeleteAction"
+                type="button"
+                class="btn btn-warning btn-sm"
+                data-toggle="modal"
+                data-target="#deleteAlarmModal"
+                data-ng-click="loadAction(actionData)">
+           <i class="glyphicon glyphicon-erase"
+              aria-hidden="true" ></i>
+           <span>
+             {{label.alarmGrid_delete}}
+           </span>
+        </button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -24,7 +24,8 @@
   "editPin_pagename" : "Editar Pino",
   "listPin_pagename" : "Lista de Pinos",
 
-  "setAlarmRPi_pagename" : "Configurar o Alarme",
+  "setAction_pagename" : "Configurar o Alarme",
+  "listAction_pagename" : "Lista de Ações",
 
   "deleteSensorType_modalTitle" : "Remover Tipo de Sensor",
   "deleteSensorType_message" : "Confirma que pretende remover o tipo de sensor  ",
@@ -43,6 +44,11 @@
   "deletePin_message" : "Confirma que pretende remover o pino   n.    ",
   "deletePin_close" : "Encerrar",
   "deletePin_delete" : "Remover",
+
+  "deleteAction_modalTitle" : "Remover Ação",
+  "deleteAction_message" : "Confirma que pretende remover a ação   n.    ",
+  "deleteAction_close" : "Encerrar",
+  "deleteAction_delete" : "Remover",
 
   "createmenu_createSensorType" : "Inserir Tipo de Sensor",
   "createmenu_createSensor" : "Inserir Sensor",
@@ -127,6 +133,17 @@
   "pinGrid_options" : "Opções",
   "pinGrid_edit" : "Editar",
   "pinGrid_delete" : "Remover",
+
+  "alarmGrid_actionId" : "Ação Id",
+  "alarmGrid_armed" : "Ligado",
+  "alarmGrid_allDay" : "Permanente",
+  "alarmGrid_startPeriod" : "Início",
+  "alarmGrid_endPeriod" : "Fim",
+  "alarmGrid_type" : "Tipo",
+  "alarmGrid_time" : "Data",
+  "alarmGrid_user" : "Utilizador",
+  "alarmGrid_options" : "Opções",
+  "alarmGrid_delete" : "Remover",
 
   "createEvent_controller_enterDate" : "Insira uma data !!",
   "createEvent_controller_enterSensor" : "Insira um sensor !!",
