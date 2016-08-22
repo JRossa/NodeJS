@@ -1,4 +1,4 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
 
 <style type="text/css">
 #createEventModal {
@@ -20,7 +20,7 @@
      data-ng-controller="createEventController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
   </br>
   <div id="createEventModal"
@@ -30,12 +30,12 @@
   <div class="panel panel-info"
        style="width: 100%; ">
 
-    <% include templates/pagetitle.ejs %>
+    <% include ../templates/pagetitle.ejs %>
 
     <div class="panel-body" >
       <div class="container">
 
-        <% include ./message.ejs %>
+        <% include ../templates/message.ejs %>
 
         <form class="navbar-form navbar-left"
               role="search"
@@ -187,4 +187,4 @@
 <script src='/app/event/eventLangController.js'></script>
 <script src='/app/event/createEventController.js'></script>
 
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>

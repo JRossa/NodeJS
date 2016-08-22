@@ -7,16 +7,19 @@
     }
 </style>
 
-<table id="tbleventData"
+<table id="tblEventData"
+       style="width:100%;"
+       data-page-length='5'
        data-ng-show="eventsData.length > 0"
        class="table table-striped table-hover table-bordered table-condensed"
-       style="width:100%;">
+       >
 
   <thead>
     <tr class="success">
+      <div >
       <td ng-click="sort('id')"
-          style="width: 10%">
-          {{ label.listEvent_eventId }}
+          style="width: 10%;">
+          {{ label.eventGrid_eventId }}
           <b ng-show="sortKey != 'id'"
             class="fa fa-sort"
             aria-hidden="true">
@@ -26,9 +29,10 @@
                         'fa fa-sort-desc':!reverse}">
           </b>
       </td>
+      </div>
       <td ng-click="sort('sensor_num')"
-          style="width: 10%">
-          {{ label.listEvent_sensorNum }}
+          style="width: 10%;">
+          {{ label.eventGrid_sensorNum }}
         <b ng-show="sortKey != 'sensor_num'"
           class="fa fa-sort"
           aria-hidden="true">
@@ -37,15 +41,16 @@
            ng-class="{'fa fa-sort-asc':reverse,
                       'fa fa-sort-desc':!reverse}">
         </b>
-        <input ng-model="searchText.sensor_num"
+        <input id="sensorNumInput"
+               ng-model="searchText.sensor_num"
                type="text"
                class="form-control"
                style="font-size:6pt;height:20px;width:100px;"
-               placeholder="Search for...">
+               placeholder="Search for..." />
       </td>
       <td ng-click="sort('time')"
-          style="width: 20%">
-         {{ label.listEvent_actTime }}
+          style="width: 20%;">
+         {{ label.eventGrid_actTime }}
          <b ng-show="sortKey != 'time'"
            class="fa fa-sort"
            aria-hidden="true">
@@ -57,17 +62,17 @@
          <div class="form-group">
            <div class="col-md-10">
              <div class="form-group row">
-               <label for="inputStartTime"
+               <label for="startTimeInput"
                       class="col-md-4 control-label"
                       style="font-size:7pt;">
-                      {{ label.listEvent_actTimeStart }}
+                      {{ label.eventGrid_actTimeStart }}
                 </label>
                <div class="col-md-8">
 <!---->
                 <div class='input-group date'
                      datetimepicker
                      ng-model="searchText.startTime">
-                  <input id="inputStartTime"
+                  <input id="startTimeInput"
                          type='text'
                          style="font-size:7pt;height:10px;width:130px;"
                          class="form-control"
@@ -94,16 +99,16 @@
 -->
               </div>
               <br/>
-              <label for="inputEndTime"
+              <label for="endTimeInput"
                      class="col-md-4 control-label"
                      style="font-size:7pt;">
-                       {{ label.listEvent_actTimeEnd }}
+                       {{ label.eventGrid_actTimeEnd }}
               </label>
               <div class="col-md-4">
                 <div class='input-group date'
                      datetimepicker
                      ng-model="searchText.endTime">
-                  <input id="inputEndTime"
+                  <input id="endTimeInput"
                          type='text'
                          style="font-size:7pt;height:10px;width:130px;"
                          class="form-control"
@@ -132,9 +137,60 @@
           </div>
          </div>
        </td>
-      <td style="width: 40%">  </td>
+      <td style="width: 40%;">
+
+        <div style="padding-top: 10px;
+                    font-size: 10px;"
+             class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center">
+          <button id="buttonDeleteEvent"
+                  type="button"
+                  class="btn btn-md btn-warning btn-sm"
+                  data-ng-click="deleteAllEvent()">
+                  <i class="glyphicon glyphicon-erase"
+                     aria-hidden="true" ></i>
+                  <span>
+                    {{ label.eventGrid_deleteAll }}
+                  </span>
+          </button>
+        </div>
+
+        <div style="padding-top: 10px;
+                    font-size: 10px;"
+             class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-center">
+          <button id="buttonInsertEvent"
+                  type="button"
+                  class="btn btn-xs btn-success text-center btn-sm"
+                  data-ng-click="insertEvent()">
+            <i class="glyphicon glyphicon-user" aria-hidden="true"></i> <br/>
+              {{ label.eventGrid_insertEvent }}
+          </button>
+        </div>
+
+        <div style="padding-top: 10px;
+                    font-size: 10px;"
+             class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-center">
+          <button id="buttonInsertEvent"
+                  type="button"
+                  class="btn btn-xs btn-success text-center btn-sm"
+                  data-ng-click="setPinData()">
+            <i class="glyphicon glyphicon-user"></i> <br/>
+              {{ label.eventGrid_setPin }}
+          </button>
+        </div>
+
+      </td>
     </tr>
   </thead>
+
+  <tfoot>
+    <tr class="success">
+      <td style="width: 10%;"> {{ label.eventGrid_eventId }} </td>
+      <td style="width: 10%;"> {{ label.eventGrid_sensorNum }} </td>
+      <td style="width: 20%;"> {{ label.eventGrid_actTime }} </td>
+      <td style="width: 40%;"> </td>
+    </tr>
+  </tfoot>
+
 
   <tbody id='tblsensorDataBody'>
     <tr data-ng-repeat="eventData in eventsData | filter: matchSelection | orderBy: sortKey: reverse">

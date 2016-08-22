@@ -1,5 +1,7 @@
 <% include ../templates/header.ejs %>
 
+<link type='text/css' rel='stylesheet' href='/stylesheets/dataTables.bootstrap.min.css'>
+
 <style type="text/css">
 #listAlarmModal {
    width:100%;
@@ -26,7 +28,8 @@
 
   </br>
   <div id="listAlarmModal"
-       class="modal-dialog">
+       class="modal-dialog"
+       style="display:none">
   <div class="modal-content">
 
   <div class="panel panel-info">
@@ -49,12 +52,15 @@
 
 
 
-<script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
+<script type='text/javascript' src='/javascripts/jquery-2.2.4.min.js'></script>
+
+<script type='text/javascript' src='/javascripts/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='/javascripts/dataTables.bootstrap.min.js'></script>
 
 <!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
-<script type="text/javascript" src="/javascripts/moment.min.js"></script>
+<script type='text/javascript' src='/javascripts/moment.min.js'></script>
 
 <!-- Angular core -->
 <script src='/bower_components/angular/angular.min.js'></script>
@@ -63,14 +69,15 @@
 <script src='/javascripts/bootstrap-datetimepicker.js'></script>
 
 <script src='/app/lang/langModule.js'></script>
-<script src="/app/lang/langService.js"></script>
-<script src="/app/lang/langJQuery.js"></script>
+<script src='/app/lang/langService.js'></script>
+<script src='/app/lang/langJQuery.js'></script>
 
 <script src='/app/alarm/alarmModule.js'></script>
 <script src='/app/alarm/alarmService.js'></script>
 <script src='/app/alarm/alarmDirective.js'></script>
 <script src='/app/alarm/alarmLangController.js'></script>
 <script src='/app/alarm/listAlarmController.js'></script>
+<script src='/app/alarm/listAlarmJQuery.js'></script>
 
 
 <% include ../templates/footer.ejs %>

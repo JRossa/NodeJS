@@ -96,11 +96,15 @@
 
   "editmenu_enterAlarmDuration" : "Enter Alarm Duration",
 
-  "listEvent_eventId" : "Event Id",
-  "listEvent_sensorNum" : "Sensor Num",
-  "listEvent_actTime" : "Time",
-  "listEvent_actTimeStart" : "Start :",
-  "listEvent_actTimeEnd" : "End :",
+  "eventGrid_eventId" : "Event Id",
+  "eventGrid_sensorNum" : "Sensor Num",
+  "eventGrid_actTime" : "Time",
+  "eventGrid_actTimeStart" : "Start :",
+  "eventGrid_actTimeEnd" : "End :",
+  "eventGrid_delete" : "Delete",
+  "eventGrid_deleteAll" : "Delete All",
+  "eventGrid_insertEvent" : "Insert Event [T]",
+  "eventGrid_setPin" : "Set Pin [T]",
 
   "editmenu_updateSensor" : "Update Sensor",
   "editmenu_updateSensorType" : "Update Sensor Type",

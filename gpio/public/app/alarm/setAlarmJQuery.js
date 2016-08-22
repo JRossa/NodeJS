@@ -107,11 +107,14 @@ function readEndPeriod () {
 
   setAlarmPeriodState(false);
   setAlarmSetState();
+
+  $("#setAlarmModal").show();
+  $("#footer").show();
 }
 
 
 function setListenOpenSetAlarmForm() {
-
+  $("#setAlarm").show();
   // half second is enougth
   setTimeout(function(){
     readEndPeriod();

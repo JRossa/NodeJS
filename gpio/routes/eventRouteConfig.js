@@ -76,7 +76,7 @@ eventRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/createEvent',
     callbackFunction : function(req, res) {
 
-      res.render('createEvent', {
+      res.render('event/createEvent', {
            title : "label.menubar_appTitle",
            pagename : "label.createEvent_pagename"
          });
@@ -194,7 +194,7 @@ eventRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listEvent',
       callbackFunction : function (request, response) {
-          response.render('listEvent', {
+          response.render('event/listEvent', {
             title : "label.menubar_appTitle",
             pagename : "label.listEvent_pagename"
           });

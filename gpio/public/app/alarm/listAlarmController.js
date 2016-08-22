@@ -51,7 +51,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
            $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-           $("#listAlarm").show();
+//           $("#listAlarm").show();
         });
 
   }
@@ -66,7 +66,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
             data.actionsData.length > 0) {
 
               $scope.actionsData = processActionssData(data.actionsData);
-              $("#listAlarm").show();
+//              $("#listAlarm").show();
             }
       });
 

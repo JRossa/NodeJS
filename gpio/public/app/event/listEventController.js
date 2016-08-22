@@ -33,7 +33,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
            $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-           $("#listEvent").show();
+//           $("#listEvent").show();
         });
   };
 
@@ -52,7 +52,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
            $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-           $("#listEvent").show();
+//           $("#listEvent").show();
         });
 
   }
@@ -313,10 +313,10 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   function selectTime(searchTime, itemTime, greater) {
 
-    console.log("----------------" + itemTime);
+//    console.log("----------------" + itemTime);
     searchTime = convertDateTimePicker(searchTime);
 
-    console.log(searchTime);
+//    console.log(searchTime);
 
     if (typeof searchTime === "undefined") {
       return true;
@@ -326,7 +326,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
       return true;
     }
 
-    console.log(itemTime > searchTime);
+//    console.log(itemTime > searchTime);
     if (greater) {
       return itemTime >= searchTime;
     } else {

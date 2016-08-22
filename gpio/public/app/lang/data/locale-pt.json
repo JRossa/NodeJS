@@ -97,11 +97,15 @@
 
   "editmenu_enterAlarmDuration" : "Insira a duração do alarme",
 
-  "listEvent_eventId" : "Num Ativ",
-  "listEvent_sensorNum" : "Num Sensor",
-  "listEvent_actTime" : "Hora",
-  "listEvent_actTimeStart" : "Início :",
-  "listEvent_actTimeEnd" : "Fim :",
+  "eventGrid_eventId" : "Num Ativ",
+  "eventGrid_sensorNum" : "Num Sensor",
+  "eventGrid_actTime" : "Hora",
+  "eventGrid_actTimeStart" : "Início :",
+  "eventGrid_actTimeEnd" : "Fim :",
+  "eventGrid_delete" : "Remover",
+  "eventGrid_deleteAll" : "Remover Todos",
+  "eventGrid_insertEvent" : "Inserir Ativação [T]",
+  "eventGrid_setPin" : "Activar Pino [T]",
 
   "editmenu_updateSensor" : "Atualizar Sensor",
   "editmenu_updateSensorType" : "Atualizar Tipo de Sensor",

@@ -49,7 +49,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
         .then ( function (data) {
 //           console.log(data);
            $scope.label = data;
-           $("#setAlarmRPi").show();
+//           $("#setAlarm").show();
         });
 
   }
@@ -72,7 +72,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
                 $scope.alarmSettings.startPeriod = alarmSettings.startPeriod;
                 $scope.alarmSettings.endPeriod = alarmSettings.endPeriod;
                 console.log(alarmSettings);
-                $("#setAlarmRPi").show();
+//                $("#setAlarm").show();
               } else {
                 clearAlarmSettings();
               }

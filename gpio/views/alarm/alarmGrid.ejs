@@ -1,7 +1,10 @@
 
-<table data-ng-show="actionsData.length > 0"
+<table id="tblActionData"
+       style="width:100%;"
+       data-page-length='5'
+       data-ng-show="actionsData.length > 0"
        class="table table-striped table-hover table-bordered table-condensed"
-       id="tblactionData" style="width:100%;">
+       >
 
   <thead>
     <tr class="success">
@@ -16,6 +19,20 @@
       <td style="width: 10%"> {{label.alarmGrid_options}} </td>
     </tr>
   </thead>
+
+  <tfoot>
+    <tr class="success">
+      <td style="width: 6%"> {{label.alarmGrid_actionId}} </td>
+      <td style="width: 6%"> {{label.alarmGrid_armed}} </td>
+      <td style="width: 5%"> {{label.alarmGrid_allDay}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_startPeriod}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_endPeriod}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_type}} </td>
+      <td style="width: 20%"> {{label.alarmGrid_time}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_user}} </td>
+      <td style="width: 10%"> {{label.alarmGrid_options}} </td>
+    </tr>
+  </tfoot>
 
   <tbody id='tblactionDataBody'>
     <tr data-ng-repeat="actionData in actionsData">
