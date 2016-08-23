@@ -77,27 +77,9 @@ function setLanguage() {
   document.getElementById('selectLang').disabled =
               angular.element('#langSelected').scope().showLang.disabled;
 
-//  $('#endTimeInput').data("DateTimePicker").element.on('dp.change', function(){
-//    alert('d')
-//  });
 
-  var createEvent = document.getElementById('createEvent');
-
-  if (createEvent !== null) {
-   // datetimepicker
-    if (state) {
-      $('#eventTime').data("DateTimePicker").options.language = 'en';
-    } else {
-      $('#eventTime').data("DateTimePicker").options.language = 'pt';
-    }
-
-    var date = new Date();
-    strDate = date.getDate() + "-" + (date.getMonth() + 1) +
-                "-" + date.getFullYear();
-
-    $('#eventTime').data("DateTimePicker").setValue();
-  }
 }
+
 
 function menuDropDown() {
   // to solve conflicts in dropdown menu (collapse) beetwen bootstrap.js and angular.js
@@ -105,6 +87,7 @@ function menuDropDown() {
   $('.dropdown-toggle').dropdown();
 
   var langSelec = angular.element('#langSelected').scope();
+//  console.log(langSelec.showLang.show_EN);
 
   if (langSelec != 'undefined') {
     // to syncronize the toggle button
@@ -113,10 +96,4 @@ function menuDropDown() {
     $('#selectLang').prop('checked', state).change();
   }
 
-}
-
-function reloadJs(src) {
-   src = $('script[src$="' + src + '"]').attr("src");
-   $('script[src$="' + src + '"]').remove();
-   $('<script/>').attr('src', src).appendTo('body');
 }

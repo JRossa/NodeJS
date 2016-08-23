@@ -1,4 +1,4 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
 
 <style type="text/css">
 #createSensorTypeModal {
@@ -21,7 +21,7 @@
      data-ng-controller="createSensorTypeController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
   </br>
   <div id="createSensorTypeModal"
@@ -32,13 +32,13 @@
        style="width: 100%;"
        align="left">
 
-    <% include templates/pagetitle.ejs %>
+    <% include ../templates/pagetitle.ejs %>
 
     <div  class="panel-body" >
 
       <div class="container">
 
-        <% include ./message.ejs %>
+        <% include ../templates/message.ejs %>
 
         <form class="navbar-form navbar-left"
               role="search"
@@ -158,4 +158,4 @@ formCreateSensorType.sensorModel.$invalid
 <script src='/app/sensorType/sensorTypeLangController.js'></script>
 <script src='/app/sensorType/createSensorTypeController.js'></script>
 
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>

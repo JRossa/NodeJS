@@ -76,7 +76,7 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/createPin',
     callbackFunction : function(req, res) {
 
-      res.render('createPin', {
+      res.render('pin/createPin', {
            title : "label.menubar_appTitle",
            pagename : "label.createPin_pagename"
          });
@@ -198,7 +198,7 @@ pinRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listPin',
       callbackFunction : function (request, response) {
-          response.render('listPin', {
+          response.render('pin/listPin', {
             title : "label.menubar_appTitle",
             pagename : "label.listPin_pagename"
           });

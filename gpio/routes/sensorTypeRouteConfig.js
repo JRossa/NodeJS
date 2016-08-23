@@ -77,7 +77,7 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
     requestType : 'get',
     requestUrl : '/createSensorType',
     callbackFunction : function(req, res) {
-      res.render('createSensorType', {
+      res.render('sensorType/createSensorType', {
         title : "label.menubar_appTitle",
         pagename : "label.createSensorType_pagename"
       });
@@ -233,7 +233,7 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
       requestType : 'get',
       requestUrl : '/listSensorType',
       callbackFunction : function (request, response) {
-          response.render('listSensorType', {
+          response.render('sensorType/listSensorType', {
             title : "label.menubar_appTitle",
             pagename : "label.listSensorType_pagename"
           });

@@ -1,4 +1,4 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
 
 <style type="text/css">
 #editPin {
@@ -28,12 +28,12 @@
            style="width: 100%;"
            align="left">
 
-        <% include templates/modaltitle.ejs %>
+        <% include ../templates/modaltitle.ejs %>
 
         <div class="panel-body" >
           <div class="container">
 
-            <% include ./message.ejs %>
+            <% include ../templates/message.ejs %>
 
             <form class="navbar-form navbar-left"
                   role="search"
@@ -65,10 +65,8 @@
               </div>
 
               <% include editPinInputToggle.ejs %>
-
-              <br/>
-
               <% include editPinUsedToggle.ejs %>
+              <% include editPinWarnToggle.ejs %>
 
               <br/>
 

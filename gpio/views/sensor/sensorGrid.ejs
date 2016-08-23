@@ -1,6 +1,9 @@
-<table data-ng-show="sensorsData.length > 0"
+<table id="tblSensorData"
+       style="width:100%;"
+       data-page-length='5'
+       data-ng-show="sensorsData.length > 0"
        class="table table-striped table-hover table-bordered table-condensed"
-       id="tblsensorData" style="width:100%;">
+       >
 
   <thead>
     <tr class="success">
@@ -11,6 +14,16 @@
       <td style="width: 20%"> {{label.sensorGrid_options}} </td>
     </tr>
   </thead>
+
+  <tfoot>
+    <tr class="success">
+      <td style="width: 10%"> {{label.sensorGrid_sensorId}} </td>
+      <td style="width: 10%"> {{label.sensorGrid_sensorNumber}} </td>
+      <td style="width: 20%"> {{label.sensorGrid_sensorType}} </td>
+      <td style="width: 40%"> {{label.sensorGrid_location}} </td>
+      <td style="width: 20%"> {{label.sensorGrid_options}} </td>
+    </tr>
+  </tfoot>
 
   <tbody id='tblsensorDataBody'>
     <tr data-ng-repeat="sensorData in sensorsData">

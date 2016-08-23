@@ -1,4 +1,6 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
+
+<link type='text/css' rel='stylesheet' href='/stylesheets/dataTables.bootstrap.min.css'>
 
 <style type="text/css">
 #listSensorTypeModal {
@@ -21,16 +23,17 @@
      data-ng-controller="listSensorTypeController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
   </br>
   <div id="listSensorTypeModal"
-       class="modal-dialog">
+       class="modal-dialog"
+       style="display:none">
   <div class="modal-content">
 
   <div class="panel panel-info">
 
-    <% include templates/pagetitle.ejs %>
+    <% include ../templates/pagetitle.ejs %>
 
     </br>
 
@@ -51,6 +54,9 @@
 
 <script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
+<script type='text/javascript' src='/javascripts/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='/javascripts/dataTables.bootstrap.min.js'></script>
+
 <!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
@@ -67,6 +73,6 @@
 <script src='/app/sensorType/sensorTypeService.js'></script>
 <script src='/app/sensorType/sensorTypeLangController.js'></script>
 <script src='/app/sensorType/listSensorTypeController.js'></script>
+<script src='/app/sensorType/listSensorTypeJQuery.js'></script>
 
-
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>

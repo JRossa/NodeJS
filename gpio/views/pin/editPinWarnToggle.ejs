@@ -1,0 +1,56 @@
+
+<div class="row"
+     data-ng-show="showLang.show_PT">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+    <div class="form-group"
+         style="padding-left: 0%;">
+      <div ng-class="{'has-error': validatePinSensorId.containsValidationError}">
+        <label for="pinWarnPT">
+          {{label.createmenu_pinWarn}}
+        </label>
+
+        <span  style="padding-left: 65px; display:inline-block;"> </span>
+
+        <input id="pinWarnPT"
+               type="checkbox"
+               data-checkbox-toggle="toggle"
+               data-width="100"
+               data-on="Ligado"
+               data-off="Desligado"
+               data-onstyle="success"
+               data-offstyle="danger"
+               data-size="mini"
+               ng-model="pinData.pinWarn">
+        </input>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row"
+     data-ng-show="showLang.show_EN">
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+    <div class="form-group"
+         style="padding-left: 0%;">
+      <div ng-class="{'has-error': validatePinSensorId.containsValidationError}">
+        <label for="pinWarnEN">
+          {{label.createmenu_pinWarn}}
+        </label>
+
+        <span style="padding-left: 77px; display:inline-block;"> </span>
+
+        <input id="pinWarnEN"
+               type="checkbox"
+               data-checkbox-toggle="toggle"
+               data-width="100"
+               data-on="On"
+               data-off="Off"
+               data-onstyle="success"
+               data-offstyle="danger"
+               data-size="mini"
+               ng-model="pinData.pinWarn">
+        </input>
+      </div>
+    </div>
+  </div>
+</div>

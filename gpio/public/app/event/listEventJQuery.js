@@ -1,83 +1,109 @@
-window.onload = setListenActionDataTable
+window.onload = listEventStates
 
+function listEventStates() {
+  setListenActionDataTable();
+  menuDropDown();
+
+}
 
 
 
 // https://datatables.net/examples/advanced_init/length_menu.html
 // https://datatables.net/reference/option/language
-function setDataTable() {
+function setDataTable(option) {
 
   var langSelec = angular.element('#langSelected').scope().showLang.show_EN;
 
-//  console.log(langSelec);
+  var label = angular.element('#langSelected').scope().label;
 
-  if (angular.element('#langSelected').scope().showLang.show_EN) {
-    $('#tblEventData').DataTable( {
-          "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-          "language": {
-            "decimal":        "",
-            "emptyTable":     "No data available in table",
-            "info":           "Showing _START_ to _END_ of _TOTAL_ entries",
-            "infoEmpty":      "Showing 0 to 0 of 0 entries",
-            "infoFiltered":   "(filtered from _MAX_ total entries)",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "lengthMenu":     "Show _MENU_ entries",
-            "loadingRecords": "Loading...",
-            "processing":     "Processing...",
-            "search":         "Search:",
-            "zeroRecords":    "No matching records found",
-            "paginate": {
-                "first":      "First",
-                "last":       "Last",
-                "next":       "Next",
-                "previous":   "Previous"
-            },
-            "aria": {
-                "sortAscending":  ": activate to sort column ascending",
-                "sortDescending": ": activate to sort column descending"
-            }
-          }
-      } );
+  var langData =  {
+    "decimal":        label.tblData_decimal,
+    "emptyTable":     label.tblData_emptyTable,
+    "info":           label.tblData_info,
+    "infoEmpty":      label.tblData_infoEmpty,
+    "infoFiltered":   label.tblData_infoFiltered,
+    "infoPostFix":    label.tblData_infoPostFix,
+    "thousands":      label.tblData_thousands,
+    "lengthMenu":     label.tblData_lengthMenu,
+    "loadingRecords": label.tblData_loadingRecords,
+    "processing":     label.tblData_processing,
+    "search":         label.tblData_search,
+    "zeroRecords":    label.tblData_zeroRecords,
+    "paginate": {
+        "first":      label.tblData_first,
+        "last":       label.tblData_last,
+        "next":       label.tblData_next,
+        "previous":   label.tblData_previous
+    },
+    "aria": {
+        "sortAscending":  label.tblData_sortAscending,
+        "sortDescending": label.tblData_sortDescending
     }
+  };
 
-//           "searching": false,
+  $('#tblEventData').DataTable( {
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+        "language": langData
+    } );
 
-  if (angular.element('#langSelected').scope().showLang.show_PT) {
-    $('#tblEventData').DataTable( {
-          "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-          "language": {
-            "decimal":        "",
-            "emptyTable":     "Tabela sem dados disponíveis",
-            "info":           "Lista do registo _START_  a _END_ de _TOTAL_ registos",
-            "infoEmpty":      "Mostra do registo 0 até ao 0 de 0 registos",
-            "infoFiltered":   "(seleção de um total de _MAX_ registos)",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "lengthMenu":     "Listar _MENU_ registos",
-            "loadingRecords": "Carregando..",
-            "processing":     "Processando...",
-            "search":         "Procurar:",
-            "zeroRecords":    "Nenhum registo encontrado",
-            "paginate": {
-                "first":      "Primeiro",
-                "last":       "Último",
-                "next":       "Próximo",
-                "previous":   "Anterior"
-            },
-            "aria": {
-                "sortAscending":  ": ativar para a ordenção ascendente da coluna",
-                "sortDescending": ": ativar para a ordenção descendente da coluna"
-            }
-          }
-      } );
-    }
-
+  if (option) {
+    listenSelectLang();
+  }
 
   $("#listEventModal").show();
   $("#footer").show();
 }
 
+function listenSelectLang () {
+
+  $('#selectLang').change( function() {
+
+//    console.log('passou');
+    // if it's at the end duplicates rows in each language beacuase
+    // of the label of delete butoon
+    setDateTimePickerLang();
+
+    var dtable = $('#tblEventData').DataTable();
+//    document.getElementById('listAlarmModal').style.display = 'none';
+    $("#listEventModal").hide();
+    $("#footer").hide();
+
+    dtable.draw();
+    dtable.destroy();
+
+    setTimeout(function(){
+      setDataTable(false);
+    }, 200);
+
+  });
+}
+
+function setDateTimePickerLang () {
+//  $('#endTimeInput').data("DateTimePicker").element.on('dp.change', function(){
+//    alert('d')
+//  });
+  var state = $('#selectLang').prop('checked');
+
+  var listEvent = document.getElementById('listEvent');
+
+  if (listEvent !== null) {
+   // datetimepicker
+    if (state) {
+      $('#startTime').data("DateTimePicker").options.language = 'en';
+      $('#endTime').data("DateTimePicker").options.language = 'en';
+    } else {
+      $('#startTime').data("DateTimePicker").options.language = 'pt';
+      $('#endTime').data("DateTimePicker").options.language = 'pt';
+    }
+
+    var date = new Date();
+    strDate = date.getDate() + "-" + (date.getMonth() + 1) +
+                "-" + date.getFullYear();
+
+    $('#startTime').data("DateTimePicker").setValue();
+    $('#endTime').data("DateTimePicker").setValue();
+  }
+}
 
 function selectSensor(searchSensor, itemSensor) {
 
@@ -159,7 +185,7 @@ $.fn.dataTable.ext.search.push(
 
         var sensorOk = true;
         var timeOk   = true;
-
+//    console.log('passou search');
 //       console.log(data[1]);
 //        console.log(dataIndex);
 //        console.log(searchSensorNum);
@@ -226,11 +252,13 @@ var table = $('#tblEventData').DataTable();
 
 function setListenActionDataTable () {
 
-  $("#listEvent").show();
-
   listenInput2Click ();
 
   setTimeout(function(){
-    setDataTable();
-  }, 300);
+    $("#listEvent").show();
+  }, 50);
+
+  setTimeout(function(){
+    setDataTable(true);
+  }, 500);
 }

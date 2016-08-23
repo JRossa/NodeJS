@@ -69,7 +69,8 @@
                 </label>
                <div class="col-md-8">
 <!---->
-                <div class='input-group date'
+                <div id="startTime"
+                     class='input-group date'
                      datetimepicker
                      ng-model="searchText.startTime">
                   <input id="startTimeInput"
@@ -105,7 +106,8 @@
                        {{ label.eventGrid_actTimeEnd }}
               </label>
               <div class="col-md-4">
-                <div class='input-group date'
+                <div id="endTime"
+                     class='input-group date'
                      datetimepicker
                      ng-model="searchText.endTime">
                   <input id="endTimeInput"

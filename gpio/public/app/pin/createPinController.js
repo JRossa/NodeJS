@@ -18,6 +18,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
     pinSensorId : "",
     pinInput : "",
     pinUsed : "",
+    pinWarn : "",
     pinAlarmDuration : ""
 
   };
@@ -80,6 +81,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
     $scope.pinData.pinSensorId = "";
     $scope.pinData.pinInput = "";
     $scope.pinData.pinUsed = "";
+    $scope.pinData.pinWarn = "";
     $scope.pinData.pinAlarmDuration = "";
   };
 
@@ -173,6 +175,10 @@ function createPinController($rootScope, $scope, $window, $timeout,
       }, 2000);
 
     } else {
+
+      pinData.pinInput = false;
+      pinData.pinUsed = false;
+      pinData.pinWarn = false;
 
       pinService.createPin(pinData)
         .success(function (data) {

@@ -1,7 +1,8 @@
-window.onload = setListenOpenSetAlarmForm
+window.onload = setAlarmStates
 
 function setAlarmStates() {
   setListenOpenSetAlarmForm();
+  menuDropDown();
 }
 
 function setAlarmPeriodState(resetPeriod) {
@@ -114,7 +115,11 @@ function readEndPeriod () {
 
 
 function setListenOpenSetAlarmForm() {
-  $("#setAlarm").show();
+
+  setTimeout(function(){
+    $("#setAlarm").show();
+  }, 50);
+
   // half second is enougth
   setTimeout(function(){
     readEndPeriod();

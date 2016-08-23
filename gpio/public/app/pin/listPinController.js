@@ -33,7 +33,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
           $scope.modalname = data.editPin_pagename
-          $("#listSensor").show();
+//          $("#listSensor").show();
         });
   };
 
@@ -54,7 +54,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
           $scope.modalname = data.editPin_pagename
-          $("#listSensor").show();
+//          $("#listSensor").show();
         });
 
   }
@@ -119,6 +119,15 @@ function listPinController($rootScope, $scope, $window, $timeout,
         }
       }
 
+      if (pinData.warn == false) {
+        pinData.pinWarnImage = "on_off_red.png";
+      } else {
+        if (pinData.warn == true)  {
+          pinData.pinWarnImage = "on_off_green.png";
+        } else {
+          pinData.pinWarnImage = "on_off_blue.png";
+        }
+      }
 
     });
 
@@ -142,6 +151,8 @@ function listPinController($rootScope, $scope, $window, $timeout,
     pinInputImage : "",
     pinUsed : "",
     pinUsedImage : "",
+    pinWarn : "",
+    pinWarnImage : "",
     pinAlarmDuration : ""
 
   };
@@ -156,6 +167,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     $scope.pinData.pinSensorId = pinData.sensor_id.toString();
     $scope.pinData.pinInput = pinData.input;
     $scope.pinData.pinUsed = pinData.used;
+    $scope.pinData.pinWarn = pinData.warn;
     $scope.pinData.pinAlarmDuration = pinData.alarm_duration;
 
     $scope.controlData.pinInputState = $scope.pinData.pinInput;
@@ -330,7 +342,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     }
   }
 
-
+// similar to click in the input field
   function updateAlarmDuration () {
 
     var validationMessages = 0;

@@ -34,7 +34,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
           $scope.modalname = data.editSensor_pagename
-          $("#listSensor").show();
+//          $("#listSensor").show();
         });
   };
 
@@ -54,7 +54,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
           $scope.modalname = data.editSensor_pagename
-          $("#listSensor").show();
+//          $("#listSensor").show();
         });
 
   }

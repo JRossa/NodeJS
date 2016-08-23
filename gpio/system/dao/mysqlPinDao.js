@@ -26,6 +26,7 @@ var pinDao = {
                 'sensor_id INTEGER UNIQUE NOT NULL,' +
                 'input BOOLEAN NULL,' +
                 'used BOOLEAN NULL,' +
+                'warn BOOLEAN NULL,' +
                 'alarm_duration INTEGER NULL,' +
                 'PRIMARY KEY(id),' +
                 'INDEX FK_tbl_pin_tbl_sensor (sensor_id),' +
@@ -51,7 +52,7 @@ var pinDao = {
 
   createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
     var pinInsert = {
       bcm : pinData.pinBCM,
@@ -59,6 +60,7 @@ var pinDao = {
       sensorId : pinData.pinSensorId,
       input : pinData.pinInput,
       used : pinData.pinUsed,
+      warn : pinData.pinWarn,
       alarmDuration : pinData.pinAlarmDuration
     };
 
@@ -69,7 +71,8 @@ var pinDao = {
       connection.beginTransaction(function(err) {
         connection.query(insertStatement,
                 [pinInsert.bcm, pinInsert.board, pinInsert.sensorId,
-                  pinInsert.input, pinInsert.used, pinInsert.alarmDuration], function(err, row) {
+                  pinInsert.input, pinInsert.used, pinUpdate.warn,
+                  pinInsert.alarmDuration], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -104,7 +107,7 @@ var pinDao = {
   updatePin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
     var updateStatement = "UPDATE tbl_pin SET bcm = ?, board = ?, sensor_id = ?, " +
-                          "input = ?, used = ?, alarm_duration = ? " +
+                          "input = ?, used = ?, warn = ?, alarm_duration = ? " +
                           "WHERE id = ? ";
 
 //    console.log("ligação  " + sensorType.sensorId);
@@ -118,6 +121,7 @@ var pinDao = {
       sensorId : pinData.pinSensorId,
       input : pinData.pinInput,
       used : pinData.pinUsed,
+      warn : pinData.pinWarn,
       alarmDuration : pinData.pinAlarmDuration
     };
 
@@ -128,7 +132,8 @@ var pinDao = {
       connection.beginTransaction(function(err) {
         connection.query(updateStatement,
                   [pinUpdate.bcm, pinUpdate.board, pinUpdate.sensorId,
-                   pinUpdate.input, pinUpdate.used, pinUpdate.alarmDuration,
+                   pinUpdate.input, pinUpdate.used,
+                   pinUpdate.alarmDuration, pinUpdate.warn,
                    pinUpdate.id], function(err, row) {
 
                 if (err !== null) {

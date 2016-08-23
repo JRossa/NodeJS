@@ -1,4 +1,6 @@
-<% include templates/header.ejs %>
+<% include ../templates/header.ejs %>
+
+<link type='text/css' rel='stylesheet' href='/stylesheets/dataTables.bootstrap.min.css'>
 
 <style type="text/css">
 #listPinModal {
@@ -21,26 +23,27 @@
      data-ng-controller="listPinController"
      style="display:none">
 
-  <% include templates/menu.ejs %>
+  <% include ../templates/menu.ejs %>
 
   </br>
   <div id="listPinModal"
-       class="modal-dialog">
-  <div class="modal-content">
+       class="modal-dialog"
+       style="display:none">
+    <div class="modal-content">
 
-  <div class="panel panel-info">
+      <div class="panel panel-info">
 
-    <% include templates/pagetitle.ejs %>
+        <% include ../templates/pagetitle.ejs %>
 
-    </br>
+        </br>
 
-    <div class="container">
+        <div class="container">
 
-      <% include pinGrid.ejs %>
+          <% include pinGrid.ejs %>
 
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
   </div>
 
   <% include editPin.ejs %>
@@ -64,6 +67,9 @@
 
 <script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
+<script type='text/javascript' src='/javascripts/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='/javascripts/dataTables.bootstrap.min.js'></script>
+
 <!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
@@ -84,8 +90,7 @@
 <script src='/app/pin/pinDirective.js'></script>
 <script src="/app/pin/pinLangController.js"></script>
 <script src='/app/pin/listPinController.js'></script>
+<script src='/app/pin/listPinJQuery.js'></script>
 
-<script src='app/pin/pinJQuery.js'></script>
 
-
-<% include templates/footer.ejs %>
+<% include ../templates/footer.ejs %>
