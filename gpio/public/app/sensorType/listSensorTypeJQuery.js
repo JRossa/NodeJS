@@ -70,7 +70,7 @@ function listenSelectLang () {
   $('#selectLang').change( function() {
 
 //    console.log('passou');
-    var dtable = $('#tblSensorData').DataTable();
+    var dtable = $('#tblSensorTypeData').DataTable();
 //    document.getElementById('listAlarmModal').style.display = 'none';
     $("#listSensorTypeModal").hide();
     $("#footer").hide();

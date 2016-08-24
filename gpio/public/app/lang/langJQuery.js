@@ -81,6 +81,20 @@ function setLanguage() {
 }
 
 
+function indexSetLanguage () {
+
+  var indexLoaded = document.getElementById('index');
+
+  if (indexLoaded !== null) {
+
+//    $("#alarmSettings").hide();
+//    location.reload();
+
+    $('#alarmSettings').load(document.URL +  ' #alarmSettings');
+  }
+}
+
+
 function menuDropDown() {
   // to solve conflicts in dropdown menu (collapse) beetwen bootstrap.js and angular.js
   // http://stackoverflow.com/questions/18945899/twitter-bootstrap-drop-down-menu-not-working
@@ -95,5 +109,9 @@ function menuDropDown() {
 
     $('#selectLang').prop('checked', state).change();
   }
+
+  $('#selectLang').change(function() {
+    indexSetLanguage();
+  });
 
 }

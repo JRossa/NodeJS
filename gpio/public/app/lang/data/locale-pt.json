@@ -176,14 +176,21 @@
   "createEvent_controller_enterSensor" : "Insira um sensor !!",
   "createEvent_controller_insertedCurrDate" : "Inserida a data atual !!",
   "createEvent_controller_recordAdded" : "Registo inserido com sucesso !!",
+
   "createPin_controller_enterPinBCM" :"Insira o número BCM GPIO !!",
   "createPin_controller_enterPinBOARD" :"Insira o número do pin BOARD !!",
   "createPin_controller_recordAdded" : "Registo inserido com sucesso !!",
+
   "createSensor_controller_enterSensorNum" : "Insira o número do sensor !!",
   "createSensor_controller_enterSensorModel" : "Insira o modelo do sensor !!",
   "createSensor_controller_recordAdded" : "Registo inserido com sucesso !!",
+
   "createSensorType_controller_enterSensorModel" : "Insira o modelo do sensor !!",
   "createSensorType_controller_recordAdded" : "Registo inserido com sucesso !!",
+
+  "createAction_controller_recordAdded" : "Registo inserido com sucesso !!",
+  "createAction_controller_actionTypeNotFound" : "Tipo de ação inválido !!",
+  "createAction_controller_actionTypeTableMissing" : "Falta a Tabela das ações !!",
 
   "editSensorType_controller_enterSensorModel" : "Insira o modelo do sensor !!",
   "editSensorType_controller_recordUpdated" : "Registo atualizado com sucesso !!",

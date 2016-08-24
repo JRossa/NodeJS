@@ -60,7 +60,7 @@ var actionDao = {
         ("0" +  d.getSeconds()).slice(-2);
 
     var actionInsert = {
-      type_id : '1',
+      type_id : actionData.typeId,
       armed : actionData.armed,
       all_day : actionData.allDay,
       period_id : actionData.periodId,
@@ -189,7 +189,7 @@ var actionDao = {
 
         // convert boolean 0 -> false & 1 -> true
         for (row in rows) {
-          rows[row].add_day  = (rows[row].add_day == 0)? false: true;
+          rows[row].all_day  = (rows[row].all_day == 0)? false: true;
           rows[row].armed  = (rows[row].armed == 0)? false: true;
         }
 

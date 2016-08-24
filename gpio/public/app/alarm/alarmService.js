@@ -14,8 +14,11 @@ function alarmService ($rootScope, $http, $location) {
       console.log("Service: createAction");
       console.log(actionData);
 
+
+
       return $http.post('/createAction',
         {
+          typeId : actionData.typeId,
           armed : actionData.armed,
           allDay : actionData.allDay,
           startPeriod : actionData.startPeriod,
@@ -23,6 +26,29 @@ function alarmService ($rootScope, $http, $location) {
         }
       );
     }, // createAction
+
+
+    //http://stackoverflow.com/questions/13760070/angularjs-passing-data-to-http-get-request
+    getActionTypeByType : function (actionData) {
+
+      console.log(actionData);
+
+/*
+      // req.query.type
+      return $http.get('/getActionTypeByType', {
+        params: {
+          type : actionData.type
+        }
+      });
+
+*/
+      return $http.post('/getActionTypeByType',
+        {
+          type : actionData.type
+        }
+      );
+
+    }, // getActionTypeByType
 
 
     getAllActions: function () {

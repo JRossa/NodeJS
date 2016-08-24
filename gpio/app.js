@@ -52,6 +52,7 @@ env(__dirname + '/.env', {overwrite: true});
 // Routing
 // Home Page
 var routes = require('./routes/index');
+app.use('/setLanguage', routes);
 app.use('/', routes);
 
 // Sensors

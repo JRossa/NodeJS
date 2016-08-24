@@ -32,6 +32,8 @@ function langController ($rootScope, $scope, $window,
            $scope.label = data;
            $("#index").show();
         });
+
+    langService.setLanguage(langKey);
   }
 
   $scope.loadLanguage = function ()  {
@@ -50,7 +52,7 @@ function langController ($rootScope, $scope, $window,
            $("#index").show();
         });
 
-
+    langService.setLanguage(langKey);
   }
 
   $scope.showLang = {
@@ -68,6 +70,8 @@ function langController ($rootScope, $scope, $window,
 
   // used in toggle buttons labels
   function setToggleLang(langKey) {
+
+    langService.setLanguage(langKey);
 
     if (langKey == 'pt') {
       $scope.showLang.show_PT = true;

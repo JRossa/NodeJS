@@ -226,30 +226,58 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
       }, 2000);
 
     } else {
-      alarmService.createAction(alarmSettings)
+      alarmSettings.type = "ALARM_SWITCH";
+
+      alarmService.getActionTypeByType (alarmSettings)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
+          console.log(data);
 
           if (data) {
-            console.log("data");
-            if (data.status && data.status == 'Successful') {
-              showMessage(true, false, $scope.label.createAction_controller_recordAdded);
-            }
-            if (data.error) {
-              showMessage(false, true, data.error + " !!");
-            }
+            if (data.length == 1) {
 
+              console.log(data.length);
+              console.log(data[0].id);
+              alarmSettings.typeId = data[0].id;
+
+              alarmService.createAction(alarmSettings)
+                .success(function (data) {
+                  //alert ("Sensor Type posted successfully");
+
+                  if (data) {
+        //            console.log(data);
+                    if (data.status && data.status == 'Successful') {
+                      showMessage(true, false, $scope.label.createAction_controller_recordAdded);
+                    }
+                    if (data.error) {
+                      showMessage(false, true, data.error + " !!");
+                    }
+
+                  }
+
+                  // $timeout( function () { TODO }, 3000);
+                  $timeout( function afterTimeOut () {
+                    showMessage(false, false, "");
+        //            clearAlarmSettings();
+                  }, 2000);
+
+                });
+            }
+            else  {
+              showMessage(false, true, $scope.label.createAction_controller_actionTypeNotFound);
+            }
+          } else {
+            showMessage(false, true, $scope.label.createAction_controller_actionTypeTableMissing);
           }
 
           // $timeout( function () { TODO }, 3000);
           $timeout( function afterTimeOut () {
             showMessage(false, false, "");
 //            clearAlarmSettings();
-          }, 5000);
+          }, 2000);
 
         });
     } // else
-
   }
 
 

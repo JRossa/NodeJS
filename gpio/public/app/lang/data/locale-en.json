@@ -175,14 +175,21 @@
   "createEvent_controller_enterSensor" : "Enter a sensor !!",
   "createEvent_controller_insertedCurrDate" : "Inserted current date !!",
   "createEvent_controller_recordAdded" : "A recorded added successfully !!",
+
   "createPin_controller_enterPinBCM" :"Enter a BCM GPIO number !!",
   "createPin_controller_enterPinBOARD" :"Enter a BOARD pin number !!",
   "createPin_controller_recordAdded" : "A recorded added successfully !!",
+
   "createSensor_controller_enterSensorNum" : "Enter a sensor number !!",
   "createSensor_controller_enterSensorModel" : "Enter a sensor model !!",
   "createSensor_controller_recordAdded" : "A recorded added successfully !!",
+
   "createSensorType_controller_enterSensorModel" : "Enter a sensor model !!",
   "createSensorType_controller_recordAdded" : "A recorded added successfully !!",
+
+  "createAction_controller_recordAdded" : "A recorded added successfully !!",
+  "createAction_controller_actionTypeNotFound" : "Error Action Type not found !!",
+  "createAction_controller_actionTypeTableMissing" : "Missing Table Action Type !!",
 
   "editSensorType_controller_enterSensorModel" : "Enter a sensor model !!",
   "editSensorType_controller_recordUpdated" : "A recorded updated successfully !!",

@@ -47,8 +47,18 @@ function langService ($http, $q) {
         });
 
       return defer.promise();
-    }
+    }, // loadLanguage
 
-  };
 
-}
+    setLanguage : function (langKey) {
+      $http.post('/setLanguage',
+      {
+        lang : langKey
+      });
+
+  
+    }  // setLanguage
+
+
+  } // return
+}   // function

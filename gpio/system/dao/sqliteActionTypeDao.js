@@ -91,7 +91,34 @@ var actionTypeDao = {
 
       }); // serialize
     }     // connection
-  }       // createActionType
+  },      // createActionType
+
+
+  getActionTypeByTag : function (actionTypeTag, OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_actionType WHERE type = ?";
+
+    console.log(selectStatement);
+    console.log(actionTypeTag);
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(selectStatement, [actionTypeTag], function (err, rows)  {
+
+        if (err) {
+          throw err;
+        }
+
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  }
 
 }
 

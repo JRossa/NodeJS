@@ -13,6 +13,17 @@
   <% include templates/menu.ejs %>
 
   <br/>
+  <div id="alarmSettings">
+      <% if (alarmSettings.armed) { %>
+        <h3> LIGADO </h3>
+      <% } %>
+      <%= labels.sensors.edit %> <br/>
+  </div>
+      {{ label.editSensor_pagename }}
+<!--
+      <%= alarmSettings.all_day %>
+      <%= alarmSettings.type_id %>
+-->
   <br/>
 
   <p>1. Was f&#252;r ein gro&#223;artiges Modul!</p>

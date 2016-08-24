@@ -38,33 +38,23 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
   }
 
   actionType.push ( {
+    type        : 'ALARM_SWITCH',
+    description : 'Alarm configuration applied'
+  });
+
+  actionType.push ( {
     type        : 'ALARM_ON',
-    description : 'Alarm is active'
+    description : 'Alarm is active (auto)'
   });
 
   actionType.push ( {
     type        : 'ALARM_OFF',
-    description : 'Alarm is not active'
+    description : 'Alarm is not active (auto)'
   });
 
   actionType.push ( {
-    type        : 'ALARM_PERIOD_ON',
-    description : 'Alarm period is active'
-  });
-
-  actionType.push ( {
-    type        : 'ALARM_PERIOD_OFF',
-    description : 'Alarm period is not active'
-  });
-
-  actionType.push ( {
-    type        : 'ALARM_START',
-    description : 'Alarm period begin'
-  });
-
-  actionType.push ( {
-    type        : 'ALARM_END',
-    description : 'Alarm period end'
+    type        : 'ALARM_CONFIG',
+    description : 'Alarm pin configuration applied'
   });
 
   actionType.push ( {
@@ -77,10 +67,6 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
     description : 'Alarm pin reset'
   });
 
-  actionType.push ( {
-    type        : 'ALARM_CONFIG',
-    description : 'Alarm pin configuration modified'
-  });
 
   actionDao.actionDao.createActionType(actionType,
     function (status){
@@ -209,7 +195,7 @@ actionRouteConfig.prototype.addRoutes = function () {
         actionDao = require('../system/dao/mysqlActionDao');
       }
 
-      console.log("POST createAction");
+      console.log("----------------POST createAction");
       console.log(req.body);
 
       if (req.body.allDay == false) {
@@ -343,6 +329,52 @@ actionRouteConfig.prototype.addRoutes = function () {
             res.json({ actionsData : actionsData });
           }
       });
+
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/getActionTypeByType',
+    callbackFunction : function(req, res) {
+
+      console.log('server');
+
+      var actionDao = require('../system/dao/sqliteActionTypeDao');
+      if (global.config.site.database === 'mysql') {
+        actionDao = require('../system/dao/mysqlActionTypeDao');
+      }
+
+      console.log(req.query.type);
+      actionDao.actionTypeDao.getActionTypeByTag (req.query.type,
+
+        function (data) {
+//          console.log(status);
+          res.json(data);
+        });
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'post',
+    requestUrl : '/getActionTypeByType',
+    callbackFunction : function(req, res) {
+
+        console.log('server');
+
+      var actionDao = require('../system/dao/sqliteActionTypeDao');
+      if (global.config.site.database === 'mysql') {
+        actionDao = require('../system/dao/mysqlActionTypeDao');
+      }
+
+      // with post
+      console.log(req.body.type);
+      actionDao.actionTypeDao.getActionTypeByTag (req.body.type,
+
+        function (status) {
+//          console.log(status);
+          res.json(status);
+        });
 
     }
   });
