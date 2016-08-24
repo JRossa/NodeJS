@@ -20,6 +20,7 @@ function pinService ($rootScope, $http, $location) {
           pinSensorId : pinData.pinSensorId,
           pinInput : pinData.pinInput,
           pinUsed : pinData.pinUsed,
+          pinWarn : pinData.pinWarn,
           pinAlarmDuration : pinData.pinAlarmDuration
         }
       );
@@ -41,7 +42,7 @@ function pinService ($rootScope, $http, $location) {
 
       console.log("updatePin : Service");
       console.log(pinData);
-      
+
       return $http.post('/updatePin',
         {
           pinId : pinData.pinId,
@@ -50,6 +51,7 @@ function pinService ($rootScope, $http, $location) {
           pinSensorId : pinData.pinSensorId,
           pinInput : pinData.pinInput,
           pinUsed : pinData.pinUsed,
+          pinWarn : pinData.pinWarn,
           pinAlarmDuration : pinData.pinAlarmDuration
         }
       );

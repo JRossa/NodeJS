@@ -78,20 +78,20 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //      console.log(actionData);
 
       if (actionData.armed == false) {
-        actionData.alarmArmedImage = "Data-Export-icon.png";
+        actionData.alarmArmedImage = "green_light.png";
       } else {
         if (actionData.armed == true)  {
-          actionData.alarmArmedImage = "Data-Import-icon.png";
+          actionData.alarmArmedImage = "alarm_icon-184x184.png";
         } else {
           actionData.alarmArmedImage = "Data-Undefined-icon.png";
         }
       }
 
       if (actionData.all_day == false) {
-        actionData.alarmAllDayImage = "on_off_red.png";
+        actionData.alarmAllDayImage = "half_hour-512.png";
       } else {
         if (actionData.all_day == true)  {
-          actionData.alarmAllDayImage = "on_off_green.png";
+          actionData.alarmAllDayImage = "24hours_available-512.png";
         } else {
           actionData.alarmAllDayImage = "on_off_blue.png";
         }

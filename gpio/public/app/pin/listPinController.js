@@ -119,14 +119,18 @@ function listPinController($rootScope, $scope, $window, $timeout,
         }
       }
 
-      if (pinData.warn == false) {
-        pinData.pinWarnImage = "on_off_red.png";
-      } else {
-        if (pinData.warn == true)  {
-          pinData.pinWarnImage = "on_off_green.png";
+      if (pinData.input == false) {
+        if (pinData.warn == false) {
+          pinData.pinWarnImage = "Alarm-Error-icon-48.png";
         } else {
-          pinData.pinWarnImage = "on_off_blue.png";
+          if (pinData.warn == true)  {
+            pinData.pinWarnImage = "alarm-bell-icon-4.png";
+          } else {
+            pinData.pinWarnImage = "large.img.png";
+          }
         }
+      } else {
+        pinData.pinWarnImage = "large.img.png";
       }
 
     });

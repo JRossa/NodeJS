@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editSensorType {
-   width:400px;
+   width:380px;
    margin:0 auto;
 }
 #left_col {
@@ -81,6 +81,26 @@
               </div>
 
               <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <div class="form-group"
+                       style="padding-left: 0%;">
+                    <label for="sensorImage">
+                       {{label.createmenu_obs}}
+                    </label>
+                    <input id="sensorImage"
+                           class="form-control"
+                           type="file"
+                           placeholder="file name"
+                           name="datafile"
+                           style="width: 90%;"
+                           ng-model="sensorType.sensorFileName"
+                           size="10">
+                  </div>
+                </div>
+              </div>
+              </br>
+              
+              <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <div class="form-group"
                        style="padding-left: 0%;">
@@ -88,35 +108,34 @@
                        {{label.createmenu_obs}}
                     </label>
 
-                    <textarea
-                           class="form-control"
-                           placeholder="Obs"
-                           name="sensorObs"
-                           id="sensorObs"
-                           rows="2"
-                           cols="29"
-                           ng-model="sensorType.sensorObs"
-                           style="width: 100%;"
-                           >
+                    <textarea id="sensorObs"
+                              class="form-control"
+                              placeholder="Obs"
+                              name="sensorObs"
+                              rows="2"
+                              cols="29"
+                              ng-model="sensorType.sensorObs"
+                              style="width: 100%;"
+                              >
                     </textarea>
                   </div>
                 </div>
               </div>
-              </br>
 
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              </br>
+              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                 <div class="modal-footer">
                   <div lass="row"
                        align="center">
                     <div class="form-group"
                          style="padding-left: 0%;">
                       <button type="button"
-                             class="btn btn-default"
+                             class="btn btn-default btn-sm"
                              data-dismiss="modal">
                        {{ label.deleteSensor_close }}
                       </button>
                       <button type="button"
-                              class="btn btn-primary"
+                              class="btn btn-primary btn-sm"
                               ng-disabled="!formEditSensorType.$valid"
                               ng-click="updateSensorType(sensorType)">
                         {{label.editmenu_updateSensorType}}

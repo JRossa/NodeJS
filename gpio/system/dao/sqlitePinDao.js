@@ -219,6 +219,7 @@ var pinDao = {
           console.log(rows[row].input);
           rows[row].input  = (rows[row].input == 0)? false: true;
           rows[row].used  = (rows[row].used == 0)? false: true;
+          rows[row].warn  = (rows[row].warn == 0)? false: true;
         }
 
         console.log(rows);

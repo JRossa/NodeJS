@@ -138,6 +138,20 @@ function setAlarmDuration (inputState, resetAlarmDuration) {
 }
 
 
+function setAlarmWarn (inputState) {
+
+  if (inputState) {
+    document.getElementById('pinWarnRowPT').style.display = 'none';
+    document.getElementById('pinWarnRowEN').style.display = 'none';
+
+  } else {
+    document.getElementById('pinWarnRowPT').style.display = 'block';
+    document.getElementById('pinWarnRowEN').style.display = 'block';
+
+  }
+
+}
+
 function setPinInputState (resetAlarmDuration) {
 
   var inputState = "";
@@ -153,6 +167,7 @@ function setPinInputState (resetAlarmDuration) {
   angular.element('#editPinModal').scope().setPinInputValue(inputState);
 
   setAlarmDuration (inputState, resetAlarmDuration);
+  setAlarmWarn (inputState);
 }
 
 // old

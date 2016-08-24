@@ -230,7 +230,17 @@ var pinDao = {
 
       connection.all(selectStatement, [], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+        if (err) {
+          throw err;
+        }
+
+      // convert boolean 0 -> false & 1 -> true
+      for (row in rows) {
+        console.log(rows[row].input);
+        rows[row].input  = (rows[row].input == 0)? false: true;
+        rows[row].used  = (rows[row].used == 0)? false: true;
+        rows[row].warn  = (rows[row].warn == 0)? false: true;
+      }
 
 //        console.log(rows);
         OnSuccessCallback(rows);
