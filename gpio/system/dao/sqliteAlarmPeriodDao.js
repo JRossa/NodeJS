@@ -68,7 +68,7 @@
                       connection.run("ROLLBACK");
                       connectionProvider.connectionStringProvider.closeConnection(connection);
                       //next(err);
-                      OnErrorCallback({ error : "Action Type already exists !!!"});
+                      OnErrorCallback({ error : "Action Period error !!!"});
                   }
                   else {
 

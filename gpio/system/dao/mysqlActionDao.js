@@ -1,15 +1,15 @@
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
-var pinDao = {
+var actionDao = {
 
 
-  createTable : function () {
+  createTableAction : function () {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query('SHOW TABLES LIKE "tbl_pin"', function (err, row, fields) {
+      connection.query('SHOW TABLES LIKE "tbl_action"', function (err, row, fields) {
 
         if (err !== null) {
             console.log(err);
@@ -17,19 +17,20 @@ var pinDao = {
             throw err;
         } else {
           if (row.length > 0) {
-            console.log("SQL Table 'tbl_pin' already initialized.");
+            console.log("SQL Table 'tbl_action' already initialized.");
           } else {
-            connection.query('CREATE TABLE IF NOT EXISTS tbl_pin' +
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_action' +
                 '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                'bcm INTEGER UNIQUE NOT NULL,' +
-                'board INTEGER UNIQUE NOT NULL,' +
-                'sensor_id INTEGER UNIQUE NOT NULL,' +
-                'input BOOLEAN NULL,' +
-                'used BOOLEAN NULL,' +
-                'alarm_duration INTEGER NULL,' +
+                'type_id INTEGER NULL,' +
+                'armed BOOLEAN NULL,' +
+                'all_day BOOLEAN NOT NULL,' +
+                'period_id INTEGER NULL,' +
+                'set_time DATETIME NULL,' +
+                'user_id INTEGER INTEGER NULL,' +
                 'PRIMARY KEY(id),' +
                 'INDEX FK_tbl_pin_tbl_sensor (sensor_id),' +
-                'CONSTRAINT FK_tbl_pin_tbl_sensor FOREIGN KEY (sensor_id) ' +
+                'CONSTRAINT FK_tbl_acion_tbl_actionTyper FOREIGN KEY (type_id), ' +
+                'CONSTRAINT FK_tbl_acion_tbl_alarmPeriod FOREIGN KEY (period_id), ' +
                 'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
 
               if (err !== null) {
@@ -37,29 +38,40 @@ var pinDao = {
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 throw err;
               } else {
-                console.log("SQL Table 'tbl_pin' initialized.");
+                console.log("SQL Table 'tbl_action' initialized.");
               }
             }); // Create Table
           }
         }
 
-      connectionProvider.connectionStringProvider.closeConnection(connection);
-      });
-    }  // connection
+        onnectionProvider.connectionStringProvider.closeConnection(connection);
 
-  },
+      }); // query
+    }     // connection
+  },      // createTableAction
 
-  createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?)";
+  createAction : function (actionData, OnSuccessCallback, OnErrorCallback) {
 
-    var pinInsert = {
-      bcm : pinData.pinBCM,
-      board : pinData.pinBOARD,
-      sensorId : pinData.pinSensorId,
-      input : pinData.pinInput,
-      used : pinData.pinUsed,
-      alarmDuration : pinData.pinAlarmDuration
+    var insertStatement = "INSERT INTO tbl_action VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+
+    var d = new Date();
+    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+
+    var stamp = d.getFullYear() + "-" +
+        ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+        ("0" +  d.getDate()).slice(-2) + " " +
+        ("0" +  d.getHours()).slice(-2) + ":" +
+        ("0" +  d.getMinutes()).slice(-2) + ":" +
+        ("0" +  d.getSeconds()).slice(-2);
+
+    var actionInsert = {
+      type_id : actionData.typeId,
+      armed : actionData.armed,
+      all_day : actionData.allDay,
+      period_id : actionData.periodId,
+      set_time : stamp,
+      user_id: '1'
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -68,8 +80,9 @@ var pinDao = {
 
       connection.beginTransaction(function(err) {
         connection.query(insertStatement,
-                [pinInsert.bcm, pinInsert.board, pinInsert.sensorId,
-                  pinInsert.input, pinInsert.used, pinInsert.alarmDuration], function(err, row) {
+                [actionInsert.type_id, actionInsert.armed,
+                 actionInsert.all_day, actionInsert.period_id,
+                 actionInsert.set_time, actionInsert.user_id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -81,7 +94,7 @@ var pinDao = {
                     });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Pin already exists !!!"});
+                    OnErrorCallback({ error : "Action already exists !!!"});
                 }
                 else {
                   connection.commit(function(err) {
@@ -99,80 +112,17 @@ var pinDao = {
           });
       }); // beginTransation
     }     // connection
-  },      // createPin
+  },      // createAction
 
-  updatePin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
-    var updateStatement = "UPDATE tbl_pin SET bcm = ?, board = ?, sensor_id = ?, " +
-                          "input = ?, used = ?, alarm_duration = ? " +
-                          "WHERE id = ? ";
+  deleteAction : function (actionId, OnSuccessCallback, OnErrorCallback) {
 
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
-
-    var pinUpdate = {
-      id : pinData.pinId,
-      bcm : pinData.pinBCM,
-      board : pinData.pinBOARD,
-      sensorId : pinData.pinSensorId,
-      input : pinData.pinInput,
-      used : pinData.pinUsed,
-      alarmDuration : pinData.pinAlarmDuration
-    };
-
-    var connection = connectionProvider.connectionStringProvider.getConnection();
-
-    if (connection) {
-
-      connection.beginTransaction(function(err) {
-        connection.query(updateStatement,
-                  [pinUpdate.bcm, pinUpdate.board, pinUpdate.sensorId,
-                   pinUpdate.input, pinUpdate.used, pinUpdate.alarmDuration,
-                   pinUpdate.id], function(err, row) {
-
-                if (err !== null) {
-                    // Express handles errors via its next function.
-                    // It will call the next operation layer (middleware),
-                    // which is by default one that handles errors.
-                    console.log(connection.run);
-                    console.log(err);
-                    connection.rollback(function() {
-                      throw err;
-                    });
-                    connectionProvider.connectionStringProvider.closeConnection(connection);
-                    //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
-                }
-                else {
-                  connection.commit(function(err) {
-                    if (err) {
-                      return connection.rollback(function() {
-                        throw err;
-                      });
-                    }
-                  });
-                  connectionProvider.connectionStringProvider.closeConnection(connection);
-//                  console.log(row);
-                  OnSuccessCallback({ status : "Successful"});
-              }
-            });
-      }); // beginTransaction
-    }     // connection
-  },      // updatePin
-
-  deletePin : function (pinId, OnSuccessCallback, OnErrorCallback) {
-
-    var deleteStatement = "DELETE FROM tbl_pin WHERE id = ? ";
-
-//    console.log("ligação  " + sensorType.sensorId);
-//    console.log("ligação  " + sensorType.sensorModel);
-//    console.log("ligação  " + sensorType.sensorObs);
+    var deleteStatement = "DELETE FROM tbl_action WHERE id = ? ";
 
     console.log("ligação  " + pinId);
 
-    var pinDelete = {
-      id : pinId
+    var actionDelete = {
+      id : actionId
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -181,7 +131,7 @@ var pinDao = {
 
       connection.beginTransaction(function(err) {
         connection.query(deleteStatement,
-                [pinDelete.id], function(err, row) {
+                [actionDelete.id], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -193,7 +143,7 @@ var pinDao = {
                     });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Pin already exists !!!"});
+                    OnErrorCallback({ error : "Action delete error !!!"});
                 }
                 else {
                   connection.commit(function(err) {
@@ -206,33 +156,128 @@ var pinDao = {
                   connectionProvider.connectionStringProvider.closeConnection(connection);
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful"});
-              }
+                }
             });
       }); // beginTransaction
     }     // connection
-  },      // deletePin
+  },      // deleteAction
 
-  getAllPin : function (OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_pin ORDER BY id ";
+  getAllAction : function (OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_action ORDER BY id ";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.query(selectStatement, [], function (err, rows, fields)  {
 
-      if (err) { throw err;}
+      if (err) {
+        console.log(err);
+        throw err;
+      }
 
-//        console.log(rows);
-        OnSuccessCallback(rows);
+//      console.log(rows);
+      OnSuccessCallback(rows);
 
       });
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
+  }, // getAllAction
+
+
+  getLastAction : function (OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_action ORDER BY id DESC LIMIT 1";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.query(selectStatement, [], function (err, rows, fields)  {
+
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+
+      // convert boolean 0 -> false & 1 -> true
+      for (row in rows) {
+        rows[row].all_day  = (rows[row].all_day == 0)? false: true;
+        rows[row].armed  = (rows[row].armed == 0)? false: true;
+      }
+
+//      console.log(rows);
+      OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  },
+
+
+  /*
+   ******************************************************************************
+   * tbl_actionType
+   ******************************************************************************
+   */
+
+  createTableActionType : function (OnSuccessCallback) {
+
+    var actionTypeDao = require('./mysqlActionTypeDao');
+
+    actionTypeDao.actionTypeDao.createTableActionType(OnSuccessCallback);
+
+  }, // createTableActionType
+
+
+  createActionType : function (actionTypeLst, OnSuccessCallback, OnErrorCallback) {
+
+    var actionTypeDao = require('./mysqlActionTypeDao');
+
+    actionTypeDao.actionTypeDao.createActionType(actionTypeLst, OnSuccessCallback, OnErrorCallback);
+
+  }, // createActionType
+
+
+
+  /*
+   ******************************************************************************
+   * tbl_alarmPeriod
+   ******************************************************************************
+   */
+
+  createTableAlarmPeriod : function (OnSuccessCallback) {
+
+    var alarmPeriodDao = require('./mysqlAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.createTableAlarmPeriod(OnSuccessCallback);
+
+  }, // createTableAlarmPeriod
+
+
+  createAlarmPeriod : function (alarmPeriod, OnSuccessCallback, OnErrorCallback) {
+
+
+    var alarmPeriodDao = require('./mysqlAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.createAlarmPeriod(alarmPeriod, OnSuccessCallback, OnErrorCallback);
+
+  }, // createAlarmPeriod
+
+
+  getAlarmPeriod : function (periodId, OnSuccessCallback) {
+
+    var alarmPeriodDao = require('./mysqlAlarmPeriodDao');
+
+    alarmPeriodDao.alarmPeriodDao.getAlarmPeriod(periodId, OnSuccessCallback);
+
+  } // getAlarmPeriod
 
 }
 
-module.exports.pinDao = pinDao;
+
+module.exports.actionDao = actionDao;

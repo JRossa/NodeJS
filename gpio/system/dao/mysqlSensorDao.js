@@ -40,10 +40,9 @@ var sensorDao = {
         }
 
         connectionProvider.connectionStringProvider.closeConnection(connection);
-      });
-    } // connection
-
-  },
+      }); // query
+    }     // connection
+  },      // createTable
 
 
   createSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
@@ -96,6 +95,7 @@ var sensorDao = {
     }     // connection
   },      // createSensor
 
+
   updateSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
     var updateStatement = "UPDATE tbl_sensor SET num = ?, type_id = ?, location = ? " +
@@ -132,7 +132,7 @@ var sensorDao = {
                     });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Sensor update error !!!"});
                 }
                 else {
                   connection.commit(function(err) {
@@ -150,6 +150,7 @@ var sensorDao = {
       }); // beginTransaction
     }     // connection
   },      // updateSensor
+
 
   deleteSensor : function (sensorId, OnSuccessCallback, OnErrorCallback) {
 
@@ -184,7 +185,7 @@ var sensorDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Sensor already exists !!!"});
+                OnErrorCallback({ error : "Sensor delete error !!!"});
             }
             else {
               connection.commit(function(err) {
@@ -202,6 +203,7 @@ var sensorDao = {
       }); // beginTransaction
     }     // connection
   },      // deleteSensor
+
 
   deleteSensorByTypeId : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
 
@@ -236,7 +238,7 @@ var sensorDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Sensor already exists !!!"});
+                OnErrorCallback({ error : "Sensor delete error !!!"});
             }
             else {
               connection.commit(function(err) {
@@ -255,11 +257,12 @@ var sensorDao = {
     }     // connection
   },      // deleteSensorByTypeId
 
+
   getAllSensor : function (OnSuccessCallback) {
 
 //    console.log("Config: getAllSensor");
 
-    var insertStatement = "SELECT s.*, t.model " +
+    var selectStatement = "SELECT s.*, t.model " +
                           "FROM tbl_sensor AS s, tbl_sensorType AS t " +
                           "WHERE s.type_id = t.id " +
                           "ORDER BY s.id ";
@@ -268,7 +271,7 @@ var sensorDao = {
 
     if (connection) {
 
-      connection.query(insertStatement, [], function (err, rows, fields)  {
+      connection.query(selectStatement, [], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
@@ -279,17 +282,18 @@ var sensorDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  },
+  },  // getAllSensor
+
 
   getSensorById : function (sensorId, OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
+    var selectStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.query(insertStatement, [sensorId], function (err, rows, fields)  {
+      connection.query(selectStatement, [sensorId], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
@@ -300,9 +304,9 @@ var sensorDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
-
+  }  // getSensorById
 
 }
+
 
 module.exports.sensorDao = sensorDao;

@@ -39,10 +39,8 @@ var actionDao = {
             }
         }
       }); // get
-
-    }); // serialize
-
-  }, // createTableAction
+    });   // serialize
+  },      // createTableAction
 
 
   createAction : function (actionData, OnSuccessCallback, OnErrorCallback) {
@@ -137,7 +135,7 @@ var actionDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Pin already exists !!!"});
+                    OnErrorCallback({ error : "Action delete error !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -153,13 +151,13 @@ var actionDao = {
 
   getAllAction : function (OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_action ORDER BY id ";
+    var selectStatement = "SELECT * FROM tbl_action ORDER BY id ";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
@@ -175,13 +173,13 @@ var actionDao = {
 
   getLastAction : function (OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_action ORDER BY id DESC LIMIT 1";
+    var selectStatement = "SELECT * FROM tbl_action ORDER BY id DESC LIMIT 1";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
         if (err) {
           throw err;

@@ -39,10 +39,9 @@ var pinDao = {
             }
         }
       }); // get
+    });   // serialize
+  },      // createTable
 
-    }); // serialize
-
-  },
 
   createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
@@ -91,8 +90,9 @@ var pinDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // createPin
+    }     // connection
+  },      // createPin
+
 
   updatePin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
@@ -138,7 +138,7 @@ var pinDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Pin update error !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -148,8 +148,9 @@ var pinDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // updatePin
+    }     // connection
+  },      // updatePin
+
 
   deletePin : function (pinId, OnSuccessCallback, OnErrorCallback) {
 
@@ -185,7 +186,7 @@ var pinDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Pin already exists !!!"});
+                    OnErrorCallback({ error : "Pin delete error !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -195,18 +196,19 @@ var pinDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // deletePin
+    }     // connection
+  },      // deletePin
+
 
   getAllPin : function (OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_pin ORDER BY id ";
+    var selectStatement = "SELECT * FROM tbl_pin ORDER BY id ";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
       if (err) {
         throw err;
@@ -226,8 +228,9 @@ var pinDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
+  }  // getAllPin
 
 }
+
 
 module.exports.pinDao = pinDao;

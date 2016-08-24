@@ -35,10 +35,9 @@ var eventDao = {
             }
         }
       }); // get
+    });   // serialize
+  },      // createTable
 
-    }); // serialize
-
-  },
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
@@ -80,7 +79,7 @@ var eventDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Event already exists !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -91,8 +90,9 @@ var eventDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // createEvent
+    }     // connection
+  },      // createEvent
+
 
   deleteEvent : function (eventId, OnSuccessCallback, OnErrorCallback) {
 
@@ -134,8 +134,9 @@ var eventDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // deleteEvent
+    }     // connection
+  },      // deleteEvent
+
 
   deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
 
@@ -170,9 +171,10 @@ var eventDao = {
                   OnSuccessCallback({ status : "Successful"});
               }
             });
-      }); // serialize
-    } // connection
-  }, // deleteAllEvent
+      });  // serialize
+    }      // connection
+  },       // deleteAllEvent
+
 
   getAllEvent : function (OnSuccessCallback) {
 
@@ -201,7 +203,8 @@ var eventDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  },
+  },  // getAllEvent
+
 
   checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
 
@@ -244,9 +247,9 @@ var eventDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
-
+  }  // checkEvent
 
 }
+
 
 module.exports.eventDao = eventDao;

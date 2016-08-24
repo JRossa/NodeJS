@@ -39,10 +39,10 @@ var eventDao = {
         }
 
         connectionProvider.connectionStringProvider.closeConnection(connection);
-      });
-    }  // connection
+      }); // query
+    }     // connection
+  },      // createTable
 
-  },
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
@@ -82,7 +82,7 @@ var eventDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Sensor already exists !!!"});
+                OnErrorCallback({ error : "Event already exists !!!"});
             }
             else {
               connection.commit(function(err) {
@@ -101,6 +101,7 @@ var eventDao = {
       }); // beginTransation
     }     // connection
   },      // createEvent
+
 
   deleteEvent : function (eventId, OnSuccessCallback, OnErrorCallback) {
 
@@ -130,7 +131,7 @@ var eventDao = {
                     });
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Event error !!!", srvErr : err});
+                    OnErrorCallback({ error : "Event delete error !!!", srvErr : err});
                 }
                 else {
                   connection.commit(function(err) {
@@ -148,6 +149,7 @@ var eventDao = {
       }); // beginTransaction
     }     // connection
   },      // deleteEvent
+
 
   deleteAllEvent : function (OnSuccessCallback, OnErrorCallback) {
 
@@ -172,7 +174,7 @@ var eventDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Event error !!!", srvErr : err});
+                OnErrorCallback({ error : "Event delete error !!!", srvErr : err});
             }
             else {
               connection.commit(function(err) {
@@ -188,8 +190,9 @@ var eventDao = {
           }
         });
       }); // serialize
-    } // connection
-  }, // deleteAllEvent
+    }     // connection
+  },      // deleteAllEvent
+
 
   getAllEvent : function (OnSuccessCallback) {
 
@@ -219,7 +222,8 @@ var eventDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  },
+  },  // getAllEvent
+
 
   checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
 
@@ -264,6 +268,8 @@ var eventDao = {
     } // connection
 
   }
+
 }
+
 
 module.exports.eventDao = eventDao;

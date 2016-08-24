@@ -33,11 +33,10 @@ var sensorTypeDao = {
                   console.log("SQL Table 'tbl_sensorType' already initialized.");
               }
           }
-      }); //get
+      }); // get
+    });   // serialize
+  },      // createTable
 
-    }); // serialize
-
-  },
 
   createSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
@@ -80,8 +79,9 @@ var sensorTypeDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // createSensorType
+    }     // connection
+  },      // createSensorType
+
 
   updateSensorType : function (sensorType, OnSuccessCallback, OnErrorCallback) {
 
@@ -117,7 +117,7 @@ var sensorTypeDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Sensor Type update error !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -127,8 +127,9 @@ var sensorTypeDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // updateSensorType
+    }     // connection
+  },      // updateSensorType
+
 
   deleteSensorType : function (sensorTypeId, OnSuccessCallback, OnErrorCallback) {
 
@@ -164,7 +165,7 @@ var sensorTypeDao = {
                     connection.run("ROLLBACK");
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    OnErrorCallback({ error : "Sensor Type delete error !!!"});
                 }
                 else {
                   connection.run("COMMIT");
@@ -174,20 +175,21 @@ var sensorTypeDao = {
               }
             });
       }); // serialize
-    } // connection
-  }, // deleteSensorType
+    }     // connection
+  },      // deleteSensorType
+
 
   getAllSensorType : function (OnSuccessCallback) {
 
 //    console.log("Config: getAllSensorType");
 
-    var insertStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
+    var selectStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
@@ -198,17 +200,18 @@ var sensorTypeDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  },
+  },  // getAllSensorType
+
 
   getSensorTypeById : function (sensorTypeId, OnSuccessCallback) {
 
-    var insertStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
+    var selectStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(insertStatement, [sensorTypeId], function (err, rows, fields)  {
+      connection.all(selectStatement, [sensorTypeId], function (err, rows, fields)  {
 
       if (err) { throw err;}
 
@@ -219,9 +222,9 @@ var sensorTypeDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
-
+  }  // getSensorTypeById
 
 }
+
 
 module.exports.sensorTypeDao = sensorTypeDao;

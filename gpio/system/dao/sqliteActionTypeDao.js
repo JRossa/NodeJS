@@ -82,7 +82,7 @@ var actionTypeDao = {
                 }
               });
 
-        });
+        });  // forEach
 
         connection.run("COMMIT");
         connectionProvider.connectionStringProvider.closeConnection(connection);
@@ -118,7 +118,7 @@ var actionTypeDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }
+  }    // getActionTypeByTag
 
 }
 
