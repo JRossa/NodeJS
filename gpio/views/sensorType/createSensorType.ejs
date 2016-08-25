@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #createSensorTypeModal {
-   width:360px;
+   width:380px;
    margin:0 auto;
 }
 #left_col {
@@ -45,9 +45,11 @@
               method="POST"
               name="formCreateSensorType"
               novalidate="">
-
+<!--
+              <pre><code>{{ sensorType | json }}</code></pre>
+-->
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
               <div class="form-group">
                 <div ng-class="{'has-error': validateSensorModel.containsValidationError}">
       <!--
@@ -61,6 +63,7 @@ formCreateSensorType.sensorModel.$invalid
                   <input id="sensorModel"
                          type="text"
                          class="form-control"
+                         data-preview-file-type="text"
                          placeholder="Enter Sensor Model"
                          name="sensorModel"
                          ng-model="sensorType.sensorModel"
@@ -93,25 +96,25 @@ formCreateSensorType.sensorModel.$invalid
 
           <!-- http://plugins.krajee.com/file-basic-usage-demo -->
 
-          <div class="row">
+          <div id="sensorImg"
+               class="row">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="form-group"
                    style="padding-left: 0%;">
                 <label for="sensorImage">
-                   {{label.createmenu_obs}}
+                   {{label.createmenu_fileName}}
                 </label>
                 <input id="sensorImage"
-                       class="form-control"
+                       class="form-control filestyle"
                        type="file"
-                       placeholder="file name"
+                       data-input="true"
+                       data-buttonName="btn-primary"
+                       data-buttonBefore="true"
+                       data-buttonText="{{label.createmenu_findFile}}"
+                       data-placeholder="{{label.createmenu_noFile}}"
                        name="datafile"
-                       data-classButton="btn btn-primary"
-                       data-input="false"
-                       data-classIcon="icon-plus"
-                       data-buttonText="Your label here."
-                       style="width: 90%;"
-                       ng-model="sensorType.sensorFileName"
-                       size="10">
+                       style="width: 100%;"
+                       size="30">
               </div>
             </div>
           </div>
@@ -138,7 +141,7 @@ formCreateSensorType.sensorModel.$invalid
           </div>
           </br>
 
-          <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             <div class="modal-footer">
               <div class="row"
                    align="center">
@@ -166,6 +169,8 @@ formCreateSensorType.sensorModel.$invalid
 
 <script type='text/javascript' src="/javascripts/jquery-2.2.4.min.js"></script>
 
+<script type="text/javascript" src="/javascripts/bootstrap-filestyle.min.js"> </script>
+
 <!-- JQuery do not work
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
@@ -182,5 +187,7 @@ formCreateSensorType.sensorModel.$invalid
 <script src='/app/sensorType/sensorTypeService.js'></script>
 <script src='/app/sensorType/sensorTypeLangController.js'></script>
 <script src='/app/sensorType/createSensorTypeController.js'></script>
+<script src='/app/sensorType/createSensorTypeJQuery.js'></script>
+
 
 <% include ../templates/footer.ejs %>

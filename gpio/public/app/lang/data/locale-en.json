@@ -62,6 +62,9 @@
   "createmenu_eventSensorId" : "Sensor Id",
   "createmenu_eventTime" : "Activation Time",
   "createmenu_obs" : "Obs :",
+  "createmenu_fileName" : "Image File",
+  "createmenu_findFile" : "Find file",
+  "createmenu_noFile" : "No file !",
 
   "createmenu_selectSensorId" : "Select a sensor id !!",
   "createmenu_selectSensorNum" : "Select a sensor number !!",

@@ -128,8 +128,6 @@ actionRouteConfig.prototype.dbCreateTable = function () {
 
     });
 
-    actionDao.actionDao.createTableAction();
-
   } else {
 
     actionDao.actionDao.createTableAction();

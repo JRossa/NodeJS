@@ -11,6 +11,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
 
     sensorId : "",
     sensorModel : "",
+    sensorFileName : "",
     sensorObs : ""
   };
 
@@ -148,5 +149,11 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
     } // else
 
   }
+
+$scope.setSensorFileName = function (fileName) {
+
+    $scope.sensorType.sensorFileName = fileName;
+  }
+
 
 } // createSensorTypeController

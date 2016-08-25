@@ -77,6 +77,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
   $scope.sensorType = {
     sensorTypeId : "",
     sensorModel : "",
+    sensorFileName : "",
     sensorObs : ""
   };
 
@@ -191,7 +192,11 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
     } // else
 
-
   }
+
+  $scope.setSensorFileName = function (fileName) {
+
+      $scope.sensorType.sensorFileName = fileName;
+    }
 
 }
