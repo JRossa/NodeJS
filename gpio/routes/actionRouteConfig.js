@@ -213,8 +213,10 @@ actionRouteConfig.prototype.addRoutes = function () {
 
 
       var actionDao = require('../system/dao/sqliteActionDao');
+      var nullIndex = -1;
       if (global.config.site.database === 'mysql') {
         actionDao = require('../system/dao/mysqlActionDao');
+        var nullIndex = 1;
       }
 
       console.log("----------------POST createAction");
@@ -243,7 +245,7 @@ actionRouteConfig.prototype.addRoutes = function () {
         });
       } else {
 
-        req.body.periodId = -1;
+        req.body.periodId = nullIndex;
 
         actionDao.actionDao.createAction (req.body,
 
