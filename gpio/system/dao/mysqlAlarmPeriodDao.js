@@ -3,7 +3,7 @@ var connectionProvider = require('../db/mysqlConnectionStringProvider');
 var alarmPeriodDao = {
 
 
-  createTableAlarmPeriod : function () {
+  createTableAlarmPeriod : function (OnSuccessCallback) {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -19,10 +19,11 @@ var alarmPeriodDao = {
           if (row.length > 0) {
             console.log("SQL Table 'tbl_alarmPeriod' already initialized.");
           } else {
-            connection.query('CREATE TABLE IF NOT EXISTS tbl_alarmPeriod' +
-                '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                'start TIME NULL,' +
-                'end TIME NULL)', function (err) {
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_alarmPeriod ' +
+                '(id INTEGER NOT NULL AUTO_INCREMENT, ' +
+                'start TIME NULL, ' +
+                'end TIME NULL, ' +
+                'PRIMARY KEY (id))', function (err) {
 
               if (err !== null) {
                 console.log(err);
@@ -30,12 +31,13 @@ var alarmPeriodDao = {
                 throw err;
               } else {
                 console.log("SQL Table 'tbl_alarmPeriod' initialized.");
+                OnSuccessCallback({ status : "Finished"});
               }
             }); // Create Table
           }
         }
 
-        onnectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
 
       }); // query
     }     // connection
@@ -60,7 +62,7 @@ var alarmPeriodDao = {
         console.log(alarmPeriodInsert);
 
         connection.query(insertStatement,
-                [actionTypeInsert.type, actionTypeInsert.description], function(err, row) {
+                [alarmPeriodInsert.start, alarmPeriodInsert.end], function(err, res) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -85,7 +87,7 @@ var alarmPeriodDao = {
                   connectionProvider.connectionStringProvider.closeConnection(connection);
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful",
-                                      id : this.lastID});
+                                      id : res.insertId});
                 }
             });
       });     // beginTransation

@@ -77,6 +77,7 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
   });
 }
 
+
 actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
 
   var actionDao = require('../system/dao/sqliteActionDao');
@@ -85,8 +86,8 @@ actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
   }
 
   alarmPeriod = {
-    start : '09:00',
-    end   : '20:00'
+    startPeriod : '09:00',
+    endPeriod   : '20:00'
   };
 
   actionDao.actionDao.createAlarmPeriod(alarmPeriod,
@@ -107,25 +108,48 @@ actionRouteConfig.prototype.dbCreateTable = function () {
   var actionDao = require('../system/dao/sqliteActionDao');
   if (global.config.site.database === 'mysql') {
     actionDao = require('../system/dao/mysqlActionDao');
+
+    actionDao.actionDao.createTableActionType( function (status) {
+
+      if (status.status == "Finished") {
+        console.log("Insert Action Types !!")
+        self.dbCreateActionType();
+
+        actionDao.actionDao.createTableAlarmPeriod(function (status) {
+
+          if (status.status == "Finished") {
+            console.log("Insert Initial Period !!")
+            self.dbCreateAlarmPeriod();
+
+            actionDao.actionDao.createTableAction();
+          }
+        });
+      }
+
+    });
+
+    actionDao.actionDao.createTableAction();
+
+  } else {
+
+    actionDao.actionDao.createTableAction();
+
+    actionDao.actionDao.createTableActionType( function (status) {
+
+      if (status.status == "Finished") {
+        console.log("Insert Action Types !!")
+        self.dbCreateActionType();
+      }
+    });
+
+    actionDao.actionDao.createTableAlarmPeriod(function (status) {
+
+      if (status.status == "Finished") {
+        console.log("Insert Initial Period !!")
+        self.dbCreateAlarmPeriod();
+      }
+    });
   }
-
-  actionDao.actionDao.createTableAction();
-
-  actionDao.actionDao.createTableActionType( function (status) {
-
-    if (status.status == "Finished") {
-      console.log("Insert Action Types !!")
-      self.dbCreateActionType();
-    }
-  });
-
-  actionDao.actionDao.createTableAlarmPeriod(function (status) {
-
-    if (status.status == "Finished") {
-      console.log("Insert Initial Period !!")
-      self.dbCreateAlarmPeriod();
-    }
-  });
 
 /* for testing data storage
   actionDao.actionDao.getAlarmPeriod (1,

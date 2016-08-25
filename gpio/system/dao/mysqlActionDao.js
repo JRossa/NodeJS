@@ -19,19 +19,24 @@ var actionDao = {
           if (row.length > 0) {
             console.log("SQL Table 'tbl_action' already initialized.");
           } else {
-            connection.query('CREATE TABLE IF NOT EXISTS tbl_action' +
-                '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                'type_id INTEGER NULL,' +
-                'armed BOOLEAN NULL,' +
-                'all_day BOOLEAN NOT NULL,' +
-                'period_id INTEGER NULL,' +
-                'set_time DATETIME NULL,' +
-                'user_id INTEGER INTEGER NULL,' +
-                'PRIMARY KEY(id),' +
-                'INDEX FK_tbl_pin_tbl_sensor (sensor_id),' +
-                'CONSTRAINT FK_tbl_acion_tbl_actionTyper FOREIGN KEY (type_id), ' +
-                'CONSTRAINT FK_tbl_acion_tbl_alarmPeriod FOREIGN KEY (period_id), ' +
-                'REFERENCES tbl_sensor (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_action ' +
+                '(id INTEGER NOT NULL AUTO_INCREMENT, ' +
+                'type_id INTEGER NULL, ' +
+                'armed BOOLEAN NULL, ' +
+                'all_day BOOLEAN NOT NULL, ' +
+                'period_id INTEGER NULL, ' +
+                'set_time DATETIME NULL, ' +
+                'user_id INTEGER NULL, ' +
+                'PRIMARY KEY (id), ' +
+              	'INDEX FK_tbl_action_tbl_actionType (type_id), ' +
+              	'INDEX FK_tbl_action_tbl_alarmPeriod (period_id), ' +
+              	'INDEX FK_tbl_action_tbl_user (user_id), ' +
+                'CONSTRAINT FK_tbl_action_tbl_user FOREIGN KEY (user_id) ' +
+                'REFERENCES tbl_user (id) ON UPDATE NO ACTION ON DELETE NO ACTION, ' +
+                'CONSTRAINT FK_tbl_action_tbl_actionType FOREIGN KEY (type_id) ' +
+                'REFERENCES tbl_actionType (id) ON UPDATE NO ACTION ON DELETE NO ACTION, ' +
+                'CONSTRAINT FK_tbl_action_tbl_alarmPeriod FOREIGN KEY (period_id) ' +
+                'REFERENCES tbl_alarmPeriod (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
 
               if (err !== null) {
                 console.log(err);
@@ -44,7 +49,7 @@ var actionDao = {
           }
         }
 
-        onnectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
 
       }); // query
     }     // connection

@@ -3,7 +3,7 @@ var connectionProvider = require('../db/mysqlConnectionStringProvider');
 var actionTypeDao = {
 
 
-  createTableActionType : function () {
+  createTableActionType : function (OnSuccessCallback) {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -19,10 +19,12 @@ var actionTypeDao = {
           if (row.length > 0) {
             console.log("SQL Table 'tbl_actionType' already initialized.");
           } else {
-            connection.query('CREATE TABLE IF NOT EXISTS tbl_actionType' +
-                '(id INTEGER NOT NULL AUTO_INCREMENT,' +
-                'type VARCHAR(20) UNIQUE NULL,' +
-                'description VARCHAR(50) NULL)', function (err) {
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_actionType ' +
+                '(id INTEGER NOT NULL AUTO_INCREMENT, ' +
+                'type VARCHAR(20) NULL DEFAULT NULL, ' +
+                'description VARCHAR(50) NULL DEFAULT NULL, ' +
+                'PRIMARY KEY (id), ' +
+                'UNIQUE INDEX type (type))', function (err) {
 
               if (err !== null) {
                 console.log(err);
@@ -30,12 +32,13 @@ var actionTypeDao = {
                 throw err;
               } else {
                 console.log("SQL Table 'tbl_actionType' initialized.");
+                OnSuccessCallback({ status : "Finished"});
               }
             }); // Create Table
           }
         }
 
-        onnectionProvider.connectionStringProvider.closeConnection(connection);
+        connectionProvider.connectionStringProvider.closeConnection(connection);
 
       }); // query
     }     // connection
@@ -75,11 +78,13 @@ var actionTypeDao = {
                       connectionProvider.connectionStringProvider.closeConnection(connection);
                       //next(err);
                       OnErrorCallback({ error : "Action Type Error !!!"});
+                      return;
                   }
+/*
                   else {
                     connection.commit(function(err) {
                       if (err) {
-                        return connection.rollback(function() {
+                        connection.rollback(function() {
                           throw err;
                         });
                       }
@@ -88,6 +93,7 @@ var actionTypeDao = {
   //                  console.log(row);
   //                  OnSuccessCallback({ status : "Successful"});
                 }
+                */
             });
           }); // forEach
 
