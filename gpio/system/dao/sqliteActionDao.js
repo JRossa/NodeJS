@@ -109,7 +109,7 @@ var actionDao = {
 
     var deleteStatement = "DELETE FROM tbl_action WHERE id = ? ";
 
-    console.log("ligação  " + pinId);
+    console.log("ligação  " + actionId);
 
     var actionDelete = {
       id : actionId

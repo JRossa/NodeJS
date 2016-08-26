@@ -74,6 +74,10 @@ new actionRoute(app);
 var eventRoute = require('./routes/eventRouteConfig');
 new eventRoute(app);
 
+// Users
+var userRoute = require('./routes/userRouteConfig');
+new userRoute(app);
+
 // Login
 var loginRoute = require('./routes/loginRouteConfig');
 new loginRoute(app);
