@@ -23,7 +23,7 @@ var actionDao = {
                 '(id INTEGER NOT NULL AUTO_INCREMENT, ' +
                 'type_id INTEGER NULL, ' +
                 'armed BOOLEAN NULL, ' +
-                'all_day BOOLEAN NOT NULL, ' +
+                'all_day BOOLEAN NULL, ' +
                 'period_id INTEGER NULL, ' +
                 'set_time DATETIME NULL, ' +
                 'user_id INTEGER NULL, ' +
@@ -78,6 +78,7 @@ var actionDao = {
       set_time : stamp,
       user_id: '1'
     };
+
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
