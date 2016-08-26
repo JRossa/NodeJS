@@ -70,7 +70,8 @@ var sensorDao = {
                 // which is by default one that handles errors.
                 console.log(connection.run);
                 console.log(err);
-                connection.rollback(function() {
+                connection.rollback(function(err) {
+//                  callback(new Error('something bad happened'));
                   throw err;
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);

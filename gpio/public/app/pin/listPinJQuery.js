@@ -224,6 +224,10 @@ function setPinUsedState() {
 
 function setTimePicker(timeValue, timePicker) {
 
+  if (timeValue == undefined) {
+    return;
+  }
+  
   var splitTimeValue = timeValue.split(':');
 
   // http://momentjs.com/docs/
@@ -235,6 +239,7 @@ function setTimePicker(timeValue, timePicker) {
                           .milliseconds(0)
 
   timePicker.setValue(momentSet);
+
 }
 
 

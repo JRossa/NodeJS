@@ -89,8 +89,8 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/createPin',
     callbackFunction : function(req, res) {
 
-      console.log("POST createPin");
-      console.log(req.body);
+//      console.log("POST createPin");
+//      console.log(req.body);
 
       var pinDao = require('../system/dao/sqlitePinDao');
       if (global.config.site.database === 'mysql') {

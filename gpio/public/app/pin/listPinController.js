@@ -78,7 +78,6 @@ function listPinController($rootScope, $scope, $window, $timeout,
   function getAllPins () {
     pinService.getAllPins()
       .success( function (data) {
-
         if (data &&
             data.pinsData &&
             data.pinsData.length > 0) {
@@ -168,7 +167,11 @@ function listPinController($rootScope, $scope, $window, $timeout,
     $scope.pinData.pinId = pinData.id;
     $scope.pinData.pinBCM = pinData.bcm;
     $scope.pinData.pinBOARD = pinData.board;
-    $scope.pinData.pinSensorId = pinData.sensor_id.toString();
+
+    if (pinData.sensor_id != null) {
+      $scope.pinData.pinSensorId = pinData.sensor_id.toString();
+    }
+    
     $scope.pinData.pinInput = pinData.input;
     $scope.pinData.pinUsed = pinData.used;
     $scope.pinData.pinWarn = pinData.warn;

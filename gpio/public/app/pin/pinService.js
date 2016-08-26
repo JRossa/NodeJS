@@ -10,8 +10,8 @@ function pinService ($rootScope, $http, $location) {
 
     createPin : function (pinData) {
 
-      console.log("Service: createPin");
-      console.log(pinData);
+//      console.log("Service: createPin");
+//      console.log(pinData);
 
       return $http.post('/createPin',
         {

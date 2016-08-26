@@ -165,7 +165,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
       validationMessages++;
     }
 
-    console.log("validationMessages : " + validationMessages);
+//    console.log("validationMessages : " + validationMessages);
 
     if (validationMessages > 0) {
 
@@ -176,16 +176,18 @@ function createPinController($rootScope, $scope, $window, $timeout,
 
     } else {
 
+      pinData.pinSensorId = null;
       pinData.pinInput = false;
       pinData.pinUsed = false;
       pinData.pinWarn = false;
+      pinData.pinAlarmDuration = null;
 
+//      console.log(pinData);
       pinService.createPin(pinData)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
 
           if (data) {
-            console.log("data");
             if (data.status && data.status == 'Successful') {
               showMessage(true, false, $scope.label.createPin_controller_recordAdded);
             }

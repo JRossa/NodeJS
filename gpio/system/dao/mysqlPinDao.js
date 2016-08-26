@@ -23,7 +23,7 @@ var pinDao = {
                 '(id INTEGER NOT NULL AUTO_INCREMENT,' +
                 'bcm INTEGER UNIQUE NOT NULL,' +
                 'board INTEGER UNIQUE NOT NULL,' +
-                'sensor_id INTEGER UNIQUE NOT NULL,' +
+                'sensor_id INTEGER NULL,' +
                 'input BOOLEAN NULL,' +
                 'used BOOLEAN NULL,' +
                 'warn BOOLEAN NULL,' +
@@ -52,7 +52,7 @@ var pinDao = {
 
   createPin : function (pinData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_pin VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
 
     var pinInsert = {
       bcm : pinData.pinBCM,
@@ -64,6 +64,8 @@ var pinDao = {
       alarmDuration : pinData.pinAlarmDuration
     };
 
+//    console.log(pinInsert);
+
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
@@ -71,7 +73,7 @@ var pinDao = {
       connection.beginTransaction(function(err) {
         connection.query(insertStatement,
                 [pinInsert.bcm, pinInsert.board, pinInsert.sensorId,
-                  pinInsert.input, pinInsert.used, pinUpdate.warn,
+                  pinInsert.input, pinInsert.used, pinInsert.warn,
                   pinInsert.alarmDuration], function(err, row) {
 
                 if (err !== null) {
@@ -224,11 +226,12 @@ var pinDao = {
 
     var selectStatement = "SELECT * FROM tbl_pin ORDER BY id ";
 
+
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(selectStatement, [], function (err, rows, fields)  {
+      connection.query(selectStatement, [], function (err, rows, fields)  {
 
         if (err) {
           throw err;
