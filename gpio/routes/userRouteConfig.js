@@ -90,6 +90,29 @@ userRouteConfig.prototype.addRoutes = function () {
   });
 
 
+// http://qnimate.com/express-js-middleware-tutorial/
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/user',
+    callbackFunction : function(req, res, next) {
+
+     res.write('first \n');
+     next();
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/user',
+    callbackFunction : function(req, res, next) {
+
+      res.write('second');
+      res.end();
+    }
+  });
+
+
+// http://stackoverflow.com/questions/10695629/what-is-the-parameter-next-used-for-in-express
   self.routeTable.push ( {
     requestType : 'get',
     requestUrl : '/user/:username',
@@ -107,7 +130,7 @@ userRouteConfig.prototype.addRoutes = function () {
 
          res.send(req.params.username);
       }
-    }  
+    }
   });
 
   self.routeTable.push ( {

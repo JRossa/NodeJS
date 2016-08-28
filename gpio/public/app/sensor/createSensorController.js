@@ -1,5 +1,21 @@
 angular.module("sensorModule")
+       .config(createSensorConfig)
        .controller("createSensorController", createSensorController);
+
+createSensorConfig.$inject = ['$provide'];
+
+function createSensorConfig($provide) {
+
+  $provide.decorator("$exceptionHandler", function($delegate) {
+
+		return function(exception, cause) {
+			$delegate(exception, cause);
+            alert(exception.message);
+		};
+
+	});
+};
+
 
 createSensorController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
                                   '$controller', 'sensorService', 'langService'];
@@ -170,6 +186,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
             }
             if (data.error) {
               showMessage(false, true, data.error + " !!");
+//              throw { message : data.error };
             }
 
           }
