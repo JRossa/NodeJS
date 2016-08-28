@@ -1,5 +1,7 @@
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
+
+
 var sensorDao = {
 
 
@@ -52,7 +54,15 @@ var sensorDao = {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
+
     if (connection) {
+
+      var errorLst = [];
+
+      connection.on('trace', function (data) {
+//        console.log(data);
+        errorLst.push(data);
+      });
 
       connection.serialize( function() {
 
@@ -65,21 +75,39 @@ var sensorDao = {
                     // Express handles errors via its next function.
                     // It will call the next operation layer (middleware),
                     // which is by default one that handles errors.
-                    console.log(connection.run);
-                    console.log(err);
                     connection.run("ROLLBACK");
+//                    console.log(insertStatement);
+//                    console.log(err);
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
-                    OnErrorCallback({ error : "Sensor already exists !!!"});
-                }
-                else {
+//                    OnErrorCallback({ error : "Sensor already exists !!!"});
+                    const myError = new Error();
+                    myError.name = 'createSensor';
+                    myError.errstk =  err.stack;
+                    myError.message = 'Sensor already exists !!!';
+//                    console.log(myError);
+                    process.emit('warning', myError);
+//                    console.log(errorl.stack);
+//                    throw err;
+
+              } else {
                   connection.run("COMMIT");
                   connectionProvider.connectionStringProvider.closeConnection(connection);
 
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful"});
               }
-            });
+// https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/
+              if (err !== null) {
+                setTimeout( function() {
+                  OnErrorCallback({ query  : errorLst,
+                                    err    : err,
+                                    errstk : myError,
+                                    error  : "Sensor already exists !!!"});
+                }, 50);
+              }
+
+          });
       }); // serialize
     }     // connection
   },      // createSensor

@@ -164,7 +164,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
           //alert ("Sensor Type posted successfully");
 
           if (data) {
-            console.log("data");
+            console.log(data);
             if (data.status && data.status == 'Successful') {
               showMessage(true, false, $scope.label.createSensor_controller_recordAdded);
             }

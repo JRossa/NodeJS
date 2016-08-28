@@ -85,7 +85,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
   self.routeTable.push ( {
     requestType : 'post',
     requestUrl : '/createSensor',
-    callbackFunction : function(req, res) {
+    callbackFunction : function(req, res, next) {
 
       console.log("POST createSensor");
       console.log(req.body);
@@ -101,7 +101,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
 //          console.log(status);
           res.json(status);
       },function (status) {
-        //          console.log(status);
+//          console.error(status);
           res.json(status);
       });
 
@@ -192,7 +192,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
         sensorDao = require('../system/dao/mysqlSensorDao');
       }
 
-      sensorDao.sensorDao.deleteSensor (req.params.sensorTypeId,
+      sensorDao.sensorDao.deleteSensor (req.params.sensorId,
 
         function (status) {
           console.log(status);

@@ -78,4 +78,21 @@ router.post('/setLanguage', function(req, res, next) {
   });
 
 
+router.get('/myuser/:username', function(req, res, next) {
+
+    console.log(req.params.username);
+    console.error(req.params.username == 'e');
+
+     if (req.params.username == 'e') {
+
+       var err = new Error("User already exists !!");
+       err.status = 300;
+       next(err);
+     } else {
+
+       res.send(req.params.username);
+    }
+  });
+
+
 module.exports = router;

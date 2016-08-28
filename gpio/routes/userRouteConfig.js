@@ -89,6 +89,27 @@ userRouteConfig.prototype.addRoutes = function () {
     }
   });
 
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/user/:username',
+    callbackFunction : function(req, res, next) {
+
+      console.log(req.params.username);
+      console.error(req.params.username == 'e');
+
+       if (req.params.username == 'e') {
+
+         var err = new Error("User already exists !!");
+         err.status = 300;
+         next(err);
+       } else {
+
+         res.send(req.params.username);
+      }
+    }  
+  });
+
   self.routeTable.push ( {
     requestType : 'post',
     requestUrl : '/createUser',

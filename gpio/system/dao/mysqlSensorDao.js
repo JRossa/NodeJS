@@ -60,32 +60,53 @@ var sensorDao = {
 
     if (connection) {
 
-      connection.beginTransaction(function(err) {
-        connection.query(insertStatement,
+      connection.beginTransaction( function(err) {
+        var query = connection.query(insertStatement,
                 [sensorInsert.number, sensorInsert.typeId, sensorInsert.location], function(err, row) {
 
             if (err !== null) {
                 // Express handles errors via its next function.
                 // It will call the next operation layer (middleware),
                 // which is by default one that handles errors.
-                console.log(connection.run);
+                console.log(query.sql);
                 console.log(err);
-                connection.rollback(function(err) {
+                connection.rollback( function(errRoll) {
 //                  callback(new Error('something bad happened'));
-                  throw err;
+//return log("Query failed. Error: %s. Query: %s", err, query);
+                    if (errRoll !== null) {
+                      connectionProvider.connectionStringProvider.closeConnection(connection);
+                      //next(err);
+                      OnErrorCallback({ query : query.sql,
+                                        err : errRoll,
+                                        error : "Roll back"});
+                      return;
+                    }
+//                  throw err;
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ error : "Sensor already exists !!!"});
+                OnErrorCallback({ query : query.sql,
+                                  err : err,
+                                  error : "Sensor already exists !!!"});
             }
             else {
-              connection.commit(function(err) {
-                if (err) {
-                  return connection.rollback(function() {
-                    throw err;
+              
+              connection.commit( function(errComm) {
+                if (errComm !== null) {
+                  connection.rollback(function (errRoll) {
+                    if (errRoll !== null) {
+                      connectionProvider.connectionStringProvider.closeConnection(connection);
+                      //next(err);
+                      OnErrorCallback({ query : query.sql,
+                                        err : errRoll,
+                                        error : "Roll back"});
+                      return;
+                    }
+//                    throw err;
                   });
                 }
               });
+
               connectionProvider.connectionStringProvider.closeConnection(connection);
 
 //                  console.log(row);

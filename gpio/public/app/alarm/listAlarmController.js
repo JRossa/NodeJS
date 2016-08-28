@@ -103,25 +103,22 @@ function listEventController($rootScope, $scope, $window, $timeout,
     return actionsData;
   }
 
-  $scope.alarmData = {
+  $scope.actionData = {
 
-    alarmId : 0,
+    actionId : 0,
   };
 
-  $scope.loadAlarm = function (alarmData) {
+  $scope.loadAction = function (actionData) {
     console.log("Load");
-    console.log(alarmData);
-    $scope.eventData.eventId = eventData.id;
-    $scope.eventData.eventSensorId = eventData.sensor_id.toString();
-    $scope.eventData.eventSensorNum = eventData.sensor_num.toString();
-    $scope.eventData.eventTime = eventData.act_time;
+    console.log(actionData);
+    $scope.actionData.actionId = actionData.id;
   }
 
-  $scope.deleteAlarm = function () {
+  $scope.deleteAction = function () {
     console.log("Delete");
 
-    if ($scope.alarmData.eventId > 0) {
-      eventService.deleteEvent($scope.alarmData.alarmId)
+    if ($scope.actionData.actionId > 0) {
+      alarmService.deleteAction($scope.actionData.actionId)
         .success( function (data)  {
           if (data &&
               data.status &&
