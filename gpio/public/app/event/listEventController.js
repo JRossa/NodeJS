@@ -182,6 +182,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
   pinData = {
 
     Id : "",
+    BOARD : "",
     Direction : "",
     SensorId : "",
     Time : ""
@@ -190,8 +191,8 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   $scope.setPinData = function () {
 
-    pinData.Id = 38;
-    pinData.Direction = 'input';
+    pinData.pinBOARD = 38;
+    pinData.pinDirection = 'input';
 
     eventService.setPinData(pinData)
   }

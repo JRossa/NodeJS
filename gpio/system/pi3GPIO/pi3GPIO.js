@@ -2,8 +2,12 @@
 
 var pi3GPIO = {
 
+  var alarmPin = "";
+  var warnPin = "";
+
 
   insertEvent : function  (eventData, OnSuccessCallback, OnErrorCallback) {
+
     var eventDao = require('../dao/sqliteEventDao');
     if (global.config.site.database === 'mysql') {
       eventDao = require('../dao/mysqlEventDao');
@@ -18,6 +22,18 @@ var pi3GPIO = {
         // console.log(status);
         OnErrorCallback(status);
     });
+
+  },
+
+
+  getAlarmPin : function () {
+
+
+  },
+
+
+  getWarnPin : function () {
+
 
   },
 
@@ -94,6 +110,7 @@ var pi3GPIO = {
 
   }, // createEvent
 
+
   getSensorData : function (pinBOARD, OnSuccessCallback, OnErrorCallback) {
 
     var pinDao = require('../dao/sqlitePinDao');
@@ -105,16 +122,18 @@ var pi3GPIO = {
       function (sensorData) {
         console.log(sensorData);
         console.log(sensorData[0]);
+
         if (sensorData[0].sensor_id > 0 &&
             sensorData[0].input == true) {
-              console.log(sensorData);
-          OnSuccessCallback({sensorId : sensorData[0].sensor_id});
+          OnSuccessCallback({sensorId   : sensorData[0].sensor_id,
+                             sensorWarn : sensorData[0].warn});
         } else {
           OnErrorCallback({sensorId : null});
         }
     });
 
   },
+
 
   listenPin : function (pin) {
 
@@ -134,7 +153,7 @@ var pi3GPIO = {
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
       if (rpio.read(pin) == 1) {
 
-        pi3GPIO.getSensorData(pin ,
+        pi3GPIO.getSensorData (pin,
           function (sensorId) {
             console.log(sensorId);
 
@@ -151,6 +170,7 @@ var pi3GPIO = {
             var eventData = {
 
               eventSensorId : sensorId.sensorId,
+              eventWarn :  sensorId.sensorWarn;
               eventTime : stamp
             };
 
@@ -169,8 +189,6 @@ var pi3GPIO = {
         },function (sensorId) {
             console.error(sensorId);
         });
-
-
       }
     }
 
@@ -196,21 +214,21 @@ var pi3GPIO = {
 
       rpio.init(options);
 
-      if (pinData.direction == 'input') {
+      if (pinData.pinDirection == 'input') {
         /* Configure PXX as input with the internal pulldown resistor enabled */
-        rpio.open(pinData.pinId, rpio.INPUT);
-        rpio.pud(pinData.pinId, rpio.PULL_DOWN);
+        rpio.open(pinData.pinBOARD, rpio.INPUT);
+        rpio.pud(pinData.pinBOARD, rpio.PULL_DOWN);
 
-        rpio.poll(pinData.pinId, pi3GPIO.listenPin, rpio.POLL_HIGH);
+        rpio.poll(pinData.pinBOARD, pi3GPIO.listenPin, rpio.POLL_HIGH);
       }
 
-      if (pinData.direction == 'null') {
+      if (pinData.pinDirection == 'null') {
         /* No need to read pin more than once. */
-        rpio.poll(pinData.pinId, null);
+        rpio.poll(pinData.pinBOARD, null);
       }
 
-      if (pinData.direction == 'output') {
-
+      if (pinData.pinDirection == 'output') {
+         // Do nothing - wil be set by processEvent
       }
     }
 

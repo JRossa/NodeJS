@@ -29,8 +29,8 @@ function eventService ($rootScope, $http, $location) {
 
       return $http.post('/setPinData',
         {
-          pinId : pinData.Id,
-          direction : pinData.Direction
+          pinBOARD : pinData.pinBOARD,
+          pinDirection : pinData.pinDirection
         }
       );
     }, // setPinData
