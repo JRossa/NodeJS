@@ -108,7 +108,6 @@ actionRouteConfig.prototype.dbCreateTable = function () {
   var actionDao = require('../system/dao/sqliteActionDao');
   if (global.config.site.database === 'mysql') {
     actionDao = require('../system/dao/mysqlActionDao');
-  }
 
     actionDao.actionDao.createTableActionType( function (status) {
 
