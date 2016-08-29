@@ -96,8 +96,43 @@ function listenSelectLang () {
   });
 }
 
-
 // editPin
+function setSensorLocation (inputState, resetLocation) {
+
+  if (!inputState) {
+    document.getElementById('sensorLocation').style.display = 'none';
+//    alert('none');
+    document.getElementById('pinSensorLocation').removeAttribute('required');
+    document.getElementById('updatePinButton').removeAttribute('disabled');
+
+    // old way
+    //angular.element('#alarmDuration').scope().setResetAlarmDuration();
+    if (resetLocation) {
+      angular.element("#sensorLocation").scope().pinData.pinSensorLocation = "";
+//      document.getElementById("pinAlarmDurationInput").click();
+    }
+
+  } else {
+
+    document.getElementById("sensorLocation").style.display = 'block';
+
+    document.getElementById("pinSensorLocation").setAttribute('required','required');
+
+    var pinInput = angular.element('#sensorLocation').scope().controlData.pinInputState;
+
+    if (pinInput) {
+      document.getElementById("pinSensorLocation").setAttribute('required','required');
+
+      var sensorLocation = angular.element('#alarmDuration').scope().pinData.pinSensorLocation;
+
+      if (sensorLocation == "") {
+        document.getElementById("updatePinButton").setAttribute('disabled','disabled');
+      }
+    }
+  }
+}
+
+
 function setAlarmDuration (inputState, resetAlarmDuration) {
 
   if (inputState) {
@@ -152,6 +187,7 @@ function setAlarmWarn (inputState) {
 
 }
 
+
 function setPinInputState (resetAlarmDuration) {
 
   var inputState = "";
@@ -167,6 +203,8 @@ function setPinInputState (resetAlarmDuration) {
   angular.element('#editPinModal').scope().setPinInputValue(inputState);
 
   setAlarmDuration (inputState, resetAlarmDuration);
+  setSensorLocation (inputState, false);
+
   setAlarmWarn (inputState);
 }
 
@@ -216,6 +254,7 @@ function setPinUsedState() {
     $('#pinUsedPT').prop('checked', usedState).change();
     $('#pinUsedEN').prop('checked', usedState).change();
   }
+
 
   // not used - for example
   $('#pinUsedState').html('{ \'state\' : \'' + $('#pinUsed').prop('checked') + '\'}')
