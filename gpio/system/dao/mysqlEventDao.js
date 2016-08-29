@@ -225,14 +225,14 @@ var eventDao = {
   },  // getAllEvent
 
 
-  checkEvent : function (eventId, intervalTime, OnSuccessCallback) {
+  checkEvent : function (sensorId, intervalTime, OnSuccessCallback) {
 
     var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
                           "WHERE sensor_id = ? " +
                           "AND act_time > ? "
                           "ORDER BY id ";
 
-    console.log("ligação  " + eventId);
+    console.log("ligação  " + sensorId);
 
     var currTime = new Date();
     var topTime = new Date(currTime - intervalTime).toJSON();
@@ -242,7 +242,7 @@ var eventDao = {
 //    console.log(topTime);
 
     var eventCheck = {
-      id : eventId,
+      id : sensorId,
       fromDate: topTime
     };
 

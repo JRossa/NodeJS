@@ -120,8 +120,8 @@ var pi3GPIO = {
 
         var eventData = {
 
-          sensorId : pin,
-          act_time : stamp
+          eventSensorId : pin,
+          eventTime : stamp
         };
 
         console.log('INSERT : ' + eventData);
@@ -129,7 +129,7 @@ var pi3GPIO = {
         pi3GPIO.insertEvent (eventData,
           function (data) {
           console.log(data);
-          
+
           pi3GPIO.processEvent (eventData);
 
         }, function (data) {
