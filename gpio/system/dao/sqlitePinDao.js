@@ -264,7 +264,7 @@ var pinDao = {
   },  // getPinByBOARD
 
 
-  getOutputPin : function (warnOption, , OnSuccessCallback) {
+  getOutputPin : function (warnOption, OnSuccessCallback) {
 
     var selectStatement = "SELECT * FROM tbl_pin " +
                           "WHERE used = true AND input = false AND warn = ? " +
