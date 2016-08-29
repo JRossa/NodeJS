@@ -58,8 +58,10 @@
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <div class="form-group"
                        style="padding-left: 0%;">
+                    <pre>{{formEditPin.pinSensor.$valid || 'null'}}</pre>
                     <pre>{{pinData.pinInput || 'null'}}</pre>
                     <pre>{{pinData.pinUsed || 'null'}}</pre>
+                    <pre><code>{{ pinData | json }}</code></pre>
                   </div>
                 </div>
               </div>
@@ -71,7 +73,8 @@
               <br/>
 
               <div id="sensorLocation"
-                   class="row">
+                   class="row"
+                   ng-if="pinData.pinInput">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                   <div class="form-group">
 
@@ -84,7 +87,7 @@
                             name="pinSensor"
                             data-ng-model="pinData.pinSensorId"
                             style="width: 100%;"
-                            required>
+                            required="false">
                       <option value="">
                         {{label.createmenu_selectSensor}}
                       </option>
@@ -108,11 +111,11 @@
                   </div>
                 </div>
               </div>
-              <br/>
-
 
               <div id="alarmDuration"
-                   class="row">
+                   class="row"
+                   ng-if="!pinData.pinInput">
+                   <label>Check me to make text readonly: <input type="checkbox" ng-model="checked"></label><br/>
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <div class="form-group" >
                     <label for="pinAlarmDuration">
@@ -127,7 +130,7 @@
                              type='text'
                              class="form-control"
                              ng-model="pinData.pinAlarmDuration"
-                             readonly
+                             ng-readonly="!checked"
                              required/>
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-time">

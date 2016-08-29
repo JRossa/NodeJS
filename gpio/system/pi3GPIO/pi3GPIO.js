@@ -23,8 +23,26 @@ var pi3GPIO = {
   },
 
 
-  getAlarmPin : function () {
+  getAlarmPin : function (OnSuccessCallback, OnErrorCallback) {
 
+    var pinDao = require('../dao/sqlitePinDao');
+    if (global.config.site.database === 'mysql') {
+      pinDao = require('../dao/mysqlPinDao');
+    }
+
+    pinDao.pinDao.getOutputPin (true,
+      function (alarmData) {
+        console.log(alarmData);
+        console.log(alarmData[0]);
+
+        if (alarmData.length > 0 &&
+              alarmData[0].board > 0 &&
+                alarmData[0].input == false) {
+          OnSuccessCallback({pin : alarmData[0].board});
+        } else {
+          OnErrorCallback({pin : null});
+        }
+    });
 
   },
 
@@ -93,11 +111,20 @@ var pi3GPIO = {
           OnSuccessCallback(status);
 
           pi3GPIO.processEvent (eventData);
+
+/*
           pi3GPIO.getSensorData(38 ,
             function (sensorId) {
               console.log(sensorId);
           },function (sensorId) {
               console.error(sensorId);
+          });
+*/
+          pi3GPIO.getAlarmPin(
+            function (alarmPin) {
+              console.log(alarmPin);
+          },function (alarmPin) {
+              console.error(alarmPin);
           });
       },function (status) {
           // console.log(status);
@@ -120,8 +147,9 @@ var pi3GPIO = {
         console.log(sensorData);
         console.log(sensorData[0]);
 
-        if (sensorData[0].sensor_id > 0 &&
-            sensorData[0].input == true) {
+        if (sensorData.length > 0 &&
+              sensorData[0].sensor_id > 0 &&
+                sensorData[0].input == true) {
           OnSuccessCallback({sensorId   : sensorData[0].sensor_id,
                              sensorWarn : sensorData[0].warn});
         } else {

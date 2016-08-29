@@ -204,6 +204,7 @@
   "listEvent_controller_enterSensorNum" : "Insira o número do sensor !!",
 
   "listPin_controller_enterAlarmDuration" : "Insira a duração do alarme !!",
+  "listPin_controller_enterSensorLocation" : "Insira a Localização do Sensor !!",
   "listPin_controller_recordUpdated" : "Registo atualizado com sucesso !!",
 
   "listSensor_controller_enterSensorNum" : "Insira o número do sensor !!",

@@ -94,7 +94,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
   function processPinsData(pinsData) {
 
-    console.log(pinsData);
+//    console.log(pinsData);
     angular.forEach(pinsData, function (pinData) {
 //      console.log(pinData);
 
@@ -156,7 +156,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     pinUsedImage : "",
     pinWarn : "",
     pinWarnImage : "",
-    pinAlarmDuration : ""
+    pinAlarmDuration : null
 
   };
 
@@ -226,7 +226,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     errorMessage : "          "
   };
 
-  function clearSensorLocationnMessage () {
+  function clearSensorLocationMessage () {
 
     $scope.validateSensorLocation.containsValidationError = false;
     $scope.validateSensorLocation.errorMessage = "";
@@ -235,7 +235,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
   function displaySensorLocationMessage () {
 
     $scope.validateSensorLocation.containsValidationError = true;
-    $scope.validateSensorLocation.errorMessage = $scope.label.listPin_controller_enterAlarmDuration;
+    $scope.validateSensorLocation.errorMessage = $scope.label.listPin_controller_enterSensorLocation;
   };
 
 
@@ -266,11 +266,17 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
     if ($scope.pinData.pinInput == false) {
 
-      if ($scope.pinData.pinAlarmDuration.length == 0 ||
-               $scope.pinData.pinAlarmDuration < 0) {
+      if ($scope.pinData.pinAlarmDuration == null ||
+            $scope.pinData.pinAlarmDuration.length == 0 ||
+              $scope.pinData.pinAlarmDuration < 0) {
 
         displayAlarmDurationMessage ();
         validationMessages++;
+        
+      } else {
+        if ($scope.pinData.pinAlarmDuration == 'null') {
+          pinData.pinAlarmDuration = null;
+        }
       }
 
       pinData.pinSensorId = null;
@@ -370,7 +376,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
 //    console.log($scope.controlData.unlockAlarmDuration);
     if ($scope.controlData.unlockAlarmDuration == 'true') {
-      $scope.pinData.pinAlarmDuration = "";
+      $scope.pinData.pinAlarmDuration = null;
       updateAlarmDuration();
     }
   }

@@ -203,6 +203,7 @@
   "listEvent_controller_enterSensorNum" : "Enter a sensor number !!",
 
   "listPin_controller_enterAlarmDuration" : "Enter a valid alarm duration !!",
+  "listPin_controller_enterSensorLocation" : "Enter a valid sensor location !!",
   "listPin_controller_recordUpdated" : "A recorded updated successfully !!",
 
   "listSensor_controller_enterSensorNum" : "Enter a sensor number !!",

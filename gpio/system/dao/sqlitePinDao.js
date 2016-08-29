@@ -229,7 +229,74 @@ var pinDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }  // getAllPin
+  },  // getAllPin
+
+
+  getPinByBOARD : function (pinBOARD, OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_pin WHERE board = ? ORDER BY id ";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(selectStatement, [pinBOARD], function (err, rows, fields)  {
+
+      if (err) {
+        throw err;
+      }
+
+        // convert boolean 0 -> false & 1 -> true
+        for (row in rows) {
+//          console.log(rows[row].input);
+          rows[row].input  = (rows[row].input == 0)? false: true;
+          rows[row].used  = (rows[row].used == 0)? false: true;
+          rows[row].warn  = (rows[row].warn == 0)? false: true;
+        }
+
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  },  // getPinByBOARD
+
+
+  getOutputPin : function (warnOption, , OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_pin " +
+                          "WHERE used = true AND input = false AND warn = ? " +
+                          "ORDER BY id ";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(selectStatement, [warnOption, ], function (err, rows, fields)  {
+
+      if (err) {
+        throw err;
+      }
+
+        // convert boolean 0 -> false & 1 -> true
+        for (row in rows) {
+//          console.log(rows[row].input);
+          rows[row].input  = (rows[row].input == 0)? false: true;
+          rows[row].used  = (rows[row].used == 0)? false: true;
+          rows[row].warn  = (rows[row].warn == 0)? false: true;
+        }
+
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  }  // getOutputPin
+
 
 }
 

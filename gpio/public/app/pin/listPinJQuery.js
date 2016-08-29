@@ -96,55 +96,14 @@ function listenSelectLang () {
   });
 }
 
-// editPin
-function setSensorLocation (inputState, resetLocation) {
-
-  if (!inputState) {
-    document.getElementById('sensorLocation').style.display = 'none';
-//    alert('none');
-    document.getElementById('pinSensorLocation').removeAttribute('required');
-    document.getElementById('updatePinButton').removeAttribute('disabled');
-
-    // old way
-    //angular.element('#alarmDuration').scope().setResetAlarmDuration();
-    if (resetLocation) {
-      angular.element("#sensorLocation").scope().pinData.pinSensorLocation = "";
-//      document.getElementById("pinAlarmDurationInput").click();
-    }
-
-  } else {
-
-    document.getElementById("sensorLocation").style.display = 'block';
-
-    document.getElementById("pinSensorLocation").setAttribute('required','required');
-
-    var pinInput = angular.element('#sensorLocation').scope().controlData.pinInputState;
-
-    if (pinInput) {
-      document.getElementById("pinSensorLocation").setAttribute('required','required');
-
-      var sensorLocation = angular.element('#alarmDuration').scope().pinData.pinSensorLocation;
-
-      if (sensorLocation == "") {
-        document.getElementById("updatePinButton").setAttribute('disabled','disabled');
-      }
-    }
-  }
-}
-
 
 function setAlarmDuration (inputState, resetAlarmDuration) {
 
   if (inputState) {
-    document.getElementById('alarmDuration').style.display = 'none';
-//    alert('none');
-    document.getElementById('pinAlarmDuration').removeAttribute('required');
-    document.getElementById('updatePinButton').removeAttribute('disabled');
-
     // old way
     //angular.element('#alarmDuration').scope().setResetAlarmDuration();
     if (resetAlarmDuration) {
-      angular.element("#alarmDuration").scope().pinData.pinAlarmDuration = "";
+      angular.element("#pinInputPT").scope().pinData.pinAlarmDuration = null;
       document.getElementById("pinAlarmDurationInput").click();
     }
 
@@ -153,23 +112,7 @@ function setAlarmDuration (inputState, resetAlarmDuration) {
     // old way
     //angular.element('#alarmDuration').scope().resetAlarmDuration();
 
-    document.getElementById("alarmDuration").style.display = 'block';
-
-    document.getElementById("pinAlarmDuration").setAttribute('required','required');
-
-    var pinInput = angular.element('#alarmDuration').scope().controlData.pinInputState;
-
-    if (pinInput) {
-      document.getElementById("pinAlarmDuration").setAttribute('required','required');
-
-      var alarmDuration = angular.element('#alarmDuration').scope().pinData.pinAlarmDuration;
-
-      if (alarmDuration == "") {
-        document.getElementById("updatePinButton").setAttribute('disabled','disabled');
-      }
-    }
   }
-
 }
 
 
@@ -202,10 +145,12 @@ function setPinInputState (resetAlarmDuration) {
 
   angular.element('#editPinModal').scope().setPinInputValue(inputState);
 
-  setAlarmDuration (inputState, resetAlarmDuration);
-  setSensorLocation (inputState, false);
+//  setAlarmDuration (inputState, resetAlarmDuration);
+//  setSensorLocation (inputState, true);
+//  console.log(angular.element('#pinInputPT').scope().pinData);
 
-  setAlarmWarn (inputState);
+
+//  setAlarmWarn (inputState);
 }
 
 // old
@@ -271,7 +216,7 @@ function validateTime(time) {
 
 function setTimePicker(timeValue, timePicker) {
 
-  console.log(validateTime(timeValue));
+//  console.log(validateTime(timeValue));
   if (! validateTime (timeValue)) {
     return;
   }
@@ -308,6 +253,11 @@ function setListenOpenModal() {
     var usedState = usedValue;
     $('#pinUsedPT').prop('checked', usedState).change();
     $('#pinUsedEN').prop('checked', usedState).change();
+
+    var warnValue = angular.element('#editPinModal').scope().pinData.pinWarn;
+    var warnState = warnValue;
+    $('#pinWarnPT').prop('checked', warnState).change();
+    $('#pinWarnEN').prop('checked', warnState).change();
 
     var alarmDuration = angular.element('#editPinModal').scope().pinData.pinAlarmDuration;
     var timePicker = $('#pinAlarmDuration').data("DateTimePicker");
