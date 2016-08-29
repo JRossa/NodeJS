@@ -2,9 +2,6 @@
 
 var pi3GPIO = {
 
-  var alarmPin = "";
-  var warnPin = "";
-
 
   insertEvent : function  (eventData, OnSuccessCallback, OnErrorCallback) {
 
