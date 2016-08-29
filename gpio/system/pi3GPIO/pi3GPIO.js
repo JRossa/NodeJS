@@ -101,36 +101,42 @@ var pi3GPIO = {
       eventDao = require('../dao/mysqlEventDao');
     }
 
+    if (process.env.ENV_OS === 'rpio') {
+      var rpio = require('rpio');
+
       /* Watch pin forever. */
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
-    if (rpio.read(pin) == 1) {
+      if (rpio.read(pin) == 1) {
 
-      var d = new Date();
-      d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+        var d = new Date();
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
 
-      var stamp = d.getFullYear() + "-" +
-          ("0" + (d.getMonth()+1)).slice(-2) + "-" +
-          ("0" +  d.getDate()).slice(-2) + " " +
-          ("0" +  d.getHours()).slice(-2) + ":" +
-          ("0" +  d.getMinutes()).slice(-2) + ":" +
-          ("0" +  d.getSeconds()).slice(-2);
+        var stamp = d.getFullYear() + "-" +
+            ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+            ("0" +  d.getDate()).slice(-2) + " " +
+            ("0" +  d.getHours()).slice(-2) + ":" +
+            ("0" +  d.getMinutes()).slice(-2) + ":" +
+            ("0" +  d.getSeconds()).slice(-2);
 
-      var eventData = {
+        var eventData = {
 
-        sensorId : pin,
-        act_time : stamp
-      };
+          sensorId : pin,
+          act_time : stamp
+        };
 
-      console.log('INSERT : ' + eventData);
+        console.log('INSERT : ' + eventData);
 
-      this.insertEvent (eventData,
-        function (data) {
-        console.log(data);
-      }, function (data) {
-        console.error(data);
-      });
+        pi3GPIO.insertEvent (eventData,
+          function (data) {
+          console.log(data);
+          
+          pi3GPIO.processEvent (eventData);
 
-      this.processEvent ();
+        }, function (data) {
+          console.error(data);
+        });
+
+      }
     }
 
       /* No need to read pin more than once. */
