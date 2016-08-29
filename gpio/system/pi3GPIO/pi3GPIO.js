@@ -167,7 +167,7 @@ var pi3GPIO = {
             var eventData = {
 
               eventSensorId : sensorId.sensorId,
-              eventWarn :  sensorId.sensorWarn;
+              eventWarn :  sensorId.sensorWarn,
               eventTime : stamp
             };
 
