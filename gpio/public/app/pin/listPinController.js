@@ -221,6 +221,24 @@ function listPinController($rootScope, $scope, $window, $timeout,
   };
 
 
+  $scope.validateSensorLocation = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearSensorLocationnMessage () {
+
+    $scope.validateSensorLocation.containsValidationError = false;
+    $scope.validateSensorLocation.errorMessage = "";
+  };
+
+  function displaySensorLocationMessage () {
+
+    $scope.validateSensorLocation.containsValidationError = true;
+    $scope.validateSensorLocation.errorMessage = $scope.label.listPin_controller_enterAlarmDuration;
+  };
+
+
   $scope.validateAlarmDuration = {
     containsValidationError : false,
     errorMessage : "          "
@@ -255,7 +273,14 @@ function listPinController($rootScope, $scope, $window, $timeout,
         validationMessages++;
       }
 
+      pinData.pinSensorId = null;
     } else {
+      if ($scope.pinData.pinSensorLocation.length == 0 ) {
+
+        displaySensorLocationMessage ();
+        validationMessages++;
+      }
+
       pinData.pinAlarmDuration = null;
     }
 
@@ -266,10 +291,11 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
       $timeout( function afterTimeOut () {
         clearAlarmDurationMessage ();
+        clearSensorLocationMessage ();
       }, 2000);
 
-
     } else {
+
 
       pinService.updatePin(pinData)
         .success(function (data) {

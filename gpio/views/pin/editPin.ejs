@@ -93,6 +93,18 @@
                               value = {{sensorData.id}} > {{sensorData.location}}
                       </option>
                     </select>
+
+                    <label class="help-block text-danger" for="pinSensorLocation"
+                            data-ng-show="validateSensorLocation.containsValidationError">
+                      <span class="text-danger">
+                         {{ validateSensorLocation.errorMessage }}
+                      </span>
+                    </label>
+
+                    <label class="help-block text-danger" for="pinSensorLocation"
+                            data-ng-show="!validateSensorLocation.containsValidationError">
+                      <br/>
+                    </label>
                   </div>
                 </div>
               </div>

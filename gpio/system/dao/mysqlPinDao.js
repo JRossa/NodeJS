@@ -135,8 +135,8 @@ var pinDao = {
       connection.beginTransaction(function(err) {
         connection.query(updateStatement,
                   [pinUpdate.bcm, pinUpdate.board, pinUpdate.sensorId,
-                   pinUpdate.input, pinUpdate.used,
-                   pinUpdate.alarmDuration, pinUpdate.warn,
+                   pinUpdate.input, pinUpdate.used, pinUpdate.warn,
+                   pinUpdate.alarmDuration,
                    pinUpdate.id], function(err, row) {
 
                 if (err !== null) {
