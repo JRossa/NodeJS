@@ -171,7 +171,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
     if (pinData.sensor_id != null) {
       $scope.pinData.pinSensorId = pinData.sensor_id.toString();
     }
-    
+
     $scope.pinData.pinInput = pinData.input;
     $scope.pinData.pinUsed = pinData.used;
     $scope.pinData.pinWarn = pinData.warn;
@@ -256,7 +256,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
       }
 
     } else {
-      pinData.pinAlarmDuration = "";
+      pinData.pinAlarmDuration = null;
     }
 
     console.log(pinData);
@@ -276,7 +276,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
           //alert ("Sensor Type posted successfully");
 
           if (data) {
-            console.log("data");
+            console.log(data);
             if (data.status && data.status == 'Successful') {
               showMessage(true, false, $scope.label.listPin_controller_recordUpdated);
             }

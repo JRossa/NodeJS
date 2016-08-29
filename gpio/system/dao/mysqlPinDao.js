@@ -27,7 +27,7 @@ var pinDao = {
                 'input BOOLEAN NULL,' +
                 'used BOOLEAN NULL,' +
                 'warn BOOLEAN NULL,' +
-                'alarm_duration INTEGER NULL,' +
+                'alarm_duration TIME NULL,' +
                 'PRIMARY KEY(id),' +
                 'INDEX FK_tbl_pin_tbl_sensor (sensor_id),' +
                 'CONSTRAINT FK_tbl_pin_tbl_sensor FOREIGN KEY (sensor_id) ' +
@@ -238,6 +238,7 @@ var pinDao = {
         }
 
       // convert boolean 0 -> false & 1 -> true
+
       for (row in rows) {
         console.log(rows[row].input);
         rows[row].input  = (rows[row].input == 0)? false: true;
@@ -252,7 +253,40 @@ var pinDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
+  },
+
+
+  getPinByBOARD : function (pinBOARD, OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_pin WHERE board = ? ORDER BY id ";
+
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.query(selectStatement, [pinBOARD], function (err, rows, fields)  {
+
+        if (err) {
+          throw err;
+        }
+        // convert boolean 0 -> false & 1 -> true
+
+        for (row in rows) {
+          console.log(rows[row].input);
+          rows[row].input  = (rows[row].input == 0)? false: true;
+          rows[row].used  = (rows[row].used == 0)? false: true;
+          rows[row].warn  = (rows[row].warn == 0)? false: true;
+        }
+//        console.log(rows);
+        OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
   }
+
 
 }
 

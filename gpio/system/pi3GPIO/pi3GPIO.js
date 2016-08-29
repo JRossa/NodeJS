@@ -80,7 +80,12 @@ var pi3GPIO = {
           OnSuccessCallback(status);
 
           pi3GPIO.processEvent (eventData);
-
+          pi3GPIO.getSensorData(38 ,
+            function (sensorId) {
+              console.log(sensorId);
+          },function (sensorId) {
+              console.error(sensorId);
+          });
       },function (status) {
           // console.log(status);
           OnErrorCallback(status);
@@ -89,6 +94,27 @@ var pi3GPIO = {
 
   }, // createEvent
 
+  getSensorData : function (pinBOARD, OnSuccessCallback, OnErrorCallback) {
+
+    var pinDao = require('../dao/sqlitePinDao');
+    if (global.config.site.database === 'mysql') {
+      pinDao = require('../dao/mysqlPinDao');
+    }
+
+    pinDao.pinDao.getPinByBOARD (pinBOARD,
+      function (sensorData) {
+        console.log(sensorData);
+        console.log(sensorData[0]);
+        if (sensorData[0].sensor_id > 0 &&
+            sensorData[0].input == true) {
+              console.log(sensorData);
+          OnSuccessCallback({sensorId : sensorData[0].sensor_id});
+        } else {
+          OnErrorCallback({sensorId : null});
+        }
+    });
+
+  },
 
   listenPin : function (pin) {
 
@@ -108,33 +134,42 @@ var pi3GPIO = {
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
       if (rpio.read(pin) == 1) {
 
-        var d = new Date();
-        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+        pi3GPIO.getSensorData(pin ,
+          function (sensorId) {
+            console.log(sensorId);
 
-        var stamp = d.getFullYear() + "-" +
-            ("0" + (d.getMonth()+1)).slice(-2) + "-" +
-            ("0" +  d.getDate()).slice(-2) + " " +
-            ("0" +  d.getHours()).slice(-2) + ":" +
-            ("0" +  d.getMinutes()).slice(-2) + ":" +
-            ("0" +  d.getSeconds()).slice(-2);
+            var d = new Date();
+            d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
 
-        var eventData = {
+            var stamp = d.getFullYear() + "-" +
+                ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+                ("0" +  d.getDate()).slice(-2) + " " +
+                ("0" +  d.getHours()).slice(-2) + ":" +
+                ("0" +  d.getMinutes()).slice(-2) + ":" +
+                ("0" +  d.getSeconds()).slice(-2);
 
-          eventSensorId : pin,
-          eventTime : stamp
-        };
+            var eventData = {
 
-        console.log('INSERT : ' + eventData);
+              eventSensorId : sensorId.sensorId,
+              eventTime : stamp
+            };
 
-        pi3GPIO.insertEvent (eventData,
-          function (data) {
-          console.log(data);
+            console.log('INSERT : ' + eventData);
 
-          pi3GPIO.processEvent (eventData);
+            pi3GPIO.insertEvent (eventData,
+              function (data) {
+              console.log(data);
 
-        }, function (data) {
-          console.error(data);
+              pi3GPIO.processEvent (eventData);
+
+            }, function (data) {
+              console.error(data);
+            });
+
+        },function (sensorId) {
+            console.error(sensorId);
         });
+
 
       }
     }

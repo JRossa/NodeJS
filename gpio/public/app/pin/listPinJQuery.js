@@ -221,13 +221,22 @@ function setPinUsedState() {
   $('#pinUsedState').html('{ \'state\' : \'' + $('#pinUsed').prop('checked') + '\'}')
 }
 
+function validateTime(time) {
+    var result = false, m;
+    var re = /^\s*([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\s*$/;
+    if ((time !== null) && (m = time.match(re))) {
+        result = true;
+    }
+    return result;
+ }
 
 function setTimePicker(timeValue, timePicker) {
 
-  if (timeValue == undefined) {
+  console.log(validateTime(timeValue));
+  if (! validateTime (timeValue)) {
     return;
   }
-  
+
   var splitTimeValue = timeValue.split(':');
 
   // http://momentjs.com/docs/

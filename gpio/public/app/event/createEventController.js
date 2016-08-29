@@ -243,7 +243,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
           //alert ("Sensor Type posted successfully");
 
           if (data) {
-            console.log("data");
+            console.log(data);
             if (data.status && data.status == 'Successful') {
               showMessage(true, false, $scope.label.createEvent_controller_recordAdded);
             }
