@@ -110,26 +110,27 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     actionDao = require('../system/dao/mysqlActionDao');
   }
 
-  actionDao.actionDao.createTableActionType( function (status) {
+    actionDao.actionDao.createTableActionType( function (status) {
 
-    if (status.status == "Finished") {
-      console.log("Insert Action Types !!")
-      self.dbCreateActionType();
+      if (status.status == "Finished") {
+        console.log("Insert Action Types !!")
+        self.dbCreateActionType();
 
-      actionDao.actionDao.createTableAlarmPeriod(function (status) {
+        actionDao.actionDao.createTableAlarmPeriod(function (status) {
 
-        if (status.status == "Finished") {
-          console.log("Insert Initial Period !!")
-          self.dbCreateAlarmPeriod();
+          if (status.status == "Finished") {
+            console.log("Insert Initial Period !!")
+            self.dbCreateAlarmPeriod();
 
-          actionDao.actionDao.createTableAction();
-        }
-      });
-    }
+            actionDao.actionDao.createTableAction();
+          }
+        });
+      }
 
-  });
+    });
 
-/*  // sequential
+  } else {
+
     actionDao.actionDao.createTableAction();
 
     actionDao.actionDao.createTableActionType( function (status) {
@@ -147,7 +148,7 @@ actionRouteConfig.prototype.dbCreateTable = function () {
         self.dbCreateAlarmPeriod();
       }
     });
-*/
+  }
 
 /* for testing data storage
   actionDao.actionDao.getAlarmPeriod (1,
