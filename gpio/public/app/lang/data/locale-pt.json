@@ -103,6 +103,7 @@
 
   "eventGrid_eventId" : "Num Ativ",
   "eventGrid_sensorNum" : "Num Sensor",
+  "eventGrid_sensorLocation" : "Localização",
   "eventGrid_actTime" : "Hora",
   "eventGrid_actTimeStart" : "Início :",
   "eventGrid_actTimeEnd" : "Fim :",

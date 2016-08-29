@@ -102,6 +102,7 @@
 
   "eventGrid_eventId" : "Event Id",
   "eventGrid_sensorNum" : "Sensor Num",
+  "eventGrid_sensorLocation" : "Location",
   "eventGrid_actTime" : "Time",
   "eventGrid_actTimeStart" : "Start :",
   "eventGrid_actTimeEnd" : "End :",

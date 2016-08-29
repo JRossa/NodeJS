@@ -179,6 +179,7 @@ var eventDao = {
   getAllEvent : function (OnSuccessCallback) {
 
     var selectStatement = "SELECT e.*, s.num AS sensor_num " +
+                                      "s.location AS sensor_location " +
                           "FROM tbl_event AS e, tbl_sensor AS s " +
                           "WHERE e.sensor_id = s.id " +
                           "ORDER BY e.id ";
