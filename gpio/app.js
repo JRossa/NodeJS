@@ -143,7 +143,8 @@ process.on('SIGINT', function (err) {
 })
 
 // catches process.emit('warning')
-process.on('warning', (warning) => {
+process.on('warning', function (warning) {
+//  process.on('warning', (warning) => {
   console.warn(warning.name);
   console.warn(warning.message);
   console.warn(warning.stack);
