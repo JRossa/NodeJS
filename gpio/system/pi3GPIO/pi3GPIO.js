@@ -22,7 +22,7 @@ var pi3GPIO = {
   },
 
 
-  processEvent : function () {
+  processEvent : function (eventData) {
 
   var eventDao = require('../dao/sqliteEventDao');
   if (global.config.site.database === 'mysql') {
@@ -74,8 +74,18 @@ var pi3GPIO = {
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
-    this.insertEvent (eventData, OnSuccessCallback, OnErrorCallback);
-    this.processEvent ();
+    pi3GPIO.insertEvent (eventData,
+        function (status) {
+          // console.log(status);
+          OnSuccessCallback(status);
+
+          pi3GPIO.processEvent (eventData);
+
+      },function (status) {
+          // console.log(status);
+          OnErrorCallback(status);
+      });
+
 
   }, // createEvent
 
@@ -150,7 +160,7 @@ var pi3GPIO = {
         rpio.open(pinData.pinId, rpio.INPUT);
         rpio.pud(pinData.pinId, rpio.PULL_DOWN);
 
-        rpio.poll(pinData.pinId, this.listenPin, rpio.POLL_HIGH);
+        rpio.poll(pinData.pinId, pi3GPIO.listenPin, rpio.POLL_HIGH);
       }
 
       if (pinData.direction == 'null') {
