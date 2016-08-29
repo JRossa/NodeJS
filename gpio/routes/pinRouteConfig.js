@@ -205,6 +205,32 @@ pinRouteConfig.prototype.addRoutes = function () {
       }
   });
 
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/setGPIO',
+    callbackFunction : function(req, res) {
+
+      res.render('pin/createPin', {
+           title : "label.menubar_appTitle",
+           pagename : "label.createPin_pagename"
+         });
+
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/clearGPIO',
+    callbackFunction : function(req, res) {
+
+      res.render('pin/createPin', {
+           title : "label.menubar_appTitle",
+           pagename : "label.createPin_pagename"
+         });
+
+    }
+  });
+
 }
 
 module.exports = pinRouteConfig;

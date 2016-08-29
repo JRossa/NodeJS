@@ -86,8 +86,8 @@ actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
   }
 
   alarmPeriod = {
-    startPeriod : '09:00',
-    endPeriod   : '20:00'
+    startPeriod : '00:00',
+    endPeriod   : '00:00'
   };
 
   actionDao.actionDao.createAlarmPeriod(alarmPeriod,

@@ -2,8 +2,8 @@
 
 var pi3GPIO = {
 
-  createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
+  insertEvent : function  (eventData, OnSuccessCallback, OnErrorCallback) {
     var eventDao = require('../dao/sqliteEventDao');
     if (global.config.site.database === 'mysql') {
       eventDao = require('../dao/mysqlEventDao');
@@ -19,55 +19,71 @@ var pi3GPIO = {
         OnErrorCallback(status);
     });
 
-    // interval in seconds
-    var intervalTime = (360 * 1000);
+  },
 
-    eventDao.eventDao.checkEvent (eventData.eventSensorId,
-                                  intervalTime,
 
-      function (nEvents) {
-        // console.log(status);
-        var NEvents = [];
-        NEvents = nEvents;
+  processEvent : function () {
 
-        console.log("N Events  " + NEvents[0].numEvents);
+  var eventDao = require('../dao/sqliteEventDao');
+  if (global.config.site.database === 'mysql') {
+    eventDao = require('../dao/mysqlEventDao');
+  }
 
-        console.log('pi3GPIO - ' + process.env.ENV_OS);
+  // interval in seconds
+  var intervalTime = (360 * 1000);
 
-        // TODO - arm the alarm
-        if (process.env.ENV_OS === 'rpio') {
-          var rpio = require('rpio');
+  eventDao.eventDao.checkEvent (eventData.eventSensorId,
+                                intervalTime,
 
-          var options = {
-            gpiomem: true,          /* Use /dev/gpiomem */
-            mapping: 'physical',    /* Use the P1-P40 numbering scheme */
-          }
+    function (nEvents) {
+      // console.log(status);
+      var NEvents = [];
+      NEvents = nEvents;
 
-          console.log("------ RPIO --------- OK ");
+      console.log("N Events  " + NEvents[0].numEvents);
 
-          rpio.init(options);
+      console.log('pi3GPIO - ' + process.env.ENV_OS);
 
-          console.log('Pin 12(A) = %d', rpio.read(12));
+      // TODO - arm the alarm
+      if (process.env.ENV_OS === 'rpio') {
+        var rpio = require('rpio');
 
-          /* Configure P12 as output with the initiate state set high */
-          rpio.open(12, rpio.OUTPUT, rpio.HIGH);
-
-          console.log('Pin 12(B) = %d', rpio.read(12));
-
-          setTimeout(function() {
-            rpio.close(12);
-          }, 60000);
+        var options = {
+          gpiomem: true,          /* Use /dev/gpiomem */
+          mapping: 'physical',    /* Use the P1-P40 numbering scheme */
         }
+
+        console.log("------ RPIO --------- OK ");
+
+        rpio.init(options);
+
+        console.log('Pin 12(A) = %d', rpio.read(12));
+
+        /* Configure P12 as output with the initiate state set high */
+        rpio.open(12, rpio.OUTPUT, rpio.HIGH);
+
+        console.log('Pin 12(B) = %d', rpio.read(12));
+
+        setTimeout(function() {
+          rpio.close(12);
+        }, 60000);
+      }
     });
+  },
+
+
+  createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
+
+    this.insertEvent (eventData, OnSuccessCallback, OnErrorCallback);
+    this.processEvent ();
 
   }, // createEvent
 
 
+  listenPin : function (pin) {
 
-  setPinData : function (pinData) {
-
-    function pin_button(pin)
-    {
+//    function pin_button(pin)
+//    {
 //      console.log('Nuke button on pin %d pressed', pin);
 
       var eventDao = require('../dao/sqliteEventDao');
@@ -78,13 +94,42 @@ var pi3GPIO = {
       /* Watch pin forever. */
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
       if (rpio.read(pin) == 1) {
-        console.log('INSERT');
+
+        var d = new Date();
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+
+        var stamp = d.getFullYear() + "-" +
+            ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+            ("0" +  d.getDate()).slice(-2) + " " +
+            ("0" +  d.getHours()).slice(-2) + ":" +
+            ("0" +  d.getMinutes()).slice(-2) + ":" +
+            ("0" +  d.getSeconds()).slice(-2);
+
+        var eventData = {
+
+          sensorId : pin,
+          act_time : stamp
+        };
+
+        console.log('INSERT : ' + eventData);
+
+        this.insertEvent (eventData,
+          function (data) {
+          console.log(data);
+        }, function (data) {
+          console.error(data);
+        });
+
+        this.processEvent ();
       }
 
       /* No need to read pin more than once. */
 //    rpio.poll(pin, null);
     };
+  },
 
+
+  setPinData : function (pinData) {
 
     console.log('pi3GPIO - ' + process.env.ENV_OS);
     console.log(pinData);
@@ -105,8 +150,8 @@ var pi3GPIO = {
         /* Configure PXX as input with the internal pulldown resistor enabled */
         rpio.open(pinData.pinId, rpio.INPUT);
         rpio.pud(pinData.pinId, rpio.PULL_DOWN);
-        
-        rpio.poll(pinData.pinId, pin_button, rpio.POLL_HIGH);
+
+        rpio.poll(pinData.pinId, this.listenPin, rpio.POLL_HIGH);
       }
 
       if (pinData.direction == 'null') {
