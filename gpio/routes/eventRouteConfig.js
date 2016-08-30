@@ -99,7 +99,6 @@ eventRouteConfig.prototype.addRoutes = function () {
       eventDao.pi3GPIO.createEvent (req.body,
 
         function (status) {
-          // console.log(status);
           res.json(status);
       },function (status) {
           // console.log(status);

@@ -15,8 +15,15 @@ var connectionStringProvider = {
 
     var connection = new sqlite3.Database(connectionString.connectionString.connection.dev.dbName);
 //    var connection = new sqlite3.Database(':memory:');
-    connection.configure('busyTimeout', 5000);
-    connection.run('PRAGMA busy_timeout = 60000');
+//    connection.configure('busyTimeout', 10000);
+    connection.run('PRAGMA busy_timeout = 10000;', [], function(err, row) {
+
+      if (err !== null) {
+        console.log("Error : " + err);
+      } else {
+        console.log("OK : " + row);
+      }
+    });
 
     console.log('Connected Successefully !!');
 

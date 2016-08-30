@@ -1,7 +1,4 @@
-
-
 var pi3GPIO = {
-
 
   insertEvent : function  (eventData, OnSuccessCallback, OnErrorCallback) {
 
@@ -30,15 +27,16 @@ var pi3GPIO = {
       pinDao = require('../dao/mysqlPinDao');
     }
 
-    pinDao.pinDao.getOutputPin (true,
+    pinDao.pinDao.getOutputPin (false,
       function (alarmData) {
-        console.log(alarmData);
-        console.log(alarmData[0]);
+//        console.log(alarmData);
+//        console.log(alarmData[0]);
 
         if (alarmData.length > 0 &&
               alarmData[0].board > 0 &&
                 alarmData[0].input == false) {
-          OnSuccessCallback({pin : alarmData[0].board});
+          OnSuccessCallback({pin : alarmData[0].board,
+                             duration: alarmData[0].alarm_duration});
         } else {
           OnErrorCallback({pin : null});
         }
@@ -47,92 +45,108 @@ var pi3GPIO = {
   },
 
 
-  getWarnPin : function () {
+  getWarnPin : function (OnSuccessCallback, OnErrorCallback) {
 
+    var pinDao = require('../dao/sqlitePinDao');
+    if (global.config.site.database === 'mysql') {
+      pinDao = require('../dao/mysqlPinDao');
+    }
+
+    pinDao.pinDao.getOutputPin (true,
+      function (alarmData) {
+//        console.log(alarmData);
+//        console.log(alarmData[0]);
+
+        if (alarmData.length > 0 &&
+              alarmData[0].board > 0 &&
+                alarmData[0].input == false) {
+          OnSuccessCallback({pin : alarmData[0].board,
+                             duration: alarmData[0].alarm_duration});
+        } else {
+          OnErrorCallback({pin : null});
+        }
+    });
+
+  },
+
+
+  setOutputAlarm : function (pin, alarmDuration) {
+
+    console.log('Pin ' + pin + '(A) = %d', rpio.read(pin));
+
+    /* Configure P12 as output with the initiate state set high */
+    rpio.open(pin, rpio.OUTPUT, rpio.HIGH);
+
+    console.log('Pin ' + pin + '(B) = %d', rpio.read(pin));
+
+    setTimeout(function() {
+      rpio.close(pin);
+    }, alarmDuration);
 
   },
 
 
   processEvent : function (eventData) {
 
-  var eventDao = require('../dao/sqliteEventDao');
-  if (global.config.site.database === 'mysql') {
-    eventDao = require('../dao/mysqlEventDao');
-  }
+    var eventDao = require('../dao/sqliteEventDao');
+    if (global.config.site.database === 'mysql') {
+      eventDao = require('../dao/mysqlEventDao');
+    }
 
-  // interval in seconds
-  var intervalTime = (360 * 1000);
+    // interval in seconds
+    var intervalTime = (360 * 1000);
 
-  eventDao.eventDao.checkEvent (eventData.eventSensorId,
-                                intervalTime,
+    eventDao.eventDao.checkEvent (eventData.eventSensorId,
+                                  intervalTime,
 
-    function (nEvents) {
-      // console.log(status);
-      var NEvents = [];
-      NEvents = nEvents;
+      function (nEvents) {
+        // console.log(status);
+        var NEvents = [];
+        NEvents = nEvents;
 
-      console.log("N Events  " + NEvents[0].numEvents);
+        console.log("N Events  " + NEvents[0].numEvents);
 
-      console.log('pi3GPIO - ' + process.env.ENV_OS);
+        console.log('pi3GPIO - ' + process.env.ENV_OS);
 
-      // TODO - arm the alarm
-      if (process.env.ENV_OS === 'rpio') {
-        var rpio = require('rpio');
+        // TODO - arm the alarm
+        if (process.env.ENV_OS === 'rpio') {
+          var rpio = require('rpio');
 
-        var options = {
-          gpiomem: true,          /* Use /dev/gpiomem */
-          mapping: 'physical',    /* Use the P1-P40 numbering scheme */
-        }
+          var options = {
+            gpiomem: true,          /* Use /dev/gpiomem */
+            mapping: 'physical',    /* Use the P1-P40 numbering scheme */
+          }
 
-        console.log("------ RPIO --------- OK ");
+          console.log("------ RPIO --------- OK ");
 
-        rpio.init(options);
+          rpio.init(options);
 
-        console.log('Pin 12(A) = %d', rpio.read(12));
+          if (NEvents > 3) {
+            pi3GPIO.getAlarmPin(
+              function (alarmPin) {
+                console.log(alarmPin);
+                setOutputAlarm(alarmPin.pin, alarmPin.duration);
+            },function (alarmPin) {
+                console.error(alarmPin);
+            });
+          } else {
 
-        /* Configure P12 as output with the initiate state set high */
-        rpio.open(12, rpio.OUTPUT, rpio.HIGH);
+            if (eventData.eventWarn == true) {
+              pi3GPIO.getWarnPin(
+                function (alarmPin) {
+                  console.log(alarmPin);
+                  setOutputAlarm(alarmPin.pin, alarmPin.duration);
+              },function (alarmPin) {
+                  console.error(alarmPin);
+              });
+            } // if (eventData.eventWarn == true)
 
-        console.log('Pin 12(B) = %d', rpio.read(12));
+          } // else
 
-        setTimeout(function() {
-          rpio.close(12);
-        }, 60000);
-      }
-    });
+
+        }  //  if (process.env.ENV_OS === 'rpio')
+    });    //  function (nEvents)
   },
-
-
-  createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
-
-    pi3GPIO.insertEvent (eventData,
-        function (status) {
-          // console.log(status);
-          OnSuccessCallback(status);
-
-          pi3GPIO.processEvent (eventData);
-
-/*
-          pi3GPIO.getSensorData(38 ,
-            function (sensorId) {
-              console.log(sensorId);
-          },function (sensorId) {
-              console.error(sensorId);
-          });
-*/
-          pi3GPIO.getAlarmPin(
-            function (alarmPin) {
-              console.log(alarmPin);
-          },function (alarmPin) {
-              console.error(alarmPin);
-          });
-      },function (status) {
-          // console.log(status);
-          OnErrorCallback(status);
-      });
-
-
-  }, // createEvent
 
 
   getSensorData : function (pinBOARD, OnSuccessCallback, OnErrorCallback) {
@@ -179,8 +193,8 @@ var pi3GPIO = {
       if (rpio.read(pin) == 1) {
 
         pi3GPIO.getSensorData (pin,
-          function (sensorId) {
-            console.log(sensorId);
+          function (sensorData) {
+            console.log(sensorData);
 
             var d = new Date();
             d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
@@ -194,8 +208,8 @@ var pi3GPIO = {
 
             var eventData = {
 
-              eventSensorId : sensorId.sensorId,
-              eventWarn :  sensorId.sensorWarn,
+              eventSensorId : sensorData.sensorId,
+              eventWarn :  sensorData.sensorWarn,
               eventTime : stamp
             };
 
@@ -258,6 +272,30 @@ var pi3GPIO = {
     }
 
   }, // setPinData
+
+
+  createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
+
+    console.log("createEvent function");
+    console.log(eventData);
+
+
+    pi3GPIO.insertEvent (eventData,
+        function (status) {
+          console.log(status);
+          OnSuccessCallback(status);
+
+          pi3GPIO.processEvent (eventData);
+
+
+        },function (status) {
+            // console.log(status);
+            OnErrorCallback(status);
+        });
+
+
+  } // createEvent
+
 
 }
 

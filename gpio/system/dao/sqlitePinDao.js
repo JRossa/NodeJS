@@ -267,14 +267,19 @@ var pinDao = {
   getOutputPin : function (warnOption, OnSuccessCallback) {
 
     var selectStatement = "SELECT * FROM tbl_pin " +
-                          "WHERE used = true AND input = false AND warn = ? " +
-                          "ORDER BY id ";
+                          "WHERE used AND NOT(input) "
+
+    if (warnOption) {
+      selectStatement = selectStatement + "AND warn ORDER BY id ";
+    } else {
+      selectStatement = selectStatement + "AND NOT(warn) ORDER BY id ";
+    }
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
-      connection.all(selectStatement, [warnOption, ], function (err, rows, fields)  {
+      connection.all(selectStatement, [], function (err, rows, fields)  {
 
       if (err) {
         throw err;
