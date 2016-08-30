@@ -85,6 +85,7 @@
   "createmenu_pinUsed" : "Em utilização",
   "createmenu_pinWarn" : "Aviso",
   "createmenu_pinAlarmDuration" : "Duração do Alarme",
+  "createmenu_pinAlarmDurationEditable" : "Selecione para editar :  ",
   "createmenu_pinInput_ON" : "Ligado",
   "createmenu_pinInput_OFF" : "Desligado",
   "createmenu_pinInput_IN" : "Entrada",

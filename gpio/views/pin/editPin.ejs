@@ -115,7 +115,6 @@
               <div id="alarmDuration"
                    class="row"
                    ng-if="!pinData.pinInput">
-                   <label>Check me to make text readonly: <input type="checkbox" ng-model="checked"></label><br/>
                 <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <div class="form-group" >
                     <label for="pinAlarmDuration">
@@ -159,15 +158,30 @@
                          {{ validateAlarmDuration.errorMessage }}
                       </span>
                     </label>
-
+<!--
                     <label class="help-block text-danger" for="pinAlarmDuration"
                             data-ng-show="!validateAlarmDuration.containsValidationError">
                       <br/>
                     </label>
+-->
+                    <br/>
+                    <label class="help-block" for="pinAlarmDuration">
+                      {{label.createmenu_pinAlarmDurationEditable}}
+                      <input class='btn btn-xs'
+                             type='checkbox'
+                             data-checkbox-toggle='toggle'
+                             data-style='ios'
+                             data-size='mini'
+                             data-on=' '
+                             data-off=' '
+                             ng-model='checked'>
+                        <br/>
+                      </input>
+                    </label>
                   </div>
                 </div>
               </div>
-              </br>
+
 
 
               <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">

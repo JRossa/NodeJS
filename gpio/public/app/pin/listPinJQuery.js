@@ -102,16 +102,20 @@ function setAlarmDuration (inputState, resetAlarmDuration) {
   if (inputState) {
     // old way
     //angular.element('#alarmDuration').scope().setResetAlarmDuration();
-    if (resetAlarmDuration) {
-      angular.element("#pinInputPT").scope().pinData.pinAlarmDuration = null;
-      document.getElementById("pinAlarmDurationInput").click();
-    }
 
   } else {
-
     // old way
     //angular.element('#alarmDuration').scope().resetAlarmDuration();
 
+    if (resetAlarmDuration) {
+      
+      var alarmDuration = document.getElementById('alarmDuration');
+
+      if (alarmDuration != null) {
+        angular.element("#alarmDuration").scope().pinData.pinAlarmDuration = null;
+        document.getElementById("pinAlarmDurationInput").click();
+      }
+    }
   }
 }
 
@@ -145,7 +149,7 @@ function setPinInputState (resetAlarmDuration) {
 
   angular.element('#editPinModal').scope().setPinInputValue(inputState);
 
-//  setAlarmDuration (inputState, resetAlarmDuration);
+  setAlarmDuration (inputState, resetAlarmDuration);
 //  setSensorLocation (inputState, true);
 //  console.log(angular.element('#pinInputPT').scope().pinData);
 

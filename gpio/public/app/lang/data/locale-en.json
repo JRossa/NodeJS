@@ -84,6 +84,7 @@
   "createmenu_pinUsed" : "Used",
   "createmenu_pinWarn" : "Warn",
   "createmenu_pinAlarmDuration" : "Alarm Duration",
+  "createmenu_pinAlarmDurationEditable" : "Check to edit :  ",
   "createmenu_pinInput_ON" : "On",
   "createmenu_pinInput_OFF" : "Off",
   "createmenu_pinInput_IN" : "In",
