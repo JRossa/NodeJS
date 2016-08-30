@@ -72,7 +72,13 @@ var pi3GPIO = {
 
   setOutputAlarm : function (rpio, pin, alarmDuration) {
 
+
+
     console.log('Pin ' + pin + '(A) = %d', rpio.read(pin));
+    console.log('Alarm Duration : ' + alarmDuration);
+
+    duration = pi3GPIO.timeToMiliseconds(alarmDuration);
+    console.log('Alarm Duration : ' + duration);
 
     /* Configure P12 as output with the initiate state set high */
     rpio.open(pin, rpio.OUTPUT, rpio.HIGH);
@@ -81,7 +87,7 @@ var pi3GPIO = {
 
     setTimeout(function() {
       rpio.close(pin);
-    }, alarmDuration);
+    }, duration);
 
   },
 
@@ -273,6 +279,20 @@ var pi3GPIO = {
 
   }, // setPinData
 
+  timeToMiliseconds : function (time) {
+
+    if (time == null) {
+      return null;
+    }
+
+    var a = time.split(':'); // split it at the colons
+
+    // minutes are worth 60 seconds. Hours are worth 60 minutes.
+    var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2] || 0);
+    console.log(seconds);
+    return seconds * 1000;
+  },
+
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
@@ -287,6 +307,9 @@ var pi3GPIO = {
 
           pi3GPIO.processEvent (eventData);
 
+          var hms = '00:10:33';   // your input string
+
+          console.log(pi3GPIO.timeToMiliseconds(hms));
 
         },function (status) {
             // console.log(status);
