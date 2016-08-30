@@ -219,9 +219,9 @@ var eventDao = {
     var currTime = new Date();
     var topTime = new Date(currTime - intervalTime).toJSON();
 
-//    console.log(selectStatement);
-//    console.log(currTime);
-//    console.log(topTime);
+    console.log(selectStatement);
+    console.log(currTime);
+    console.log(topTime);
 
     var eventCheck = {
       id : sensorId,
