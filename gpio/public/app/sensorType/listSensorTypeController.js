@@ -76,17 +76,17 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
   $scope.sensorType = {
     sensorTypeId : "",
-    sensorModel : "",
-    sensorFileName : "",
-    sensorObs : ""
+    sensorTypeModel : "",
+    sensorTypeFileName : "",
+    sensorTypeObs : ""
   };
 
   $scope.loadSensorType = function (sensorType) {
 //    console.log("Load");
 //    console.log(sensorType);
     $scope.sensorType.sensorTypeId = sensorType.id;
-    $scope.sensorType.sensorModel = sensorType.model;
-    $scope.sensorType.sensorObs = sensorType.obs;
+    $scope.sensorType.sensorTypeModel = sensorType.model;
+    $scope.sensorType.sensorTypeObs = sensorType.obs;
   }
 
   $scope.deleteSensorType = function () {
@@ -149,7 +149,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
     var validationMessages = 0;
 
-    if ($scope.sensorType.sensorModel.length == 0) {
+    if ($scope.sensorType.sensorTypeModel.length == 0) {
 
       displaySensorNumberMessage ();
       validationMessages++;
@@ -165,13 +165,15 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
 
     } else {
+//      console.log(sensorType);
+
 
       sensorTypeService.updateSensorType(sensorType)
         .success(function (data) {
           //alert ("Sensor Type posted successfully");
 
           if (data) {
-            console.log("data");
+            console.log(data);
             if (data.status && data.status == 'Successful') {
               showMessage(true, false, $scope.label.listSensorType_controller_recordUpdated);
             }

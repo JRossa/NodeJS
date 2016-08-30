@@ -47,8 +47,8 @@ var sensorTypeDao = {
 
     var sensorInsert = {
 
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+      model : sensorType.sensorTypeModel,
+      obs : sensorType.sensorTypeObs
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -100,9 +100,9 @@ var sensorTypeDao = {
 //    console.log("ligação  " + sensorType.sensorObs);
 
     var sensorUpdate = {
-      id : sensorType.sensorId,
-      model : sensorType.sensorModel,
-      obs : sensorType.sensorObs
+      id : sensorType.sensorTypeId,
+      model : sensorType.sensorTypeModel,
+      obs : sensorType.sensorTypeObs
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();

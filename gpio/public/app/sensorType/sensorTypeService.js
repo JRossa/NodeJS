@@ -16,8 +16,8 @@ function sensorTypeService ($rootScope, $http, $location) {
 
       return $http.post('/createSensorType',
         {
-          sensorModel : sensorType.sensorModel,
-          sensorObs : sensorType.sensorObs
+          sensorTypeModel : sensorType.sensorTypeModel,
+          sensorTypeObs : sensorType.sensorTypeObs
 
         }
       );
@@ -32,15 +32,15 @@ function sensorTypeService ($rootScope, $http, $location) {
     updateSensorType : function (sensorType) {
 
       console.log("updateSensorType : Service");
-      console.log(sensorType.sensorId);
-      console.log(sensorType.sensorModel);
-      console.log(sensorType.sensorObs);
+      console.log(sensorType.sensorTypeId);
+      console.log(sensorType.sensorTypeModel);
+      console.log(sensorType.sensorTypeObs);
 
       return $http.post('/updateSensorType',
         {
-          sensorId : sensorType.sensorId,
-          sensorModel : sensorType.sensorModel,
-          sensorObs : sensorType.sensorObs
+          sensorTypeId : sensorType.sensorTypeId,
+          sensorTypeModel : sensorType.sensorTypeModel,
+          sensorTypeObs : sensorType.sensorTypeObs
         }
       );
     }, // updateeSensorType
