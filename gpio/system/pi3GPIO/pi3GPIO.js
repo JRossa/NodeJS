@@ -125,7 +125,7 @@ var pi3GPIO = {
             pi3GPIO.getAlarmPin(
               function (alarmPin) {
                 console.log(alarmPin);
-                setOutputAlarm(alarmPin.pin, alarmPin.duration);
+                pi3GPIO.setOutputAlarm(alarmPin.pin, alarmPin.duration);
             },function (alarmPin) {
                 console.error(alarmPin);
             });
@@ -135,7 +135,7 @@ var pi3GPIO = {
               pi3GPIO.getWarnPin(
                 function (alarmPin) {
                   console.log(alarmPin);
-                  setOutputAlarm(alarmPin.pin, alarmPin.duration);
+                  pi3GPIO.setOutputAlarm(alarmPin.pin, alarmPin.duration);
               },function (alarmPin) {
                   console.error(alarmPin);
               });
