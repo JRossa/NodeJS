@@ -22,6 +22,7 @@ var sensorTypeDao = {
             connection.query('CREATE TABLE IF NOT EXISTS tbl_sensorType' +
                  '(id INTEGER NOT NULL AUTO_INCREMENT,' +
                  'model VARCHAR(30) UNIQUE NOT NULL,' +
+                 'picture VARCHAR(50) NULL,' +
                  'obs LONGTEXT NULL,' +
                  'PRIMARY KEY(id))', function (err) {
               if (err !== null) {

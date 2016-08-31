@@ -21,8 +21,9 @@ var sensorTypeDao = {
               if (rows === undefined) {
                   dbData.run('CREATE TABLE "tbl_sensorType" ' +
                       '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                      '[model] VARCHAR(20)  UNIQUE NULL, ' +
-                      '[obs] VARCHAR(100)  NULL)', function (err) {
+                      '[model] VARCHAR(20) UNIQUE NOT NULL, ' +
+                      '[picture] VARCHAR(50) NULL, ' +
+                      '[obs] VARCHAR(100) NULL)', function (err) {
                       if (err !== null) {
                           console.log(err);
                       } else {

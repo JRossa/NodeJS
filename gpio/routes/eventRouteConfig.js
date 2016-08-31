@@ -120,6 +120,8 @@ eventRouteConfig.prototype.addRoutes = function () {
       var eventDao = require('../system/pi3GPIO/pi3GPIO');
 
       eventDao.pi3GPIO.setPinData (req.body);
+      // nothing to return
+      res.end();
 
     }
   });
