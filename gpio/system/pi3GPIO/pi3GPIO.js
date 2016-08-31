@@ -41,7 +41,7 @@ var pi3GPIO = {
 
       function (nEvents) {
         // console.log(status);
-        var NEvents = NEvents[0].numEvents;
+        var NEvents = nEvents[0].numEvents;
 
         console.log("N Events  " + NEvents);
 
