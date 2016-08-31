@@ -219,6 +219,8 @@ var eventDao = {
     var currTime = new Date();
     var topTime = new Date(currTime - intervalTime).toJSON();
 
+    currTime = currTime.toJSON();
+    
     console.log(selectStatement);
     console.log(currTime);
     console.log(topTime);

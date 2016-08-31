@@ -210,11 +210,7 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/setGPIO',
     callbackFunction : function(req, res) {
 
-      res.render('pin/createPin', {
-           title : "label.menubar_appTitle",
-           pagename : "label.createPin_pagename"
-         });
-
+      res.redirect('/')
     }
   });
 
