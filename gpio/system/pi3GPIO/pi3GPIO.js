@@ -1,6 +1,7 @@
 var utilTime = require('../utils/utilTime');
 var utilPin = require('../utils/utilPin');
 var utilEvent = require('../utils/utilEvent');
+var utilAction = require('../utils/utilAction');
 
 'use strict'
 
@@ -185,7 +186,7 @@ var pi3GPIO = {
 
           pi3GPIO.processEvent (eventData);
 
-          console.log(utilTime.getServerTime(true));
+//          utilPin.lastAction("ALARM_CONFIG");
 
         },function (status) {
             // console.log(status);

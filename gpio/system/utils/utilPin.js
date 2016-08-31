@@ -25,7 +25,7 @@ var utilPin = {
         }
     });
 
-  },
+  },  // getAlarmPin
 
 
   getWarnPin : function (OnSuccessCallback, OnErrorCallback) {
@@ -50,7 +50,7 @@ var utilPin = {
         }
     });
 
-  },
+  },  // getWarnPin
 
 
   getSensorData : function (pinBOARD, OnSuccessCallback, OnErrorCallback) {
@@ -75,23 +75,47 @@ var utilPin = {
         }
     });
 
-  },
+  },  // getSensorData
 
 
-  getAllOutputPin : function (OnSuccessCallback) {
+  lastAction : function (action) {
+
+  var utilAction = require('./utilAction');
+
+  utilAction.getActionTypeById(action,
+     function (action) {
+        console.log(action);
+
+        if (action.length > 0 ) {
+          utilAction.getLastAction (
+            function (lastAction) {
+              console.log(action[0].id);
+              console.log(lastAction);
+              lastAction.typeId = action[0].id;
+              lastAction.allDay = lastAction.all_day;
+              lastAction.periodId = null;
+              utilAction.insertAction(lastAction);
+          });
+        } // else TODO: action not found
+     });
+
+  },  // updateAction
+
+
+  getAllInputPin : function (OnSuccessCallback) {
 
     var pinDao = require('../dao/sqlitePinDao');
     if (global.config.site.database === 'mysql') {
       pinDao = require('../dao/mysqlPinDao');
     }
 
-    pinDao.pinDao.getAllOutputPin (
+    pinDao.pinDao.getAllInputPin (
       function (pinData) {
 //        console.log(pinData);
         OnSuccessCallback(pinData);
     });
 
-  }
+  }  // getAllInputPin
 
 }
 

@@ -180,13 +180,8 @@ function listEventController($rootScope, $scope, $window, $timeout,
   }
 
   pinData = {
-
-    Id : "",
-    BOARD : "",
-    Direction : "",
-    SensorId : "",
-    Time : ""
-
+    pinBOARD: "",
+    pinDirection : "",
   };
 
   $scope.setPinData = function () {

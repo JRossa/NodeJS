@@ -10,6 +10,9 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   $scope.actionsData = [];
 
+  $scope.alarmPeriodsData = [];
+
+
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
@@ -18,9 +21,13 @@ function listEventController($rootScope, $scope, $window, $timeout,
   })
 */
 
+  getAllAlarmPeriods();
+
   loadLanguage();
 
   getAllActions();
+
+
 
   function loadLanguage () {
 
@@ -56,6 +63,20 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   }
 
+  function getAllAlarmPeriods () {
+    alarmService.getAllAlarmPeriods()
+      .success( function (data) {
+
+        if (data &&
+            data.alarmPeriodsData &&
+            data.alarmPeriodsData.length > 0) {
+
+              $scope.alarmPeriodsData = data.alarmPeriodsData;
+              $("#listAlarm").show();
+            }
+      });
+
+  };
 
   function getAllActions () {
     alarmService.getAllActions()
@@ -96,8 +117,17 @@ function listEventController($rootScope, $scope, $window, $timeout,
           actionData.alarmAllDayImage = "on_off_blue.png";
         }
       }
-      actionData.startPeriod = "";
-      actionData.endPeriod = "";
+
+      if (actionData.period_id == null) {
+        actionData.startPeriod = "";
+        actionData.endPeriod = "";
+      } else {
+        var alarmPeriod = $scope.alarmPeriodsData[actionData.period_id-1];
+//        console.log(actionData.period_id);
+//        console.log($scope.alarmPeriodsData[actionData.period_id-1]);
+        actionData.startPeriod = alarmPeriod.start;
+        actionData.endPeriod = alarmPeriod.end;
+      }
     });
 
     return actionsData;

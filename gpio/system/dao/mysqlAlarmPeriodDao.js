@@ -95,6 +95,31 @@ var alarmPeriodDao = {
   },          // createAlarmPeriod
 
 
+  getAllAlarmPeriod : function (OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_alarmPeriod ";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.query(selectStatement, [], function (err, rows, fields)  {
+
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+
+//      console.log(rows);
+      OnSuccessCallback(rows);
+
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    }
+  }    // getAllAlarmPeriod
+
+
   getAlarmPeriod : function (periodId, OnSuccessCallback) {
 
     var selectStatement = "SELECT * FROM tbl_alarmPeriod WHERE id = ? ";

@@ -148,6 +148,9 @@ pinRouteConfig.prototype.addRoutes = function () {
           res.json(status);
       });
 
+      var utilPin = require('../system/utils/utilPin');
+
+      utilPin.lastAction("ALARM_CONFIG");
     }
   });
 
@@ -210,6 +213,26 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/setGPIO',
     callbackFunction : function(req, res) {
 
+      var utilPin = require('../system/utils/utilPin');
+      var pi3GPIO = require('../system/pi3GPIO/pi3GPIO');
+
+      pinData = {
+        pinBOARD: "",
+        pinDirection : 'input',
+      };
+
+      utilPin.getAllInputPin (
+        function (pinInput) {
+          for (var i = 0, len = pinInput.length; i < len; i++) {
+            console.log("Set Pin : " + pinInput[i].board);
+
+            pinData.pinBOARD = pinInput[i].board;
+
+            pi3GPIO.pi3GPIO.setPinData(pinData);
+          };
+        });
+
+//      res.end();
       res.redirect('/')
     }
   });
@@ -219,11 +242,27 @@ pinRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/clearGPIO',
     callbackFunction : function(req, res) {
 
-      res.render('pin/createPin', {
-           title : "label.menubar_appTitle",
-           pagename : "label.createPin_pagename"
-         });
+      var utilPin = require('../system/utils/utilPin');
+      var pi3GPIO = require('../system/pi3GPIO/pi3GPIO');
 
+      pinData = {
+        pinBOARD: "",
+        pinDirection : 'null',
+      };
+
+      utilPin.getAllInputPin (
+        function (pinInput) {
+          for (var i = 0, len = pinInput.length; i < len; i++) {
+            console.log("Clear Pin : " + pinInput[i].board);
+
+            pinData.pinBOARD = pinInput[i].board;
+
+            pi3GPIO.pi3GPIO.setPinData(pinData);
+          };
+        });
+
+//      res.end();
+      res.redirect('/')
     }
   });
 

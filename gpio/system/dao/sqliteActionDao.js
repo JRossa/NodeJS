@@ -151,7 +151,9 @@ var actionDao = {
 
   getAllAction : function (OnSuccessCallback) {
 
-    var selectStatement = "SELECT * FROM tbl_action ORDER BY id ";
+    var selectStatement = "SELECT a.*, t.type AS type_name " +
+                          "FROM tbl_action AS a, tbl_actionType AS t " +
+                          "WHERE a.type_id = t.id ORDER BY a.id";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 

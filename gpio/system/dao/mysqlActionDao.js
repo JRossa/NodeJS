@@ -170,8 +170,20 @@ var actionDao = {
 
 
   getAllAction : function (OnSuccessCallback) {
-
-    var selectStatement = "SELECT * FROM tbl_action ORDER BY id ";
+/*
+    var selectStatement = "SELECT a.*, t.type AS type_name, " +
+                                      "p.start AS startPeriod, " +
+                                      "p.end AS endPeriod " +
+                          "FROM tbl_action AS a, " +
+                               "tbl_actionType AS t, " +
+                               "tbl_alarmPeriod AS p " +
+                          "WHERE a.type_id = t.id AND " +
+                                "a.period_id = p.id " +
+                          "ORDER BY a.id";
+*/
+    var selectStatement = "SELECT a.*, t.type AS type_name " +
+                          "FROM tbl_action AS a, tbl_actionType AS t " +
+                          "WHERE a.type_id = t.id ORDER BY a.id";
 
     connection = connectionProvider.connectionStringProvider.getConnection();
 

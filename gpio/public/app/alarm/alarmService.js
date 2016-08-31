@@ -58,6 +58,13 @@ function alarmService ($rootScope, $http, $location) {
     }, // getAllActions
 
 
+    getAllAlarmPeriods: function () {
+
+      return $http.get('/getAllAlarmPeriods');
+
+    }, // getAllAlarmPeriods
+
+
     getAlarmSettings: function () {
 
       return $http.get('/getAlarmSettings');

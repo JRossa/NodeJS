@@ -17,6 +17,9 @@
       <% if (alarmSettings.armed) { %>
         <h3> LIGADO </h3>
       <% } %>
+      <% if (alarmSettings.type_id == 4) { %>
+        <h3> CONFIG : not apllied !! </h3>
+      <% } %>
       <%= labels.sensors.edit %> <br/>
   </div>
       {{ label.editSensor_pagename }}

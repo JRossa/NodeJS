@@ -10,7 +10,8 @@
       <td style="width: 10%"> {{label.sensorTypeGrid_typeId}} </td>
       <td style="width: 20%"> {{label.sensorTypeGrid_model}} </td>
       <td style="width: 30%"> {{label.sensorTypeGrid_obs}} </td>
-      <td style="width: 40%"> {{label.sensorTypeGrid_options}} </td>
+      <td style="width: 20%"> {{label.sensorTypeGrid_picture}} </td>
+      <td style="width: 20%"> {{label.sensorTypeGrid_options}} </td>
     </tr>
   </thead>
 
@@ -19,6 +20,7 @@
       <td style="width: 10%"> {{label.sensorTypeGrid_typeId}} </td>
       <td style="width: 20%"> {{label.sensorTypeGrid_model}} </td>
       <td style="width: 30%"> {{label.sensorTypeGrid_obs}} </td>
+      <td style="width: 20%"> {{label.sensorTypeGrid_picture}} </td>
       <td style="width: 40%"> {{label.sensorTypeGrid_options}} </td>
     </tr>
   </tfoot>
@@ -28,6 +30,10 @@
       <td>{{sensorType.id}}</td>
       <td>{{sensorType.model}}</td>
       <td>{{sensorType.obs}}</td>
+      <td>
+        <span style="padding-left: 18px; display:inline-block;"> </span>
+        <img ng-src="images/{{sensorType.picture}}" width="150px" height="150px"> </image>
+      </td>
 
       <td class="info">
 <!--

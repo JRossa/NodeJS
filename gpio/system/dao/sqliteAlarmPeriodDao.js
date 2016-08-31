@@ -88,6 +88,27 @@
   },      // createAlarmPeriod
 
 
+  getAllAlarmPeriod : function (OnSuccessCallback) {
+
+    var selectStatement = "SELECT * FROM tbl_alarmPeriod ";
+
+    connection = connectionProvider.connectionStringProvider.getConnection();
+
+    if (connection) {
+
+      connection.all(selectStatement, [], function (err, rows, fields)  {
+
+      if (err) { throw err;}
+
+        console.log(rows);
+        OnSuccessCallback(rows);
+      });
+
+      connectionProvider.connectionStringProvider.closeConnection(connection);
+    } // connection
+  },   // getAllAlarmPeriod
+
+
   getAlarmPeriod : function (periodId, OnSuccessCallback) {
 
     var selectStatement = "SELECT * FROM tbl_alarmPeriod WHERE id = ? ";

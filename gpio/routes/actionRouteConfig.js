@@ -301,6 +301,28 @@ actionRouteConfig.prototype.addRoutes = function () {
     }
   });
 
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/getAllAlarmPeriods',
+    callbackFunction : function(req, res) {
+
+      var alarmPeriodDao = require('../system/dao/sqliteAlarmPeriodDao');
+      if (global.config.site.database === 'mysql') {
+        alarmPeriodDao = require('../system/dao/mysqlAlarmPeriodDao');
+      }
+
+      alarmPeriodDao.alarmPeriodDao.getAllAlarmPeriod (
+
+        function (alarmPeriodsData) {
+          console.log(JSON.stringify(alarmPeriodsData, null, 2));
+          res.json({ alarmPeriodsData : alarmPeriodsData });
+      });
+
+    }
+  });
+
+
   self.routeTable.push({
 
     requestType : 'get',
