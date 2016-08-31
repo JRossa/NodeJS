@@ -41,10 +41,9 @@ var pi3GPIO = {
 
       function (nEvents) {
         // console.log(status);
-        var NEvents = [];
-        NEvents = nEvents;
+        var NEvents = NEvents[0].numEvents;
 
-        console.log("N Events  " + NEvents[0].numEvents);
+        console.log("N Events  " + NEvents);
 
         console.log('pi3GPIO - ' + process.env.ENV_OS);
 
@@ -57,7 +56,7 @@ var pi3GPIO = {
             mapping: 'physical',    /* Use the P1-P40 numbering scheme */
           }
 
-          console.log("------ RPIO --------- OK ");
+          console.log("------ RPIO --------- OK  " + (NEvents > maxAlarmEvents));
 
           rpio.init(options);
 
