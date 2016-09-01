@@ -120,7 +120,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
         sensorDao = require('../system/dao/mysqlSensorDao');
       }
 
-/* TODO
+/* TODO:
       sensorDao.sensorDao.getSensorById (req.params.sensorTypeId,
 
         function (sensorType) {
@@ -144,7 +144,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       if (global.config.site.database === 'mysql') {
         sensorDao = require('../system/dao/mysqlSensorDao');
       }
-/* TODO
+/* TODO:
       sensorDao.sensorDao.getSensorTypeById (req.params.sensorTypeId,
 
         function (sensorType) {

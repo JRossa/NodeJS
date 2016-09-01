@@ -5,6 +5,8 @@ var utilAction = {
 
   getLastAction : function (OnSuccessCallback) {
 
+    var utilTime = require('./utilTime');
+
     var actionDao = require('../dao/sqliteActionDao');
     if (global.config.site.database === 'mysql') {
       actionDao = require('../dao/mysqlActionDao');
@@ -26,13 +28,16 @@ var utilAction = {
   //                console.log(JSON.stringify(periodData, null, 2));
                 alarmSettings.startPeriod = periodData[0].start;
                 alarmSettings.endPeriod = periodData[0].end;
+                alarmSettings.active =
+                     utilTime.checkActive(alarmSettings.startPeriod,
+                                          alarmSettings.endPeriod);
 
-// TODO - check id on or off with the present time and set active = true
                 OnSuccessCallback(alarmSettings);
             });
           } else {
             alarmSettings.startPeriod = "";
             alarmSettings.endPeriod = "";
+            alarmSettings.active = true;
 
             OnSuccessCallback(alarmSettings);
           }

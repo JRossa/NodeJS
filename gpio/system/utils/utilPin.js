@@ -80,26 +80,74 @@ var utilPin = {
 
   lastAction : function (action) {
 
+  var self  = this;
+
+  var pi3GPIO = require('../pi3GPIO/pi3GPIO');
   var utilAction = require('./utilAction');
 
   utilAction.getActionTypeById(action,
-     function (action) {
-        console.log(action);
+     function (actionLst) {
+        console.log(actionLst);
+        console.log(actionLst.length);
 
-        if (action.length > 0 ) {
+        if (actionLst.length > 0 ) {
           utilAction.getLastAction (
             function (lastAction) {
-              console.log(action[0].id);
+              console.log(actionLst[0].id);
               console.log(lastAction);
-              lastAction.typeId = action[0].id;
+
+              lastAction.typeId = actionLst[0].id;
               lastAction.allDay = lastAction.all_day;
-              lastAction.periodId = null;
+              lastAction.periodId = lastAction.period_id;
+
+              switch (action) {
+                case "ALARM_SWITCH":
+                  lastAction.periodId = null;
+                case "ALARM_ON":
+                  lastAction.armed = true;
+
+                case "ALARM_OFF":
+                  lastAction.armed = false;
+
+                default:
+              }
+
               utilAction.insertAction(lastAction);
           });
-        } // else TODO: action not found
+        } else {
+          if (action == "PIN_SWITCH") {
+            utilAction.getLastAction (
+              function (lastAction) {
+                console.log(lastAction);
+
+                if (lastAction.armed) {
+                  self.lastAction("ALARM_OFF");
+
+                  var pinData = {
+                    pinBOARD: process.env.PIN_SWITCH,
+                    pinDirection : 'null',
+                  };
+
+                  pi3GPIO.pi3GPIO.setPinData(pinData);
+
+                } else {
+                  self.lastAction("ALARM_ON");
+                }
+
+            });
+          }
+        }   // else
      });
 
   },  // updateAction
+
+
+  setPinSwitch : function () {
+    var self = this;
+
+    self.lastAction("PIN_SWITCH");
+
+  },  // setPinSwitch
 
 
   getAllInputPin : function (OnSuccessCallback) {

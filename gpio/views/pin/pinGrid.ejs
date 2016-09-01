@@ -94,11 +94,11 @@
              {{label.pinGrid_delete}}
            </span>
         </button>
-        <button id="buttonDeletePin"
+        <button id="buttonSwitchPin"
                 ng-if="pinData.board == pinsData.pin_switch"
                 type="button"
                 class="btn btn-danger btn-sm"
-                data-ng-click="loadPin(pinData)">
+                data-ng-click="switchPin(pinsData.pin_switch)">
            <i class="glyphicon glyphicon-off"
               aria-hidden="true" ></i>
            <span>

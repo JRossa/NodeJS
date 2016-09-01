@@ -336,6 +336,12 @@ function listPinController($rootScope, $scope, $window, $timeout,
   }
 
 
+  $scope.switchPin = function (pin) {
+
+    pinService.setSwitchPin(pin);
+
+  }
+
   $scope.setLocation = function (id) {
 
 //    console.log(id);

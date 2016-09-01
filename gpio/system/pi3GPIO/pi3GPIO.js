@@ -10,7 +10,6 @@ var pi3GPIO = {
 
   setOutputAlarm : function (rpio, pin, alarmDuration) {
 
-    // TODO : check if alarm is armed
     console.log('Pin ' + pin + '(A) = %d', rpio.read(pin));
     console.log('Alarm Duration : ' + alarmDuration);
 
@@ -31,11 +30,13 @@ var pi3GPIO = {
 
   processEvent : function (eventData) {
 
-    var searchTimeMinutes = 3;
-    var maxAlarmEvents = 4;
+    var self = this;
+
+    var searchSeconds = process.env.SEARCH_SECONDS;
+    var maxAlarmEvents = process.env.MAX_EVENTS;
 
     // interval in seconds
-    var intervalTime = (searchTimeMinutes * 60 * 1000);
+    var intervalTime = (searchSeconds * 1000);
 
     utilEvent.countEvent (eventData.eventSensorId,
                                   intervalTime,
@@ -48,7 +49,6 @@ var pi3GPIO = {
 
         console.log('pi3GPIO - ' + process.env.ENV_OS);
 
-        // TODO - arm the alarm
         if (process.env.ENV_OS === 'rpio') {
           var rpio = require('rpio');
 
@@ -59,76 +59,94 @@ var pi3GPIO = {
 
           console.log("------ RPIO processEvent --------- OK  " + (NEvents > maxAlarmEvents));
 
+
           rpio.init(options);
 
           if (NEvents > maxAlarmEvents) {
-            utilPin.getAlarmPin(
-              function (alarmPin) {
-                console.log(alarmPin);
-                pi3GPIO.setOutputAlarm(rpio, alarmPin.pin, alarmPin.duration);
-            },function (alarmPin) {
-                console.error(alarmPin);
-            });
+
+            utilAction.getLastAction(
+                function (alarmSettings) {
+
+              // Check if alarm is ON or OFF
+              if (alarmSettings.armed &&
+                     alarmSettings.active) {
+
+                utilPin.getAlarmPin(
+                  function (alarmPin) {
+                    console.log(alarmPin);
+                    self.setOutputAlarm(rpio, alarmPin.pin, alarmPin.duration);
+                },function (alarmPin) {
+                    console.error(alarmPin);
+                });  //  getAlarmPin
+              }      //  if (alarmSettings.armed ...
+            });      //  getLastAction
           } else {
 
             if (eventData.eventWarn == true) {
               utilPin.getWarnPin(
                 function (alarmPin) {
                   console.log(alarmPin);
-                  pi3GPIO.setOutputAlarm(rpio, alarmPin.pin, alarmPin.duration);
+                  self.setOutputAlarm(rpio, alarmPin.pin, alarmPin.duration);
               },function (alarmPin) {
                   console.error(alarmPin);
-              });
-            } // if (eventData.eventWarn == true)
-          } // else
-        }  //  if (process.env.ENV_OS === 'rpio')
-    });    //  function (nEvents)
+              }); //  getWarnPin
+            }     //  if (eventData.eventWarn == true)
+          }       //  else (eventData.eventWarn == true)
+        }         //  if (process.env.ENV_OS === 'rpio')
+    });           //  function (nEvents)
 
   },
 
 
   listenPin : function (pin) {
 
+    var self = this:
 //    function pin_button(pin)
 //    {
 //      console.log('Nuke button on pin %d pressed', pin);
 
     if (process.env.ENV_OS === 'rpio') {
-      var rpio = require('rpio');
-
       /* Watch pin forever. */
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
+      var rpio = require('rpio');
+
       if (rpio.read(pin) == 1) {
 
-        utilPin.getSensorData (pin,
-          function (sensorData) {
-            console.log(sensorData);
+        // Ckeck for PIN_SWITCH
+        if (pin == process.env.PIN_SWITCH) {
+          utilAction.setPinSwitch();
+        } else {
 
-            var stamp = utilTime.getServerTime(true);
+          utilPin.getSensorData (pin,
+            function (sensorData) {
+              console.log(sensorData);
 
-            var eventData = {
+              var stamp = utilTime.getServerTime(true);
 
-              eventSensorId : sensorData.sensorId,
-              eventWarn :  sensorData.sensorWarn,
-              eventTime : stamp
-            };
+              var eventData = {
 
-            console.log('INSERT : ' + eventData);
+                eventSensorId : sensorData.sensorId,
+                eventWarn :  sensorData.sensorWarn,
+                eventTime : stamp
+              };
 
-            utilEvent.insertEvent (eventData,
-              function (data) {
-              console.log(data);
+              console.log('INSERT : ' + eventData);
 
-              pi3GPIO.processEvent (eventData);
+              utilEvent.insertEvent (eventData,
+                function (data) {
+                console.log(data);
 
-            }, function (data) {
-              console.error(data);
-            });
+                self.processEvent (eventData);
 
-        },function (sensorId) {
-            console.error(sensorId);
-        });
-      }
+              }, function (data) {
+                console.error(data);
+              });
+
+          },function (sensorData) {
+              console.error(sensorData.sensorId);
+          }); //  getSensorData
+        }   //  if (pin == process.env.PIN_SWITCH)
+      }     //  if (rpio.read(pin) == 1)
     }
 
       /* No need to read pin more than once. */
@@ -137,6 +155,8 @@ var pi3GPIO = {
 
 
   setPinData : function (pinData) {
+
+    var self = this;
 
     console.log('pi3GPIO - ' + process.env.ENV_OS);
     console.log(pinData);
@@ -160,7 +180,7 @@ var pi3GPIO = {
         rpio.pud(pinData.pinBOARD, rpio.PULL_DOWN);
         console.log("------ RPIO setPinData 2 --------- OK ");
 
-        rpio.poll(pinData.pinBOARD, pi3GPIO.listenPin, rpio.POLL_HIGH);
+        rpio.poll(pinData.pinBOARD, self.listenPin, rpio.POLL_HIGH);
       }
 
       console.log("------ RPIO setPinData 3 --------- OK ");
@@ -179,15 +199,18 @@ var pi3GPIO = {
 
   createEvent : function (eventData, OnSuccessCallback, OnErrorCallback) {
 
+    var self = this;
+
     utilEvent.insertEvent (eventData,
         function (status) {
           console.log(status);
           OnSuccessCallback(status);
 
-          pi3GPIO.processEvent (eventData);
+          self.processEvent (eventData);
 
 //          utilPin.lastAction("ALARM_CONFIG");
-          console.log(utilTime.checkActive("22:00", "22:30"));
+//          console.log(utilTime.checkActive("22:00", "22:30"));
+           utilAction.setPinSwitch();
 
         },function (status) {
             // console.log(status);

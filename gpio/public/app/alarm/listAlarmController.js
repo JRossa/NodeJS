@@ -122,9 +122,10 @@ function listEventController($rootScope, $scope, $window, $timeout,
         actionData.startPeriod = "";
         actionData.endPeriod = "";
       } else {
-        var alarmPeriod = $scope.alarmPeriodsData[actionData.period_id-1];
 //        console.log(actionData.period_id);
 //        console.log($scope.alarmPeriodsData[actionData.period_id-1]);
+
+        var alarmPeriod = $scope.alarmPeriodsData[actionData.period_id-1];
         actionData.startPeriod = alarmPeriod.start;
         actionData.endPeriod = alarmPeriod.end;
       }

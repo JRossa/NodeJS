@@ -239,6 +239,7 @@ pinRouteConfig.prototype.addRoutes = function () {
     pinData.pinBOARD = process.env.PIN_SWITCH;
     pi3GPIO.pi3GPIO.setPinData(pinData);
 
+    utilPin.lastAction("ALARM_SET");
 //      res.end();
       res.redirect('/')
     }
@@ -271,8 +272,45 @@ pinRouteConfig.prototype.addRoutes = function () {
       pinData.pinBOARD = process.env.PIN_SWITCH;
       pi3GPIO.pi3GPIO.setPinData(pinData);
 
+      utilPin.lastAction("ALARM_RESET");
 //      res.end();
       res.redirect('/')
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'post',
+    requestUrl : '/setPinData',
+    callbackFunction : function(req, res) {
+
+      console.log("POST setPinData");
+      console.log(req.body);
+
+//      var eventDao = require('../system/dao/sqliteEventDao');
+      var pi3GPIO = require('../system/pi3GPIO/pi3GPIO');
+
+      pi3GPIO.pi3GPIO.setPinData (req.body);
+      // nothing to return
+      res.end();
+
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'post',
+    requestUrl : '/setSwitchPin',
+    callbackFunction : function(req, res) {
+
+      console.log("POST setSwitchPin");
+      console.log(req.body);
+
+//      var eventDao = require('../system/dao/sqliteEventDao');
+      var utilPin = require('../system/utils/utilPin');
+
+      utilPin.setPinSwitch ();
+      // nothing to return
+      res.end();
+
     }
   });
 

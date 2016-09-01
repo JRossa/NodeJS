@@ -109,24 +109,6 @@ eventRouteConfig.prototype.addRoutes = function () {
   });
 
   self.routeTable.push ( {
-    requestType : 'post',
-    requestUrl : '/setPinData',
-    callbackFunction : function(req, res) {
-
-      console.log("POST setPinData");
-      console.log(req.body);
-
-//      var eventDao = require('../system/dao/sqliteEventDao');
-      var eventDao = require('../system/pi3GPIO/pi3GPIO');
-
-      eventDao.pi3GPIO.setPinData (req.body);
-      // nothing to return
-      res.end();
-
-    }
-  });
-
-  self.routeTable.push ( {
     requestType : 'delete',
     requestUrl : '/deleteEvent/:eventId',
     callbackFunction : function(req, res) {

@@ -67,8 +67,18 @@ function pinService ($rootScope, $http, $location) {
      return $http.delete('/deletePin/' + pinId);
 
       // More compatible with different browsers
-    //  return $http['delete']('/deletePin/' + pinId);
-  }, // deletePin
+      //  return $http['delete']('/deletePin/' + pinId);
+    }, // deletePin
+
+
+    setSwitchPin : function (pin) {
+
+      return $http.post('/setSwitchPin',
+        {
+          pinBOARD : pin
+        }
+      );
+    } // setSwitchPin
 
   }; // return
 }
