@@ -68,7 +68,7 @@
 -->
 
         <button id="buttonEditPin"
-                ng-if="pinData.board != 13"
+                ng-if="pinData.board != pinsData.pin_switch"
                 type="button"
                 class="btn btn-info btn-sm"
                 data-toggle="modal"
@@ -82,7 +82,7 @@
         </button>
 
         <button id="buttonDeletePin"
-                ng-if="pinData.board != 13"
+                ng-if="pinData.board != pinsData.pin_switch"
                 type="button"
                 class="btn btn-warning btn-sm"
                 data-toggle="modal"
@@ -95,7 +95,7 @@
            </span>
         </button>
         <button id="buttonDeletePin"
-                ng-if="pinData.board == 13"
+                ng-if="pinData.board == pinsData.pin_switch"
                 type="button"
                 class="btn btn-danger btn-sm"
                 data-ng-click="loadPin(pinData)">

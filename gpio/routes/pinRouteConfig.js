@@ -189,8 +189,10 @@ pinRouteConfig.prototype.addRoutes = function () {
       pinDao.pinDao.getAllPin (
 
         function (pinsData) {
-//          console.log(JSON.stringify(sensorsData, null, 2));
-          res.json({ pinsData : pinsData });
+//          console.log(JSON.stringify(pinsData, null, 2));
+
+          res.json({ pinsData : pinsData,
+                     pin_switch : process.env.PIN_SWITCH });
       });
 
     }
@@ -230,9 +232,12 @@ pinRouteConfig.prototype.addRoutes = function () {
               pinData.pinBOARD = pinInput[i].board;
 
               pi3GPIO.pi3GPIO.setPinData(pinData);
-            }  
+            }
           };
         });
+
+    pinData.pinBOARD = process.env.PIN_SWITCH;
+    pi3GPIO.pi3GPIO.setPinData(pinData);
 
 //      res.end();
       res.redirect('/')
@@ -262,6 +267,9 @@ pinRouteConfig.prototype.addRoutes = function () {
             pi3GPIO.pi3GPIO.setPinData(pinData);
           };
         });
+
+      pinData.pinBOARD = process.env.PIN_SWITCH;
+      pi3GPIO.pi3GPIO.setPinData(pinData);
 
 //      res.end();
       res.redirect('/')

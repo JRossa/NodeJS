@@ -78,12 +78,15 @@ function listPinController($rootScope, $scope, $window, $timeout,
   function getAllPins () {
     pinService.getAllPins()
       .success( function (data) {
+//        console.log(data);
         if (data &&
             data.pinsData &&
             data.pinsData.length > 0) {
 
-
               $scope.pinsData = processPinsData(data.pinsData);
+              if (data.pin_switch) {
+                $scope.pinsData.pin_switch = data.pin_switch;
+              }
 //              console.log($scope.pinsData);
               $("#listPin").show();
             }
@@ -272,7 +275,7 @@ function listPinController($rootScope, $scope, $window, $timeout,
 
         displayAlarmDurationMessage ();
         validationMessages++;
-        
+
       } else {
         if ($scope.pinData.pinAlarmDuration == 'null') {
           pinData.pinAlarmDuration = null;
