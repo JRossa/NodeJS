@@ -226,9 +226,11 @@ pinRouteConfig.prototype.addRoutes = function () {
           for (var i = 0, len = pinInput.length; i < len; i++) {
             console.log("Set Pin : " + pinInput[i].board);
 
-            pinData.pinBOARD = pinInput[i].board;
+            if (pinData.used == true) {
+              pinData.pinBOARD = pinInput[i].board;
 
-            pi3GPIO.pi3GPIO.setPinData(pinData);
+              pi3GPIO.pi3GPIO.setPinData(pinData);
+            }  
           };
         });
 

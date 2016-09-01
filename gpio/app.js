@@ -13,6 +13,8 @@ var env = require('node-env-file');
 
 var app = express();
 
+// Load setup variables
+env(__dirname + '/.env', {overwrite: true});
 
 
 // Configuration
@@ -47,7 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Angular
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')));
 
-env(__dirname + '/.env', {overwrite: true});
 
 // Routing
 // Home Page

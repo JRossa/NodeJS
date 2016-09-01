@@ -187,6 +187,7 @@ var pi3GPIO = {
           pi3GPIO.processEvent (eventData);
 
 //          utilPin.lastAction("ALARM_CONFIG");
+          console.log(utilTime.checkActive("22:00", "22:30"));
 
         },function (status) {
             // console.log(status);

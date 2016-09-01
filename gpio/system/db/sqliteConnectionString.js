@@ -6,27 +6,17 @@ var connectionString =  {
       // Development
       dev : {
 
-        dbName: './system/db/gpio.sqlite',
+        dbName: './system/db/' + process.env.DB_NAME + '.sqlite',
 
       },
 
       // Quality Analisys
       qa : {
 
-        host: 'localhost',
-        user: 'root',
-        password : 'root',
-        database : 'gpio'
-
       },
 
       // Prodution
       prod : {
-
-        host: 'localhost',
-        user: 'root',
-        password : 'root',
-        database : 'gpio'
 
       },
 

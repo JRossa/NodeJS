@@ -16,6 +16,9 @@
   <div id="alarmSettings">
       <% if (alarmSettings.armed) { %>
         <h3> LIGADO </h3>
+        <% if (alarmSettings.period_id != null) { %>
+          <h3> DAS <%= alarmSettings.startPeriod %> ÁS <%= alarmSettings.endPeriod %> </h3>
+        <% } %>
       <% } %>
       <% if (alarmSettings.type_id == 4) { %>
         <h3> CONFIG : not apllied !! </h3>

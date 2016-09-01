@@ -27,6 +27,7 @@ var utilAction = {
                 alarmSettings.startPeriod = periodData[0].start;
                 alarmSettings.endPeriod = periodData[0].end;
 
+// TODO - check id on or off with the present time and set active = true
                 OnSuccessCallback(alarmSettings);
             });
           } else {

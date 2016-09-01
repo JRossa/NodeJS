@@ -6,30 +6,20 @@ var connectionString = {
       // Development
       dev : {
 
-        host: '192.168.1.61',
-        user: 'root',
-        password : 'root',
-        database : 'gpio'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password : process.env.DB_PASSWORD,
+        database : process.env.DB_NAME
 
       },
 
       // Quality Analisys
       qa : {
 
-        host: 'localhost',
-        user: 'root',
-        password : 'root',
-        database : 'gpio'
-
       },
 
       // Prodution
       prod : {
-
-        host: 'localhost',
-        user: 'root',
-        password : 'root',
-        database : 'gpio'
 
       },
 
