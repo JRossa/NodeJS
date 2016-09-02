@@ -22,7 +22,7 @@ var connectionString =  {
 
   }
 
+};
 
-}
 
 module.exports.connectionString = connectionString;

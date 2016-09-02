@@ -1,5 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+/*global moment: false */
 'use strict';
-
 
 angular.module('eventModule')
        .directive('timepicker', timepicker)
@@ -21,7 +25,7 @@ function timepicker ($window) {
 
 			ngModel.$render = function(){
 				element.find('input').val( ngModel.$viewValue || '' );
-			}
+			};
 
 			element.datetimepicker({
 				language: langKey,
@@ -45,7 +49,8 @@ function timepicker ($window) {
 				ngModel.$setViewValue(value);
 			}
 		}
-	}
+	};
+
 }
 
 
@@ -69,7 +74,7 @@ function datetimepicker ($window) {
 
 			ngModel.$render = function(){
 				element.find('input').val( ngModel.$viewValue || '' );
-			}
+			};
 
 
 			element.on('dp.change', function(){
@@ -84,5 +89,6 @@ function datetimepicker ($window) {
 				ngModel.$setViewValue(value);
 			}
 		}
-	}
+	};
+  
 }

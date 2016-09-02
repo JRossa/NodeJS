@@ -1,9 +1,12 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var utilTime = require('../utils/utilTime');
 var utilPin = require('../utils/utilPin');
 var utilEvent = require('../utils/utilEvent');
 var utilAction = require('../utils/utilAction');
 
-'use strict'
 
 var pi3GPIO = {
 
@@ -13,7 +16,7 @@ var pi3GPIO = {
     console.log('Pin ' + pin + '(A) = %d', rpio.read(pin));
     console.log('Alarm Duration : ' + alarmDuration);
 
-    duration = utilTime.timeToMiliseconds(alarmDuration);
+    var duration = utilTime.timeToMiliseconds(alarmDuration);
     console.log('Alarm Duration : ' + duration);
 
     /* Configure P12 as output with the initiate state set high */
@@ -55,7 +58,7 @@ var pi3GPIO = {
           var options = {
             gpiomem: true,          /* Use /dev/gpiomem */
             mapping: 'physical',    /* Use the P1-P40 numbering scheme */
-          }
+          };
 
           console.log("------ RPIO processEvent --------- OK  " + (NEvents > maxAlarmEvents));
 
@@ -82,7 +85,7 @@ var pi3GPIO = {
             });      //  getLastAction
           } else {
 
-            if (eventData.eventWarn == true) {
+            if (eventData.eventWarn === true) {
               utilPin.getWarnPin(
                 function (alarmPin) {
                   console.log(alarmPin);
@@ -167,7 +170,7 @@ var pi3GPIO = {
       var options = {
         gpiomem: true,          /* Use /dev/gpiomem */
         mapping: 'physical',    /* Use the P1-P40 numbering scheme */
-      }
+      };
 
       console.log("------ RPIO setPinData --------- OK ");
 
@@ -218,7 +221,7 @@ var pi3GPIO = {
         });
   } // createEvent
 
-}
+};
 
 
 module.exports.pi3GPIO = pi3GPIO;

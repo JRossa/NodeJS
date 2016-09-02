@@ -36,6 +36,7 @@ var connectionStringProvider = {
     currentConnection.close();
   }
 
-}
+};
+
 
 module.exports.connectionStringProvider = connectionStringProvider;

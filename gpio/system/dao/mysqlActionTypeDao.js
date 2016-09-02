@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var actionTypeDao = {
@@ -116,7 +120,7 @@ var actionTypeDao = {
 
     var selectStatement = "SELECT * FROM tbl_actionType WHERE type = ?";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -136,8 +140,7 @@ var actionTypeDao = {
     }
   }    // getActionTypeByTag
 
-
-}
+};
 
 
 module.exports.actionTypeDao = actionTypeDao;

@@ -1,4 +1,13 @@
-window.onload = listAlarmStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = listAlarmStates;
 
 function listAlarmStates() {
   setListenActionDataTable();

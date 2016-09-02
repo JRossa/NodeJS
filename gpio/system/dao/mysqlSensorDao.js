@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var sensorDao = {
@@ -90,7 +94,7 @@ var sensorDao = {
                                   error : "Sensor already exists !!!"});
             }
             else {
-              
+
               connection.commit( function(errComm) {
                 if (errComm !== null) {
                   connection.rollback(function (errRoll) {
@@ -289,7 +293,7 @@ var sensorDao = {
                           "WHERE s.type_id = t.id " +
                           "ORDER BY s.id ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -311,7 +315,7 @@ var sensorDao = {
 
     var selectStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -328,7 +332,7 @@ var sensorDao = {
     }
   }  // getSensorById
 
-}
+};
 
 
 module.exports.sensorDao = sensorDao;

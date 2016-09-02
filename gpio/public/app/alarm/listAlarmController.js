@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("alarmModule")
        .controller("listAlarmController", listEventController);
 
@@ -13,6 +19,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
   $scope.alarmPeriodsData = [];
 
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
@@ -41,7 +48,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
 //           $("#listEvent").show();
         });
-  };
+  }
 
   $scope.changeLanguage = function (langKey)  {
     $rootScope.currentLang = langKey;
@@ -61,7 +68,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //           $("#listAlarm").show();
         });
 
-  }
+  };
 
   function getAllAlarmPeriods () {
     alarmService.getAllAlarmPeriods()
@@ -76,7 +83,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   function getAllActions () {
     alarmService.getAllActions()
@@ -91,34 +98,34 @@ function listEventController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   function processActionssData(actionsData) {
 
     angular.forEach(actionsData, function (actionData) {
 //      console.log(actionData);
 
-      if (actionData.armed == false) {
+      if (actionData.armed === false) {
         actionData.alarmArmedImage = "green_light.png";
       } else {
-        if (actionData.armed == true)  {
+        if (actionData.armed === true)  {
           actionData.alarmArmedImage = "alarm_icon-184x184.png";
         } else {
           actionData.alarmArmedImage = "Data-Undefined-icon.png";
         }
       }
 
-      if (actionData.all_day == false) {
+      if (actionData.all_day === false) {
         actionData.alarmAllDayImage = "half_hour-512.png";
       } else {
-        if (actionData.all_day == true)  {
+        if (actionData.all_day === true)  {
           actionData.alarmAllDayImage = "24hours_available-512.png";
         } else {
           actionData.alarmAllDayImage = "on_off_blue.png";
         }
       }
 
-      if (actionData.period_id == null) {
+      if (actionData.period_id === null) {
         actionData.startPeriod = "";
         actionData.endPeriod = "";
       } else {
@@ -143,7 +150,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
     console.log("Load");
     console.log(actionData);
     $scope.actionData.actionId = actionData.id;
-  }
+  };
 
   $scope.deleteAction = function () {
     console.log("Delete");
@@ -160,5 +167,6 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
         });
     }
-  }
+  };
+  
 }

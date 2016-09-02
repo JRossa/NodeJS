@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var eventDao = {
@@ -205,7 +209,7 @@ var eventDao = {
 
     console.log(selectStatement);
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -230,7 +234,7 @@ var eventDao = {
 
     var selectStatement = "SELECT COUNT(*) AS numEvents FROM tbl_event " +
                           "WHERE sensor_id = ? " +
-                          "AND act_time > ? "
+                          "AND act_time > ? " +
                           "ORDER BY id ";
 
     console.log("ligação  " + sensorId);
@@ -248,7 +252,7 @@ var eventDao = {
     };
 
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -270,7 +274,7 @@ var eventDao = {
 
   }
 
-}
+};
 
 
 module.exports.eventDao = eventDao;

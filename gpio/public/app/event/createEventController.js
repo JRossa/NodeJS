@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("eventModule")
        .controller("createEventController", createEventController);
 
@@ -9,6 +15,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
 
   $scope.sensorsData = [];
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 
@@ -44,7 +51,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
            $("#createEvent").show();
         });
 
-  }
+  };
 
   function getAllSensors () {
     eventService.getAllSensors()
@@ -128,13 +135,13 @@ function createEventController($rootScope, $scope, $window, $timeout,
   function displayEventCurrentTimeMessage () {
 
     $scope.validateEventTime.containsValidationError = true;
-    $scope.validateEventTime.errorMessage = $scope.label.createEvent_controller_insertedCurrDate;;
+    $scope.validateEventTime.errorMessage = $scope.label.createEvent_controller_insertedCurrDate;
   }
 
   function convertDateTimePicker(dateTime) {
 
     if (dateTime === "undefined" ||
-               dateTime.toString() == "") {
+               dateTime.toString() === "") {
       return dateTime;
     }
 

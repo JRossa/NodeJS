@@ -1,3 +1,8 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*global angular: false */
+'use strict';
+
 angular.module("sensorTypeModule")
        .factory("requiredFieldValidationService", requiredFieldValidationService);
 
@@ -17,8 +22,8 @@ function requiredFieldValidationService () {
 
         if (requiredInfo.name !== 'undefined' &&
             (requiredInfo.name === null ||
-             requiredInfo.name == '' ||
-             requiredInfo.name.length == 0)) {
+             requiredInfo.name === '' ||
+             requiredInfo.name.length === 0)) {
                console.log(requiredInfo.errorMessage);
                errorMessages.push(requiredInfo.errorMessage);
              }
@@ -31,7 +36,7 @@ function requiredFieldValidationService () {
   return {
 
     getRequiredFieldValidationErrorMessage : _getRequiredValidationMessage
-  }
+  };
 
 
 }

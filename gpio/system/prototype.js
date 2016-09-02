@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 /**
  *  Checks if a value exists in an array
  *
@@ -5,7 +9,7 @@
  *  @return Returns true if needle is found in the array, false otherwise
  */
 Array.prototype.inArray = function() {
-  
+
     for (var j in this) {
         if (this[j] == arguments[0]) {
             return true;
@@ -13,4 +17,4 @@ Array.prototype.inArray = function() {
     }
 
     return false;
-}
+};

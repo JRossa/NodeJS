@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("sensorModule")
        .controller("listSensorController", listSensorController);
 
@@ -17,6 +23,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
       console.log("Some tag");
   })
 */
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage();
@@ -33,10 +40,10 @@ function listSensorController($rootScope, $scope, $window, $timeout,
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-          $scope.modalname = data.editSensor_pagename
+          $scope.modalname = data.editSensor_pagename;
 //          $("#listSensor").show();
         });
-  };
+  }
 
   $scope.changeLanguage = function (langKey)  {
     $rootScope.currentLang = langKey;
@@ -53,11 +60,11 @@ function listSensorController($rootScope, $scope, $window, $timeout,
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-          $scope.modalname = data.editSensor_pagename
+          $scope.modalname = data.editSensor_pagename;
 //          $("#listSensor").show();
         });
 
-  }
+  };
 
   function getAllSensors () {
     sensorService.getAllSensors()
@@ -72,7 +79,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   function getSensorTypes () {
     sensorService.getAllSensorTypes()
@@ -84,7 +91,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
               $scope.sensorTypes = data.sensorTypes;
             }
       });
-  };
+  }
 
   $scope.sensorData = {
 
@@ -102,7 +109,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
     $scope.sensorData.sensorNumber = sensorData.num;
     $scope.sensorData.sensorTypeId = sensorData.type_id.toString();
     $scope.sensorData.sensorLocation = sensorData.location;
-  }
+  };
 
   $scope.deleteSensor = function () {
     console.log("Delete");
@@ -119,7 +126,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
 
         });
     }
-  }
+  };
 
   $scope.message = {
 
@@ -140,7 +147,7 @@ function listSensorController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorNumber = {
@@ -152,19 +159,19 @@ function listSensorController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorNumber.containsValidationError = false;
     $scope.validateSensorNumber.errorMessage = "";
-  };
+  }
 
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
-    $scope.validateSensorNumber.errorMessage = $scope.label.listSensor_controller_enterSensorNum;;
-  };
+    $scope.validateSensorNumber.errorMessage = $scope.label.listSensor_controller_enterSensorNum;
+  }
 
   $scope.updateSensor = function (sensorData) {
 
     var validationMessages = 0;
 
-    if ($scope.sensorData.sensorNumber.length == 0) {
+    if ($scope.sensorData.sensorNumber.length === 0) {
 
       displaySensorNumberMessage ();
       validationMessages++;
@@ -207,7 +214,6 @@ function listSensorController($rootScope, $scope, $window, $timeout,
 
     } // else
 
-
-  }
+  };
 
 }

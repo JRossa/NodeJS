@@ -1,10 +1,12 @@
-'use strict'
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var utilTime = {
 
   timeToMiliseconds : function (time) {
 
-    if (time == null) {
+    if (time === null) {
       return null;
     }
 
@@ -35,7 +37,7 @@ var utilTime = {
 
     var diffHours = endHour - startHour;
 
-    if (diffHours == 0) {
+    if (diffHours === 0) {
       active = endHour ==  serverHour;
       return active;
     }
@@ -74,7 +76,7 @@ var utilTime = {
 
   hoursToMinutes : function (hours) {
 
-    if (hours == null) {
+    if (hours === null) {
       return null;
     }
 
@@ -111,6 +113,6 @@ var utilTime = {
     }
   }  // getServerTime
 
-}
+};
 
 module.exports = utilTime;

@@ -12,7 +12,7 @@ var socketsConfig = function (io) {
   ];
 
   this.init();
-}
+};
 
 
 
@@ -37,6 +37,7 @@ socketsConfig.prototype.init = function () {
     });
   });
 
-}
+};
+
 
 module.exports = socketsConfig;

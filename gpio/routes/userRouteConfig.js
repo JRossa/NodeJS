@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var userRouteConfig = function (app) {
 
@@ -5,7 +8,7 @@ var userRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 /* Equivalent
@@ -25,7 +28,7 @@ userRouteConfig.prototype.init = function () {
 
   self.addRoutes();
   self.processRoutes();
-}
+};
 
 
 
@@ -41,7 +44,7 @@ userRouteConfig.prototype.dbCreateTable = function () {
 
   userDao.userDao.createTable();
 
-}
+};
 
 
 userRouteConfig.prototype.processRoutes = function () {
@@ -70,7 +73,8 @@ userRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 userRouteConfig.prototype.addRoutes = function () {
 
@@ -200,7 +204,7 @@ userRouteConfig.prototype.addRoutes = function () {
     }
   });
 
+};
 
-}
 
 module.exports = userRouteConfig;

@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("alarmModule")
        .controller("setAlarmController", setAlarmController);
 
@@ -14,10 +20,11 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
     allDay: "",
     startPeriod: "",
     endPeriod: ""
-  }
+  };
 
   getAlarmSettings();
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage ();
@@ -52,7 +59,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 //           $("#setAlarm").show();
         });
 
-  }
+  };
 
 
   function getAlarmSettings () {
@@ -87,7 +94,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
     $scope.alarmSettings.allDay = false;
     $scope.alarmSettings.startPeriod = "";
     $scope.alarmSettings.endPeriod = "";
-  };
+  }
 
   $scope.message = {
 
@@ -108,7 +115,7 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateAlarmSet = {
@@ -120,13 +127,13 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
     $scope.validateAlarmSet.containsValidationError = false;
     $scope.validateAlarmSet.errorMessage = "";
-  };
+  }
 
   function displayAlarmSetMessage () {
 
     $scope.validateAlarmSet.containsValidationError = true;
     $scope.validateAlarmSet.errorMessage = "";
-  };
+  }
 
   $scope.validateAlarmDuration = {
     containsValidationError : false,
@@ -137,13 +144,13 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
     $scope.validateAlarmDuration.containsValidationError = false;
     $scope.validateAlarmDuration.errorMessage = "";
-  };
+  }
 
   function displayAlarmDurationMessage () {
 
     $scope.validateAlarmDuration.containsValidationError = true;
     $scope.validateAlarmDuration.errorMessage = "";
-  };
+  }
 
   $scope.validateStartTimeInput = {
     containsValidationError : false,
@@ -154,13 +161,13 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
     $scope.validateStartTimeInput.containsValidationError = false;
     $scope.validateStartTimeInput.errorMessage = "";
-  };
+  }
 
   function displayStartTimeInputMessage () {
 
     $scope.validateStartTimeInput.containsValidationError = true;
     $scope.validateStartTimeInput.errorMessage = "";
-  };
+  }
 
   $scope.validateEndTimeInput = {
     containsValidationError : false,
@@ -171,13 +178,13 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
     $scope.validateEndTimeInput.containsValidationError = false;
     $scope.validateEndTimeInput.errorMessage = "";
-  };
+  }
 
   function displayEndTimeInputMessage () {
 
     $scope.validateEndTimeInput.containsValidationError = true;
     $scope.validateEndTimeInput.errorMessage = "";
-  };
+  }
 
 
   $scope.setAlarmConfig = function (alarmSettings) {
@@ -187,26 +194,26 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 //      $window.location.href = '/setAlarmRPi ;
     var validationMessages = 0;
 
-    if ($scope.alarmSettings.armed.length == 0) {
+    if ($scope.alarmSettings.armed.length === 0) {
 
       displayAlarmSetMessage ();
       validationMessages++;
     }
 
-    if ($scope.alarmSettings.allDay.length == 0) {
+    if ($scope.alarmSettings.allDay.length === 0) {
 
       displayAlarmDurationMessage ();
       validationMessages++;
     }
 
-    if ($scope.alarmSettings.allDay == false) {
-      if ($scope.alarmSettings.startPeriod.length == 0) {
+    if ($scope.alarmSettings.allDay === false) {
+      if ($scope.alarmSettings.startPeriod.length === 0) {
 
         displayStartTimeInputMessage ();
         validationMessages++;
       }
 
-      if ($scope.alarmSettings.endPeriod.length == 0) {
+      if ($scope.alarmSettings.endPeriod.length === 0) {
 
         displayEndTimeInputMessage ();
         validationMessages++;
@@ -278,7 +285,6 @@ function setAlarmController($rootScope, $scope, $window, $timeout,
 
         });
     } // else
-  }
-
+  };
 
 }

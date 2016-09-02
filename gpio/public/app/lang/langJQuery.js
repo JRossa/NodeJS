@@ -1,7 +1,17 @@
-window.onload = menuDropDown
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = menuDropDown;
 
 function setLanguage() {
 
+  var i = 0;
   var state = $('#selectLang').prop('checked');
   var labelON = document.getElementsByClassName('toggle-on');
   var labelOFF = document.getElementsByClassName('toggle-off');
@@ -9,32 +19,32 @@ function setLanguage() {
   if (state) {
     angular.element('#langSelected').scope().changeLanguage('en');
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'Entrada')
         labelON[i].innerHTML = 'In';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'Saída')
         labelOFF[i].innerHTML = 'Out';
     }
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'Ligado')
         labelON[i].innerHTML = 'ON';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'Desligado')
         labelOFF[i].innerHTML = 'OFF';
     }
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'Permanente')
         labelON[i].innerHTML = 'Permanent';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'Parcial')
         labelOFF[i].innerHTML = 'Partial';
     }
@@ -42,32 +52,32 @@ function setLanguage() {
   } else {
     angular.element('#langSelected').scope().changeLanguage('pt');
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'In')
         labelON[i].innerHTML = 'Entrada';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'Out')
         labelOFF[i].innerHTML = 'Saída';
     }
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'ON')
         labelON[i].innerHTML = 'Ligado';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'OFF')
         labelOFF[i].innerHTML = 'Desligado';
     }
 
-    for(var i=0; i<labelON.length; i++) {
+    for(i = 0; i < labelON.length; i++) {
       if (labelON[i].innerHTML == 'Permanent')
         labelON[i].innerHTML = 'Permanente';
     }
 
-    for(var i=0; i<labelOFF.length; i++) {
+    for(i = 0; i < labelOFF.length; i++) {
       if (labelOFF[i].innerHTML == 'Partial')
         labelOFF[i].innerHTML = 'Parcial';
     }

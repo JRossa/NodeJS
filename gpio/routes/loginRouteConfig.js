@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var loginRouteConfig = function (app) {
 
   this.app = app;
@@ -5,7 +9,7 @@ var loginRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 loginRouteConfig.prototype.init = function () {
@@ -14,7 +18,7 @@ loginRouteConfig.prototype.init = function () {
 
   self.addRoutes();
   self.processRoutes();
-}
+};
 
 
 loginRouteConfig.prototype.processRoutes = function () {
@@ -43,7 +47,8 @@ loginRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 loginRouteConfig.prototype.addRoutes = function () {
 
@@ -54,16 +59,17 @@ loginRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/login',
     callbackFunction : function(req, res) {
 
-console.log('passou');
-      // render the page and pass in any flash data if it exists
-      res.render('login/login', {
-        title: "label.menubar_appTitle",
-        labels: global.lang,
-         });
+    console.log('passou');
+    // render the page and pass in any flash data if it exists
+    res.render('login/login', {
+      title: "label.menubar_appTitle",
+      labels: global.lang,
+     });
 
     }
   });
-}
+  
+};
 
 
 module.exports = loginRouteConfig;

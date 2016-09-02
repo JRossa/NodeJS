@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 
 var sensorTypeRouteConfig = function (app) {
 
@@ -5,7 +9,7 @@ var sensorTypeRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 /* Equivalent
@@ -25,11 +29,12 @@ sensorTypeRouteConfig.prototype.init = function () {
   self.addRoutes();
   self.processRoutes();
 
-}
+};
+
 
 sensorTypeRouteConfig.prototype.dbCreateTable = function () {
 
-  console.log(global.config.site.database)
+  console.log(global.config.site.database);
 
   var sensorTypeDao = require('../system/dao/sqliteSensorTypeDao');
   if (global.config.site.database === 'mysql') {
@@ -38,7 +43,7 @@ sensorTypeRouteConfig.prototype.dbCreateTable = function () {
 
   sensorTypeDao.sensorTypeDao.createTable();
 
-}
+};
 
 
 sensorTypeRouteConfig.prototype.processRoutes = function () {
@@ -67,7 +72,8 @@ sensorTypeRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 sensorTypeRouteConfig.prototype.addRoutes = function () {
 
@@ -240,6 +246,7 @@ sensorTypeRouteConfig.prototype.addRoutes = function () {
       }
   });
 
-}
+};
+
 
 module.exports = sensorTypeRouteConfig;

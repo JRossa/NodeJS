@@ -1,4 +1,6 @@
-'use strict'
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var utilAction = {
 
@@ -20,7 +22,7 @@ var utilAction = {
         if (actionsData.length == 1) {
           var alarmSettings = actionsData[0];
 
-          if (alarmSettings.all_day == false) {
+          if (alarmSettings.all_day === false) {
 
             actionDao.actionDao.getAlarmPeriod (alarmSettings.period_id,
 
@@ -86,8 +88,9 @@ var utilAction = {
         OnSuccessCallback(data);
     });
 
-  }
-}  //  getActionTypeById
+  }  //  getActionTypeById
+
+};
 
 
 module.exports = utilAction;

@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict:false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("sensorTypeModule")
        .controller("editSensorTypeController", editSensorTypeController);
 
@@ -63,7 +69,7 @@ function editSensorTypeController($rootScope, $scope, $window, $timeout,
            $("#editSensorType").show();
         });
 
-  }
+  };
 
   function bindView (sensorType) {
 
@@ -106,7 +112,7 @@ function editSensorTypeController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorNumber = {
@@ -118,19 +124,19 @@ function editSensorTypeController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorNumber.containsValidationError = false;
     $scope.validateSensorNumber.errorMessage = "";
-  };
+  }
 
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
     $scope.validateSensorNumber.errorMessage = $scope.label.editSensorType_controller_enterSensorNum;
-  };
+  }
 
   $scope.updateSensorType = function (sensorType) {
 
     var validationMessages = 0;
 
-    if ($scope.sensorType.sensorModel.length == 0) {
+    if ($scope.sensorType.sensorModel.length === 0) {
 
       displaySensorNumberMessage ();
       validationMessages++;
@@ -173,6 +179,6 @@ function editSensorTypeController($rootScope, $scope, $window, $timeout,
 
     } // else
 
-  }
+  };
 
 }

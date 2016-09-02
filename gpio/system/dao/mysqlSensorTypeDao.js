@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var sensorTypeDao = {
@@ -204,7 +208,7 @@ var sensorTypeDao = {
 
     var selectStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -226,7 +230,7 @@ var sensorTypeDao = {
 
     var selectStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -243,7 +247,7 @@ var sensorTypeDao = {
     }
   }  // getSensorTypeById
 
-}
+};
 
 
 module.exports.sensorTypeDao = sensorTypeDao;

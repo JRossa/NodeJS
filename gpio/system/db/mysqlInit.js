@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionString = require('./mysqlConnectionString');
 
 
@@ -25,13 +29,13 @@ var mysqlInit = {
       });       // Create Database
 */
 
-      connString = {
+      var connString = {
         host: connectionString.connectionString.connection.dev.host,
         user: connectionString.connectionString.connection.dev.user,
 //        database : connectionString.connectionString.connection.dev.database,
         password : connectionString.connectionString.connection.dev.password
 
-      }
+      };
 
       var connection = mysql.createConnection(connString);
 
@@ -45,15 +49,15 @@ var mysqlInit = {
 
           console.log('Connected Successefully !!');
 
-          selectStatement = "SHOW DATABASES;"
+          var selectStatement = "SHOW DATABASES;";
           connection.query(selectStatement, [], function (err, result) {
 
             if (err) {
-              throw "Show DB - Query error"
+              throw "Show DB - Query error";
             }
 
-            exists = false;
-            dbName = connectionString.connectionString.connection.dev.database;
+            var exists = false;
+            var dbName = connectionString.connectionString.connection.dev.database;
 
 //            console.log(result);
 //            console.log(dbName);
@@ -68,12 +72,12 @@ var mysqlInit = {
 
             if(!exists) {
               console.log("Creating DB file.");
-              createStatement = "CREATE DATABASE " + dbName + ";"
+              var createStatement = "CREATE DATABASE " + dbName + ";";
 
               connection.query(createStatement, [], function (err, result) {
 
               if (err) {
-                throw "Creating DB - Query error"
+                throw "Creating DB - Query error";
               }
 
               console.log('Creating DB Successefully !!');
@@ -88,6 +92,8 @@ var mysqlInit = {
 
       });
     }
-}
+
+};
+
 
 module.exports = mysqlInit;

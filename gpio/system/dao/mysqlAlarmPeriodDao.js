@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var alarmPeriodDao = {
@@ -99,7 +103,7 @@ var alarmPeriodDao = {
 
     var selectStatement = "SELECT * FROM tbl_alarmPeriod ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -117,7 +121,7 @@ var alarmPeriodDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }    // getAllAlarmPeriod
+  },    // getAllAlarmPeriod
 
 
   getAlarmPeriod : function (periodId, OnSuccessCallback) {
@@ -129,7 +133,7 @@ var alarmPeriodDao = {
     };
 
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -150,7 +154,7 @@ var alarmPeriodDao = {
   }    // getAlarmPeriod
 
 
-}
+};
 
 
 module.exports.alarmPeriodDao = alarmPeriodDao;

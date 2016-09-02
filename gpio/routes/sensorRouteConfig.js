@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var sensorRouteConfig = function (app) {
 
@@ -5,7 +8,7 @@ var sensorRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 /* Equivalent
@@ -25,7 +28,8 @@ sensorRouteConfig.prototype.init = function () {
   self.addRoutes();
   self.processRoutes();
 
-}
+};
+
 
 sensorRouteConfig.prototype.dbCreateTable = function () {
 
@@ -36,7 +40,7 @@ sensorRouteConfig.prototype.dbCreateTable = function () {
 
   sensorDao.sensorDao.createTable();
 
-}
+};
 
 
 sensorRouteConfig.prototype.processRoutes = function () {
@@ -65,7 +69,8 @@ sensorRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 sensorRouteConfig.prototype.addRoutes = function () {
 
@@ -236,6 +241,7 @@ sensorRouteConfig.prototype.addRoutes = function () {
       }
   });
 
-}
+};
+
 
 module.exports = sensorRouteConfig;

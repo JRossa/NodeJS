@@ -1,4 +1,13 @@
-window.onload = setInputStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = setInputStates;
 
 function setInputStates() {
   setListenOpenModal();
@@ -108,10 +117,10 @@ function setAlarmDuration (inputState, resetAlarmDuration) {
     //angular.element('#alarmDuration').scope().resetAlarmDuration();
 
     if (resetAlarmDuration) {
-      
+
       var alarmDuration = document.getElementById('alarmDuration');
 
-      if (alarmDuration != null) {
+      if (alarmDuration !== null) {
         angular.element("#alarmDuration").scope().pinData.pinAlarmDuration = null;
         document.getElementById("pinAlarmDurationInput").click();
       }
@@ -169,7 +178,7 @@ function setPinInputStatePT() {
   setAlarmDuration (inputState);
 
   // not used - for sample
-  $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}')
+  $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}');
 }
 
 // old
@@ -182,7 +191,7 @@ function setPinInputStateEN() {
   setAlarmDuration (inputState);
 
   // not used - for sample
-  $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}')
+  $('#pinInputState').html('{ \'state\' : \'' + $('#pinInput').prop('checked') + '\'}');
 }
 
 
@@ -206,7 +215,7 @@ function setPinUsedState() {
 
 
   // not used - for example
-  $('#pinUsedState').html('{ \'state\' : \'' + $('#pinUsed').prop('checked') + '\'}')
+  $('#pinUsedState').html('{ \'state\' : \'' + $('#pinUsed').prop('checked') + '\'}');
 }
 
 function validateTime(time) {
@@ -233,7 +242,7 @@ function setTimePicker(timeValue, timePicker) {
   var momentSet = moment().hours(splitTimeValue[0])
                           .minutes(splitTimeValue[1])
                           .seconds(splitTimeValue[2])
-                          .milliseconds(0)
+                          .milliseconds(0);
 
   timePicker.setValue(momentSet);
 

@@ -1,4 +1,13 @@
-window.onload = listEventStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = listEventStates;
 
 function listEventStates() {
   setListenActionDataTable();
@@ -97,7 +106,7 @@ function setDateTimePickerLang () {
     }
 
     var date = new Date();
-    strDate = date.getDate() + "-" + (date.getMonth() + 1) +
+    var strDate = date.getDate() + "-" + (date.getMonth() + 1) +
                 "-" + date.getFullYear();
 
     $('#startTime').data("DateTimePicker").setValue();
@@ -125,7 +134,7 @@ function selectSensor(searchSensor, itemSensor) {
 function convertDateTimePicker(dateTime) {
 
   if (dateTime === "undefined" ||
-             dateTime.toString() == "") {
+             dateTime.toString() === "") {
     return dateTime;
   }
 
@@ -163,7 +172,7 @@ function selectTime(searchTime, itemTime, greater) {
     return true;
   }
 
-  if (searchTime == "") {
+  if (searchTime === "") {
     return true;
   }
 

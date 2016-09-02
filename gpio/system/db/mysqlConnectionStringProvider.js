@@ -39,6 +39,8 @@ var connectionStringProvider =  {
       });
     }
   }
-}
+
+};
+
 
 module.exports.connectionStringProvider = connectionStringProvider;

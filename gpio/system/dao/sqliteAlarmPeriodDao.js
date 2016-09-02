@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
  var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
  var alarmPeriodDao = {
@@ -92,7 +96,7 @@
 
     var selectStatement = "SELECT * FROM tbl_alarmPeriod ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -118,7 +122,7 @@
     };
 
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -134,6 +138,7 @@
     } // connection
   }   // getAlarmPeriod
 
-}
+};
+
 
 module.exports.alarmPeriodDao = alarmPeriodDao;

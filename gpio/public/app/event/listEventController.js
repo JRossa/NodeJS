@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("eventModule")
        .controller("listEventController", listEventController);
 
@@ -10,6 +16,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
   $scope.eventsData = [];
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
@@ -35,7 +42,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
 //           $("#listEvent").show();
         });
-  };
+  }
 
   $scope.changeLanguage = function (langKey)  {
     $rootScope.currentLang = langKey;
@@ -55,7 +62,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //           $("#listEvent").show();
         });
 
-  }
+  };
 
   var sensorsData = [];
 
@@ -71,7 +78,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   function getAllEvents () {
     eventService.getAllEvents()
@@ -86,7 +93,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   $scope.eventData = {
 
@@ -104,7 +111,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
     $scope.eventData.eventSensorId = eventData.sensor_id.toString();
     $scope.eventData.eventSensorNum = eventData.sensor_num.toString();
     $scope.eventData.eventTime = eventData.act_time;
-  }
+  };
 
   $scope.deleteEvent = function () {
     console.log("Delete");
@@ -121,7 +128,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
         });
     }
-  }
+  };
 
   $scope.deleteAllEvent = function () {
     console.log("Delete All");
@@ -135,9 +142,9 @@ function listEventController($rootScope, $scope, $window, $timeout,
                 $window.location.href = '/listEvent';
               }
     });
-  }
+  };
 
-  eventData = {
+  var eventData = {
 
     eventId : "",
     eventSensorId : "",
@@ -157,7 +164,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
       eventData.eventTime = new Date();
       var currDate = new Date(eventData.eventTime - 1000 * 60 * eventData.eventTime.getTimezoneOffset());
 
-      indSensor = getRandomInt(1, sensorsData.length);
+      var indSensor = getRandomInt(1, sensorsData.length);
 
 //      console.log("Ind Sensor " + indSensor);
 //      console.log("Data Sensor " + sensorsData[indSensor].id);
@@ -177,9 +184,9 @@ function listEventController($rootScope, $scope, $window, $timeout,
           }
       });
     }
-  }
+  };
 
-  pinData = {
+  var pinData = {
     pinBOARD: "",
     pinDirection : "",
   };
@@ -189,8 +196,8 @@ function listEventController($rootScope, $scope, $window, $timeout,
     pinData.pinBOARD = 38;
     pinData.pinDirection = 'input';
 
-    eventService.setPinData(pinData)
-  }
+    eventService.setPinData(pinData);
+  };
 
   $scope.message = {
 
@@ -211,7 +218,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorNumber = {
@@ -223,13 +230,13 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorNumber.containsValidationError = false;
     $scope.validateSensorNumber.errorMessage = "";
-  };
+  }
 
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
     $scope.validateSensorNumber.errorMessage = $scope.label.listEvent_controller_enterSensorNum;
-  };
+  }
 
 
   /*
@@ -280,7 +287,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
   function convertDateTimePicker(dateTime) {
 
     if (dateTime === "undefined" ||
-               dateTime.toString() == "") {
+               dateTime.toString() === "") {
       return dateTime;
     }
 
@@ -318,7 +325,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
       return true;
     }
 
-    if (searchTime == "") {
+    if (searchTime === "") {
       return true;
     }
 
@@ -339,20 +346,20 @@ function listEventController($rootScope, $scope, $window, $timeout,
 
 //    console.log($scope.searchText);
 
-    if ($scope.searchText != null &&
-        $scope.searchText.sensor_num != null) {
+    if ($scope.searchText !== null &&
+        $scope.searchText.sensor_num !== null) {
           sensorOk = selectSensor($scope.searchText.sensor_num, item.sensor_num);
     }
 
-    if ($scope.searchText != null &&
-        $scope.searchText.startTime != null) {
+    if ($scope.searchText !== null &&
+        $scope.searchText.startTime !== null) {
 //          timeOk = selectTime($scope.searchText.startTime.toJSON(), item.act_time, true);
           timeOk = selectTime($scope.searchText.startTime, item.act_time, true);
     }
 
     if (timeOk) {
-      if ($scope.searchText != null &&
-          $scope.searchText.endTime != null) {
+      if ($scope.searchText !== null &&
+          $scope.searchText.endTime !== null) {
 //            timeOk = selectTime($scope.searchText.endTime.toJSON(), item.act_time, false);
             timeOk = selectTime($scope.searchText.endTime, item.act_time, false);
       }
@@ -361,7 +368,7 @@ function listEventController($rootScope, $scope, $window, $timeout,
 //    console.log(sensorOk);
 //    console.log(timeOk);
     return sensorOk && timeOk;
-  }
+  };
 
   $scope.sort = function (item) {
     $scope.sortKey = item;

@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var eventRouteConfig = function (app) {
 
@@ -5,7 +8,7 @@ var eventRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 /* Equivalent
@@ -25,7 +28,8 @@ eventRouteConfig.prototype.init = function () {
   self.addRoutes();
   self.processRoutes();
 
-}
+};
+
 
 eventRouteConfig.prototype.dbCreateTable = function () {
 
@@ -36,7 +40,7 @@ eventRouteConfig.prototype.dbCreateTable = function () {
 
   eventDao.eventDao.createTable();
 
-}
+};
 
 
 eventRouteConfig.prototype.processRoutes = function () {
@@ -65,7 +69,8 @@ eventRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 eventRouteConfig.prototype.addRoutes = function () {
 
@@ -184,6 +189,7 @@ eventRouteConfig.prototype.addRoutes = function () {
       }
   });
 
-}
+};
+
 
 module.exports = eventRouteConfig;

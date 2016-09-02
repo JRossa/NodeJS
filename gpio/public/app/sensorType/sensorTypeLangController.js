@@ -1,3 +1,8 @@
+/*jslint node: true */
+/*jshint strict:false */
+/*global angular: false */
+'use strict';
+
 angular.module("sensorTypeModule")
        .controller("langController", langController);
 
@@ -15,7 +20,7 @@ function langController($rootScope, $scope, $window, $timeout,
 
   var langKey = $window.localStorage.getItem('langKey');
 
-  setToggleLang(langKey)
+  setToggleLang(langKey);
 
   // used in toggle buttons labels
   function setToggleLang(langKey) {
@@ -33,5 +38,6 @@ function langController($rootScope, $scope, $window, $timeout,
 
   $scope.setToggleLang = function (langKey)  {
     setToggleLang(langKey);
-  }
+  };
+
 }

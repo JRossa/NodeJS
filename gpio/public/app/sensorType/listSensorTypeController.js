@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("sensorTypeModule")
        .controller("listSensorTypeController", listSensorTypeController);
 
@@ -10,6 +16,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
   $scope.sensorTypes = [];
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 /*
@@ -32,10 +39,10 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-          $scope.modalname = data.editSensorType_pagename
+          $scope.modalname = data.editSensorType_pagename;
           $("#listSensorType").show();
         });
-  };
+  }
 
   $scope.changeLanguage = function (langKey)  {
     $rootScope.currentLang = langKey;
@@ -52,11 +59,11 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
           $scope.label = data;
 //           $scope.label = {"menubar_home" : "Home"};
 //           console.log(data);
-          $scope.modalname = data.editSensorType_pagename
+          $scope.modalname = data.editSensorType_pagename;
           $("#listSensorType").show();
         });
 
-  }
+  };
 
   function getAllSensorTypes () {
 
@@ -72,7 +79,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
             }
       });
 
-  };
+  }
 
   $scope.sensorType = {
     sensorTypeId : "",
@@ -87,7 +94,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
     $scope.sensorType.sensorTypeId = sensorType.id;
     $scope.sensorType.sensorTypeModel = sensorType.model;
     $scope.sensorType.sensorTypeObs = sensorType.obs;
-  }
+  };
 
   $scope.deleteSensorType = function () {
     console.log("Delete");
@@ -104,7 +111,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
         });
     }
-  }
+  };
 
   $scope.message = {
 
@@ -125,7 +132,7 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorNumber = {
@@ -137,19 +144,19 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorNumber.containsValidationError = false;
     $scope.validateSensorNumber.errorMessage = "";
-  };
+  }
 
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
     $scope.validateSensorNumber.errorMessage = $scope.label.listSensorType_controller_enterSensorNum;
-  };
+  }
 
   $scope.updateSensorType = function (sensorType) {
 
     var validationMessages = 0;
 
-    if ($scope.sensorType.sensorTypeModel.length == 0) {
+    if ($scope.sensorType.sensorTypeModel.length === 0) {
 
       displaySensorNumberMessage ();
       validationMessages++;
@@ -194,11 +201,11 @@ function listSensorTypeController($rootScope, $scope, $window, $timeout,
 
     } // else
 
-  }
+  };
 
   $scope.setSensorFileName = function (fileName) {
 
       $scope.sensorType.sensorFileName = fileName;
-    }
+  };
 
 }

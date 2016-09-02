@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var actionRouteConfig = function (app) {
 
@@ -5,7 +8,7 @@ var actionRouteConfig = function (app) {
   this.routeTable = [];
 
   this.init();
-}
+};
 
 
 /* Equivalent
@@ -25,12 +28,12 @@ actionRouteConfig.prototype.init = function () {
 
   self.addRoutes();
   self.processRoutes();
-}
+};
 
 
 actionRouteConfig.prototype.dbCreateActionType = function () {
 
-  actionType = [];
+  var actionType = [];
 
   var actionDao = require('../system/dao/sqliteActionDao');
   if (global.config.site.database === 'mysql') {
@@ -75,7 +78,7 @@ actionRouteConfig.prototype.dbCreateActionType = function () {
     function (status){
       console.log('Error !!');
   });
-}
+};
 
 
 actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
@@ -85,7 +88,7 @@ actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
     actionDao = require('../system/dao/mysqlActionDao');
   }
 
-  alarmPeriod = {
+  var alarmPeriod = {
     startPeriod : '00:00',
     endPeriod   : '00:00'
   };
@@ -98,7 +101,7 @@ actionRouteConfig.prototype.dbCreateAlarmPeriod = function () {
       console.log(status);
   });
 
-}
+};
 
 
 actionRouteConfig.prototype.dbCreateTable = function () {
@@ -112,13 +115,13 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     actionDao.actionDao.createTableActionType( function (status) {
 
       if (status.status == "Finished") {
-        console.log("Insert Action Types !!")
+        console.log("Insert Action Types !!");
         self.dbCreateActionType();
 
         actionDao.actionDao.createTableAlarmPeriod(function (status) {
 
           if (status.status == "Finished") {
-            console.log("Insert Initial Period !!")
+            console.log("Insert Initial Period !!");
             self.dbCreateAlarmPeriod();
 
             actionDao.actionDao.createTableAction();
@@ -135,7 +138,7 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     actionDao.actionDao.createTableActionType( function (status) {
 
       if (status.status == "Finished") {
-        console.log("Insert Action Types !!")
+        console.log("Insert Action Types !!");
         self.dbCreateActionType();
       }
     });
@@ -143,7 +146,7 @@ actionRouteConfig.prototype.dbCreateTable = function () {
     actionDao.actionDao.createTableAlarmPeriod(function (status) {
 
       if (status.status == "Finished") {
-        console.log("Insert Initial Period !!")
+        console.log("Insert Initial Period !!");
         self.dbCreateAlarmPeriod();
       }
     });
@@ -158,7 +161,7 @@ actionRouteConfig.prototype.dbCreateTable = function () {
   });
 */
 
-}
+};
 
 
 actionRouteConfig.prototype.processRoutes = function () {
@@ -187,7 +190,8 @@ actionRouteConfig.prototype.processRoutes = function () {
 
   });
 
-}
+};
+
 
 actionRouteConfig.prototype.addRoutes = function () {
 
@@ -220,7 +224,7 @@ actionRouteConfig.prototype.addRoutes = function () {
       console.log("----------------POST createAction");
       console.log(req.body);
 
-      if (req.body.allDay == false) {
+      if (req.body.allDay === false) {
         actionDao.actionDao.createAlarmPeriod (req.body,
 
           function (status) {
@@ -354,7 +358,7 @@ actionRouteConfig.prototype.addRoutes = function () {
           if (actionsData.length == 1) {
             var alarmSettings = actionsData[0];
 
-            if (alarmSettings.all_day == false) {
+            if (alarmSettings.all_day === false) {
 
               actionDao.actionDao.getAlarmPeriod (alarmSettings.period_id,
 
@@ -423,6 +427,7 @@ actionRouteConfig.prototype.addRoutes = function () {
     }
   });
 
-}
+};
+
 
 module.exports = actionRouteConfig;

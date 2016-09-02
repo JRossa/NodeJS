@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("pinModule")
        .controller("createPinController", createPinController);
 
@@ -23,6 +29,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
 
   };
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
 
@@ -56,7 +63,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
            $("#createPin").show();
         });
 
-  }
+  };
 
   getSensors();
 
@@ -83,7 +90,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
     $scope.pinData.pinUsed = "";
     $scope.pinData.pinWarn = "";
     $scope.pinData.pinAlarmDuration = "";
-  };
+  }
 
 
   $scope.message = {
@@ -105,7 +112,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validatePinBOARD = {
@@ -117,13 +124,13 @@ function createPinController($rootScope, $scope, $window, $timeout,
 
     $scope.validatePinBOARD.containsValidationError = false;
     $scope.validatePinBOARD.errorMessage = "";
-  };
+  }
 
   function displayPinBOARDMessage () {
 
     $scope.validatePinBOARD.containsValidationError = true;
     $scope.validatePinBOARD.errorMessage = $scope.label.createPin_controller_enterPinBCM;
-  };
+  }
 
   $scope.validatePinBCM = {
     containsValidationError : false,
@@ -134,13 +141,13 @@ function createPinController($rootScope, $scope, $window, $timeout,
 
     $scope.validatePinBCM.containsValidationError = false;
     $scope.validatePinBCM.errorMessage = "";
-  };
+  }
 
   function displayPinBCMMessage () {
 
     $scope.validatePinBCM.containsValidationError = true;
     $scope.validatePinBCM.errorMessage = $scope.label.createPin_controller_enterPinBOARD;
-  };
+  }
 
   $scope.createPin = function (pinData) {
 
@@ -153,13 +160,13 @@ function createPinController($rootScope, $scope, $window, $timeout,
       ]);
 */
 
-    if ($scope.pinData.pinBOARD.length == 0) {
+    if ($scope.pinData.pinBOARD.length === 0) {
 
       displayPinBOARDMessage ();
       validationMessages++;
     }
 
-    if ($scope.pinData.pinBCM.length == 0) {
+    if ($scope.pinData.pinBCM.length === 0) {
 
       displayPinBCMMessage ();
       validationMessages++;
@@ -206,6 +213,6 @@ function createPinController($rootScope, $scope, $window, $timeout,
         });
     } // else
 
-  }
+  };
 
 } // createSensorController

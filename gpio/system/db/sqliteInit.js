@@ -21,6 +21,7 @@ var sqliteInit = {
     }
   }
 
-}
+};
+
 
 module.exports = sqliteInit;

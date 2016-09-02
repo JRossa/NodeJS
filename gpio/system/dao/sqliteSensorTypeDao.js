@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var sensorTypeDao = {
@@ -187,7 +191,7 @@ console.log(sensorUpdate);
 
     var selectStatement = "SELECT * FROM tbl_sensorType ORDER BY id";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -209,7 +213,7 @@ console.log(sensorUpdate);
 
     var selectStatement = "SELECT * FROM tbl_sensorType WHERE id = ?";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -226,7 +230,7 @@ console.log(sensorUpdate);
     }
   }  // getSensorTypeById
 
-}
+};
 
 
 module.exports.sensorTypeDao = sensorTypeDao;

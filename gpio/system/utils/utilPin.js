@@ -1,4 +1,6 @@
-'use strict'
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var utilPin = {
 
@@ -17,7 +19,7 @@ var utilPin = {
 
         if (alarmData.length > 0 &&
               alarmData[0].board > 0 &&
-                alarmData[0].input == false) {
+                alarmData[0].input === false) {
           OnSuccessCallback({pin : alarmData[0].board,
                              duration: alarmData[0].alarm_duration});
         } else {
@@ -42,7 +44,7 @@ var utilPin = {
 
         if (alarmData.length > 0 &&
               alarmData[0].board > 0 &&
-                alarmData[0].input == false) {
+                alarmData[0].input === false) {
           OnSuccessCallback({pin : alarmData[0].board,
                              duration: alarmData[0].alarm_duration});
         } else {
@@ -67,7 +69,7 @@ var utilPin = {
 
         if (sensorData.length > 0 &&
               sensorData[0].sensor_id > 0 &&
-                sensorData[0].input == true) {
+                sensorData[0].input === true) {
           OnSuccessCallback({sensorId   : sensorData[0].sensor_id,
                              sensorWarn : sensorData[0].warn});
         } else {
@@ -168,7 +170,7 @@ var utilPin = {
 
   }  // getAllInputPin
 
-}
+};
 
 
 module.exports = utilPin;

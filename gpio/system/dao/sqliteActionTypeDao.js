@@ -1,3 +1,6 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
@@ -101,7 +104,7 @@ var actionTypeDao = {
     console.log(selectStatement);
     console.log(actionTypeTag);
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -120,6 +123,7 @@ var actionTypeDao = {
     }
   }    // getActionTypeByTag
 
-}
+};
+
 
 module.exports.actionTypeDao = actionTypeDao;

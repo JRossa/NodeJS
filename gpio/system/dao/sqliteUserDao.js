@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var userDao = {
@@ -110,10 +114,10 @@ var userDao = {
 
     var deleteStatement = "DELETE FROM tbl_user WHERE id = ? ";
 
-    console.log("ligação  " + actionId);
+    console.log("ligação  " + userId);
 
     var actionDelete = {
-      id : actionId
+      id : userId
     };
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
@@ -154,7 +158,7 @@ var userDao = {
 
     var selectStatement = "SELECT * FROM tbl_user ORDER BY id ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -172,6 +176,7 @@ var userDao = {
   } // getAllUsers
 
 
-}
+};
+
 
 module.exports.userDao = userDao;

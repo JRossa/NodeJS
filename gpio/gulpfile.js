@@ -9,8 +9,10 @@ var gutil = require('gulp-util');
 
 
 var JSfiles = "./public/javascripts/*.js";
-var myJSfiles = "./public/app/**/*.js";
-var myEJSfiles = "./views/**/*.ejs";
+var appJSfiles = "./public/app/**/*.js";
+var routeJSfiles = "./routes/**/*.js";
+var sysJSfiles = "./system/**/*.js";
+var viewsEJSfiles = "./views/**/*.ejs";
 
 var outputJSDir = "./builds/scripts/"
 var outputEJSDir = "./builds/dev/"
@@ -24,20 +26,34 @@ gulp.task('scripts', function() {
 });
 
 // Lint Task
-gulp.task('mylint', function () {
-  return gulp.src(myJSfiles)
+gulp.task('applint', function () {
+  return gulp.src(appJSfiles)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+// Lint Task
+gulp.task('routelint', function () {
+  return gulp.src(routeJSfiles)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+// Lint Task
+gulp.task('syslint', function () {
+  return gulp.src(sysJSfiles)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+// Generic not use
 gulp.task('lint', function () {
   return gulp.src(files)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('myejs', function(){
-  return gulp.src(myEJSfiles)
+gulp.task('viewsejs', function(){
+  return gulp.src(viewsEJSfiles)
    .pipe(ejs({}, {ext:'.html'}))
    .on('error', gutil.log)
    .pipe(gulp.dest(outputEJSDir))

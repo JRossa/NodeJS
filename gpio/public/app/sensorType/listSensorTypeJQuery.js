@@ -1,4 +1,12 @@
-window.onload = setSensorTypeStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = setSensorTypeStates;
 
 function setSensorTypeStates() {
   menuDropDown();
@@ -87,7 +95,7 @@ function listenSelectLang () {
 }
 
 function listenFileName () {
-  
+
   $(':file').on('change', function(event, numFiles, label) {
     var fileName = $(":file").filestyle('pushNameFiles')[0].name;
 

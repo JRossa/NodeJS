@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var userDao = {
@@ -165,7 +169,7 @@ var userDao = {
 
     var selectStatement = "SELECT * FROM tbl_user ORDER BY id ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -185,9 +189,7 @@ var userDao = {
     }
   } // getAllUsers
 
-
-
-}
+};
 
 
 module.exports.userDao = userDao;

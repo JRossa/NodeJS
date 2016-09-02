@@ -1,6 +1,8 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
-
-
 
 var sensorDao = {
 
@@ -81,7 +83,7 @@ var sensorDao = {
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
 //                    OnErrorCallback({ error : "Sensor already exists !!!"});
-                    const myError = new Error();
+                    var myError = new Error();
                     myError.name = 'createSensor';
                     myError.errstk =  err.stack;
                     myError.message = 'Sensor already exists !!!';
@@ -267,7 +269,7 @@ var sensorDao = {
                           "FROM tbl_sensor AS a, tbl_sensorType AS b " +
                           "WHERE a.type_id = b.id ORDER BY a.id";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -289,7 +291,7 @@ var sensorDao = {
 
     var selectStatement = "SELECT * FROM tbl_sensor WHERE Id = ?";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -306,7 +308,7 @@ var sensorDao = {
     }
   }  // getSensorById
 
-}
+};
 
 
 module.exports.sensorDao = sensorDao;

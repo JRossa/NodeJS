@@ -1,3 +1,7 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var pinDao = {
@@ -227,7 +231,7 @@ var pinDao = {
     var selectStatement = "SELECT * FROM tbl_pin ORDER BY id ";
 
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -239,11 +243,11 @@ var pinDao = {
 
       // convert boolean 0 -> false & 1 -> true
 
-      for (row in rows) {
+      for (var row in rows) {
 //        console.log(rows[row].input);
-        rows[row].input  = (rows[row].input == 0)? false: true;
-        rows[row].used  = (rows[row].used == 0)? false: true;
-        rows[row].warn  = (rows[row].warn == 0)? false: true;
+        rows[row].input  = (rows[row].input === 0)? false: true;
+        rows[row].used  = (rows[row].used === 0)? false: true;
+        rows[row].warn  = (rows[row].warn === 0)? false: true;
       }
 
 //        console.log(rows);
@@ -261,7 +265,7 @@ var pinDao = {
     var selectStatement = "SELECT * FROM tbl_pin WHERE input = true ORDER BY id ";
 
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -273,11 +277,11 @@ var pinDao = {
 
       // convert boolean 0 -> false & 1 -> true
 
-      for (row in rows) {
+      for (var row in rows) {
 //        console.log(rows[row].input);
-        rows[row].input  = (rows[row].input == 0)? false: true;
-        rows[row].used  = (rows[row].used == 0)? false: true;
-        rows[row].warn  = (rows[row].warn == 0)? false: true;
+        rows[row].input  = (rows[row].input === 0)? false: true;
+        rows[row].used  = (rows[row].used === 0)? false: true;
+        rows[row].warn  = (rows[row].warn === 0)? false: true;
       }
 
 //        console.log(rows);
@@ -294,7 +298,7 @@ var pinDao = {
 
     var selectStatement = "SELECT * FROM tbl_pin WHERE board = ? ORDER BY id ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -305,11 +309,11 @@ var pinDao = {
         }
         // convert boolean 0 -> false & 1 -> true
 
-        for (row in rows) {
+        for (var row in rows) {
 //          console.log(rows[row].input);
-          rows[row].input  = (rows[row].input == 0)? false: true;
-          rows[row].used  = (rows[row].used == 0)? false: true;
-          rows[row].warn  = (rows[row].warn == 0)? false: true;
+          rows[row].input  = (rows[row].input === 0)? false: true;
+          rows[row].used  = (rows[row].used === 0)? false: true;
+          rows[row].warn  = (rows[row].warn === 0)? false: true;
         }
 //        console.log(rows);
         OnSuccessCallback(rows);
@@ -327,7 +331,7 @@ var pinDao = {
                           "WHERE used = true AND input = false AND warn = ? " +
                           "ORDER BY id ";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -338,11 +342,11 @@ var pinDao = {
         }
         // convert boolean 0 -> false & 1 -> true
 
-        for (row in rows) {
+        for (var row in rows) {
 //          console.log(rows[row].input);
-          rows[row].input  = (rows[row].input == 0)? false: true;
-          rows[row].used  = (rows[row].used == 0)? false: true;
-          rows[row].warn  = (rows[row].warn == 0)? false: true;
+          rows[row].input  = (rows[row].input === 0)? false: true;
+          rows[row].used  = (rows[row].used === 0)? false: true;
+          rows[row].warn  = (rows[row].warn === 0)? false: true;
         }
 //        console.log(rows);
         OnSuccessCallback(rows);
@@ -353,9 +357,7 @@ var pinDao = {
     }
   }  // getOutputPin
 
-
-
-}
+};
 
 
 module.exports.pinDao = pinDao;

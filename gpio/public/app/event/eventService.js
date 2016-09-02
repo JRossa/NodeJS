@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*global angular: false */
+/*global eventData: false */
+'use strict';
+
 angular.module("eventModule")
        .factory("eventService", eventService);
 

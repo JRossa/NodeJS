@@ -1,3 +1,10 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+/*global alert: false */
+'use strict';
+
 angular.module("sensorModule")
        .config(createSensorConfig)
        .controller("createSensorController", createSensorController);
@@ -14,7 +21,7 @@ function createSensorConfig($provide) {
 		};
 
 	});
-};
+}
 
 
 createSensorController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
@@ -34,6 +41,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
 
   };
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage ();
@@ -66,7 +74,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
            $("#createSensor").show();
         });
 
-  }
+  };
 
   getSensorTypes();
 
@@ -88,7 +96,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
     $scope.sensorData.sensorNumber = "";
     $scope.sensorData.sensorTypeId = "";
     $scope.sensorData.sensorLocation = "";
-  };
+  }
 
 
   $scope.message = {
@@ -110,7 +118,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorNumber = {
@@ -122,13 +130,13 @@ function createSensorController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorNumber.containsValidationError = false;
     $scope.validateSensorNumber.errorMessage = "";
-  };
+  }
 
   function displaySensorNumberMessage () {
 
     $scope.validateSensorNumber.containsValidationError = true;
     $scope.validateSensorNumber.errorMessage = $scope.label.createSensor_controller_enterSensorNum;
-  };
+  }
 
   $scope.validateSensorTypeId = {
     containsValidationError : false,
@@ -139,13 +147,13 @@ function createSensorController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorTypeId.containsValidationError = false;
     $scope.validateSensorTypeId.errorMessage = "";
-  };
+  }
 
   function displaySensorTypeIdMessage () {
 
     $scope.validateSensorTypeId.containsValidationError = true;
     $scope.validateSensorTypeId.errorMessage = $scope.label.createSensor_controller_enterSensorModel;
-  };
+  }
 
   $scope.createSensor = function (sensorData) {
 
@@ -158,7 +166,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
       ]);
 */
 
-    if ($scope.sensorData.sensorNumber.length == 0) {
+    if ($scope.sensorData.sensorNumber.length === 0) {
 
       displaySensorNumberMessage ();
       validationMessages++;
@@ -200,6 +208,6 @@ function createSensorController($rootScope, $scope, $window, $timeout,
         });
     } // else
 
-  }
+  };
 
 } // createSensorController

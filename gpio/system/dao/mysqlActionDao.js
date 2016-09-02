@@ -1,7 +1,10 @@
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
+
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var actionDao = {
-
 
   createTableAction : function () {
 
@@ -185,7 +188,7 @@ var actionDao = {
                           "FROM tbl_action AS a, tbl_actionType AS t " +
                           "WHERE a.type_id = t.id ORDER BY a.id";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -210,7 +213,7 @@ var actionDao = {
 
     var selectStatement = "SELECT * FROM tbl_action ORDER BY id DESC LIMIT 1";
 
-    connection = connectionProvider.connectionStringProvider.getConnection();
+    var connection = connectionProvider.connectionStringProvider.getConnection();
 
     if (connection) {
 
@@ -222,9 +225,9 @@ var actionDao = {
       }
 
       // convert boolean 0 -> false & 1 -> true
-      for (row in rows) {
-        rows[row].all_day  = (rows[row].all_day == 0)? false: true;
-        rows[row].armed  = (rows[row].armed == 0)? false: true;
+      for (var row in rows) {
+        rows[row].all_day  = (rows[row].all_day === 0)? false: true;
+        rows[row].armed  = (rows[row].armed === 0)? false: true;
       }
 
 //      console.log(rows);
@@ -295,7 +298,7 @@ var actionDao = {
 
   } // getAlarmPeriod
 
-}
+};
 
 
 module.exports.actionDao = actionDao;

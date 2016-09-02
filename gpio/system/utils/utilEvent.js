@@ -1,4 +1,6 @@
-'use strict'
+/*jslint node: true */
+/*jshint strict:false */
+'use strict';
 
 var utilEvent = {
 
@@ -36,7 +38,7 @@ var utilEvent = {
       });
   }
 
-}
+};
 
 
 module.exports = utilEvent;

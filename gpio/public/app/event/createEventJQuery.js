@@ -1,4 +1,13 @@
-window.onload = createEventStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = createEventStates;
 
 function createEventStates() {
   listenSelectLang();
@@ -23,7 +32,7 @@ function setDateTimePickerLang () {
     }
 
     var date = new Date();
-    strDate = date.getDate() + "-" + (date.getMonth() + 1) +
+    var strDate = date.getDate() + "-" + (date.getMonth() + 1) +
                 "-" + date.getFullYear();
 
     $('#eventTime').data("DateTimePicker").setValue();

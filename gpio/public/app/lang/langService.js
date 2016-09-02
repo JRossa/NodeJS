@@ -1,3 +1,10 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jshint jquery: true */
+/*global angular: false */
+/*global defer: false */
+'use strict';
+
 angular.module("langModule")
        .factory("langService", langService);
 
@@ -56,9 +63,9 @@ function langService ($http, $q) {
         lang : langKey
       });
 
-  
+
     }  // setLanguage
 
 
-  } // return
-}   // function
+  }; // return
+}    // function

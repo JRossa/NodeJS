@@ -1,3 +1,8 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*global angular: false */
+'use strict';
+
 angular.module("sensorModule")
        .factory("sensorService", sensorService);
 

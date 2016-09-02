@@ -1,4 +1,10 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+/*global moment: false */
 'use strict';
+
 
 /**
  * Bootstrap-toggle Directive
@@ -83,9 +89,9 @@ function timepicker ($window) {
 			if(!ngModel) return; // do nothing if no ng-model
 
 
-			ngModel.$render = function(){
+			ngModel.$render = function() {
 				element.find('input').val( ngModel.$viewValue || '' );
-			}
+			};
 
       var dateNow = new Date();
 
@@ -114,5 +120,6 @@ function timepicker ($window) {
 				ngModel.$setViewValue(value);
 			}
 		}
-	}
+	};
+
 }

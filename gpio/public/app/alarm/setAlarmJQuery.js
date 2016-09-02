@@ -1,4 +1,13 @@
-window.onload = setAlarmStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*global moment: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = setAlarmStates;
 
 function setAlarmStates() {
   setListenOpenSetAlarmForm();
@@ -46,8 +55,8 @@ function setAlarmPeriodState(resetPeriod) {
     document.getElementById("endTime").setAttribute('required','required');
 */
 
-    if (angular.element("#setAlarmSaveButton").scope().alarmSettings.startPeriod == "" ||
-        angular.element("#setAlarmSaveButton").scope().alarmSettings.endPeriod == "") {
+    if (angular.element("#setAlarmSaveButton").scope().alarmSettings.startPeriod === "" ||
+        angular.element("#setAlarmSaveButton").scope().alarmSettings.endPeriod === "") {
       document.getElementById("setAlarmSaveButton").setAttribute('disabled','disabled');
     }
   }
@@ -76,7 +85,7 @@ function setTimePicker(timeValue, timePicker) {
   var momentSet = moment().hours(splitTimeValue[0])
                           .minutes(splitTimeValue[1])
                           .seconds(0)
-                          .milliseconds(0)
+                          .milliseconds(0);
 
   timePicker.setValue(momentSet);
 }
@@ -85,7 +94,7 @@ function readEndPeriod () {
 //  console.log(angular.element("#setAlarmSaveButton").scope().alarmSettings);
 
   var startPeriod = angular.element("#setAlarmSaveButton").scope().alarmSettings.endPeriod;
-  if (startPeriod != "") {
+  if (startPeriod !== "") {
     var startTimePicker = $('#periodStartTime').data("DateTimePicker");
 
 //    console.log(startPeriod);
@@ -93,7 +102,7 @@ function readEndPeriod () {
   }
 
   var endPeriod = angular.element("#setAlarmSaveButton").scope().alarmSettings.endPeriod;
-  if (endPeriod != "") {
+  if (endPeriod !== "") {
     var endTimePicker = $('#periodEndTime').data("DateTimePicker");
 
 //    console.log(endPeriod);

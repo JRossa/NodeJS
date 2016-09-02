@@ -1,3 +1,9 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+'use strict';
+
 angular.module("sensorTypeModule")
        .controller("createSensorTypeController", createSensorTypeController);
 
@@ -15,6 +21,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
     sensorObs : ""
   };
 
+  /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
 
   loadLanguage ();
@@ -47,13 +54,13 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
            $("#createSensorType").show();
         });
 
-  }
+  };
 
   function clearSensorType () {
 
     $scope.sensorType.sensorModel = "";
     $scope.sensorType.sensorObs = "";
-  };
+  }
 
 
   $scope.message = {
@@ -75,7 +82,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
     $scope.message.containsSucessfulMessage = successStatus;
     $scope.message.containsErrorMessage = errorStatus;
     $scope.message.textMessage = text;
-  };
+  }
 
 
   $scope.validateSensorModel = {
@@ -87,13 +94,13 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
 
     $scope.validateSensorModel.containsValidationError = false;
     $scope.validateSensorModel.errorMessage = "";
-  };
+  }
 
   function displaySensorModelMessage () {
 
     $scope.validateSensorModel.containsValidationError = true;
     $scope.validateSensorModel.errorMessage = $scope.label.createSensorType_controller_enterSensorModel;
-  };
+  }
 
   $scope.createSensorType = function (sensorType) {
 
@@ -106,7 +113,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
       ]);
 */
 
-    if ($scope.sensorType.sensorModel.length == 0) {
+    if ($scope.sensorType.sensorModel.length === 0) {
 
       displaySensorModelMessage ();
       validationMessages++;
@@ -148,12 +155,12 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
 
     } // else
 
-  }
+  };
 
 $scope.setSensorFileName = function (fileName) {
 
     $scope.sensorType.sensorFileName = fileName;
-  }
+  };
 
 
 } // createSensorTypeController

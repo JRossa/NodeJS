@@ -1,4 +1,12 @@
-window.onload = setSensorStates
+/*jslint node: true */
+/*jslint browser: true*/
+/*jslint jquery: true*/
+/*global angular: false */
+/*global menuDropDown: false */
+/*jshint strict:false */
+'use strict';
+
+window.onload = setSensorStates;
 
 function setSensorStates() {
   menuDropDown();

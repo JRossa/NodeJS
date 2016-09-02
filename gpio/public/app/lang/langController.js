@@ -1,3 +1,10 @@
+/*jslint node: true */
+/*jshint strict: false */
+/*jslint jquery: true*/
+/*global angular: false */
+/*global document: false */
+'use strict';
+
 angular.module("langModule")
        .controller("langController", langController);
 
@@ -34,7 +41,7 @@ function langController ($rootScope, $scope, $window,
         });
 
     langService.setLanguage(langKey);
-  }
+  };
 
   $scope.loadLanguage = function ()  {
 
@@ -53,7 +60,7 @@ function langController ($rootScope, $scope, $window,
         });
 
     langService.setLanguage(langKey);
-  }
+  };
 
   $scope.showLang = {
     disabled: false,
@@ -66,7 +73,7 @@ function langController ($rootScope, $scope, $window,
 
 
 //  console.log(langKey)
-  setToggleLang(langKey)
+  setToggleLang(langKey);
 
   // used in toggle buttons labels
   function setToggleLang(langKey) {
@@ -100,6 +107,6 @@ function langController ($rootScope, $scope, $window,
       render(data);
     });
 
-  }
+  };
 
 }
