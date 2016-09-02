@@ -53,9 +53,10 @@ app.use('/bower_components', express.static(path.join(__dirname, '/bower_compone
 // Routing
 // Home Page
 var routes = require('./routes/index');
+app.use('/', routes);
 app.use('/setLanguage', routes);
 app.use('/myuser', routes);
-app.use('/', routes);
+app.use('/webIOPi', routes);
 
 
 // Sensors

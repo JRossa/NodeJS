@@ -222,6 +222,7 @@
   "menubar_disarmRPi" : "Listar Config",
   "menubar_setGPIO" : "Aplicar Config RPi",
   "menubar_clearGPIO" : "Limpar Config RPi",
+  "menubar_webIOPi" : "Verificar Pinos",
   "menubar_createPin" : "Criar Pino IO",
   "menubar_listPin" : "Listar Pinos IO",
   "menubar_event" : "Ativações",

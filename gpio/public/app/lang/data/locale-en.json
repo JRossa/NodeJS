@@ -221,6 +221,7 @@
   "menubar_disarmRPi" : "List Settings",
   "menubar_setGPIO" : "Set RPi",
   "menubar_clearGPIO" : "Clear RPi",
+  "menubar_webIOPi" : "Pins State",
   "menubar_createPin" : "Create IO Pin",
   "menubar_listPin" : "List IO Pins",
   "menubar_event" : "Events",

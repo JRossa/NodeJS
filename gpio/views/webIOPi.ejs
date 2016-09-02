@@ -1,0 +1,50 @@
+
+<% include templates/header.ejs %>
+
+
+
+<div  id="index"
+      align="center"
+      data-ng-app="langModule"
+      data-ng-controller="langController"
+      data-ng-init="loadLanguage()"
+      style="display:none">
+
+  <% include templates/menu.ejs %>
+
+  <br/>
+  <div>
+     <h3>webIOPi</h3>
+     <object type="text/html"
+             data="http://192.168.1.61:8000/app/gpio-header"
+             width="600px"
+             height="720px"
+             style="overflow: auto;
+                    border:4px ridge green">
+     </object>
+  </div>
+
+</div> <!-- controller -->
+
+
+<script src='/javascripts/jquery-2.2.4.min.js'></script>
+<!--
+<script src='/bower_components/jquery/dist/jquery.js'></script>
+-->
+
+<!-- Anguler  core -->
+<script src='/bower_components/angular/angular.js'></script>
+<script src='/bower_components/angular-messages/angular-messages.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- GPIO -->
+<script src='/app/lang/langModule.js'></script>
+<script src="/app/lang/langController.js"></script>
+<script src="/app/lang/langService.js"></script>
+<script src="/app/socket/socketService.js"></script>
+
+<script src="/app/lang/langJQuery.js"></script>
+<!--
+<script src="/app/socketClient/socketClient.js"></script>
+-->
+<% include templates/footer.ejs %>

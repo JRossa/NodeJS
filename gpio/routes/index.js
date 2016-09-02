@@ -40,6 +40,16 @@ router.get('/', function(req, res, next) {
 });
 
 
+router.get('/webIOPi', function(req, res, next) {
+
+  res.render('webIOPi', {
+    title: "label.menubar_appTitle",
+    labels: global.lang,
+   });
+
+});
+
+
 router.post('/setLanguage', function(req, res, next) {
 
     console.log(req.body.lang);
