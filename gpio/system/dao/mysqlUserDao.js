@@ -7,7 +7,7 @@ var connectionProvider = require('../db/mysqlConnectionStringProvider');
 var userDao = {
 
 
-  createTable : function () {
+  createTable : function (OnSuccessCallback) {
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -40,7 +40,7 @@ var userDao = {
                 throw err;
               } else {
                 console.log("SQL Table 'tbl_user' initialized.");
-              }
+                OnSuccessCallback({ status : "Finished"});              }
             }); // Create Table
           }
         }

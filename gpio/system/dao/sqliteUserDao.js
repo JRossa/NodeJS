@@ -7,7 +7,7 @@ var connectionProvider = require('../db/sqliteConnectionStringProvider');
 var userDao = {
 
 
-  createTable : function () {
+  createTable : function (OnSuccessCallback) {
 
     var sqlite3 = require('sqlite3').verbose();
     var sqliteInit = require('../db/sqliteInit');
@@ -35,6 +35,7 @@ var userDao = {
                         console.log(err);
                     } else {
                         console.log("SQL Table 'tbl_user' initialized.");
+                        OnSuccessCallback({ status : "Finished"});
                     }
                 });
             } else {

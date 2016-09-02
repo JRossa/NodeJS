@@ -33,6 +33,29 @@ userRouteConfig.prototype.init = function () {
 
 
 
+userRouteConfig.prototype.dbCreateUser = function () {
+
+  var userDao = require('../system/dao/sqliteUserDao');
+  if (global.config.site.database === 'mysql') {
+    userDao = require('../system/dao/mysqlUserDao');
+  }
+
+  var userData = {
+    login    : 'user',
+    password : null
+  };
+
+  userDao.userDao.createUser(userData,
+    function (status){
+      console.log(status);
+  },
+    function (status){
+      console.log(status);
+  });
+
+};
+
+
 userRouteConfig.prototype.dbCreateTable = function () {
 
   var self = this;
@@ -42,7 +65,15 @@ userRouteConfig.prototype.dbCreateTable = function () {
     userDao = require('../system/dao/mysqlUserDao');
   }
 
-  userDao.userDao.createTable();
+  userDao.userDao.createTable(function (status) {
+
+    if (status.status == "Finished") {
+
+      setTimeout( function() {
+        self.dbCreateUser();
+      }, 2000);
+    }
+  });
 
 };
 
