@@ -1,8 +1,8 @@
+
 /*jslint node: true */
 /*jshint strict: false */
 /*jshint jquery: true */
 /*global angular: false */
-/*global defer: false */
 'use strict';
 
 angular.module("langModule")
@@ -32,7 +32,7 @@ function langService ($http, $q) {
       return defer.promise;
 */
 
-      defer = $.Deferred();
+      var defer = $.Deferred();
 
       //console.log(langKey);
 
