@@ -93,8 +93,8 @@ var utilPin = {
         if (actionLst.length > 0 ) {
           utilAction.getLastAction (
             function (lastAction) {
-              console.log(actionLst[0].id);
-              console.log(lastAction);
+//              console.log(action);
+//              console.log(actionLst[0].id);
 
               lastAction.typeId = actionLst[0].id;
               lastAction.allDay = lastAction.all_day;
@@ -103,14 +103,17 @@ var utilPin = {
               switch (action) {
                 case "ALARM_SWITCH":
                   lastAction.periodId = null;
+                  break;
                 case "ALARM_ON":
                   lastAction.armed = true;
-
+                  break;
                 case "ALARM_OFF":
                   lastAction.armed = false;
-
+                  break;
                 default:
+                break;
               }
+//              console.log(lastAction);
 
               utilAction.insertAction(lastAction);
           });
@@ -121,7 +124,6 @@ var utilPin = {
                 console.log(lastAction);
 
                 if (lastAction.armed) {
-                  self.lastAction("ALARM_OFF");
 
                   var pinData = {
                     pinBOARD: process.env.PIN_SWITCH,
@@ -130,6 +132,7 @@ var utilPin = {
 
                   pi3GPIO.pi3GPIO.setPinData(pinData);
 
+                  self.lastAction("ALARM_OFF");
                 } else {
                   self.lastAction("ALARM_ON");
                 }

@@ -100,7 +100,7 @@ var pi3GPIO = {
 
   listenPin : function (pin) {
 
-    var self = this:
+    var self = this;
 //    function pin_button(pin)
 //    {
 //      console.log('Nuke button on pin %d pressed', pin);
