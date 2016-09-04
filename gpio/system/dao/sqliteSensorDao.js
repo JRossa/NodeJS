@@ -2,6 +2,7 @@
 /*jshint strict:false */
 'use strict';
 
+var errorHdlr = require('../utils/utilErrorHandler');
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
 var sensorDao = {
@@ -82,14 +83,9 @@ var sensorDao = {
 //                    console.log(err);
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
+                    err.errPlace = "Run";
+                    err.errorLst = errorLst;
 //                    OnErrorCallback({ error : "Sensor already exists !!!"});
-                    var myError = new Error();
-                    myError.name = 'createSensor';
-                    myError.errstk =  err.stack;
-                    myError.message = 'Sensor already exists !!!';
-//                    console.log(myError);
-                    process.emit('warning', myError);
-//                    console.log(errorl.stack);
 //                    throw err;
 
               } else {
@@ -99,14 +95,14 @@ var sensorDao = {
 //                  console.log(row);
                   OnSuccessCallback({ status : "Successful"});
               }
-// https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/
+
+              // https://docs.nodejitsu.com/articles/errors/what-are-the-error-conventions/
               if (err !== null) {
+
                 setTimeout( function() {
-                  OnErrorCallback({ query  : errorLst,
-                                    err    : err,
-                                    errstk : myError,
-                                    error  : "Sensor already exists !!!"});
-                }, 50);
+                  var error = errorHdlr.errorHandler(err);
+                  OnErrorCallback(error);
+                }, 200);
               }
 
           });

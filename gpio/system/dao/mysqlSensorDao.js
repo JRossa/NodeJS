@@ -79,19 +79,14 @@ var sensorDao = {
 //return log("Query failed. Error: %s. Query: %s", err, query);
                     if (errRoll !== null) {
                       connectionProvider.connectionStringProvider.closeConnection(connection);
+                      err.errPlace = "Rollback";
                       //next(err);
-                      OnErrorCallback({ query : query.sql,
-                                        err : errRoll,
-                                        error : "Roll back"});
-                      return;
                     }
 //                  throw err;
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                OnErrorCallback({ query : query.sql,
-                                  err : err,
-                                  error : "Sensor already exists !!!"});
+                err.errPlace = "Query"});
             }
             else {
 
@@ -101,10 +96,7 @@ var sensorDao = {
                     if (errRoll !== null) {
                       connectionProvider.connectionStringProvider.closeConnection(connection);
                       //next(err);
-                      OnErrorCallback({ query : query.sql,
-                                        err : errRoll,
-                                        error : "Roll back"});
-                      return;
+                      err.errPlace = "Rollback";
                     }
 //                    throw err;
                   });
@@ -118,6 +110,18 @@ var sensorDao = {
           }
         });
       }); // beginTransaction
+
+      if (err !== null) {
+
+
+       setTimeout( function() {
+         err.sql = query.sql;
+         var error = errorHdlr.errorHandler(err, errRoll);
+
+         OnErrorCallback(error);
+       }, 50);
+
+      }
     }     // connection
   },      // createSensor
 

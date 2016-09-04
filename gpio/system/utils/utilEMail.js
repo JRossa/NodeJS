@@ -247,7 +247,7 @@ var utilEMail = {
   },  //  getAuhorization
 
 
-  readClientSecret : function (OnSucessfullCallback) {
+  readClientSecret : function (OnSuccessCallback) {
 
     // Load client secrets from a local file.
     fs.readFile('client_secret.json', function processClientSecrets(err, content) {
@@ -256,13 +256,13 @@ var utilEMail = {
         return;
       }
 
-      OnSucessfullCallback(JSON.parse(content));
+      OnSuccessCallback(JSON.parse(content));
     });   // readFile
 
   },
 
 
-  sendEMail : function () {
+  sendEMail : function (message) {
 
     var self = this;
 
@@ -300,14 +300,25 @@ var utilEMail = {
             }
         });
 
+        var transporter2 = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.USER,     // Your email id
+                pass: process.env.PASSWORD  // Your password
+            }
+        });
+
         var mailOptions = {
-          from: '',
-          to: process.env.TO,
-          subject: "Hello",
-          generateTextFromHTML: true,
-          html: "<b>Hello world</b>"
+          from: 'Do Not Replay <process.env.TO>',
+//          sender: 'rossa.jmr@gmail.com',
+          to:      process.env.TO,
+          subject: global.lang.mailSubject,
+          text:    message,
+          // generateTextFromHTML: true,
+          // html: "<b>Hello world</b>"
         };
 
+        // https://support.google.com/mail/answer/14257
         transporter.sendMail(mailOptions, function(error, response) {
           if (error) {
             console.log(error);

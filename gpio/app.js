@@ -153,7 +153,7 @@ process.on('warning', function (warning) {
 //  process.on('warning', (warning) => {
   console.warn(warning.name);
   console.warn(warning.message);
-  console.warn(warning.stack);
+//  console.warn(warning.stack);
   console.warn(warning.errstk);
 });
 

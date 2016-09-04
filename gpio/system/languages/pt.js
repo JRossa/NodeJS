@@ -1,4 +1,8 @@
 var label = {
+    appTitle: 'RPi 3',
+
+    mailSubject: 'RPi 3 - Problema no Servidor !!!',
+
     menu: {
         home: 'Início',
         config: 'Configirar',

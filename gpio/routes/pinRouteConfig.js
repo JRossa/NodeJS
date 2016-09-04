@@ -302,7 +302,7 @@ pinRouteConfig.prototype.addRoutes = function () {
 
       utilEMail.TOKEN_PATH();
 //      utilEMail.getAuhorization();
-      utilEMail.sendEMail();
+      utilEMail.sendEMail('Here is the message');
     }
       // nothing to return
       res.end();
