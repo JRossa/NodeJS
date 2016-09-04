@@ -50,6 +50,53 @@ router.get('/webIOPi', function(req, res, next) {
 });
 
 
+router.get('/getCredentials', function(req, res, next) {
+
+  console.log("GET getCredentials");
+  console.log(req.body);
+
+  var request = require('request');
+  var utilEMail = require('../system/utils/utilEMail');
+
+  utilEMail.readClientSecret(function (secrets) {
+
+    console.log(secrets);
+
+    var authUrl = utilEMail.generateAuthUrl(secrets, 1);
+
+//    console.log(authUrl);
+
+    res.redirect(authUrl);
+  });
+
+});
+
+
+router.get('/oauth2callback', function(req, res) {
+  var code = req.query.code;
+
+  var request = require('request');
+  var utilEMail = require('../system/utils/utilEMail');
+//  console.log('----->  ' + req.query.code);
+//  console.log('----->  ' + code);
+
+  utilEMail.readClientSecret(function (secrets) {
+
+    console.log(secrets);
+
+    utilEMail.processCode(code, secrets, 1);
+
+    // let finish to write the token
+    setTimeout(function(){
+      res.redirect('/');
+    }, 500);
+
+  });
+
+  //res.end();
+});
+
+
 router.post('/setLanguage', function(req, res, next) {
 
     console.log(req.body.lang);

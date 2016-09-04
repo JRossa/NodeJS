@@ -291,10 +291,19 @@ pinRouteConfig.prototype.addRoutes = function () {
       console.log("POST setPinData");
       console.log(req.body);
 
+      var pin = false;
 //      var eventDao = require('../system/dao/sqliteEventDao');
+      if (pin) {
       var pi3GPIO = require('../system/pi3GPIO/pi3GPIO');
 
       pi3GPIO.pi3GPIO.setPinData (req.body);
+    } else {
+      var utilEMail = require('../system/utils/utilEMail');
+
+      utilEMail.TOKEN_PATH();
+//      utilEMail.getAuhorization();
+      utilEMail.sendEMail();
+    }
       // nothing to return
       res.end();
 

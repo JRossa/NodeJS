@@ -31,7 +31,7 @@ function eventService ($rootScope, $http, $location) {
     setPinData : function (pinData) {
 
       console.log("Service: setPinData");
-      console.log(eventData);
+      console.log(pinData);
 
       return $http.post('/setPinData',
         {
