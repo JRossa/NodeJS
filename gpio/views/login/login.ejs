@@ -69,45 +69,14 @@
   </div>
 
 
-
-</div>
-
-
 </div> <!-- controller -->
-
-<script>
-window.onload = LoginController
-function LoginController()
-{
-// bind event listeners to button clicks //
-	$('#retrieve-password-submit').click(function(){ $('#get-credentials-form').submit();});
-	$('#login #forgot-password').click(function(){
-		$('#cancel').html('Cancel');
-		$('#retrieve-password-submit').show();
-		$('#get-credentials').modal('show');
-	});
-	$('#login .button-rememember-me').click(function(e) {
-		var span = $(this).find('span');
-		if (span.hasClass('glyphicon-unchecked')){
-			span.addClass('glyphicon-ok');
-			span.removeClass('glyphicon-unchecked');
-		}	else{
-			span.removeClass('glyphicon-ok');
-			span.addClass('glyphicon-unchecked');
-		}
-	});
-
-// automatically toggle focus between the email modal window and the login form //
-	$('#get-credentials').on('shown.bs.modal', function(){ $('#email-tf').focus(); });
-	$('#get-credentials').on('hidden.bs.modal', function(){ $('#user-tf').focus(); });
-}
-</script>
 
 
 <script src='/javascripts/jquery-2.2.4.min.js'></script>
 <!--
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
+<script src='/javascripts/jquery.form.min.js'></script>
 
 <!-- Anguler  core -->
 <script src='/bower_components/angular/angular.js'></script>
@@ -122,33 +91,49 @@ function LoginController()
 
 <script src="/app/lang/langJQuery.js"></script>
 
-<script>
-window.onload = LoginController
-function LoginController()
-{
-// bind event listeners to button clicks //
-	$('#retrieve-password-submit').click(function(){ $('#get-credentials-form').submit();});
-	$('#login #forgot-password').click(function(){
-		$('#cancel').html('Cancel');
-		$('#retrieve-password-submit').show();
-		$('#get-credentials').modal('show');
-	});
-	$('#login .button-rememember-me').click(function(e) {
-		var span = $(this).find('span');
-		if (span.hasClass('glyphicon-unchecked')){
-			span.addClass('glyphicon-ok');
-			span.removeClass('glyphicon-unchecked');
-		}	else{
-			span.removeClass('glyphicon-ok');
-			span.addClass('glyphicon-unchecked');
-		}
-	});
+<script src="/app/login/loginJQuery.js"></script>
+<script src="/app/login/loginJQueryController.js"></script>
+<script src="/app/login/loginJQueryValidator.js"></script>
+<script src="/app/login/emailJQueryValidator.js"></script>
 
-// automatically toggle focus between the email modal window and the login form //
-	$('#get-credentials').on('shown.bs.modal', function(){ $('#email-tf').focus(); });
-	$('#get-credentials').on('hidden.bs.modal', function(){ $('#user-tf').focus(); });
-}
+
+<script>
+
+// http://developer.telerik.com/featured/building-html5-form-validation-bubble-replacements/
+  window.onload = loadListener;
+
+  function listenLoginUser () {
+
+    var input = document.getElementById('user-tf');
+    var label = angular.element('#langSelected').scope().label;
+
+    input.addEventListener('invalid', function(e) {
+        if(input.validity.valueMissing){
+            e.target.setCustomValidity(label.tblData_infoFiltered);
+        } else if(!input.validity.valid) {
+            e.target.setCustomValidity("This is not a valid username");
+        }
+        // to avoid the 'sticky' invlaid problem when resuming typing after getting a custom invalid message
+        input.addEventListener('input', function(e){
+            e.target.setCustomValidity('');
+        });
+    }, false);
+  }
+
+  $('#selectLang').change( function() {
+    listenLoginUser();
+  });
+
+  function loadListener() {
+    setTimeout(function(){
+
+      listenLoginUser();
+    }, 200);
+  }
+
+
 </script>
+
 
 <!--
 <script src="/app/socketClient/socketClient.js"></script>

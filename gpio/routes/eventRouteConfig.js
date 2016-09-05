@@ -178,15 +178,14 @@ eventRouteConfig.prototype.addRoutes = function () {
   });
 
   self.routeTable.push({
-
-      requestType : 'get',
-      requestUrl : '/listEvent',
-      callbackFunction : function (request, response) {
-          response.render('event/listEvent', {
-            title : "label.menubar_appTitle",
-            pagename : "label.listEvent_pagename"
-          });
-      }
+    requestType : 'get',
+    requestUrl : '/listEvent',
+    callbackFunction : function (request, response) {
+        response.render('event/listEvent', {
+          title : "label.menubar_appTitle",
+          pagename : "label.listEvent_pagename"
+        });
+    }
   });
 
 };
