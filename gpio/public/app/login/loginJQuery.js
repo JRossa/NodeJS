@@ -7,7 +7,48 @@
 /*jshint strict:false */
 'use strict';
 
-window.onload = loadLogin;
+window.onload = setLoadLogin;
+
+
+function setLoadLogin () {
+	loadLogin();
+	loadListener();
+
+	menuDropDown();
+}
+
+// http://developer.telerik.com/featured/building-html5-form-validation-bubble-replacements/
+function listenLoginUser () {
+
+	var input = document.getElementById('user-tf');
+	var label = angular.element('#langSelected').scope().label;
+
+	input.addEventListener('invalid', function(e) {
+			if(input.validity.valueMissing){
+				console.log(label);
+				if (typeof label !== 'undefined') {
+					e.target.setCustomValidity(label.tblData_infoFiltered);
+				}
+			} else if(!input.validity.valid) {
+					e.target.setCustomValidity("This is not a valid username");
+			}
+			// to avoid the 'sticky' invlaid problem when resuming typing after getting a custom invalid message
+			input.addEventListener('input', function(e){
+					e.target.setCustomValidity('');
+			});
+	}, false);
+}
+
+$('#selectLang').change( function() {
+	listenLoginUser();
+});
+
+function loadListener() {
+	setTimeout(function(){
+
+		listenLoginUser();
+	}, 200);
+}
 
 function testSubmit() {
 	console.log('submit');
@@ -15,32 +56,10 @@ function testSubmit() {
 }
 
 function loadLogin () {
-	var lv = new LoginValidator();
 	var lc = new LoginController();
 
 // main login form //
 
-	$('#loginAlarm').ajaxForm({
-		beforeSubmit : function(formData, jqForm, options){
-			console.log('Validate');
-			if (lv.validateForm() == false){
-				return false;
-			} 	else{
-			// append 'remember-me' option to formData to write local cookie //
-				formData.push({name:'remember-me', value:$('.button-rememember-me-glyph').hasClass('glyphicon-ok')});
-				return true;
-			}
-		},
-		success	: function(responseText, status, xhr, $form){
-			console.log('Validate');
-			if (status == 'success') window.location.href = '/home';
-		},
-		error : function(e){
-			console.log('Validate');
-			lv.showLoginError('Login Failure', 'Please check your username and/or password');
-		}
-	});
-	$('#user-tf').focus();
 
 // login retrieval form via email //
 

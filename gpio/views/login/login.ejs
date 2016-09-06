@@ -19,10 +19,9 @@
 <link type='text/css' rel="stylesheet" href="/stylesheets/login-style.css">
 -->
 
-<div  id="index"
-      data-ng-app="langModule"
-      data-ng-controller="langController"
-      data-ng-init="loadLanguage()"
+<div  id="loginUser"
+      data-ng-app="loginModule"
+      data-ng-controller="loginController"
       style="display:none">
 
   <% include ../templates/menu.ejs %>
@@ -85,54 +84,17 @@
 
 <!-- GPIO -->
 <script src='/app/lang/langModule.js'></script>
-<script src="/app/lang/langController.js"></script>
 <script src="/app/lang/langService.js"></script>
-<script src="/app/socket/socketService.js"></script>
-
 <script src="/app/lang/langJQuery.js"></script>
 
+<script src="/app/login/loginModule.js"></script>
+<script src="/app/login/loginService.js"></script>
+<script src="/app/login/loginLangController.js"></script>
+<script src="/app/login/loginController.js"></script>
+
 <script src="/app/login/loginJQuery.js"></script>
-<script src="/app/login/loginJQueryController.js"></script>
-<script src="/app/login/loginJQueryValidator.js"></script>
-<script src="/app/login/emailJQueryValidator.js"></script>
-
-
-<script>
-
-// http://developer.telerik.com/featured/building-html5-form-validation-bubble-replacements/
-  window.onload = loadListener;
-
-  function listenLoginUser () {
-
-    var input = document.getElementById('user-tf');
-    var label = angular.element('#langSelected').scope().label;
-
-    input.addEventListener('invalid', function(e) {
-        if(input.validity.valueMissing){
-            e.target.setCustomValidity(label.tblData_infoFiltered);
-        } else if(!input.validity.valid) {
-            e.target.setCustomValidity("This is not a valid username");
-        }
-        // to avoid the 'sticky' invlaid problem when resuming typing after getting a custom invalid message
-        input.addEventListener('input', function(e){
-            e.target.setCustomValidity('');
-        });
-    }, false);
-  }
-
-  $('#selectLang').change( function() {
-    listenLoginUser();
-  });
-
-  function loadListener() {
-    setTimeout(function(){
-
-      listenLoginUser();
-    }, 200);
-  }
-
-
-</script>
+<script src="/app/login/loginJQuery/loginJQueryController.js"></script>
+<script src="/app/login/loginJQuery/emailJQueryValidator.js"></script>
 
 
 <!--

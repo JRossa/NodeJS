@@ -18,7 +18,7 @@ function LoginController()
 		$('#retrieve-password-submit').show();
 		$('#get-credentials').modal('show');
 	});
-	$('#login .button-rememember-me').click(function(e) {
+	$('#login .button-remember-me').click(function(e) {
 		var span = $(this).find('span');
 		if (span.hasClass('glyphicon-unchecked')){
 			span.addClass('glyphicon-ok');
