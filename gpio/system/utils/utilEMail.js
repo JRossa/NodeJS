@@ -51,15 +51,16 @@ var utilEMail = {
 
     var self = this;
 /*
+    // it not works on RPi
     var __TOKEN_PATH =  path.format({
                  dir  : self.TOKEN_DIR(),
                  base : 'gmail-nodejs-gpio.json'
                });
-*/               
+*/
     var __TOKEN_PATH = self.TOKEN_DIR() + 'gmail-nodejs-gpio.json';
 
     console.log('--- ' + __TOKEN_PATH);
-    throw Error();
+//    throw Error();
     return __TOKEN_PATH;
   },
 
