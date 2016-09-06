@@ -32,6 +32,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createEvent").show();
+           $("#footer").show();
         });
   }
 
@@ -49,6 +50,7 @@ function createEventController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createEvent").show();
+           $("#footer").show();
         });
 
   };
@@ -62,7 +64,8 @@ function createEventController($rootScope, $scope, $window, $timeout,
             data.sensorsData.length > 0) {
 
               $scope.sensorsData = data.sensorsData;
-              $("#listSensor").show();
+              $("#createEvent").show();
+              $("#footer").show();
             }
       });
 

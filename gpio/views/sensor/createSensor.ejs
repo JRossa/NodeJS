@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #createSensorModal {
-   width:350px;
+   width:340px;
    margin:0 auto;
 }
 #left_col {
@@ -13,12 +13,23 @@
    float:right;
    width:100px;
 }
+
+.largeWidth {
+    width: 450px;
+}
+
+.smallWidth {
+    width: 380px;
+}
+
 </style>
 
 <div id="createSensor"
+     ng-style="{largeWidth: showLang.show_PT, smallWidth: showLang.show_EN}"
      data-ng-app="sensorModule"
      data-ng-controller="createSensorController"
-     style="display:none">
+     style="display:none;
+            overflow-x:hidden;">
 
   <% include ../templates/menu.ejs %>
 
@@ -52,17 +63,18 @@
                   <label for="sensorNumber">
                     {{label.createmenu_sensorNumber}}
                   </label>
-
-                  <input id="sensorNumber"
-                         class="form-control"
-                         type="text"
-                         placeholder={{label.createmenu_enterSensorNumber}}
-                         name="sensorNumber"
-                         ng-model="sensorData.sensorNumber"
-                         ng-maxlength="10"
-                         style="width: 100%;"
-                         required>
-                  </input>
+                  <div style="width: 240px;">
+                    <input id="sensorNumber"
+                           class="form-control"
+                           type="text"
+                           placeholder={{label.createmenu_enterSensorNumber}}
+                           name="sensorNumber"
+                           ng-model="sensorData.sensorNumber"
+                           ng-maxlength="10"
+                           style="width: 100%;"
+                           required>
+                    </input>
+                  </div>
                   <label class="help-block text-danger" for="sensorNumber"
                           data-ng-show="validateSensorNumber.containsValidationError">
                      {{ validateSensorNumber.errorMessage }}
@@ -83,20 +95,21 @@
                 <label for="sensorTypeId">
                   {{label.createmenu_sensorModel}}
                 </label>
-
-                <select id="sensorTypeId"
-                        class="form-control"
-                        name="sensorType"
-                        ng-model="sensorData.sensorTypeId"
-                        ng-maxlength="40"
-                        style="width: 100%;"
-                        required>
-                  <option  value="">
-                    {{label.createmenu_selectSensorType}}
-                  </option>
-                  <option  data-ng-repeat = "sensorType in sensorTypes"
-                           value = {{sensorType.id}} > {{sensorType.model}}
-                </select>
+                <div style="width: 240px;">
+                  <select id="sensorTypeId"
+                          class="form-control"
+                          name="sensorType"
+                          ng-model="sensorData.sensorTypeId"
+                          ng-maxlength="40"
+                          style="width: 100%;"
+                          required>
+                    <option  value="">
+                      {{label.createmenu_selectSensorType}}
+                    </option>
+                    <option  data-ng-repeat = "sensorType in sensorTypes"
+                             value = {{sensorType.id}} > {{sensorType.model}}
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -108,23 +121,24 @@
                 <label for="sensorLocation">
                   {{label.createmenu_sensorLocation}}
                 </label>
-
-                <textarea id="sensorLocation"
-                          class="form-control"
-                          placeholder={{label.createmenu_enterSensorLocation}}
-                          name="sensorLocation"
-                          rows="2"
-                          cols="20"
-                          ng-maxlength="40"
-                          ng-model="sensorData.sensorLocation"
-                          style="width: 100%;">
-                </textarea>
+                <div style="width: 240px;">
+                  <textarea id="sensorLocation"
+                            class="form-control"
+                            placeholder={{label.createmenu_enterSensorLocation}}
+                            name="sensorLocation"
+                            rows="2"
+                            cols="20"
+                            ng-maxlength="40"
+                            ng-model="sensorData.sensorLocation"
+                            style="width: 100%;">
+                  </textarea>
+                </div>
               </div>
             </div>
           </div>
           </br>
 
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="modal-footer">
               <div class="row"
                    align="center">

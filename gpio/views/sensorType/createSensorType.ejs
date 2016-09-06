@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #createSensorTypeModal {
-   width:380px;
+   width:350px;
    margin:0 auto;
 }
 #left_col {
@@ -15,11 +15,15 @@
 }
 </style>
 
+<!--
+overflow-y: scroll; overflow-x:hidden;
+-->
 
 <div id="createSensorType"
      data-ng-app="sensorTypeModule"
      data-ng-controller="createSensorTypeController"
-     style="display:none">
+     style="display:none;
+            overflow-x:hidden;">
 
   <% include ../templates/menu.ejs %>
 
@@ -49,7 +53,8 @@
               <pre><code>{{ sensorType | json }}</code></pre>
 -->
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div id="divSensorModel"
+                 class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="form-group">
                 <div ng-class="{'has-error': validateSensorModel.containsValidationError}">
       <!--
@@ -59,26 +64,26 @@ formCreateSensorType.sensorModel.$invalid
                   <label for="sensorModel">
                     {{label.createmenu_sensorModel}}
                   </label>
-
-                  <input id="sensorModel"
-                         type="text"
-                         class="form-control"
-                         data-preview-file-type="text"
-                         placeholder="Enter Sensor Model"
-                         name="sensorModel"
-                         ng-model="sensorType.sensorModel"
-                         ng-maxlength="30"
-                         style="width: 100%;"
-                         required>
-      <!--
-                       <div ng-messages="formCreateSensorType.sensorModel.$dirty && formCreateSensorType.sensorModel.$error"
-                                   role="alert" style="color:red"  multiple>
-                         <div ng-message when="required">Please enter a value for this field.</div>
-                         <div ng-message when="maxlength">This field can be at most 15 characters long.</div>
-                       </div>
-      -->
-                  </input>
-
+                  <div style="width: 250px;">
+                    <input id="sensorModel"
+                           type="text"
+                           class="form-control"
+                           data-preview-file-type="text"
+                           placeholder="Enter Sensor Model"
+                           name="sensorModel"
+                           ng-model="sensorType.sensorModel"
+                           ng-maxlength="30"
+                           style="width: 100%;"
+                           required>
+        <!--
+                         <div ng-messages="formCreateSensorType.sensorModel.$dirty && formCreateSensorType.sensorModel.$error"
+                                     role="alert" style="color:red"  multiple>
+                           <div ng-message when="required">Please enter a value for this field.</div>
+                           <div ng-message when="maxlength">This field can be at most 15 characters long.</div>
+                         </div>
+        -->
+                    </input>
+                </div>
                   <label class="help-block text-danger" for="sensorModel"
                           data-ng-show="validateSensorModel.containsValidationError">
                      {{ validateSensorNumber.errorMessage }}
@@ -104,49 +109,52 @@ formCreateSensorType.sensorModel.$invalid
                 <label for="sensorImage">
                    {{label.createmenu_fileName}}
                 </label>
-                <input id="sensorImage"
-                       class="form-control filestyle"
-                       type="file"
-                       data-input="true"
-                       data-buttonName="btn-primary"
-                       data-buttonBefore="true"
-                       data-buttonText="{{label.createmenu_findFile}}"
-                       data-placeholder="{{label.createmenu_noFile}}"
-                       name="datafile"
-                       style="width: 100%;"
-                       size="30">
+                <div style="width: 250px;">
+                  <input id="sensorImage"
+                         class="form-control filestyle"
+                         type="file"
+                         data-input="true"
+                         data-buttonName="btn-primary"
+                         data-buttonBefore="true"
+                         data-buttonText="{{label.createmenu_findFile}}"
+                         data-placeholder="{{label.createmenu_noFile}}"
+                         name="datafile"
+                         style="width: 100%;"
+                         size="30">
+                </div>
               </div>
             </div>
           </div>
           </br>
 
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group" >
                 <label for="sensorObs">
                    {{label.createmenu_obs}}
                 </label>
-
-                <textarea id="sensorObs"
-                          class="form-control"
-                          placeholder="Obs"
-                          name="sensorObs"
-                          rows="2"
-                          cols="29"
-                          ng-model="sensorType.sensorObs"
-                          style="width: 100%;">
-                </textarea>
+                <div style="width: 250px;">
+                  <textarea id="sensorObs"
+                            class="form-control"
+                            placeholder="Obs"
+                            name="sensorObs"
+                            rows="2"
+                            cols="29"
+                            ng-model="sensorType.sensorObs"
+                            style="width: 100%;">
+                  </textarea>
+                </div>
               </div>
             </div>
           </div>
           </br>
 
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="modal-footer">
               <div class="row"
                    align="center">
                 <div class="form-group"
-                     style="padding-left: 0%;">
+                     style="padding-left: -50%;">
                   <button type="button"
                           class="btn btn-primary"
                           ng-disabled="!formCreateSensorType.$valid"

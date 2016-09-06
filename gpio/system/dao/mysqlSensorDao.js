@@ -115,8 +115,11 @@ var sensorDao = {
 
 
        setTimeout( function() {
+         err.errFunction = "createSensor (mysql)";
          err.sql = query.sql;
-         var error = errorHdlr.errorHandler(err, errRoll);
+         err.errRoll = errRoll;
+
+         var error = errorHdlr.errorHandler(err);
 
          OnErrorCallback(error);
        }, 50);

@@ -51,20 +51,20 @@
                   <label for="sensorId">
                     {{label.createmenu_eventSensorNumber}}
                   </label>
-
-                  <select id="eventSensorId"
-                          class="form-control"
-                          name="eventSensorId"
-                          ng-model="eventData.eventSensorId"
-                          style="width: 100%;"
-                          required>
-                    <option value="">
-                      {{label.createmenu_selectSensorNum}}
-                    </option>
-                    <option data-ng-repeat = "sensorData in sensorsData"
-                             value = {{sensorData.id}} > {{sensorData.num}}
-                  </select>
-
+                  <div style="width: 240px;">
+                    <select id="eventSensorId"
+                            class="form-control"
+                            name="eventSensorId"
+                            ng-model="eventData.eventSensorId"
+                            style="width: 100%;"
+                            required>
+                      <option value="">
+                        {{label.createmenu_selectSensorNum}}
+                      </option>
+                      <option data-ng-repeat = "sensorData in sensorsData"
+                               value = {{sensorData.id}} > {{sensorData.num}}
+                    </select>
+                  </div>
                   <label class="help-block text-danger" for="eventSensorId"
                           data-ng-show="validateEventSensorId.containsValidationError">
                      {{ validateEventSensorId.errorMessage }}
@@ -86,30 +86,31 @@
           <!-- https://www.youtube.com/watch?v=VKRuSryBaNk#t=62.097994 -->
 
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
                 <div ng-class="{'has-error': validateEventTime.containsValidationError}">
 
                   <label for="eventTime">
                     {{label.createmenu_eventTime}}
                   </label>
-
-                  <div id="eventTime"
-                       class='input-group date'
-                       datetimepicker
-                       ng-model="eventTime">
-                    <input type='text'
-                           class="form-control"
-                           data-format="dd/MM/yyyy hh:mm:ss"
-                           ng-model="eventTime"
-                           readonly/>
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-time">
-<!--              <span class="glyphicon glyphicon-calendar"> -->
+                  <div style="width: 250px;">
+                    <div id="eventTime"
+                         class='input-group date'
+                         datetimepicker
+                         ng-model="eventTime">
+                      <input type='text'
+                             class="form-control"
+                             data-format="dd/MM/yyyy hh:mm:ss"
+                             ng-model="eventTime"
+                             style="width: 200px;"
+                             readonly/>
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time">
+  <!--              <span class="glyphicon glyphicon-calendar"> -->
+                        </span>
                       </span>
-                    </span>
+                    </div>
                   </div>
-
 <!--
                   <input id="eventTime"
                          class="form-control"
@@ -138,7 +139,7 @@
 
           <br/>
 
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="modal-footer">
               <div class="row"
                    align="center">

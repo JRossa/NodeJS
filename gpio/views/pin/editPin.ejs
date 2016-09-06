@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editPin {
-   width:340px;
+   width:320px;
    margin:0 auto;
 }
 #left_col {
@@ -65,38 +65,39 @@
                   </div>
                 </div>
               </div>
-
-              <% include editPinInputToggle.ejs %>
-              <% include editPinUsedToggle.ejs %>
-              <% include editPinWarnToggle.ejs %>
-
+              
+              <div style="width: 300px;">
+                <% include editPinInputToggle.ejs %>
+                <% include editPinUsedToggle.ejs %>
+                <% include editPinWarnToggle.ejs %>
+              </div>
               <br/>
 
               <div id="sensorLocation"
                    class="row"
                    ng-if="pinData.pinInput">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <div class="form-group">
 
                     <label for="pinSensorId">
                       {{label.createmenu_sensorLocation}}
                     </label>
+                    <div style="width: 220px;">
+                      <select id="pinSensorLocation"
+                              class="form-control"
+                              name="pinSensor"
+                              data-ng-model="pinData.pinSensorId"
+                              style="width: 100%;"
+                              required="false">
+                        <option value="">
+                          {{label.createmenu_selectSensor}}
+                        </option>
 
-                    <select id="pinSensorLocation"
-                            class="form-control"
-                            name="pinSensor"
-                            data-ng-model="pinData.pinSensorId"
-                            style="width: 100%;"
-                            required="false">
-                      <option value="">
-                        {{label.createmenu_selectSensor}}
-                      </option>
-
-                      <option data-ng-repeat = "sensorData in sensorsData"
-                              value = {{sensorData.id}} > {{sensorData.location}}
-                      </option>
-                    </select>
-
+                        <option data-ng-repeat = "sensorData in sensorsData"
+                                value = {{sensorData.id}} > {{sensorData.location}}
+                        </option>
+                      </select>
+                    </div>
                     <label class="help-block text-danger" for="pinSensorLocation"
                             data-ng-show="validateSensorLocation.containsValidationError">
                       <span class="text-danger">
@@ -120,22 +121,24 @@
                     <label for="pinAlarmDuration">
                       {{label.createmenu_pinAlarmDuration}}
                     </label>
+                    <div style="width: 220px;">
+                      <div id="pinAlarmDuration"
+                           class='input-group date'
+                           timepicker
+                           ng-model="pinData.pinAlarmDuration">
 
-                    <div id="pinAlarmDuration"
-                         class='input-group date'
-                         timepicker
-                         ng-model="pinData.pinAlarmDuration">
                       <input id="pinAlarmDurationInput"
-                             type='text'
-                             class="form-control"
-                             ng-model="pinData.pinAlarmDuration"
-                             ng-readonly="!checked"
-                             required/>
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-time">
-<!--              <span class="glyphicon glyphicon-calendar"> -->
+                               type='text'
+                               class="form-control"
+                               ng-model="pinData.pinAlarmDuration"
+                               ng-readonly="!checked"
+                               required/>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-time">
+  <!--              <span class="glyphicon glyphicon-calendar"> -->
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
 <!--
                     <input id="pinAlarmDuration"
@@ -184,7 +187,7 @@
 
 
 
-              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                 <div class="modal-footer">
                   <div class="row"
                        align="center">

@@ -2,7 +2,7 @@
 
 <style type="text/css">
 #editSensor {
-   width:380px;
+   width:350px;
    margin:0 auto;
 }
 #left_col {
@@ -48,17 +48,18 @@
                       <label for="sensorNumber">
                         {{label.createmenu_sensorNumber}}
                       </label>
-
-                      <input id="sensorNumber"
-                             class="form-control"
-                             type="text"
-                             placeholder={{label.createmenu_enterSensorNumber}}
-                             name="sensorNumber"
-                             ng-model="sensorData.sensorNumber"
-                             ng-maxlength="40"
-                             style="width: 100%;"
-                             required>
-                      </input>
+                      <div style="width: 250px;">
+                        <input id="sensorNumber"
+                               class="form-control"
+                               type="text"
+                               placeholder={{label.createmenu_enterSensorNumber}}
+                               name="sensorNumber"
+                               ng-model="sensorData.sensorNumber"
+                               ng-maxlength="40"
+                               style="width: 100%;"
+                               required>
+                        </input>
+                      </div
                       <label class="help-block text-danger" for="sensorNumber"
                               data-ng-show="validateSensorNumber.containsValidationError">
                          {{ validateSensorNumber.errorMessage }}
@@ -79,21 +80,22 @@
                   <label for="sensorTypeId">
                     {{label.createmenu_sensorModel}}
                   </label>
+                  <div style="width: 250px;">
+                    <select id="sensorTypeId"
+                            class="form-control"
+                            name="sensorType"
+                            data-ng-model="sensorData.sensorTypeId"
+                            style="width: 100%;"
+                            required>
+                      <option value="">
+                        Please select a sensor model !!
+                      </option>
 
-                  <select id="sensorTypeId"
-                          class="form-control"
-                          name="sensorType"
-                          data-ng-model="sensorData.sensorTypeId"
-                          style="width: 100%;"
-                          required>
-                    <option value="">
-                      Please select a sensor model !!
-                    </option>
-
-                    <option data-ng-repeat = "sensorType in sensorTypes"
-                            value = {{sensorType.id}} > {{sensorType.model}}
-
-                  </select>
+                      <option data-ng-repeat = "sensorType in sensorTypes"
+                              value = {{sensorType.id}} > {{sensorType.model}}>
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
               </div>
@@ -107,23 +109,24 @@
                     <label for="sensorLocation">
                       {{label.createmenu_sensorLocation}}
                     </label>
-
-                    <textarea id="sensorLocation"
-                              class="form-control"
-                              placeholder={{label.createmenu_enterSensorLocation}}
-                              name="sensorLocation"
-                              rows="2"
-                              cols="20"
-                              ng-model="sensorData.sensorLocation"
-                              style="width: 100%;">
-                    </textarea>
+                    <div style="width: 250px;">
+                      <textarea id="sensorLocation"
+                                class="form-control"
+                                placeholder={{label.createmenu_enterSensorLocation}}
+                                name="sensorLocation"
+                                rows="2"
+                                cols="20"
+                                ng-model="sensorData.sensorLocation"
+                                style="width: 100%;">
+                      </textarea>
+                    </div>
                   </div>
                 </div>
               </div>
 
               </br>
 
-              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div  class="modal-footer">
                   <div class="row"
                        align="left">

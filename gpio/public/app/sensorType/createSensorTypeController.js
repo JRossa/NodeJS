@@ -35,6 +35,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createSensorType").show();
+           $("#footer").show();
         });
   }
 
@@ -52,6 +53,7 @@ function createSensorTypeController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createSensorType").show();
+           $("#footer").show();
         });
 
   };

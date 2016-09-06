@@ -1,11 +1,13 @@
 /*jslint node: true */
 /*jshint strict:false */
 'use strict';
+var utilEMail = require('./utilEMail');
+
 
 var utilErrorHandler = {
 
 
-   errorHandler : function (errorMsg1, errorMsg2, errorMsg3) {
+   errorHandler : function (errorMsg1) {
 
     var error = {};
     var errorLst = [];
@@ -24,7 +26,6 @@ var utilErrorHandler = {
 //                    console.log(myError);
       process.emit('warning', myError);
 //                    console.log(errorl.stack);
-
       if (typeof err.errorLst !== 'undefined') {
         errorLst = err.errorLst;
       }
@@ -35,6 +36,10 @@ var utilErrorHandler = {
               errstk : myError,
               error  : "Sensor already exists !!!"
       };
+
+      utilEMail.sendEMail('FROM : ' +
+                           (process.env.COMPUTERNAME || process.env.HOSTNAME) + '\n' +
+                          JSON.stringify(error, null, 2));
 
       console.error(' ------- ------- ------- ------- Callback  -------> :  ');
       console.error(error);

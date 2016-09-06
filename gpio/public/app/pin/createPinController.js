@@ -61,6 +61,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createPin").show();
+           $("#footer").show();
         });
 
   };
@@ -76,6 +77,7 @@ function createPinController($rootScope, $scope, $window, $timeout,
               console.log(data);
               $scope.sensorsData = data.sensorsData;
               $("#createPin").show();
+              $("#footer").show();
             }
       });
   }

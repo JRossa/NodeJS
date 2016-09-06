@@ -55,6 +55,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createSensor").show();
+           $("#footer").show();
         });
   }
 
@@ -72,6 +73,7 @@ function createSensorController($rootScope, $scope, $window, $timeout,
 //           console.log(data);
            $scope.label = data;
            $("#createSensor").show();
+           $("#footer").show();
         });
 
   };

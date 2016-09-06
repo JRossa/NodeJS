@@ -84,7 +84,6 @@ var sensorDao = {
                     connectionProvider.connectionStringProvider.closeConnection(connection);
                     //next(err);
                     err.errPlace = "Run";
-                    err.errorLst = errorLst;
 //                    OnErrorCallback({ error : "Sensor already exists !!!"});
 //                    throw err;
 
@@ -100,7 +99,11 @@ var sensorDao = {
               if (err !== null) {
 
                 setTimeout( function() {
+                  err.errFunction = "createSensor (sqlite)";
+                  err.errorLst = errorLst;
+
                   var error = errorHdlr.errorHandler(err);
+
                   OnErrorCallback(error);
                 }, 200);
               }
