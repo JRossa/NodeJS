@@ -86,7 +86,7 @@ var sensorDao = {
                 });
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
-                err.errPlace = "Query"});
+                err.errPlace = "Query";
             }
             else {
 
