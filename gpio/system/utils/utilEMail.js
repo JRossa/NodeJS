@@ -50,14 +50,18 @@ var utilEMail = {
   TOKEN_PATH : function () {
 
     var self = this;
-/*
-    // it not works on RPi
-    var __TOKEN_PATH =  path.format({
-                 dir  : self.TOKEN_DIR(),
-                 base : 'gmail-nodejs-gpio.json'
-               });
-*/
-    var __TOKEN_PATH = self.TOKEN_DIR() + 'gmail-nodejs-gpio.json';
+
+    var __TOKEN_PATH = '';
+
+    if (process.env.ENV_OS !== 'rpio') {
+      // it not works on RPi
+      __TOKEN_PATH =  path.format({
+                                   dir  : self.TOKEN_DIR(),
+                                   base : 'gmail-nodejs-gpio.json'
+                                 });
+    } else {
+      __TOKEN_PATH = self.TOKEN_DIR() + 'gmail-nodejs-gpio.json';
+    }
 
     console.log('--- ' + __TOKEN_PATH);
 //    throw Error();
