@@ -9,6 +9,7 @@ var utilErrorHandler = {
 
    errorHandler : function (errorMsg1) {
 
+
     var error = {};
     var errorLst = [];
 
@@ -37,15 +38,15 @@ var utilErrorHandler = {
               error  : "Sensor already exists !!!"
       };
 
+
       if (process.env.ENV_OS !== 'rpi') {
+        // cannot get system variables on RPi
         console.log(process.env.COMPUTERNAME);
-        utilEMail.sendEMail('FROM : ' + process.env.COMPUTERNAME + '\n' +
-                          JSON.stringify(error, null, 2));
-      } else {
-        console.log(process.env.$HOSTNAME);
-        utilEMail.sendEMail('FROM : ' + process.env.$HOSTNAME + '\n' +
-                          JSON.stringify(error, null, 2));
       }
+      var os = require('os');
+      var hdrMsg = 'FROM : ' + os.hostname() + ' - (' + os.platform() + ')\n';
+
+      utilEMail.sendEMail(hdrMsg  + JSON.stringify(error, null, 2));
 
       console.error(' ------- ------- ------- ------- Callback  -------> :  ');
       console.error(error);
