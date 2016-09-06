@@ -50,13 +50,16 @@ var utilEMail = {
   TOKEN_PATH : function () {
 
     var self = this;
-
+/*
     var __TOKEN_PATH =  path.format({
                  dir  : self.TOKEN_DIR(),
                  base : 'gmail-nodejs-gpio.json'
                });
+*/               
+    var __TOKEN_PATH = self.TOKEN_DIR() + 'gmail-nodejs-gpio.json';
 
-   console.log(__TOKEN_PATH);
+    console.log('--- ' + __TOKEN_PATH);
+    throw Error();
     return __TOKEN_PATH;
   },
 
