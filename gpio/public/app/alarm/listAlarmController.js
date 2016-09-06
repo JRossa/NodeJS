@@ -168,5 +168,5 @@ function listEventController($rootScope, $scope, $window, $timeout,
         });
     }
   };
-  
+
 }

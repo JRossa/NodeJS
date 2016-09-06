@@ -199,6 +199,12 @@ var actionDao = {
         throw err;
       }
 
+      // convert boolean 0 -> false & 1 -> true
+      for (var row in rows) {
+        rows[row].all_day  = (rows[row].all_day === 0)? false: true;
+        rows[row].armed  = (rows[row].armed === 0)? false: true;
+      }
+
 //      console.log(rows);
       OnSuccessCallback(rows);
 
