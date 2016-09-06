@@ -2,6 +2,7 @@
 /*jshint strict:false */
 'use strict';
 
+var errorHdlr = require('../utils/utilErrorHandler');
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
 var sensorDao = {
@@ -51,6 +52,8 @@ var sensorDao = {
 
   createSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
 
+    var error = null;
+
     var insertStatement = "INSERT INTO tbl_sensor VALUES(NULL, ?, ?, ?)";
 
     var sensorInsert = {
@@ -68,23 +71,26 @@ var sensorDao = {
         var query = connection.query(insertStatement,
                 [sensorInsert.number, sensorInsert.typeId, sensorInsert.location], function(err, row) {
 
+
             if (err !== null) {
                 // Express handles errors via its next function.
                 // It will call the next operation layer (middleware),
                 // which is by default one that handles errors.
                 console.log(query.sql);
                 console.log(err);
+                error = err;
                 connection.rollback( function(errRoll) {
 //                  callback(new Error('something bad happened'));
 //return log("Query failed. Error: %s. Query: %s", err, query);
                     if (errRoll !== null) {
-                      connectionProvider.connectionStringProvider.closeConnection(connection);
+//                      connectionProvider.connectionStringProvider.closeConnection(connection);
                       err.errPlace = "Rollback";
+                      err.errRoll = errRoll;
                       //next(err);
                     }
 //                  throw err;
                 });
-                connectionProvider.connectionStringProvider.closeConnection(connection);
+//                connectionProvider.connectionStringProvider.closeConnection(connection);
                 //next(err);
                 err.errPlace = "Query";
             }
@@ -94,39 +100,38 @@ var sensorDao = {
                 if (errComm !== null) {
                   connection.rollback(function (errRoll) {
                     if (errRoll !== null) {
-                      connectionProvider.connectionStringProvider.closeConnection(connection);
+//                      connectionProvider.connectionStringProvider.closeConnection(connection);
                       //next(err);
                       err.errPlace = "Rollback";
+                      err.errRoll = errRoll;
                     }
 //                    throw err;
                   });
                 }
               });
 
-              connectionProvider.connectionStringProvider.closeConnection(connection);
-
 //                  console.log(row);
               OnSuccessCallback({ status : "Successful"});
+          }  // else (err !== null)
+
+          if (err !== null) {
+
+            setTimeout( function() {
+              err.errFunction = "createSensor (mysql)";
+              err.sql = query.sql;
+              var error = errorHdlr.errorHandler(err);
+
+              OnErrorCallback(error);
+            }, 50);
+
           }
-        });
-      }); // beginTransaction
 
-      if (err !== null) {
+          connectionProvider.connectionStringProvider.closeConnection(connection);
 
-
-       setTimeout( function() {
-         err.errFunction = "createSensor (mysql)";
-         err.sql = query.sql;
-         err.errRoll = errRoll;
-
-         var error = errorHdlr.errorHandler(err);
-
-         OnErrorCallback(error);
-       }, 50);
-
-      }
-    }     // connection
-  },      // createSensor
+        });  // query
+      });    // beginTransaction
+    }        // connection
+  },         // createSensor
 
 
   updateSensor : function (sensorData, OnSuccessCallback, OnErrorCallback) {
