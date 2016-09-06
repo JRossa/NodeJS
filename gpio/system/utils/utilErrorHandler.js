@@ -42,8 +42,8 @@ var utilErrorHandler = {
         utilEMail.sendEMail('FROM : ' + process.env.COMPUTERNAME + '\n' +
                           JSON.stringify(error, null, 2));
       } else {
-        console.log(process.env.HOSTNAME);
-        utilEMail.sendEMail('FROM : ' + process.env.HOSTNAME + '\n' +
+        console.log(process.env.$HOSTNAME);
+        utilEMail.sendEMail('FROM : ' + process.env.$HOSTNAME + '\n' +
                           JSON.stringify(error, null, 2));
       }
 
