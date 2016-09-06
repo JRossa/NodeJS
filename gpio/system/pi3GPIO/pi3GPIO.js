@@ -117,7 +117,7 @@ var pi3GPIO = {
 
         // Ckeck for PIN_SWITCH
         if (pin == process.env.PIN_SWITCH) {
-          utilAction.setPinSwitch();
+          utilPin.setPinSwitch();
         } else {
 
           utilPin.getSensorData (pin,
