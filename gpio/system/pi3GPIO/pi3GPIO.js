@@ -52,7 +52,7 @@ var pi3GPIO = {
 
         console.log('pi3GPIO - ' + process.env.ENV_OS);
 
-        if (process.env.ENV_OS === 'rpio') {
+        if (process.env.ENV_OS === 'rpi') {
           var rpio = require('rpio');
 
           var options = {
@@ -95,7 +95,7 @@ var pi3GPIO = {
               }); //  getWarnPin
             }     //  if (eventData.eventWarn == true)
           }       //  else (eventData.eventWarn == true)
-        }         //  if (process.env.ENV_OS === 'rpio')
+        }         //  if (process.env.ENV_OS === 'rpi')
     });           //  function (nEvents)
 
   },
@@ -108,7 +108,7 @@ var pi3GPIO = {
 //    {
 //      console.log('Nuke button on pin %d pressed', pin);
 
-    if (process.env.ENV_OS === 'rpio') {
+    if (process.env.ENV_OS === 'rpi') {
       /* Watch pin forever. */
 //      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
       var rpio = require('rpio');
@@ -164,7 +164,7 @@ var pi3GPIO = {
     console.log('pi3GPIO - ' + process.env.ENV_OS);
     console.log(pinData);
 
-    if (process.env.ENV_OS === 'rpio') {
+    if (process.env.ENV_OS === 'rpi') {
       var rpio = require('rpio');
 
       var options = {

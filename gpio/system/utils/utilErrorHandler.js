@@ -37,7 +37,7 @@ var utilErrorHandler = {
               error  : "Sensor already exists !!!"
       };
 
-      if (process.env.ENV_OS !== 'rpio') {
+      if (process.env.ENV_OS !== 'rpi') {
         console.log(process.env.COMPUTERNAME);
         utilEMail.sendEMail('FROM : ' + process.env.COMPUTERNAME + '\n' +
                           JSON.stringify(error, null, 2));

@@ -53,7 +53,7 @@ var utilEMail = {
 
     var __TOKEN_PATH = '';
 
-    if (process.env.ENV_OS !== 'rpio') {
+    if (process.env.ENV_OS !== 'rpi') {
       // it not works on RPi
       __TOKEN_PATH =  path.format({
                                    dir  : self.TOKEN_DIR(),
