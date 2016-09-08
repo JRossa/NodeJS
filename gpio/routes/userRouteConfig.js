@@ -111,20 +111,6 @@ userRouteConfig.prototype.addRoutes = function () {
 
   var self = this;
 
-  self.routeTable.push ( {
-    requestType : 'get',
-    requestUrl : '/setAction',
-    callbackFunction : function(req, res) {
-
-      res.render('alarm/setAlarmRPi', {
-           title : "label.menubar_appTitle",
-           pagename : "label.setAction_pagename",
-         });
-
-    }
-  });
-
-
 // http://qnimate.com/express-js-middleware-tutorial/
   self.routeTable.push ( {
     requestType : 'get',
@@ -165,6 +151,19 @@ userRouteConfig.prototype.addRoutes = function () {
 
          res.send(req.params.username);
       }
+    }
+  });
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/createUser',
+    callbackFunction : function(req, res) {
+
+
+      res.render('user/signup', {
+           title : "label.menubar_appTitle",
+           pagename : "label.createPin_pagename"
+         });
     }
   });
 

@@ -22,6 +22,10 @@
     width: 380px;
 }
 
+.panel-borderless {
+  border: 0;
+  box-shadow: none;
+}
 </style>
 
 <div id="createSensor"
@@ -38,13 +42,16 @@
        class="modal-dialog">
   <div class="modal-content">
 
-  <div class="panel panel-info"
-       style="width: 100%;"
+  <div class="panel panel-primary panel-borderless"
+       style="width: 100%;
+              height: 430px;
+              overflow-y:hidden;
+              overflow-x:hidden;"
        align="left">
 
     <% include ../templates/pagetitle.ejs %>
 
-    <div class="panel-body" >
+    <div class="panel-body well" >
       <div class="container">
 
         <% include ../templates/message.ejs %>

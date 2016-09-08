@@ -218,6 +218,8 @@
   "menubar_listSensorType" : "Listar Tipo de Sensores",
   "menubar_createSensor" : "Inserir Sensor",
   "menubar_listSensor" : "Listar Sensores",
+  "menubar_createUser" : "Inserir Utilizador",
+  "menubar_listUser" : "Listar Utilizadores",
   "menubar_armRPi" : "Config Alarme",
   "menubar_disarmRPi" : "Listar Config",
   "menubar_setGPIO" : "Aplicar Config RPi",

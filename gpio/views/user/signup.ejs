@@ -2,8 +2,8 @@
 <% include ../templates/header.ejs %>
 
 <style type="text/css">
-#logindiv {
-   width:500px;
+#signupUserModal {
+   width:400px;
    margin:0 auto;
 }
 #left_col {
@@ -19,17 +19,17 @@
 <link type='text/css' rel="stylesheet" href="/stylesheets/login-style.css">
 -->
 
-<div  id="index"
-      data-ng-app="langModule"
-      data-ng-controller="langController"
-      data-ng-init="loadLanguage()"
+<div  id="signUpUser"
+      data-ng-app="userModule"
+      data-ng-controller="userController"
       style="display:none">
 
   <% include ../templates/menu.ejs %>
 
 
+  <br/>
 
-</div>
+  <% include ./createUserForm2.ejs %>
 
 
 </div> <!-- controller -->
@@ -41,21 +41,27 @@
 <!--
 <script src='/bower_components/jquery/dist/jquery.js'></script>
 -->
+<script src='/javascripts/jquery.form.min.js'></script>
 
 <!-- Anguler  core -->
 <script src='/bower_components/angular/angular.js'></script>
 <script src='/bower_components/angular-messages/angular-messages.js'></script>
-<script src="/socket.io/socket.io.js"></script>
+
 
 <!-- GPIO -->
 <script src='/app/lang/langModule.js'></script>
-<script src="/app/lang/langController.js"></script>
 <script src="/app/lang/langService.js"></script>
-<script src="/app/socket/socketService.js"></script>
-
 <script src="/app/lang/langJQuery.js"></script>
 
+<script src="/app/user/userModule.js"></script>
+<script src="/app/user/userService.js"></script>
+<script src="/app/user/userLangController.js"></script>
+<script src="/app/user/userController.js"></script>
 
+<script>
+
+
+</script>
 
 <!--
 <script src="/app/socketClient/socketClient.js"></script>
