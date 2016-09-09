@@ -14,7 +14,7 @@ var pi3GPIO = {
   setOutputAlarm : function (rpio, pin, alarmDuration) {
 
     console.log('Pin ' + pin + '(A) = %d', rpio.read(pin));
-    console.log('Alarm Duration : ' + alarmDuration);
+//    console.log('Alarm Duration : ' + alarmDuration);
 
     var duration = utilTime.timeToMiliseconds(alarmDuration);
     console.log('Alarm Duration : ' + duration);
@@ -40,9 +40,9 @@ var pi3GPIO = {
 
     // interval in seconds
     var intervalTime = (searchSeconds * 1000);
-    console.log(searchSeconds);
-    console.log(maxAlarmEvents);
-    console.log(intervalTime);
+//    console.log(searchSeconds);
+//    console.log(maxAlarmEvents);
+//    console.log(intervalTime);
     utilEvent.countEvent (eventData.eventSensorId,
                                   intervalTime,
 

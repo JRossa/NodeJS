@@ -93,6 +93,12 @@ var credentialsRoute = require('./routes/credentialsRouteConfig');
 new credentialsRoute(app);
 
 
+if (process.env.DEBUG === 'false') {
+  console.log('- - WARNING - - \nconsole.log - OFF');
+  console.log = function() {
+
+  }
+}
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

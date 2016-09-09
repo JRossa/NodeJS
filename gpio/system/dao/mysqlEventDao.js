@@ -66,7 +66,7 @@ var eventDao = {
       act_time : eventData.eventTime
     };
 
-    console.log(eventInsert);
+//    console.log(eventInsert);
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -76,7 +76,7 @@ var eventDao = {
         var query = connection.query(insertStatement,
                 [eventInsert.sensorId, eventInsert.act_time], function(err, row) {
 
-console.log(query.sql);
+//            console.log(query.sql);
 
             if (err !== null) {
                 // Express handles errors via its next function.
@@ -245,8 +245,8 @@ console.log(query.sql);
     var topTime = new Date(currTime - intervalTime).toJSON();
 
 //    console.log(selectStatement);
-    console.log(currTime);
-    console.log(topTime);
+//    console.log(currTime);
+//    console.log(topTime);
 
     var eventCheck = {
       id : sensorId,
@@ -260,7 +260,7 @@ console.log(query.sql);
 
       var query = connection.query(selectStatement, [eventCheck.id, eventCheck.fromDate], function (err, rows, fields)  {
 
-console.log(query.sql);
+//    console.log(query.sql);
       if (err) {
         console.log(err);
         throw err;

@@ -365,8 +365,11 @@ function listEventController($rootScope, $scope, $window, $timeout,
       }
     }
 
-//    console.log(sensorOk);
-//    console.log(timeOk);
+    if (sensorOk && timeOk) {
+//      console.log(item);
+
+    }
+
     return sensorOk && timeOk;
   };
 

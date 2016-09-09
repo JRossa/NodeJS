@@ -205,10 +205,10 @@ $.fn.dataTable.ext.search.push(
 //        console.log(data[2]);
         sensorOk = selectSensor(searchSensorNum, data[1]);
 
-        timeOk = selectTime(searchStartTime, data[2], true);
+        timeOk = selectTime(searchStartTime, data[3], true);
 
         if (timeOk) {
-          timeOk = selectTime(searchEndTime, data[2], false);
+          timeOk = selectTime(searchEndTime, data[3], false);
         }
 
         if (sensorOk && timeOk) {
