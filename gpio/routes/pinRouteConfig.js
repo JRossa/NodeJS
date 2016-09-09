@@ -232,7 +232,7 @@ pinRouteConfig.prototype.addRoutes = function () {
         function (pinInput) {
           for (var i = 0, len = pinInput.length; i < len; i++) {
             console.log("Set Pin : " + pinInput[i].board);
-
+console.log(pinData);
             if (pinData.used === true) {
               pinData.pinBOARD = pinInput[i].board;
 
