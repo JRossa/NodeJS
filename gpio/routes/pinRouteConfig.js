@@ -242,7 +242,7 @@ pinRouteConfig.prototype.addRoutes = function () {
         });
 
     pinData.pinBOARD = process.env.PIN_SWITCH;
-    pi3GPIO.pi3GPIO.setPinData(pinData);
+//    pi3GPIO.pi3GPIO.setPinData(pinData);
 
     utilPin.lastAction("ALARM_SET");
 //      res.end();
