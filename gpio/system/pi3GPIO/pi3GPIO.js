@@ -101,6 +101,27 @@ var pi3GPIO = {
   },
 
 
+  listenPin2 : function (pin) {
+
+    var self = this;
+//    function pin_button(pin)
+//    {
+//      console.log('Nuke button on pin %d pressed', pin);
+
+    if (process.env.ENV_OS === 'rpi') {
+      /* Watch pin forever. */
+//      console.log('Button event on pin %d, is now %d', pin, rpio.read(pin));
+      var rpio = require('rpio');
+
+      if (rpio.read(pin) == 1) {
+        console.log('OK');
+      }
+    }
+        /* No need to read pin more than once. */
+  //    rpio.poll(pin, null);
+  },
+
+
   listenPin : function (pin) {
 
     var self = this;
@@ -183,7 +204,7 @@ var pi3GPIO = {
         rpio.pud(pinData.pinBOARD, rpio.PULL_DOWN);
         console.log("------ RPIO setPinData 2 --------- OK ");
 
-        rpio.poll(pinData.pinBOARD, self.listenPin, rpio.POLL_HIGH);
+        rpio.poll(pinData.pinBOARD, pi3GPIO.listenPin2, rpio.POLL_HIGH);
       }
 
       console.log("------ RPIO setPinData 3 --------- OK ");
