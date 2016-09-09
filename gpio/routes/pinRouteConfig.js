@@ -291,7 +291,7 @@ pinRouteConfig.prototype.addRoutes = function () {
       console.log("POST setPinData");
       console.log(req.body);
 
-      var pin = false;
+      var pin = true;
 //      var eventDao = require('../system/dao/sqliteEventDao');
       if (pin) {
       var pi3GPIO = require('../system/pi3GPIO/pi3GPIO');
