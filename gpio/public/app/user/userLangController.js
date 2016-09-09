@@ -13,6 +13,7 @@ langController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
 function langController($rootScope, $scope, $window, $timeout,
                                 langService) {
 
+
   $scope.showLang = {
    disabled: false,
    show_PT: false,

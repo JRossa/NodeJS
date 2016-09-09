@@ -63,15 +63,9 @@ var actionDao = {
 
     var insertStatement = "INSERT INTO tbl_action VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 
+    var utilTime = require('../utils/utilTime');
     var d = new Date();
-    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-
-    var stamp = d.getFullYear() + "-" +
-        ("0" + (d.getMonth()+1)).slice(-2) + "-" +
-        ("0" +  d.getDate()).slice(-2) + " " +
-        ("0" +  d.getHours()).slice(-2) + ":" +
-        ("0" +  d.getMinutes()).slice(-2) + ":" +
-        ("0" +  d.getSeconds()).slice(-2);
+    var stamp = utilTime.convertTime(d, false);
 
     var actionInsert = {
       type_id : actionData.typeId,
@@ -205,7 +199,7 @@ var actionDao = {
         rows[row].armed  = (rows[row].armed === 0)? false: true;
       }
 
-//      console.log(rows);
+      console.log(rows);
       OnSuccessCallback(rows);
 
       });

@@ -90,44 +90,116 @@ function userController($rootScope, $scope, $window, $timeout,
   }
 
 
-  $scope.validateLoginUser = {
+  $scope.validateUserName = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearLoginUserMessage () {
+  function clearUserNameMessage () {
 
-    $scope.validateLoginUser.containsValidationError = false;
-    $scope.validateLoginUser.errorMessage = "";
+    $scope.validateUserName.containsValidationError = false;
+    $scope.validateUserName.errorMessage = "";
   }
 
-  function displayLoginUserMessage () {
+  function displayUserNameMessage () {
 
-    $scope.validateLoginUser.containsValidationError = true;
-    $scope.validateLoginUser.errorMessage = $scope.label.createPin_controller_enterPinBCM;
+    $scope.validateUserName.containsValidationError = true;
+    $scope.validateUserName.errorMessage = $scope.label.createPin_controller_enterPinBCM;
   }
 
-  $scope.validateLoginPassword = {
+  $scope.validateUserEMail = {
     containsValidationError : false,
     errorMessage : "          "
   };
 
-  function clearLoginPasswordMessage () {
+  function clearUserEMailMessage () {
 
-    $scope.validateLoginPassword.containsValidationError = false;
-    $scope.validateLoginPassword.errorMessage = "";
+    $scope.validateUserEMail.containsValidationError = false;
+    $scope.validateUserEMail.errorMessage = "";
   }
 
-  function displayLoginPasswordMessage () {
+  function displayUserEMailMessage () {
 
-    $scope.validateLoginPassword.containsValidationError = true;
-    $scope.validateLoginPassword.errorMessage = $scope.label.createPin_controller_enterPinBOARD;
+    $scope.validateUserEMail.containsValidationError = true;
+    $scope.validateUserEMail.errorMessage = $scope.label.createPin_controller_enterPinBCM;
   }
+
+  $scope.validateUserUserName = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearUserUserNameMessage () {
+
+    $scope.validateUserUserName.containsValidationError = false;
+    $scope.validateUserUserName.errorMessage = "";
+  }
+
+  function displayUserUserNameMessage () {
+
+    $scope.validateUserUserName.containsValidationError = true;
+    $scope.validateUserUserName.errorMessage = $scope.label.createPin_controller_enterPinBCM;
+  }
+
+  $scope.validateUserPassword = {
+    containsValidationError : false,
+    errorMessage : "          "
+  };
+
+  function clearUserPasswordMessage () {
+
+    $scope.validateUserPassword.containsValidationError = false;
+    $scope.validateUserPassword.errorMessage = "";
+  }
+
+  function displayUserPasswordMessage () {
+
+    $scope.validateUserPassword.containsValidationError = true;
+    $scope.validateUserPassword.errorMessage = $scope.label.createPin_controller_enterPinBOARD;
+  }
+
 
   $scope.signUpUser = function (userData) {
 
-    console.log(userData);
 
+    console.log(userData);
+    var validationMessages = 0;
+  /*
+    var validationMessages = requiredFieldValidationService.getRequiredFieldValidationErrorMessage (
+      [
+        { name : $scope.sensorType.sensorModel || "", errorMessage : "Please enter sensor model !!"},
+        { name : $scope.sensorType.sensorObs || "", errorMessage : "Please enter sensor obs !!"}
+      ]);
+  */
+
+    if ($scope.userData.email.length === 0) {
+
+      displayUserEMailMessage ();
+      validationMessages++;
+    } else {
+
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      	var validEMail = re.test($scope.userData.email);
+
+        console.log(validEMail);
+        if (!validEMail) {
+          displayUserEMailMessage ();
+          validationMessages++;
+        }
+    }
+
+
+  //    console.log("validationMessages : " + validationMessages);
+
+    if (validationMessages > 0) {
+
+      $timeout( function afterTimeOut () {
+        clearUserEMailMessage ();
+      }, 2000);
+
+    } else {
+      console.log('OK');
+    }
 
   }
 

@@ -89,9 +89,35 @@ var utilTime = {
   },  // hoursToMinutes
 
 
+  convertTime : function (d, option) {
+
+    if (option) {
+      if (process.env.DB_ENGINE === 'mysql') {
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      }
+
+      // Complete date plus hours, minutes, seconds
+      // and a decimal fraction of a second
+      return d.toJSON();
+    } else {
+
+      var stamp = d.getFullYear() + "-" +
+          ("0" + (d.getMonth()+1)).slice(-2) + "-" +
+          ("0" +  d.getDate()).slice(-2) + " " +
+          ("0" +  d.getHours()).slice(-2) + ":" +
+          ("0" +  d.getMinutes()).slice(-2) + ":" +
+          ("0" +  d.getSeconds()).slice(-2);
+
+      // pretty readable format - “1995-02-04 22:45:00”
+      return stamp;
+    }
+  },  // convertTime
+
+
   getServerTime : function (option) {
 
     var d = new Date();
+    // because of the search for last n pin events
     d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
 
     if (option) {

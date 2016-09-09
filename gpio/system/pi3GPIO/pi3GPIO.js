@@ -204,6 +204,8 @@ var pi3GPIO = {
 
     var self = this;
 
+    eventData.eventTime = new Date(eventData.eventTime);
+
     utilEvent.insertEvent (eventData,
         function (status) {
           console.log(status);
@@ -213,7 +215,7 @@ var pi3GPIO = {
 
 //          utilPin.lastAction("ALARM_CONFIG");
 //          console.log(utilTime.checkActive("22:00", "22:30"));
-           utilAction.setPinSwitch();
+           utilPin.setPinSwitch();
 
         },function (status) {
             // console.log(status);
