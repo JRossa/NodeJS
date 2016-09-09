@@ -258,8 +258,9 @@ console.log(query.sql);
 
     if (connection) {
 
-      connection.query(selectStatement, [eventCheck.id, eventCheck.fromDate], function (err, rows, fields)  {
+      var query = connection.query(selectStatement, [eventCheck.id, eventCheck.fromDate], function (err, rows, fields)  {
 
+console.log(query.sql);
       if (err) {
         console.log(err);
         throw err;
