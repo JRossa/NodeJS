@@ -73,8 +73,10 @@ var eventDao = {
     if (connection) {
 
       connection.beginTransaction(function(err) {
-        connection.query(insertStatement,
+        var query = connection.query(insertStatement,
                 [eventInsert.sensorId, eventInsert.act_time], function(err, row) {
+
+console.log(query.sql);
 
             if (err !== null) {
                 // Express handles errors via its next function.
