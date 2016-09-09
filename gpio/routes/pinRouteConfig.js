@@ -233,7 +233,7 @@ pinRouteConfig.prototype.addRoutes = function () {
           for (var i = 0, len = pinInput.length; i < len; i++) {
             console.log("Set Pin : " + pinInput[i].board);
 //            console.log(pinInput);
-            if (pinInput.used === true) {
+            if (pinInput[i].used === true) {
               pinData.pinBOARD = pinInput[i].board;
 
               pi3GPIO.pi3GPIO.setPinData(pinData);
