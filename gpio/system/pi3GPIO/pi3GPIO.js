@@ -203,7 +203,7 @@ var pi3GPIO = {
         rpio.open(pinData.pinBOARD, rpio.INPUT);
         rpio.pud(pinData.pinBOARD, rpio.PULL_DOWN);
         console.log("------ RPIO setPinData 2 --------- OK ");
-
+        console.log("---- pinData.pinBOARD ---------  " + pinData.pinBOARD);
         rpio.poll(pinData.pinBOARD, pi3GPIO.listenPin2, rpio.POLL_HIGH);
       }
 
