@@ -245,8 +245,8 @@ console.log(query.sql);
     var topTime = new Date(currTime - intervalTime).toJSON();
 
 //    console.log(selectStatement);
-//    console.log(currTime);
-//    console.log(topTime);
+    console.log(currTime);
+    console.log(topTime);
 
     var eventCheck = {
       id : sensorId,
