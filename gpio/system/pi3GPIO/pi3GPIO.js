@@ -101,7 +101,8 @@ var pi3GPIO = {
   },
 
 
-  listenPin2 : function (pin) {
+  // for testing listening events
+  listenPinTest : function (pin) {
 
     var self = this;
 //    function pin_button(pin)
@@ -193,23 +194,20 @@ var pi3GPIO = {
         mapping: 'physical',    /* Use the P1-P40 numbering scheme */
       };
 
-      console.log("------ RPIO setPinData --------- OK ");
-
       rpio.init(options);
-      console.log("------ RPIO setPinData 1 --------- OK ");
 
       if (pinData.pinDirection == 'input') {
         /* Configure PXX as input with the internal pulldown resistor enabled */
         rpio.open(pinData.pinBOARD, rpio.INPUT);
         rpio.pud(pinData.pinBOARD, rpio.PULL_DOWN);
-        console.log("------ RPIO setPinData 2 --------- OK ");
-        console.log("---- pinData.pinBOARD ---------  " + pinData.pinBOARD);
-        rpio.poll(pinData.pinBOARD, pi3GPIO.listenPin2, rpio.POLL_HIGH);
+        console.log("------ RPIO setPinData Input --------- " + pinData.pinBOARD);
+        rpio.poll(pinData.pinBOARD, self.listenPin, rpio.POLL_HIGH);
       }
 
       console.log("------ RPIO setPinData 3 --------- OK ");
       if (pinData.pinDirection == 'null') {
         /* No need to read pin more than once. */
+        console.log("------ RPIO setPinData Reset --------- " + pinData.pinBOARD);
         rpio.poll(pinData.pinBOARD, null);
       }
 

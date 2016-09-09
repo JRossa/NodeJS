@@ -232,8 +232,8 @@ pinRouteConfig.prototype.addRoutes = function () {
         function (pinInput) {
           for (var i = 0, len = pinInput.length; i < len; i++) {
             console.log("Set Pin : " + pinInput[i].board);
-console.log(pinData);
-            if (pinData.used === true) {
+//            console.log(pinInput);
+            if (pinInput.used === true) {
               pinData.pinBOARD = pinInput[i].board;
 
               pi3GPIO.pi3GPIO.setPinData(pinData);
@@ -241,12 +241,13 @@ console.log(pinData);
           }
         });
 
-    pinData.pinBOARD = process.env.PIN_SWITCH;
-//    pi3GPIO.pi3GPIO.setPinData(pinData);
+      pinData.pinBOARD = process.env.PIN_SWITCH;
 
-//    utilPin.lastAction("ALARM_SET");
+      pi3GPIO.pi3GPIO.setPinData(pinData);
+
+      utilPin.lastAction("ALARM_SET");
 //      res.end();
-//      res.redirect('/');
+      res.redirect('/');
     }
   });
 
