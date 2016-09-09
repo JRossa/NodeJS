@@ -160,8 +160,8 @@ var pi3GPIO = {
               utilEvent.insertEvent (eventData,
                 function (data) {
                 console.log(data);
-
-                self.processEvent (eventData);
+                console.log(eventData);
+                pi3GPIO.processEvent (eventData);
 
               }, function (data) {
                 console.error(data);
