@@ -40,7 +40,9 @@ var pi3GPIO = {
 
     // interval in seconds
     var intervalTime = (searchSeconds * 1000);
-
+    console.log(searchSeconds);
+    console.log(maxAlarmEvents);
+    console.log(intervalTime);
     utilEvent.countEvent (eventData.eventSensorId,
                                   intervalTime,
 
