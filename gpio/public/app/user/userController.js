@@ -8,20 +8,36 @@ angular.module("userModule")
        .controller("userController", userController);
 
 userController.$inject = ['$rootScope', '$scope', '$window', '$timeout',
-                           '$controller', 'userService', 'langService'];
+                           '$controller', 'userService', 'passwordService', 'langService'];
 
 function userController($rootScope, $scope, $window, $timeout,
-                         $controller, userService, langService) {
+                         $controller, userService, passwordService, langService) {
 
+  $scope.value = 'test';
 
+/*
   $scope.userData = {
 
     name : "",
     email : "",
+    username : "",
     password : "",
-    username : ""
+    confirmPassword : ""
 
   };
+*/
+
+  // TODO: remove in prodution
+  $scope.userData = {
+
+    name : "José",
+    email : "rossa.jmr@gmail.com",
+    username : "jmr",
+    password : "bridge5.WAY",
+    confirmPassword : "bridge5.WAY"
+
+  };
+
 
   /*jshint validthis: true */
   angular.extend(this, $controller('langController', {$scope: $scope}));
@@ -188,6 +204,49 @@ function userController($rootScope, $scope, $window, $timeout,
         }
     }
 
+  //    console.log("validationMessages : " + validationMessages);
+
+    if (validationMessages > 0) {
+
+      $timeout( function afterTimeOut () {
+        clearUserEMailMessage ();
+      }, 2000);
+
+    } else {
+      console.log('OK');
+    }
+
+  }
+
+
+  $scope.createUser = function (userData) {
+
+
+    console.log(userData);
+    var validationMessages = 0;
+  /*
+    var validationMessages = requiredFieldValidationService.getRequiredFieldValidationErrorMessage (
+      [
+        { name : $scope.sensorType.sensorModel || "", errorMessage : "Please enter sensor model !!"},
+        { name : $scope.sensorType.sensorObs || "", errorMessage : "Please enter sensor obs !!"}
+      ]);
+  */
+
+    if ($scope.userData.email.length === 0) {
+
+      displayUserEMailMessage ();
+      validationMessages++;
+    } else {
+
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      	var validEMail = re.test($scope.userData.email);
+
+        console.log(validEMail);
+        if (!validEMail) {
+          displayUserEMailMessage ();
+          validationMessages++;
+        }
+    }
 
   //    console.log("validationMessages : " + validationMessages);
 
@@ -201,6 +260,78 @@ function userController($rootScope, $scope, $window, $timeout,
       console.log('OK');
     }
 
+  }
+
+
+  // password strength
+  // https://www.youtube.com/watch?v=dtWzj-S2l0Y
+  $scope.$watch('userData.password', function(pass) {
+
+    $scope.passwordStrength = passwordService.getStrength(pass);
+
+    if($scope.isPasswordWeak()) {
+
+      $scope.formCreateUser.password.$setValidity('strength', false);
+
+    } else {
+
+      $scope.formCreateUser.password.$setValidity('strength', true);
+    }
+  });
+
+  $scope.isPasswordWeak = function() {
+
+    return $scope.passwordStrength < 40;
+  }
+
+  $scope.isPasswordOk = function() {
+
+    return $scope.passwordStrength >= 40 && $scope.passwordStrength <= 70;
+  }
+
+  $scope.isPasswordStrong = function() {
+
+    return $scope.passwordStrength > 70;
+  }
+
+  $scope.isInputValid = function(input) {
+
+    return input.$dirty && input.$valid;
+  }
+
+  $scope.isInputInvalid = function(input) {
+    return input.$dirty && input.$invalid;
+  }
+
+  $scope.isPasswordLengthOk = function (input) {
+
+    var valid = (!input.$error.required &&
+                (input.$error.minlength || input.$error.maxlength) &&
+                 input.$dirty);
+
+//    console.log(valid);
+
+    return valid;
+  }
+
+  $scope.isPasswordPatternOk = function (input) {
+
+    var valid = (!input.$error.required &&
+                 !input.$error.minlength &&
+                 !input.$error.maxlength &&
+                 input.$error.pattern &&
+                 input.$dirty);
+
+//    console.log(valid);
+
+    return valid;
+  }
+
+  $scope.isPasswordConfirmOk = function (input) {
+
+    var valid = input.$error.match && input.$viewValue.length >  0;
+
+    return valid;
   }
 
 

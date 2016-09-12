@@ -160,7 +160,7 @@ userRouteConfig.prototype.addRoutes = function () {
     callbackFunction : function(req, res) {
 
 
-      res.render('user/signup', {
+      res.render('user/createUser', {
            title : "label.menubar_appTitle",
            pagename : "label.createPin_pagename"
          });

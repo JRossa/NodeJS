@@ -11,12 +11,12 @@
         <div class="modal-content">
 
           <div id="signup"
-               style="height: 425px;"
+               style="height: 530px;"
                class="center-vertical">
 
             <div class="panel panel-primary panel-borderless"
                 style="width: 100%;
-                       height: 425px;
+                       height: 530px;
                        overflow-y:hidden;
                        overflow-x:hidden;"
                 align="left">
@@ -153,6 +153,29 @@
                     </div>
                   </div>
 
+                  <div class="form-group">
+                    <label class="control-label col-sm-3">Confirm Password</label>
+                    <div class="col-sm-9">
+                      <input id="confpass-tf"
+                             type="password"
+                             name="confirmPassword"
+                             value=""
+                             class="form-control"
+                             ng-model="userData.confirmPassword"
+                             required
+                             match="userData.password">
+                    </div>
+<!--
+<pre><code> {{ registrationForm.confirmPass.$error.match }} </code> </pre>
+-->
+                  </div>
+                  <div class="col-sm-12"
+                       style="margin-top: 0px;height: 40px;">
+                     <div class="col-sm-12"
+                          data-ng-show="isPasswordConfirmOk(formCreateUser.confirmPassword)">
+                         <h6 id="sub5" style="margin-top: 0px;" > Not Match </h6>
+                     </div>
+                  </div>
                   <hr>
 
                   <div class="form-buttons"
@@ -162,7 +185,7 @@
                             type="submit"
                             class="btn btn-primary"
                             ng-disabled="!formCreateUser.$valid"
-                            ng-click="createUser(userData)">
+                            ng-click="signUpUser(userData)">
                       Submit
                     </button>
                   </div>

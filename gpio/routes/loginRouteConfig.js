@@ -68,8 +68,43 @@ loginRouteConfig.prototype.addRoutes = function () {
 
     }
   });
-  
+
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/signUp',
+    callbackFunction : function(req, res) {
+
+    // render the page and pass in any flash data if it exists
+    res.render('user/signup', {
+      title: "label.menubar_appTitle",
+      labels: global.lang,
+     });
+
+    }
+  });
+
+
+  self.routeTable.push ( {
+    requestType : 'get',
+    requestUrl : '/popover',
+    callbackFunction : function(req, res) {
+
+    // render the page and pass in any flash data if it exists
+    res.render('tests/popover', {
+      title: "label.menubar_appTitle",
+      labels: global.lang,
+     });
+
+    }
+  });
+
+
 };
+
+
+
+
 
 
 module.exports = loginRouteConfig;

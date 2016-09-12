@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+
+    <link data-require="bootstrap-css@3.0.2" data-semver="3.0.2" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" />
+
+    <script data-require="angular.js@1.2.9" data-semver="1.2.9" src="http://code.angularjs.org/1.2.9/angular.js"></script>
+
+<!--    <script src='/bower_components/angular/angular.js'></script>
+-->
+    <script src="/javascripts/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script>
+      angular.module('plunker', ['ui.bootstrap']);
+      var testController = ['$scope', function($scope) {
+        $scope.value = 'test';
+      }];
+    </script>
+  </head>
+
+  <body ng-controller="testController">
+    <h1>Hello Plunker!</h1>
+    <ul>
+      <li><button popover-template="template.html"  popover-placement="right">Click Me</button></li>
+      <li><input ng-model="value" /></li>
+      <li>{{ value }}</li>
+    </ul>
+
+    <script id="template.html" type="text/ng-template">
+      <strong>HTML</strong> allowed.<br />
+      Binding allowed: {{ value }}<br />
+      <pre>{{value | json}}</pre>
+      <button ng-click="value = 2">Test</button>
+    </script>
+  </body>
+
+</html>

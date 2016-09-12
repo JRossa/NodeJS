@@ -317,7 +317,7 @@ var utilEMail = {
         });
 
         var mailOptions = {
-          from: 'Do Not Replay <process.env.TO>',
+          from: 'Alarm RPi <process.env.TO>',
 //          sender: 'rossa.jmr@gmail.com',
           to:      process.env.TO,
           subject: global.lang.mailSubject,
