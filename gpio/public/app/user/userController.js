@@ -75,9 +75,9 @@ function userController($rootScope, $scope, $window, $timeout,
 
   };
 
-  function clearloginData () {
+  function clearUserData () {
 
-    $scope.userData.user = "";
+    $scope.userData.name = "";
     $scope.userData.email = "";
     $scope.userData.password = "";
     $scope.userData.username = "";
@@ -258,9 +258,32 @@ function userController($rootScope, $scope, $window, $timeout,
 
     } else {
       console.log('OK');
-    }
+      userService.createUser(userData)
+        .success(function (data) {
+          //alert ("Sensor Type posted successfully");
 
-  }
+          if (data) {
+            console.log(data);
+
+            if (data.status && data.status == 'Successful') {
+              showMessage(true, false, $scope.label.createEvent_controller_recordAdded);
+            }
+            if (data.error) {
+              showMessage(false, true, data.error + " !!");
+            }
+
+          }
+
+          // $timeout( function () { TODO }, 3000);
+          $timeout( function afterTimeOut () {
+            showMessage(false, false, "");
+            clearUserData();
+          }, 3000);
+
+        });
+    } // else
+
+  };  // createUser
 
 
   // password strength

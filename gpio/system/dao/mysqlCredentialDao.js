@@ -4,7 +4,7 @@
 
 var connectionProvider = require('../db/mysqlConnectionStringProvider');
 
-var userDao = {
+var credentialDao = {
 
 
   createTable : function (OnSuccessCallback) {
@@ -13,7 +13,7 @@ var userDao = {
 
     if (connection) {
 
-      connection.query('SHOW TABLES LIKE "tbl_user"', function (err, row, fields) {
+      connection.query('SHOW TABLES LIKE "tbl_credential"', function (err, row, fields) {
 
         if (err !== null) {
             console.log(err);
@@ -21,24 +21,26 @@ var userDao = {
             throw err;
         } else {
           if (row.length > 0) {
-            console.log("SQL Table 'tbl_user' already initialized.");
+            console.log("SQL Table 'tbl_credential' already initialized.");
+            'CONSTRAINT FK_tbl_action_tbl_user FOREIGN KEY (user_id) ' +
+            'REFERENCES tbl_user (id) ON UPDATE NO ACTION ON DELETE NO ACTION, ' +
           } else {
-            connection.query('CREATE TABLE IF NOT EXISTS tbl_user ' +
+            connection.query('CREATE TABLE IF NOT EXISTS tbl_credential ' +
                 '(id INTEGER NOT NULL AUTO_INCREMENT, ' +
-                'username VARCHAR(100) UNIQUE NOT NULL, ' +
-                'person_id INTEGER NULL, ' +
-                'group_id INTEGER NULL, ' +
-                'lastlogin_date DATETIME NULL, ' +
-                'created_date DATETIME NULL, ' +
-                'modified_date DATETIME NULL, ' +
-                'PRIMARY KEY (id))', function (err) {
+                'user_id INTEGER NULLL, ' +
+                'type VARCHAR(20) NULL, ' +
+                'credential VARCHAR(512) NULL, ' +
+                'PRIMARY KEY (id), ' +
+                'INDEX FK_tbl_credential_tbl_user (user_id), ' +
+                'CONSTRAINT FK_tbl_credential_tbl_user FOREIGN KEY (user_id) ' +
+                'REFERENCES tbl_user (id) ON UPDATE NO ACTION ON DELETE NO ACTION)', function (err) {
 
               if (err !== null) {
                 console.log(err);
                 connectionProvider.connectionStringProvider.closeConnection(connection);
                 throw err;
               } else {
-                console.log("SQL Table 'tbl_user' initialized.");
+                console.log("SQL Table 'tbl_credential' initialized.");
                 OnSuccessCallback({ status : "Finished"});              }
             }); // Create Table
           }
@@ -51,27 +53,14 @@ var userDao = {
   },      // createTable
 
 
-  createUser : function (userData, OnSuccessCallback, OnErrorCallback) {
+  createCredential : function (userData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_user VALUES(NULL, ?, ?, ?, ?, ?, ?)";
-
-    var d = new Date();
-    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-
-    var stamp = d.getFullYear() + "-" +
-        ("0" + (d.getMonth()+1)).slice(-2) + "-" +
-        ("0" +  d.getDate()).slice(-2) + " " +
-        ("0" +  d.getHours()).slice(-2) + ":" +
-        ("0" +  d.getMinutes()).slice(-2) + ":" +
-        ("0" +  d.getSeconds()).slice(-2);
+    var insertStatement = "INSERT INTO tbl_credential VALUES(NULL, ?, ?, ?)";
 
     var userInsert = {
-      username : userData.username,
-      person_id : null,
-      group_id : null,
-      lastlogin_date : null,
-      created_date : stamp,
-      modified_date: null
+      user_id : userData.userId,
+      credentialType : userData.credentialType,
+      credential : userData.credential
     };
 
 
@@ -81,10 +70,8 @@ var userDao = {
 
       connection.beginTransaction(function(err) {
         connection.query(insertStatement,
-                [userInsert.username,
-                 userInsert.person_id, userInsert.role_id,
-                 userInsert.lastlogin_date, userInsert.created_date,
-                 userInsert.modified_date], function(err, row) {
+                [userInsert.user_id, userInsert.credentialType,
+                 userInsert.credential], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -114,12 +101,12 @@ var userDao = {
           });
       }); // beginTransation
     }     // connection
-  },      // createUser
+  },      // createCredential
 
 
-  deleteUser : function (userId, OnSuccessCallback, OnErrorCallback) {
+  deleteCredential : function (userId, OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_user WHERE id = ? ";
+    var deleteStatement = "DELETE FROM tbl_credential WHERE id = ? ";
 
     var actionDelete = {
       id : userId
@@ -160,12 +147,12 @@ var userDao = {
             });
       }); // beginTransaction
     }     // connection
-  },      // deleteUser
+  },      // deleteCredential
 
 
-  getAllUser : function (OnSuccessCallback) {
+  getAllCredential : function (OnSuccessCallback) {
 
-    var selectStatement = "SELECT * FROM tbl_user ORDER BY id ";
+    var selectStatement = "SELECT * FROM tbl_credential ORDER BY id ";
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -185,9 +172,9 @@ var userDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  } // getAllUsers
+  } // getAllCredential
 
 };
 
 
-module.exports.userDao = userDao;
+module.exports.credentialDao = credentialDao;

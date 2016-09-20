@@ -15,6 +15,7 @@
     "async": "^0.2.10",
     "balanced-match": "^0.4.1",
     "basic-auth": "^1.0.4",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
     "brace-expansion": "^1.1.4",
     "bytes": "^2.1.0",

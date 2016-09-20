@@ -70,7 +70,10 @@ function userService ($rootScope, $http, $location) {
 
       return $http.post('/createUser',
         {
-          user : userData.user,
+          name : userData.name,
+          email : userData.email,
+          password : userData.password,
+          username : userData.username
         }
       );
     }, // createUser

@@ -19,9 +19,9 @@ env(__dirname + '/.env', {overwrite: true});
 // https://nodejs.org/api/console.html
 if (process.env.DEBUG === 'false') {
   console.log('- - WARNING - - \nconsole.log - OFF');
-  console.log = function() {
+//  console.log = function() {
 
-  }
+//  }
 }
 
 // Configuration

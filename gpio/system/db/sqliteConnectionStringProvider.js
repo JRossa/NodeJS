@@ -16,6 +16,7 @@ var connectionStringProvider = {
     var connection = new sqlite3.Database(connectionString.connectionString.connection.dev.dbName);
 //    var connection = new sqlite3.Database(':memory:');
 //    connection.configure('busyTimeout', 10000);
+/*
     connection.run('PRAGMA busy_timeout=10000', [], function(err, row) {
 
       if (err !== null) {
@@ -33,7 +34,7 @@ var connectionStringProvider = {
         console.log("OK : PRAGMA journal_mode=WAL");
       }
     });
-
+*/
     console.log('Connected Successefully !!');
 
     return connection;

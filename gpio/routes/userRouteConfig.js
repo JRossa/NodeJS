@@ -41,7 +41,7 @@ userRouteConfig.prototype.dbCreateUser = function () {
   }
 
   var userData = {
-    login    : 'user',
+    username    : 'user',
     password : null
   };
 
@@ -73,6 +73,14 @@ userRouteConfig.prototype.dbCreateTable = function () {
         self.dbCreateUser();
       }, 2000);
     }
+  });
+
+  userDao.userDao.createTableCredential(function (status) {
+
+  });
+
+  userDao.userDao.createTablePerson(function (status) {
+
   });
 
 };
@@ -172,13 +180,20 @@ userRouteConfig.prototype.addRoutes = function () {
     requestUrl : '/createUser',
     callbackFunction : function(req, res) {
 
+      // https://github.com/FredKSchott/the-node-way
+      var utilUser = require('../system/utils/utilUser');
 
-      var userDao = require('../system/dao/sqliteUserDao');
-      if (global.config.site.database === 'mysql') {
-        userDao = require('../system/dao/mysqlUserDao');
-      }
+      var newUser = new utilUser();
 
-      userDao.userDao.createUser (req.body,
+      utilUser.static();
+      newUser.serviceOne();
+
+      newUser.local.email = req.body.email;
+      newUser.local.password = newUser.generateHash(req.body.password);
+
+//      res.json({ status : "Successful"});
+
+      utilUser.findOne (req.body,
 
         function (status) {
           // console.log(status);

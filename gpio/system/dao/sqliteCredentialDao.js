@@ -4,7 +4,7 @@
 
 var connectionProvider = require('../db/sqliteConnectionStringProvider');
 
-var userDao = {
+var credentialDao = {
 
 
   createTable : function (OnSuccessCallback) {
@@ -13,60 +13,46 @@ var userDao = {
     var sqliteInit = require('../db/sqliteInit');
     var dbData = new sqlite3.Database(sqliteInit.dbName);
 
+    // http://oz123.github.io/writings/2015-10-30-NOSQLite---SQLite-and-NoSQL/
     dbData.serialize(function () {
 
       dbData.get("SELECT name FROM sqlite_master " +
-          "WHERE type='table' AND name='tbl_user'", function (err, rows) {
+          "WHERE type='table' AND name='tbl_credential'", function (err, rows) {
 
           if (err !== null) {
               console.log(err);
           } else {
             if (rows === undefined) {
-                dbData.run('CREATE TABLE "tbl_user" ' +
+                dbData.run('CREATE TABLE "tbl_credential" ' +
                     '([id] INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-                    '[username] VARCHAR(100) UNIQUE NOT NULL, ' +
-                    '[person_id] INTEGER NULL, ' +
-                    '[group_id] INTEGER NULL, ' +
-                    '[lastlogin_date] DATETIME NULL, ' +
-                    '[created_date] DATETIME NULL, ' +
-                    '[modified_date] DATETIME NULL)', function (err) {
+                    '[user_id] INTEGER NULL, ' +
+                    '[type] VARCHAR(20) NULL, ' +
+                    '[credential] JSON NULL, ' +
+                    'FOREIGN KEY(user_id) REFERENCES tbl_user(id))', function (err) {
                     if (err !== null) {
                         console.log(err);
                     } else {
-                        console.log("SQL Table 'tbl_user' initialized.");
+                        console.log("SQL Table 'tbl_credential' initialized.");
                         OnSuccessCallback({ status : "Finished"});
                     }
                 });
             } else {
-                console.log("SQL Table 'tbl_user' already initialized.");
+                console.log("SQL Table 'tbl_credential' already initialized.");
             }
         }
       }); // get
     });   // serialize
-  },      // createTableAction
+  },      // createTable
 
 
-  createUser : function (userData, OnSuccessCallback, OnErrorCallback) {
+  createCredential : function (userData, OnSuccessCallback, OnErrorCallback) {
 
-    var insertStatement = "INSERT INTO tbl_user VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+    var insertStatement = "INSERT INTO tbl_credential VALUES(NULL, ?, ?, json(?))";
 
-    var d = new Date();
-    d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-
-    var stamp = d.getFullYear() + "-" +
-        ("0" + (d.getMonth()+1)).slice(-2) + "-" +
-        ("0" +  d.getDate()).slice(-2) + " " +
-        ("0" +  d.getHours()).slice(-2) + ":" +
-        ("0" +  d.getMinutes()).slice(-2) + ":" +
-        ("0" +  d.getSeconds()).slice(-2);
-
-        var userInsert = {
-          username : userData.username,
-          person_id : null,
-          group_id : null,
-          lastlogin_date : null,
-          created_date : stamp,
-          modified_date: null
+    var userInsert = {
+          user_id : userData.userId,
+          credentialType : userData.credentialType,
+          credential : userData.credential
         };
 
     console.log(userInsert);
@@ -80,10 +66,8 @@ var userDao = {
         connection.run("BEGIN TRANSACTION");
 
         connection.run(insertStatement,
-                [userInsert.username,
-                 userInsert.person_id, userInsert.role_id,
-                 userInsert.lastlogin_date, userInsert.created_date,
-                 userInsert.modified_date], function(err, row) {
+                [userInsert.user_id, userInsert.credentialType,
+                 userInsert.credential], function(err, row) {
 
                 if (err !== null) {
                     // Express handles errors via its next function.
@@ -106,12 +90,12 @@ var userDao = {
             });
       }); // serialize
     }     // connection
-  },      // createUser
+  },      // createCredential
 
 
-  deleteUser : function (userId, OnSuccessCallback, OnErrorCallback) {
+  deleteCredential : function (userId, OnSuccessCallback, OnErrorCallback) {
 
-    var deleteStatement = "DELETE FROM tbl_user WHERE id = ? ";
+    var deleteStatement = "DELETE FROM tbl_credential WHERE id = ? ";
 
     console.log("ligação  " + userId);
 
@@ -150,38 +134,12 @@ var userDao = {
             });
       }); // serialize
     }     // connection
-  },      // deleteUser
+  },      // deleteCredential
 
 
-  findOne : function (userData, OnSuccessCallback) {
+  getAllCredential : function (OnSuccessCallback) {
 
-    var selectStatement = "SELECT * FROM tbl_user WHERE username = ? ORDER BY id ";
-
-    var userSelect = {
-      username : userData.email,
-    };
-
-    var connection = connectionProvider.connectionStringProvider.getConnection();
-
-    if (connection) {
-
-      connection.all(selectStatement, [userSelect.username], function (err, rows, fields)  {
-
-      if (err) { throw err;}
-
-//        console.log(rows);
-        OnSuccessCallback(rows);
-
-      });
-
-      connectionProvider.connectionStringProvider.closeConnection(connection);
-    }
-  }, // findOne
-
-
-  getAllUser : function (OnSuccessCallback) {
-
-    var selectStatement = "SELECT * FROM tbl_user ORDER BY id ";
+    var selectStatement = "SELECT * FROM tbl_credential ORDER BY id ";
 
     var connection = connectionProvider.connectionStringProvider.getConnection();
 
@@ -198,38 +156,10 @@ var userDao = {
 
       connectionProvider.connectionStringProvider.closeConnection(connection);
     }
-  }, // getAllUser
+  } // getAllCredential
 
-  /*
-   ******************************************************************************
-   * tbl_credential
-   ******************************************************************************
-   */
-
-  createTableCredential : function (OnSuccessCallback) {
-
-    var credentialDao = require('./sqliteCredentialDao');
-
-    credentialDao.credentialDao.createTable(OnSuccessCallback);
-
-  }, // createTableCredential
-
-
-  /*
-   ******************************************************************************
-   * tbl_person
-   ******************************************************************************
-   */
-
-  createTablePerson : function (OnSuccessCallback) {
-
-    var personDao = require('./sqlitePersonDao');
-
-    personDao.personDao.createTable(OnSuccessCallback);
-
-  } // createTablePerson
 
 };
 
 
-module.exports.userDao = userDao;
+module.exports.credentialDao = credentialDao;
